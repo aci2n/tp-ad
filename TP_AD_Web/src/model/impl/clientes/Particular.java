@@ -27,10 +27,10 @@ public class Particular extends Cliente {
 	@Column(name = "apellido")
 	private String apellido;
 
-	public Particular(String codigoUnico, String dni, String nombre,
+	public Particular(String dni, String nombre,
 			String apellido) {
-		this.codigoUnico = codigoUnico;
 		this.dni = dni;
+		this.nombre = nombre;
 		this.apellido = apellido;
 
 	}

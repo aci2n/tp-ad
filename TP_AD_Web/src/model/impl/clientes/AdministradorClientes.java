@@ -11,78 +11,69 @@ public class AdministradorClientes {
 	private List<Pago> pagos;
 	private List<Producto> productos;
 
-
 	private AdministradorClientes() {
 		this.clientes = new ArrayList<Cliente>();
 		this.pagos = new ArrayList<Pago>();
 		this.productos = new ArrayList<Producto>();
 	}
-	
 
 	public static AdministradorClientes getInstance() {
 		if (instance == null)
 			instance = new AdministradorClientes();
 		return instance;
 	}
-	
-	public void altaClienteEmpresa(String codigoUnico, String nombre) throws Exception {
-		if (obtenerCliente(codigoUnico) == null)
-			clientes.add(new Empresa(codigoUnico, nombre));
-		else 
-			throw new Exception("Cliente con codigo "+codigoUnico+" ya existe");
+
+	public void altaClienteEmpresa(String nombre) {
+		Cliente.persistirCliente(new Empresa(nombre));
 	}
 
-	public void altaClienteParticular(String codigoUnico, String dni,
-			String nombre, String apellido) throws Exception {
-
-		if (obtenerCliente(codigoUnico) == null)
-			clientes.add(new Particular(codigoUnico, dni, nombre, apellido));
-		else
-			throw new Exception("Cliente con codigo "+codigoUnico+" ya existe");
+	public void altaClienteParticular(String dni, String nombre, String apellido) {
+		Cliente.persistirCliente(new Particular(dni, nombre, apellido));
 	}
 
-	public void bajaCliente(String codigoUnico){
-		for (Cliente c : clientes){
-			if (c.getCodigoUnico().equals(codigoUnico)){
+	public void bajaCliente(Integer id) {
+		for (Cliente c : clientes) {
+			if (c.getId().equals(id)) {
 				clientes.remove(c);
 				return;
 			}
 		}
 	}
-	
-	public void asignarCuentaCorriente(String codigoUnico, Float montoActual, Float montoAutorizado) throws Exception{
 
-		if(esClienteEmpresa(codigoUnico)){
+	public void asignarCuentaCorriente(Integer id, Float montoActual,
+			Float montoAutorizado) throws Exception {
 
-			Empresa c = (Empresa) obtenerCliente(codigoUnico);
-			c.setCuentaCorriente(new CuentaCorriente(montoActual, montoAutorizado));		
-		}
-		else
-			throw new Exception("El cliente "+codigoUnico+" no es una empresa");
+		if (esClienteEmpresa(id)) {
+
+			Empresa c = (Empresa) obtenerCliente(id);
+			c.setCuentaCorriente(new CuentaCorriente(montoActual,
+					montoAutorizado));
+		} else
+			throw new Exception("El cliente con id" + id + " no es una empresa");
 	}
 
-	public boolean esClienteEmpresa(String codigoUnico){
+	public boolean esClienteEmpresa(Integer id) {
 
-		for(Cliente c : clientes)
-			if(c.getCodigoUnico().equals(codigoUnico) && c.getClass().equals(Empresa.class))
+		for (Cliente c : clientes)
+			if (c.getId().equals(id) && c.getClass().equals(Empresa.class))
 				return true;
 		return false;
 	}
-	
-	public Cliente obtenerCliente(String codigoUnico) {
+
+	public Cliente obtenerCliente(Integer id) {
 		for (Cliente c : clientes)
-			if (c.getCodigoUnico().equals(codigoUnico))
+			if (c.getId().equals(id))
 				return c;
 		return null;
 	}
-	
+
 	private Producto obtenerProducto(int codigoProducto) {
 		for (Producto p : productos)
 			if (p.getId() == codigoProducto)
 				return p;
 		return null;
 	}
-	
+
 	public List<Cliente> getClientes() {
 		return clientes;
 	}
@@ -102,7 +93,6 @@ public class AdministradorClientes {
 	public List<Producto> getProductos() {
 		return productos;
 	}
-
 
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;

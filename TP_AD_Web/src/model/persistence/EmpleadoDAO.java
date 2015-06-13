@@ -1,16 +1,15 @@
 package model.persistence;
 
 import model.impl.personal.Empleado;
-import model.impl.viajes.Viaje;
 
 import org.hibernate.Session;
 
 public class EmpleadoDAO extends AbstractGenericDAO<Empleado>{
 	
 	@Override
-	public AbstractGenericDAO<Viaje> getInstance() {
+	public AbstractGenericDAO<Empleado> getInstance() {
 		if (instance == null)
-			instance = new ViajeDAO();
+			instance = new EmpleadoDAO();
 		return instance;
 	}
 

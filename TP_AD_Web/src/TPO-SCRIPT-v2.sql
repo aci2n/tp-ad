@@ -36,7 +36,6 @@ create table Productos(
 create table Clientes(
 	
 	id_cliente int identity not null,
-	codigo_unico varchar(20),
 	nombre varchar(100),
 	
 	constraint pk_clientes primary key (id_cliente)
@@ -378,7 +377,7 @@ go
 
 -- sp auxiliares
 
-create procedure seleccionartodo as
+create procedure tpad_seleccionartodo as
 begin
 	declare @nombreTabla varchar(200)
 	declare cursorTablas cursor fast_forward

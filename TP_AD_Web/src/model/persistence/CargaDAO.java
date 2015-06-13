@@ -9,7 +9,7 @@ public class CargaDAO extends AbstractGenericDAO<Carga>{
 	@Override
 	public AbstractGenericDAO<Carga> getInstance() {
 		if (instance == null)
-			instance = new ViajeDAO();
+			instance = new CargaDAO();
 		return instance;
 	}
 

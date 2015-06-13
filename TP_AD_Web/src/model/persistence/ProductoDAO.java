@@ -9,7 +9,7 @@ public class ProductoDAO extends AbstractGenericDAO<Producto>{
 	@Override
 	public AbstractGenericDAO<Producto> getInstance() {
 		if (instance == null)
-			instance = new ViajeDAO();
+			instance = new ProductoDAO();
 		return instance;
 	}
 

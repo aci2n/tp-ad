@@ -29,8 +29,7 @@ public class Empresa extends Cliente {
 	@JoinTable(name = "Empresas_Productos", joinColumns = @JoinColumn(name = "id_empresa"), inverseJoinColumns = @JoinColumn(name = "id_producto"))
 	private Collection<Producto> productos;
 
-	public Empresa(String codigoUnico, String nombre) {
-		this.codigoUnico = codigoUnico;
+	public Empresa(String nombre) {
 		this.nombre = nombre;
 	}
 

@@ -106,7 +106,6 @@ public class TestPersistenciaArbelo {
 		empresa.setCuentaCorriente(cuentaCorriente);
 		empresa.setNombre("menem");
 		empresa.setRegular(false);
-		empresa.setCodigoUnico("ayy");
 		empresa.agregarProducto(producto);
 		Receptor receptor = new Receptor();
 		receptor.setApellido("asfdas");
@@ -115,7 +114,6 @@ public class TestPersistenciaArbelo {
 		receptor.setUbicacion(u);
 		Particular particular = new Particular();
 		particular.setApellido("calace");
-		particular.setCodigoUnico("asasd");
 		particular.setDni("213123");
 		particular.setNombre("arbelo");
 		particular.agregarReceptor(receptor);

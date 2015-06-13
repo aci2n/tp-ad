@@ -9,7 +9,7 @@ public class ClienteDAO extends AbstractGenericDAO<Cliente>{
 	@Override
 	public AbstractGenericDAO<Cliente> getInstance() {
 		if (instance == null)
-			instance = new ViajeDAO();
+			instance = new ClienteDAO();
 		return instance;
 	}
 
