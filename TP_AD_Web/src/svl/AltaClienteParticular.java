@@ -22,10 +22,10 @@ public class AltaClienteParticular extends HttpServletGenerico {
 		try {
 			ControladorPrincipal.getInstance().getAdministradorClientes()
 					.altaClienteParticular(dni, nombre, apellido);
-			manejarExito(request, response, "Cliente agregado exitosamente.");
+			forwardGenerico(request, response, "Cliente agregado exitosamente.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			manejarError(request, response, e.getMessage());
+			forwardGenerico(request, response, e.getMessage());
 		}
 	}
 }

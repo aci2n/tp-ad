@@ -17,19 +17,11 @@ public abstract class HttpServletGenerico extends HttpServlet {
 	protected abstract void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException;
 
-	protected void manejarError(HttpServletRequest request,
-			HttpServletResponse response, String mensaje)
-			throws ServletException, IOException {
-		request.setAttribute("error", mensaje);
-		request.getRequestDispatcher("/WEB-INF/Error.jsp").forward(
-				request, response);
-	}
-	
-	protected void manejarExito(HttpServletRequest request,
+	protected void forwardGenerico(HttpServletRequest request,
 			HttpServletResponse response, String mensaje)
 			throws ServletException, IOException {
 		request.setAttribute("mensaje", mensaje);
-		request.getRequestDispatcher("/WEB-INF/OK.jsp").forward(
+		request.getRequestDispatcher("/WEB-INF/ForwardGenerico.jsp").forward(
 				request, response);
 	}
 
