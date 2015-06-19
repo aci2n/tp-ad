@@ -17,7 +17,7 @@ public class GenericDAO {
 		return instance;
 	}
 
-	public Object get(Class clazz, Integer id) {
+	public Object get(Class<?> clazz, Integer id) {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		Object obj = session.get(clazz, id);

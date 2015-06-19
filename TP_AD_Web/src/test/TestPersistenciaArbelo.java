@@ -37,6 +37,7 @@ import model.persistence.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+@SuppressWarnings("all")
 public class TestPersistenciaArbelo {
 	private static SessionFactory sf = HibernateUtil.getSessionFactory();
 

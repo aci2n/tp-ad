@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public abstract class HttpServletGenerico extends HttpServlet {
+public abstract class GenericHttpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public HttpServletGenerico() {
+	public GenericHttpServlet() {
 
 	}
 
@@ -21,7 +21,7 @@ public abstract class HttpServletGenerico extends HttpServlet {
 			HttpServletResponse response, String mensaje)
 			throws ServletException, IOException {
 		request.setAttribute("mensaje", mensaje);
-		request.getRequestDispatcher("/WEB-INF/ForwardGenerico.jsp").forward(
+		request.getRequestDispatcher("/WEB-INF/GenericForward.jsp").forward(
 				request, response);
 	}
 

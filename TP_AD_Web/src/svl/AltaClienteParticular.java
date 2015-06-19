@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.controllers.ControladorPrincipal;
 
 @WebServlet("/AltaClienteParticular")
-public class AltaClienteParticular extends HttpServletGenerico {
+public class AltaClienteParticular extends GenericHttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request,
