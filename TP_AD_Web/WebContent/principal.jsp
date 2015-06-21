@@ -23,12 +23,12 @@
 </div>
 <div>
 	<ul class="nav navbar-nav">
-		<li class="active"><a href="#">Inicio</a></li>
+		<li class=""><a href="#">Inicio</a></li>
 		<li class="dropdown"><a href="#" class="dropdown-toggle"
 			data-toggle="dropdown"> Clientes <b class="caret"></b>
 		</a>
 			<ul class="dropdown-menu">
-				<li><a href="#">Alta</a></li>
+				<li  id="alta-cliente"><a href="#">Alta</a></li>
 				<li><a href="#">Baja</a></li>
 				<li><a href="#">Modificación</a></li>
 				<li class="divider"></li>
@@ -74,18 +74,31 @@
 </head>
 <body>
 
+<div id="content">
 
 
+</div>
+
+	<%-- <jsp:include page="AltaClienteParticular.jsp"></jsp:include>
+ --%>
 
 
 	<!-- Compiled and minified JavaScript -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<!-- Latest compiled and minified JavaScript -->
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		
+	<script>
+	
+	$( "#alta-cliente" ).click(function() {
+		  $("#content").set("<jsp:include page="AltaClienteParticular.jsp"></jsp:include>");
+	});
+
+	
+	</script>	
+		
 
 </body>
 </html>
