@@ -23,12 +23,12 @@
 </div>
 <div>
 	<ul class="nav navbar-nav">
-		<li class=""><a href="#">Inicio</a></li>
+		<li id="inicio" class=""><a href="#">Inicio</a></li>
 		<li class="dropdown"><a href="#" class="dropdown-toggle"
 			data-toggle="dropdown"> Clientes <b class="caret"></b>
 		</a>
 			<ul class="dropdown-menu">
-				<li  id="alta-cliente"><a href="#">Alta</a></li>
+				<li id="alta-cliente"><a href="#">Alta</a></li>
 				<li><a href="#">Baja</a></li>
 				<li><a href="#">Modificación</a></li>
 				<li class="divider"></li>
@@ -93,9 +93,12 @@
 	<script>
 	
 	$( "#alta-cliente" ).click(function() {
-		  $("#content").set("<jsp:include page="AltaClienteParticular.jsp"></jsp:include>");
+		  $("#content").load('AltaClienteParticular.jsp');
 	});
 
+	$('#inicio').click(function(){
+		  $("#content").load('inicio.jsp');
+	});
 	
 	</script>	
 		
