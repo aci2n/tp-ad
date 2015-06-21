@@ -11,24 +11,17 @@ public abstract class GenericHttpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public GenericHttpServlet() {
-
 	}
 
-	protected abstract void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException;
+	protected abstract void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
-	protected void forwardGenerico(HttpServletRequest request,
-			HttpServletResponse response, String mensaje)
-			throws ServletException, IOException {
+	protected void forwardGenerico(HttpServletRequest request, HttpServletResponse response, String mensaje) throws ServletException, IOException {
 		request.setAttribute("mensaje", mensaje);
-		request.getRequestDispatcher("/WEB-INF/GenericForward.jsp").forward(
-				request, response);
+		request.getRequestDispatcher("/jsp/Misc/GenericForward.jsp").forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// ayy lmao
 		doGet(request, response);
 	}
-
 }

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import model.impl.PersistentObject;
+import model.persistence.UbicacionDAO;
+import model.views.CoordenadaView;
 
 @Entity
 @Table(name = "Ubicaciones")
@@ -35,7 +37,7 @@ public class Ubicacion extends PersistentObject {
 
 	public Ubicacion(String pais, String provincia, String ciudad,
 			String calle, String altura, String piso, String departamento,
-			Coordenada coordenadaDestino) {
+			CoordenadaView coordenadaDestino) {
 		this.pais = pais;
 		this.provincia = provincia;
 		this.ciudad = ciudad;
@@ -43,11 +45,11 @@ public class Ubicacion extends PersistentObject {
 		this.altura = altura;
 		this.piso = piso;
 		this.departamento = departamento;
-		this.coordenadaDestino = coordenadaDestino;
+		this.coordenadaDestino = new Coordenada(coordenadaDestino.getLatitud(), coordenadaDestino.getLongitud());
+		this.id = UbicacionDAO.getInstance().insert(this);
 	}
 
 	public Ubicacion() {
-
 	}
 
 	public String getPais() {
@@ -115,7 +117,6 @@ public class Ubicacion extends PersistentObject {
 	}
 
 	public float calcularDistanciaEnKilometros(Ubicacion ubicacion) {
-		return this.coordenadaDestino.calcularDistanciaEnKilometros(ubicacion
-				.getCoordenadaDestino());
+		return this.coordenadaDestino.calcularDistanciaEnKilometros(ubicacion.getCoordenadaDestino());
 	}
 }

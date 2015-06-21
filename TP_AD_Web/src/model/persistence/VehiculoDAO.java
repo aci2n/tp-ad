@@ -5,9 +5,9 @@ import model.impl.vehiculos.Vehiculo;
 import org.hibernate.Session;
 
 public class VehiculoDAO extends AbstractGenericDAO<Vehiculo> {
-
-	@Override
-	public AbstractGenericDAO<Vehiculo> getInstance() {
+	private static VehiculoDAO instance;
+	
+	public static VehiculoDAO getInstance() {
 		if (instance == null)
 			instance = new VehiculoDAO();
 		return instance;
@@ -17,9 +17,8 @@ public class VehiculoDAO extends AbstractGenericDAO<Vehiculo> {
 	public Vehiculo get(Integer id) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Vehiculo vehiculo = (Vehiculo) session.get(Vehiculo.class, id);
+		Vehiculo Vehiculo = (Vehiculo) session.get(Vehiculo.class, id);
 		session.close();
-		return vehiculo;
+		return Vehiculo;
 	}
-
 }

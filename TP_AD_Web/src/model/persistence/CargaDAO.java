@@ -4,10 +4,10 @@ import model.impl.cargas.Carga;
 
 import org.hibernate.Session;
 
-public class CargaDAO extends AbstractGenericDAO<Carga>{
+public class CargaDAO extends AbstractGenericDAO<Carga> {
+	private static CargaDAO instance;
 	
-	@Override
-	public AbstractGenericDAO<Carga> getInstance() {
+	public static CargaDAO getInstance() {
 		if (instance == null)
 			instance = new CargaDAO();
 		return instance;
@@ -17,9 +17,8 @@ public class CargaDAO extends AbstractGenericDAO<Carga>{
 	public Carga get(Integer id) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Carga carga = (Carga) session.get(Carga.class, id);
+		Carga Carga = (Carga) session.get(Carga.class, id);
 		session.close();
-		return carga;
+		return Carga;
 	}
-
 }

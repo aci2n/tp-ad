@@ -4,10 +4,10 @@ import model.impl.productos.Producto;
 
 import org.hibernate.Session;
 
-public class ProductoDAO extends AbstractGenericDAO<Producto>{
+public class ProductoDAO extends AbstractGenericDAO<Producto> {
+	private static ProductoDAO instance;
 	
-	@Override
-	public AbstractGenericDAO<Producto> getInstance() {
+	public static ProductoDAO getInstance() {
 		if (instance == null)
 			instance = new ProductoDAO();
 		return instance;
@@ -17,9 +17,8 @@ public class ProductoDAO extends AbstractGenericDAO<Producto>{
 	public Producto get(Integer id) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Producto producto = (Producto) session.get(Producto.class, id);
+		Producto Producto = (Producto) session.get(Producto.class, id);
 		session.close();
-		return producto;
+		return Producto;
 	}
-
 }

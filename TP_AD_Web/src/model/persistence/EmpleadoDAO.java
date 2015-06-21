@@ -4,10 +4,10 @@ import model.impl.personal.Empleado;
 
 import org.hibernate.Session;
 
-public class EmpleadoDAO extends AbstractGenericDAO<Empleado>{
+public class EmpleadoDAO extends AbstractGenericDAO<Empleado> {
+	private static EmpleadoDAO instance;
 	
-	@Override
-	public AbstractGenericDAO<Empleado> getInstance() {
+	public static EmpleadoDAO getInstance() {
 		if (instance == null)
 			instance = new EmpleadoDAO();
 		return instance;
@@ -17,9 +17,8 @@ public class EmpleadoDAO extends AbstractGenericDAO<Empleado>{
 	public Empleado get(Integer id) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Empleado empleado = (Empleado) session.get(Empleado.class, id);
+		Empleado Empleado = (Empleado) session.get(Empleado.class, id);
 		session.close();
-		return empleado;
+		return Empleado;
 	}
-
 }

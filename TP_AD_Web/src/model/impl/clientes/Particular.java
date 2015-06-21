@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import model.persistence.ClienteDAO;
+import model.views.ReceptorView;
 
 @Entity
 @Table(name = "Clientes_Particulares")
@@ -19,7 +24,7 @@ public class Particular extends Cliente {
 	 */
 	private static final long serialVersionUID = 3516360528659218982L;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_cliente")
 	private List<Receptor> receptores;
 	@Column(name = "dni")
@@ -32,7 +37,7 @@ public class Particular extends Cliente {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
-
+		this.id = ClienteDAO.getInstance().insert(this);
 	}
 
 	public Particular() {
@@ -69,10 +74,12 @@ public class Particular extends Cliente {
 		
 	}
 	
-	public void agregarReceptor(Receptor receptor) {
+	public void agregarReceptor(ReceptorView r) {
 		if (receptores == null)
 			receptores = new ArrayList<Receptor>();
+		Receptor receptor = new Receptor(r.getDni(), r.getNombre(), r.getApellido(), r.getUbicacion());
 		receptores.add(receptor);
+		ClienteDAO.getInstance().update(this);
 	}
 
 }

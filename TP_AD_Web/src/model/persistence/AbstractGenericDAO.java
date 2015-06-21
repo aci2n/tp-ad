@@ -4,23 +4,25 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 public abstract class AbstractGenericDAO<T> {
-	protected AbstractGenericDAO<T> instance;
-	protected SessionFactory sf;
+	protected static SessionFactory sf = HibernateUtil.getSessionFactory();
 	
-	public AbstractGenericDAO () {
-		this.sf = HibernateUtil.getSessionFactory();
-	}
+	protected abstract T get(Integer id);
 	
-	public abstract AbstractGenericDAO<T> getInstance();
-	
-	public abstract T get(Integer id);
-	
-	public void save(Object obj) {
+	public Integer insert(Object obj) {
+		Integer id = null;
 		Session session = sf.openSession();
 		session.beginTransaction();
-		session.saveOrUpdate(obj);
+		id = (Integer) session.save(obj);
 		session.getTransaction().commit();
 		session.close();
+		return id;
 	};
 	
+	public void update(Object obj) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.update(obj);
+		session.getTransaction().commit();
+		session.close();
+	};	
 }

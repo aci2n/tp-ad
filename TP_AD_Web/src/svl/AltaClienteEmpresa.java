@@ -9,16 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.controllers.ControladorPrincipal;
 
-@WebServlet("/jsp/Clientes/AltaClienteParticular")
-public class AltaClienteParticular extends GenericHttpServlet {
+@WebServlet("/jsp/Clientes/AltaClienteEmpresa")
+public class AltaClienteEmpresa extends GenericHttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String dni = request.getParameter("dni");
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		String nombre = request.getParameter("nombre");
-		String apellido = request.getParameter("apellido");
+
 		try {
-			Integer id = ControladorPrincipal.getInstance().getAdministradorClientes().altaClienteParticular(dni, nombre, apellido);
+			Integer id = ControladorPrincipal.getInstance().getAdministradorClientes()
+					.altaClienteEmpresa(nombre);
 			forwardGenerico(request, response, "Cliente agregado exitosamente con id: " + id + ".");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

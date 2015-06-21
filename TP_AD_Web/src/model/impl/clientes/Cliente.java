@@ -31,10 +31,4 @@ public abstract class Cliente extends PersistentObject {
 	}
 
 	public abstract void cobrarEnvio(Factura factura);
-
-	public static void persistirCliente(Cliente cliente) {
-		ClienteDAO dao = new ClienteDAO();
-		dao.save(cliente);
-	}
-
 }

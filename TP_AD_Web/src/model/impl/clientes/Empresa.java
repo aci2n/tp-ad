@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import model.impl.productos.Producto;
+import model.persistence.ClienteDAO;
 
 @Entity
 @Table(name = "Clientes_Empresas")
@@ -31,10 +32,11 @@ public class Empresa extends Cliente {
 
 	public Empresa(String nombre) {
 		this.nombre = nombre;
+		this.id = ClienteDAO.getInstance().insert(this);
 	}
 
 	public Empresa() {
-		super();
+
 	}
 
 	public boolean isRegular() {

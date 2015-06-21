@@ -3,7 +3,12 @@ package model.impl.clientes;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.impl.misc.Coordenada;
+import model.impl.misc.Ubicacion;
 import model.impl.productos.Producto;
+import model.persistence.ClienteDAO;
+import model.views.ReceptorView;
+import model.views.UbicacionView;
 
 public class AdministradorClientes {
 	private static AdministradorClientes instance;
@@ -23,12 +28,23 @@ public class AdministradorClientes {
 		return instance;
 	}
 
-	public void altaClienteEmpresa(String nombre) {
-		Cliente.persistirCliente(new Empresa(nombre));
+	public Integer altaClienteEmpresa(String nombre) {
+		Empresa e = new Empresa(nombre);
+		return e.getId();
 	}
 
-	public void altaClienteParticular(String dni, String nombre, String apellido) {
-		Cliente.persistirCliente(new Particular(dni, nombre, apellido));
+	public Integer altaClienteParticular(String dni, String nombre, String apellido) {
+		Particular p = new Particular(dni, nombre, apellido);
+		return p.getId();
+	}
+
+	public void agregarReceptor(Integer id, ReceptorView r) throws Exception {
+		Particular particular = ClienteDAO.getInstance().obtenerClienteParticular(id);
+		if (particular != null) {
+			particular.agregarReceptor(r);
+		} else {
+			throw new Exception("El cliente particular ingresado no existe.");
+		}
 	}
 
 	public void bajaCliente(Integer id) {
@@ -40,20 +56,15 @@ public class AdministradorClientes {
 		}
 	}
 
-	public void asignarCuentaCorriente(Integer id, Float montoActual,
-			Float montoAutorizado) throws Exception {
-
+	public void asignarCuentaCorriente(Integer id, Float montoActual, Float montoAutorizado) throws Exception {
 		if (esClienteEmpresa(id)) {
-
 			Empresa c = (Empresa) obtenerCliente(id);
-			c.setCuentaCorriente(new CuentaCorriente(montoActual,
-					montoAutorizado));
+			c.setCuentaCorriente(new CuentaCorriente(montoActual, montoAutorizado));
 		} else
 			throw new Exception("El cliente con id" + id + " no es una empresa");
 	}
 
 	public boolean esClienteEmpresa(Integer id) {
-
 		for (Cliente c : clientes)
 			if (c.getId().equals(id) && c.getClass().equals(Empresa.class))
 				return true;
