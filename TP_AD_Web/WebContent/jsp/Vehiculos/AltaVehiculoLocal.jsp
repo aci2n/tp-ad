@@ -4,11 +4,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<!-- <script language="JavaScript" type="text/JavaScript">
+<script type="text/JavaScript">
 	function setFormPlan() {
-		var sel = document.getElementById('selectPlan');
-		var val = sel.options[sel.selectedIndex].value;
-		var e = document.getElementById('formPlan');
+		var s = document.getElementById('selectPlan');
+		var val = s.options[s.selectedIndex].value;
+		var holder = document.getElementById('holderPlan');
 		var html;
 		switch (val) {
 		case "kilometraje":
@@ -21,14 +21,17 @@
 			html = '<td>Intervalo mantenimiento:</td> <td><input type="text" name="intervaloMantenimiento"></td>'
 			break;
 		}
-		e.innerHTML = html;
+		holder.innerHTML = html;
 	}
-</script> -->
+</script>
 <title>Alta Vehiculo Local</title>
 </head>
 <body>
+	<!-- HAY Q PONER Q EL PLAN TENGA IDVEHICULO NO AL REVESSSSSS -->
+	<!-- TAMBIEN HAY Q HACER Q SIEMPRE APAREZCA EL CAMPO AL FINAL -->
+	<!-- IF YOU'RE TIRED OF STARTING OVER STOP GIVING UP -->
 	<form action="AltaVehiculoLocal">
-		<table>
+		<table style="table-layout: fixed; width: 400px">
 			<tr>
 				<td>- Sucursal -</td>
 			</tr>
@@ -81,9 +84,9 @@
 				<td>Vencimiento Garantia:</td>
 				<td><input type="text" name="vencimientoGarantia"></td>
 			</tr>
-			<!-- <tr>
+			<tr>
 				<td>Plan Mantenimiento:</td>
-				<td><select id="selectPlan" name="plan"
+				<td><select id="selectPlan" name="tipoPlan"
 					onchange="setFormPlan();">
 						<option disabled selected></option>
 						<option value="kilometraje">Kilometraje</option>
@@ -91,9 +94,9 @@
 						<option value="temporal">Temporal</option>
 				</select></td>
 			</tr>
-			<tr id="formPlan">
-				se setea dinamico
-			</tr> -->
+			<tr id="holderPlan">
+				<!-- se setea dinamico -->
+			</tr>
 		</table>
 		<br /> <input type="submit" value="Alta">
 	</form>

@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import persistence.VehiculoDAO;
 import util.Utilities;
+import views.vehiculos.PlanMantenimientoView;
 import views.vehiculos.VehiculoLocalView;
 
 @Entity
@@ -31,7 +32,7 @@ public class VehiculoLocal extends Vehiculo {
 	public VehiculoLocal() {
 	}
 
-	public VehiculoLocal(VehiculoLocalView v) {
+	public VehiculoLocal(VehiculoLocalView v, PlanMantenimientoView p) {
 		patente = v.getPatente();
 		tamano = new Tamano(v.getTamano());
 		peso = v.getPeso();
@@ -39,7 +40,24 @@ public class VehiculoLocal extends Vehiculo {
 		tarifa = v.getTarifa();
 		tipo = TipoVehiculo.valueOf(v.getTipo());
 		vencimientoGarantia = Utilities.parseDate(v.getVencimientoGarantia());
+		planMantenimiento = procesarPlanMantenimiento(p);
 		id = VehiculoDAO.getInstance().insert(this);
+	}
+
+	private PlanMantenimiento procesarPlanMantenimiento(PlanMantenimientoView p) {
+		PlanMantenimiento plan = null;
+		switch (p.getTipoPlan()) {
+		case "kilometraje":
+			plan = new PlanMantenimientoKilometraje(p.getPuntoControl());
+			break;
+		case "kilometrajeRelativo":
+			plan = new PlanMantenimientoKilometrajeRelativo(p.getPuntoControl());
+			break;
+		case "temporal":
+			plan = new PlanMantenimientoTemporal(p.getIntervaloMantenimiento());
+			break;
+		}
+		return plan;
 	}
 
 	public PlanMantenimiento getPlanMantenimiento() {

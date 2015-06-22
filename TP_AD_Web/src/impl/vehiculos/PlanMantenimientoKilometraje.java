@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import persistence.PlanMantenimientoDAO;
+
 @Entity
 @DiscriminatorValue(value = "Kilometraje")
 public class PlanMantenimientoKilometraje extends PlanMantenimiento {
@@ -17,6 +19,11 @@ public class PlanMantenimientoKilometraje extends PlanMantenimiento {
 
 	public PlanMantenimientoKilometraje(float puntoControl) {
 		this.puntoControl = puntoControl;
+		PlanMantenimientoDAO.getInstance().insert(this);
+	}
+
+	public PlanMantenimientoKilometraje() {
+
 	}
 
 	@Override

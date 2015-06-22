@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import persistence.SucursalDAO;
 import views.personal.EmpleadoView;
 import views.sucursales.SucursalView;
+import views.vehiculos.PlanMantenimientoView;
 import views.vehiculos.VehiculoLocalView;
 
 @Entity
@@ -129,10 +130,10 @@ public class Sucursal extends PersistentObject {
 		return empleado.getId();		
 	}
 
-	public Integer agregarVehiculo(VehiculoLocalView v) {
+	public Integer agregarVehiculo(VehiculoLocalView v, PlanMantenimientoView p) {
 		if (vehiculos == null)
 			vehiculos = new ArrayList<VehiculoLocal>();
-		VehiculoLocal vehiculo = new VehiculoLocal(v);
+		VehiculoLocal vehiculo = new VehiculoLocal(v, p);
 		vehiculos.add(vehiculo);
 		SucursalDAO.getInstance().update(this);
 		return vehiculo.getId();

@@ -11,6 +11,7 @@ import java.util.List;
 
 import persistence.ProveedorDAO;
 import persistence.SucursalDAO;
+import views.vehiculos.PlanMantenimientoView;
 import views.vehiculos.VehiculoExternoView;
 import views.vehiculos.VehiculoLocalView;
 
@@ -33,15 +34,15 @@ public class AdministradorVehiculos {
 		return p.getId();
 	}
 
-	public Integer altaVehiculoLocal(Integer idSucursal, VehiculoLocalView v) throws Exception {
+	public Integer altaVehiculoLocal(Integer idSucursal, VehiculoLocalView v, PlanMantenimientoView p) throws Exception {
 		Sucursal s = SucursalDAO.getInstance().get(idSucursal);
 		if (s != null) {
-			return s.agregarVehiculo(v);
+			return s.agregarVehiculo(v, p);
 		} else {
 			throw new Exception("No existe sucursal con el id ingresado.");
 		}
 	}
-	
+
 	public Integer altaVehiculoExterno(Integer idProveedor, VehiculoExternoView v) throws Exception {
 		Proveedor p = ProveedorDAO.getInstance().get(idProveedor);
 		if (p != null) {
@@ -108,8 +109,5 @@ public class AdministradorVehiculos {
 	//
 	// return proveedores;
 	// }
-
-
-
 
 }
