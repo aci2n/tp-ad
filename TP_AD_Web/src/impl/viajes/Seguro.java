@@ -10,6 +10,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
+import persistence.SeguroDAO;
+import views.viajes.SeguroView;
+
 @Entity
 @Table(name = "Seguros")
 @AttributeOverride(name = "id", column = @Column(name = "id_seguro"))
@@ -25,6 +28,17 @@ public class Seguro extends PersistentObject {
 	private TipoCarga tipoCarga;
 	@Column(name = "tarifa")
 	private Float tarifa;
+	
+	public Seguro() {
+		
+	}
+	
+	public Seguro(SeguroView s) {
+		nombre = s.getNombre();
+		tarifa = s.getTarifa();
+		tipoCarga = TipoCarga.valueOf(s.getTipoCarga());
+		id = SeguroDAO.getInstance().insert(this);
+	}
 	
 	public String getNombre() {
 		return nombre;

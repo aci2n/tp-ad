@@ -12,19 +12,23 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import persistence.CompaniaSeguroDAO;
+import views.viajes.CompaniaSeguroView;
+import views.viajes.SeguroView;
+
 public class AdministradorViajes {
 	private static AdministradorViajes instance;
 	private List<Viaje> viajes;
 	private List<Viaje> viajesExternos;
 	private List<EstrategiaMantenimiento> mantenimientos;
 	private List<CompaniaSeguro> companiasSeguros;
-	
+
 	public static AdministradorViajes getInstance() {
 		if (instance == null)
 			instance = new AdministradorViajes();
 		return instance;
 	}
-	
+
 	private AdministradorViajes() {
 		this.viajes = new ArrayList<Viaje>();
 		this.viajesExternos = new ArrayList<Viaje>();
@@ -32,7 +36,6 @@ public class AdministradorViajes {
 		this.companiasSeguros = new ArrayList<CompaniaSeguro>();
 	}
 
-	
 	public Viaje obtenerViaje(Integer codigoViaje) {
 		for (Viaje viaje : viajes) {
 			if (viaje.getId().equals(codigoViaje)) {
@@ -41,9 +44,8 @@ public class AdministradorViajes {
 		}
 		return null;
 	}
-	
-	
-	//REVISAR ESTE METODO QUE NO SE PUEDEN USAR VECTORES EN HIBERNATE
+
+	// REVISAR ESTE METODO QUE NO SE PUEDEN USAR VECTORES EN HIBERNATE
 	public void determinarCostoViaje(Viaje v, List<Sucursal> sucursales) {
 		if (v == null)
 			return;
@@ -71,7 +73,8 @@ public class AdministradorViajes {
 			cal.add(Calendar.MINUTE, minutos);
 			v.setFechaLlegada(cal.getTime());
 		} else if (v.getParadasIntermedias().size() > 0) {
-			float horasDistancia = admSuc.calcularHorasEntreSucursales(admSuc.obtenerSucursalCercana(v.getOrigen()), admSuc.obtenerSucursalCercana(paradasIntermedias.get(0).getUbicacion()));
+			float horasDistancia = admSuc.calcularHorasEntreSucursales(admSuc.obtenerSucursalCercana(v.getOrigen()),
+					admSuc.obtenerSucursalCercana(paradasIntermedias.get(0).getUbicacion()));
 			int horas = (int) horasDistancia;
 			int minutos = (int) (60 * (horasDistancia - horas));
 
@@ -110,63 +113,67 @@ public class AdministradorViajes {
 		}
 
 	}
-	
-	public void altaViaje(List<ItemCarga> list, Seguro seguro, Vehiculo vehiculo, Date fechaSalida, List<CondicionEspecial> condicionesEspeciales, ArrayList<ParadaIntermedia> paradasIntermedias) {
+
+	public void altaViaje(List<ItemCarga> list, Seguro seguro, Vehiculo vehiculo, Date fechaSalida, List<CondicionEspecial> condicionesEspeciales,
+			ArrayList<ParadaIntermedia> paradasIntermedias) {
 		viajes.add(new Viaje(list, seguro, vehiculo, fechaSalida, condicionesEspeciales, paradasIntermedias));
 	}
-	
-//	public void altaViajeExterno(List<Carga> cargas, Seguro seguro, Date fechaSalida, Date fechaLLegada, 
-//		Proveedor proveedor, TipoVehiculo tipoVehiculo, List<CondicionEspecial> condicionesEspeciales){
-//
-//		Vehiculo vehiculo = null;
-//		for(Vehiculo v : proveedor.getVehiculos())
-//			if(v.getTipo().equals(tipoVehiculo))
-//				vehiculo = v;
-//
-//		viajesExternos.add(new Viaje(cargas, seguro, vehiculo, fechaSalida, condicionesEspeciales, null));
-//	}
 
-//	public void actualizarViaje(Viaje viaje, Sucursal sucursal) {
-//		for (Iterator<Carga> iterator = viaje.getCargas().iterator(); iterator.hasNext();) {
-//			Carga carga = iterator.next();
-//			if (obtenerMejorViaje(sucursal, carga) != null) {
-//				sucursal.getDeposito().almacenarCarga(carga);
-//				iterator.remove();
-//			}
-//		}
-//		for (ParadaIntermedia parada : viaje.getParadasIntermedias()) {
-//			if (parada.getUbicacion().equals(sucursal.getUbicacion())) {
-//				parada.setChecked(true);
-//				break;
-//			}
-//		}
-//		for (Iterator<Carga> iterator = sucursal.getDeposito().getCargas().iterator(); iterator.hasNext();) {
-//			Carga carga = iterator.next();
-//			Viaje mejorViaje = obtenerMejorViaje(sucursal, carga);
-//			if (mejorViaje != null && mejorViaje.equals(viaje) && viaje.puedeTransportar(carga)) {
-//				viaje.agregarCarga(carga);
-//				iterator.remove();
-//			}
-//		}
-//	}
-	
+	// public void altaViajeExterno(List<Carga> cargas, Seguro seguro, Date
+	// fechaSalida, Date fechaLLegada,
+	// Proveedor proveedor, TipoVehiculo tipoVehiculo, List<CondicionEspecial>
+	// condicionesEspeciales){
+	//
+	// Vehiculo vehiculo = null;
+	// for(Vehiculo v : proveedor.getVehiculos())
+	// if(v.getTipo().equals(tipoVehiculo))
+	// vehiculo = v;
+	//
+	// viajesExternos.add(new Viaje(cargas, seguro, vehiculo, fechaSalida,
+	// condicionesEspeciales, null));
+	// }
+
+	// public void actualizarViaje(Viaje viaje, Sucursal sucursal) {
+	// for (Iterator<Carga> iterator = viaje.getCargas().iterator();
+	// iterator.hasNext();) {
+	// Carga carga = iterator.next();
+	// if (obtenerMejorViaje(sucursal, carga) != null) {
+	// sucursal.getDeposito().almacenarCarga(carga);
+	// iterator.remove();
+	// }
+	// }
+	// for (ParadaIntermedia parada : viaje.getParadasIntermedias()) {
+	// if (parada.getUbicacion().equals(sucursal.getUbicacion())) {
+	// parada.setChecked(true);
+	// break;
+	// }
+	// }
+	// for (Iterator<Carga> iterator =
+	// sucursal.getDeposito().getCargas().iterator(); iterator.hasNext();) {
+	// Carga carga = iterator.next();
+	// Viaje mejorViaje = obtenerMejorViaje(sucursal, carga);
+	// if (mejorViaje != null && mejorViaje.equals(viaje) &&
+	// viaje.puedeTransportar(carga)) {
+	// viaje.agregarCarga(carga);
+	// iterator.remove();
+	// }
+	// }
+	// }
+
 	public Viaje obtenerMejorViaje(Sucursal sucursal, Carga carga) {
 		Viaje mejorViaje = null;
 
 		for (Viaje viaje : viajes) {
 			if (viaje.pasaPorSucursal(sucursal) && viaje.puedeTransportar(carga)) {
 				if (mejorViaje == null
-						|| (
-								viaje.puedeTransportar(carga)
-								&& viaje.obtenerLlegadaAParada(sucursal).before(mejorViaje.obtenerLlegadaAParada(sucursal))
-								)) {
+						|| (viaje.puedeTransportar(carga) && viaje.obtenerLlegadaAParada(sucursal).before(mejorViaje.obtenerLlegadaAParada(sucursal)))) {
 					mejorViaje = viaje;
 				}
 			}
 		}
 		return mejorViaje;
 	}
-	
+
 	public List<Viaje> getViajes() {
 		return viajes;
 	}
@@ -182,6 +189,19 @@ public class AdministradorViajes {
 	public void setViajesExternos(List<Viaje> viajesExternos) {
 		this.viajesExternos = viajesExternos;
 	}
-	
-	
+
+	public Integer altaCompaniaSeguro(CompaniaSeguroView c) {
+		CompaniaSeguro compania = new CompaniaSeguro(c);
+		return compania.getId();
+	}
+
+	public Integer agregarSeguro(Integer id, SeguroView s) throws Exception {
+		CompaniaSeguro c = CompaniaSeguroDAO.getInstance().get(id);
+		if (c != null) {
+			return c.agregarSeguro(s);
+		} else {
+			throw new Exception("No existe compania de seguros con el id ingresado.");
+		}
+	}
+
 }
