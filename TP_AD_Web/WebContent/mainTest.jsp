@@ -18,7 +18,7 @@
 
 	<nav>
 		<ul id="slide-out" class="side-nav">
-			<li><a id="select1" href="#!">Inicio</a></li>
+			<li><a id="select1" class="menu-anchor" href="AltaClienteParticular">Inicio</a></li>
 			<li class="no-padding">
 				<ul class="collapsible collapsible-accordion">
 					<li><a class="collapsible-header">Clientes<i
@@ -27,7 +27,7 @@
 							<ul>
 								<li><a href="#!">Alta</a></li>
 								<li><a href="#!">Baja</a></li>
-								<li><a href="#!">Modificación</a></li>
+								<li><a href="#!">Modificaciï¿½n</a></li>
 								<li><a href="#!">Listar</a></li>
 							</ul>
 						</div></li>
@@ -58,11 +58,10 @@
 									.alert('too bad :(. This event will never be triggered because the sideNav is stopping propagation.');
 						});
 
-		$("#select1").click(function() {
-			//$("#content").load('');
-			$("#content").load('jsp/Clientes/AltaClienteParticular.jsp');
-			$(".button-collapse").sideNav('hide');
-
+		$('.menu-anchor').click(function(event) {
+			event.preventDefault();
+			$('#content').load('jsp/Clientes/' + $(this).attr('href') + '.jsp');
+			$('.button-collapse').sideNav('hide');
 		});
 	</script>
 
