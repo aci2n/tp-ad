@@ -1,4 +1,4 @@
-package model.impl.viajes;
+package model.impl.vehiculos;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import model.impl.PersistentObject;
+import model.persistence.ProveedorDAO;
 
 @Entity
 @Table(name = "Proveedores")
@@ -25,10 +26,10 @@ public class Proveedor extends PersistentObject{
 		
 	}
 	
-	public Proveedor(String cuit, String nombre){
-		
+	public Proveedor(String cuit, String nombre){		
 		this.cuit = cuit;
 		this.nombre = nombre;
+		this.id = ProveedorDAO.getInstance().insert(this);
 	}
 	
 	public String getCuit() {

@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import model.impl.PersistentObject;
-import model.impl.viajes.Proveedor;
+import model.impl.vehiculos.Proveedor;
 
 @Entity
 @Table(name = "Pagos")

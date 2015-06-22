@@ -21,6 +21,7 @@ import model.impl.vehiculos.PlanMantenimiento;
 import model.impl.vehiculos.PlanMantenimientoKilometraje;
 import model.impl.vehiculos.PlanMantenimientoKilometrajeRelativo;
 import model.impl.vehiculos.PlanMantenimientoTemporal;
+import model.impl.vehiculos.Proveedor;
 import model.impl.vehiculos.Tarea;
 import model.impl.vehiculos.Vehiculo;
 import model.impl.vehiculos.VehiculoExterno;
@@ -28,7 +29,6 @@ import model.impl.vehiculos.VehiculoLocal;
 import model.impl.viajes.CompaniaSeguro;
 import model.impl.viajes.ItemCarga;
 import model.impl.viajes.ParadaIntermedia;
-import model.impl.viajes.Proveedor;
 import model.impl.viajes.Seguro;
 import model.impl.viajes.Viaje;
 

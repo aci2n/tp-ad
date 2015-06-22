@@ -8,7 +8,6 @@ import model.impl.misc.Tamano;
 import model.impl.sucursales.AdministradorSucursales;
 import model.impl.sucursales.Sucursal;
 import model.impl.viajes.AdministradorViajes;
-import model.impl.viajes.Proveedor;
 import model.impl.viajes.Viaje;
 
 public class AdministradorVehiculos {
@@ -23,6 +22,11 @@ public class AdministradorVehiculos {
 		if (instance == null)
 			instance = new AdministradorVehiculos();
 		return instance;
+	}
+	
+	public Integer altaProveedor (String cuit, String nombre) {
+		Proveedor p = new Proveedor(cuit, nombre);
+		return p.getId();
 	}
 	
 	public void altaVehiculoLocal(Integer idSucursal, String patente, Tamano tamano, Float peso, Float tara, Float tarifa, TipoVehiculo tipo,
