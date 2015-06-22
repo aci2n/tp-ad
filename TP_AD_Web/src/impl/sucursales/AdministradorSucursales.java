@@ -15,6 +15,7 @@ import java.util.List;
 
 import persistence.SucursalDAO;
 import views.personal.EmpleadoView;
+import views.sucursales.DistanciaEntreSucursalesView;
 import views.sucursales.SucursalView;
 
 public class AdministradorSucursales {
@@ -45,6 +46,17 @@ public class AdministradorSucursales {
 		} else {
 			throw new Exception("No existe sucursal con el id ingresado.");
 		}
+	}
+
+	public void agregarDistanciaEntreSucursales(DistanciaEntreSucursalesView d) throws Exception {
+		Sucursal sucursalA = SucursalDAO.getInstance().get(d.getSucursalA());
+		Sucursal sucursalB = SucursalDAO.getInstance().get(d.getSucursalB());
+		if (sucursalA != null && sucursalB != null) {
+			new DistanciaEntreSucursales(sucursalA, sucursalB, d.getDuracionEnHoras(), d.getDuracionEnKm(), d.getCosto());
+		} else {
+			throw new Exception("Al menos una de las sucursales ingresadas no existe.");
+		}
+
 	}
 
 	public float calcularHorasEntreSucursales(Sucursal sucursalA, Sucursal sucursalB) {

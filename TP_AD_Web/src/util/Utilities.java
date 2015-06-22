@@ -3,7 +3,7 @@ package util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Utilities {	
+public class Utilities {
 	public static Date parseDate(String fecha) {
 		Date d = new Date();
 		try {

@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import persistence.DistanciaEntreSucursalesDAO;
+
 @Entity
 @Table(name = "Distancia_Sucursales")
 @AttributeOverride(name = "id", column = @Column(name = "id_distancia_sucursales"))
@@ -38,6 +40,7 @@ public class DistanciaEntreSucursales extends PersistentObject {
 		this.distanciaEnKm = distanciaEnKm;
 		this.duracionEnHoras = duracionEnHoras;
 		this.costo = costo;
+		this.id = DistanciaEntreSucursalesDAO.getInstance().insert(this);
 	}
 
 	public DistanciaEntreSucursales() {
