@@ -93,7 +93,7 @@
 	<script>
 	
 	$( "#alta-cliente" ).click(function() {
-		  $("#content").load('AltaClienteParticular.jsp');
+		  $("#content").load('../Cliente/AltaClienteParticular.jsp');
 	});
 
 	$('#inicio').click(function(){
