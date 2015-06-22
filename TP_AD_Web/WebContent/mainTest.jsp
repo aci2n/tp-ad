@@ -27,7 +27,45 @@
 							<ul>
 								<li><a href="#!">Alta</a></li>
 								<li><a href="#!">Baja</a></li>
-								<li><a href="#!">Modificaci�n</a></li>
+								<li><a href="#!">Modificacion</a></li>
+								<li><a href="#!">Listar</a></li>
+							</ul>
+						</div></li>
+				</ul>
+			</li>
+			<li class="no-padding">
+				<ul class="collapsible collapsible-accordion">
+					<li><a class="collapsible-header">Empleados<i
+							class="mdi-navigation-arrow-drop-down"></i></a>
+						<div class="collapsible-body">
+							<ul>
+								<li><a href="#!">Alta</a></li>
+								<li><a href="#!">Baja</a></li>
+								<li><a href="#!">Listar</a></li>
+							</ul>
+						</div></li>
+				</ul>
+			</li>
+			<li class="no-padding">
+				<ul class="collapsible collapsible-accordion">
+					<li><a class="collapsible-header">Sucursales<i
+							class="mdi-navigation-arrow-drop-down"></i></a>
+						<div class="collapsible-body">
+							<ul>
+								<li><a href="#!">Alta</a></li>
+								<li><a href="#!">Listar</a></li>
+							</ul>
+						</div></li>
+				</ul>
+			</li>
+			<li class="no-padding">
+				<ul class="collapsible collapsible-accordion">
+					<li><a class="collapsible-header">Empleados<i
+							class="mdi-navigation-arrow-drop-down"></i></a>
+						<div class="collapsible-body">
+							<ul>
+								<li><a href="#!">Alta</a></li>
+								<li><a href="#!">Baja</a></li>
 								<li><a href="#!">Listar</a></li>
 							</ul>
 						</div></li>
