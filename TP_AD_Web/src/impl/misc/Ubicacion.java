@@ -44,6 +44,7 @@ public class Ubicacion extends PersistentObject {
 		altura = u.getAltura();
 		piso = u.getPiso();
 		departamento = u.getDepartamento();
+		coordenadaDestino = new Coordenada(u.getCoordenadaDestino());
 		this.id = UbicacionDAO.getInstance().insert(this);
 	}
 
