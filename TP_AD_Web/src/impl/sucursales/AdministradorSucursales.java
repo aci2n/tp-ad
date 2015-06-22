@@ -49,6 +49,8 @@ public class AdministradorSucursales {
 	}
 
 	public void agregarDistanciaEntreSucursales(DistanciaEntreSucursalesView d) throws Exception {
+		if (d.getSucursalA().equals(d.getSucursalB()))
+			throw new Exception("Las sucursales A y B tienen el mismo ID.");
 		Sucursal sucursalA = SucursalDAO.getInstance().get(d.getSucursalA());
 		Sucursal sucursalB = SucursalDAO.getInstance().get(d.getSucursalB());
 		if (sucursalA != null && sucursalB != null) {
@@ -56,7 +58,6 @@ public class AdministradorSucursales {
 		} else {
 			throw new Exception("Al menos una de las sucursales ingresadas no existe.");
 		}
-
 	}
 
 	public float calcularHorasEntreSucursales(Sucursal sucursalA, Sucursal sucursalB) {
@@ -69,7 +70,6 @@ public class AdministradorSucursales {
 
 	public Sucursal obtenerSucursalCercana(Ubicacion ubicacion) {
 		Sucursal cercana = null;
-
 		for (Sucursal sucursal : sucursales) {
 			if (cercana == null
 					|| cercana.getUbicacion().calcularDistanciaEnKilometros(ubicacion) > sucursal.getUbicacion().calcularDistanciaEnKilometros(
@@ -77,7 +77,6 @@ public class AdministradorSucursales {
 				cercana = sucursal;
 			}
 		}
-
 		return cercana;
 	}
 
@@ -105,9 +104,7 @@ public class AdministradorSucursales {
 
 	public Date estimarLlegada(Sucursal origen, Sucursal destino) {
 		Date partida = new Date();
-
 		Float distancia = null;
-
 		for (Viaje v : AdministradorViajes.getInstance().getViajes()) {
 			if (v.getOrigen().equals(origen.getUbicacion()))
 				if (v.getDestino().equals(destino.getUbicacion()))
@@ -118,16 +115,12 @@ public class AdministradorSucursales {
 						return llegada;
 				}
 		}
-
 		distancia = calcularHorasEntreSucursales(origen, destino);
-
 		int minutos = (int) (distancia % 1) * 60;
 		int horas = (int) (distancia - distancia % 1);
-
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.HOUR, horas);
 		cal.add(Calendar.MINUTE, minutos);
-
 		return cal.getTime();
 	}
 
@@ -148,7 +141,6 @@ public class AdministradorSucursales {
 	}
 
 	public Empleado obtenerEmpleado(String cuit) {
-
 		for (Sucursal s : sucursales)
 			for (Empleado e : s.getEmpleados())
 				if (e.getCuit().equals(cuit))
@@ -171,5 +163,4 @@ public class AdministradorSucursales {
 	public void setDistancias(List<DistanciaEntreSucursales> distancias) {
 		this.distancias = distancias;
 	}
-
 }
