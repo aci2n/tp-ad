@@ -1,22 +1,27 @@
+<%@page import="model.impl.personal.TipoPuesto"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Agregar Receptor</title>
+<title>Agregar Empleado</title>
 </head>
 <body>
-	<form action="AgregarReceptor">
+	<form action="AgregarEmpleado">
 		<table>
 			<tr>
-				<td>- Cliente Particular -</td>
+				<td>- Sucursal -</td>
 			</tr>
 			<tr>
 				<td>ID:</td>
 				<td><input type="text" name="id"></td>
 			</tr>
 			<tr>
-				<td>- Receptor -</td>
+				<td>- Empleado -</td>
+			</tr>
+			<tr>
+				<td>CUIT:</td>
+				<td><input type="text" name="cuit"></td>
 			</tr>
 			<tr>
 				<td>DNI:</td>
@@ -31,13 +36,21 @@
 				<td><input type="text" name="apellido"></td>
 			</tr>
 			<tr>
-				<td>- Ubicacion -</td>
+				<td>Fecha nacimiento:</td>
+				<td><input type="text" name="fechaNacimiento"></td>
 			</tr>
 			<tr>
-				<%@include file="/jsp/Misc/FormUbicacion.html"%>
+				<td>Tipo:</td>
+				<td><select name="tipo">
+						<%
+							for (TipoPuesto t : TipoPuesto.values()) {
+								out.print("<option value=\"" + t.toString() + "\">" + t.toString() + "</option>");
+							}
+						%>
+				</select></td>
 			</tr>
 		</table>
-		<br /> <input type="submit" value="Agregar">
+		<br /> <input type="submit" value="Alta">
 	</form>
 </body>
 </html>
