@@ -1,4 +1,5 @@
-<%@page import="impl.vehiculos.TipoVehiculo"%>
+<%@page import="impl.productos.TipoFragilidad"%>
+<%@page import="impl.productos.TipoTratamiento"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -9,17 +10,29 @@
 <body>
 	<form action="AltaProducto">
 		<table>
-		<!-- terminar -->
 			<tr>
-				<td>ID:</td>
+				<td>Nombre:</td>
 				<td><input type="text" name="id"></td>
 			</tr>
 			<tr>
-				<td>- Vehiculo -</td>
+				<td>Tipo fragilidad:</td>
+				<td><select name="tipoFragilidad">
+						<%
+							for (TipoFragilidad t : TipoFragilidad.values()) {
+								out.print("<option value=\"" + t.toString() + "\">" + t.toString() + "</option>");
+							}
+						%>
+				</select></td>
 			</tr>
 			<tr>
-				<td>Patente:</td>
-				<td><input type="text" name="patente"></td>
+				<td>Tipo tratamiento:</td>
+				<td><select name="tipoTratamiento">
+						<%
+							for (TipoTratamiento t : TipoTratamiento.values()) {
+								out.print("<option value=\"" + t.toString() + "\">" + t.toString() + "</option>");
+							}
+						%>
+				</select></td>
 			</tr>
 			<tr>
 				<td>Profundidad:</td>
@@ -38,22 +51,24 @@
 				<td><input type="text" name="peso"></td>
 			</tr>
 			<tr>
-				<td>Tara:</td>
-				<td><input type="text" name="tara"></td>
+				<td>Apilable:</td>
+				<td><input type="text" name="apilable"></td>
 			</tr>
 			<tr>
-				<td>Tarifa:</td>
-				<td><input type="text" name="tarifa"></td>
+				<td>Manipulacion:</td>
+				<td><input type="text" name="manipulacion"></td>
 			</tr>
 			<tr>
-				<td>Tipo:</td>
-				<td><select name="tipo">
-						<%
-							for (TipoVehiculo t : TipoVehiculo.values()) {
-								out.print("<option value=\"" + t.toString() + "\">" + t.toString() + "</option>");
-							}
-						%>
-				</select></td>
+				<td>Material:</td>
+				<td><input type="text" name="material"></td>
+			</tr>
+			<tr>
+				<td>Consideraciones:</td>
+				<td><input type="text" name="consideraciones"></td>
+			</tr>
+			<tr>
+				<td>Refrigerado:</td>
+				<td><input type="checkbox" name="refrigerado"></td>
 			</tr>
 		</table>
 		<br /> <input type="submit" value="Alta">

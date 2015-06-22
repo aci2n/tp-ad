@@ -2,6 +2,7 @@ package controllers;
 
 import impl.cargas.AdministradorCargas;
 import impl.clientes.AdministradorClientes;
+import impl.productos.AdministradorProductos;
 import impl.sucursales.AdministradorSucursales;
 import impl.vehiculos.AdministradorVehiculos;
 import impl.viajes.AdministradorViajes;
@@ -19,6 +20,7 @@ public class ControladorPrincipal {
 	private AdministradorCargas administradorCargas;
 	private AdministradorVehiculos administradorVehiculos;
 	private AdministradorClientes administradorClientes;
+	private AdministradorProductos administradorProductos;
 
 	private ControladorPrincipal() {
 		administradorViajes = AdministradorViajes.getInstance();
@@ -26,9 +28,9 @@ public class ControladorPrincipal {
 		administradorCargas = AdministradorCargas.getInstance();
 		administradorVehiculos = AdministradorVehiculos.getInstance();
 		administradorClientes = AdministradorClientes.getInstance();
+		administradorProductos = AdministradorProductos.getInstance();
 	}
 
-	// GETTERS PARA TESTEAR
 	public AdministradorViajes getAdministradorViajes() {
 		return administradorViajes;
 	}
@@ -47,5 +49,9 @@ public class ControladorPrincipal {
 
 	public AdministradorClientes getAdministradorClientes() {
 		return administradorClientes;
+	}
+
+	public AdministradorProductos getAdministradorProductos() {
+		return administradorProductos;
 	}
 }

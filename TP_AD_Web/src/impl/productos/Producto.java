@@ -17,6 +17,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import persistence.ProductoDAO;
+import views.productos.ProductoView;
+
 @Entity
 @Table(name = "Productos")
 @AttributeOverride(name = "id", column = @Column(name = "id_producto"))
@@ -25,8 +28,7 @@ public class Producto extends PersistentObject {
 	 * 
 	 */
 	private static final long serialVersionUID = 2506118120974790841L;
-	private static final String[] materialesRestringidos = { "Material1",
-			"Material2", "Material3" };
+	private static final String[] materialesRestringidos = { "Material1", "Material2", "Material3" };
 
 	@Column(name = "nombre")
 	private String nombre;
@@ -70,22 +72,17 @@ public class Producto extends PersistentObject {
 
 	}
 
-	public Producto(String nombre, Float peso, Tamano tamano,
-			TipoFragilidad fragilidad, Integer apilable, String manipulacion,
-			String material, TipoTratamiento tratamiento,
-			String consideraciones,
-			List<CondicionEspecial> condicionesEspeciales) {
-
-		this.nombre = nombre;
-		this.peso = peso;
-		this.tamano = tamano;
-		this.fragilidad = fragilidad;
-		this.apilable = apilable;
-		this.manipulacion = manipulacion;
-		this.material = material;
-		this.tratamiento = tratamiento;
-		this.consideraciones = consideraciones;
-		this.condicionesEspeciales = condicionesEspeciales;
+	public Producto(ProductoView p) {
+		nombre = p.getNombre();
+		fragilidad = TipoFragilidad.valueOf(p.getFragilidad());
+		tratamiento = TipoTratamiento.valueOf(p.getTratamiento());
+		apilable = p.getApilable();
+		consideraciones = p.getConsideraciones();
+		manipulacion = p.getManipulacion();
+		material = p.getMaterial();
+		peso = p.getPeso();
+		tamano = new Tamano(p.getTamano());
+		id = ProductoDAO.getInstance().insert(this);
 	}
 
 	public String getNombre() {
@@ -164,8 +161,7 @@ public class Producto extends PersistentObject {
 		return condicionesEspeciales;
 	}
 
-	public void setCondicionesEspeciales(
-			List<CondicionEspecial> condicionesEspeciales) {
+	public void setCondicionesEspeciales(List<CondicionEspecial> condicionesEspeciales) {
 		this.condicionesEspeciales = condicionesEspeciales;
 	}
 
@@ -200,10 +196,23 @@ public class Producto extends PersistentObject {
 		return total;
 	}
 
-	public void agregarCondicionEspecial(CondicionEspecial condicion) {
+	public void agregarCondicionEspecial(String condicion) throws Exception {
 		if (condicionesEspeciales == null)
 			condicionesEspeciales = new ArrayList<CondicionEspecial>();
-		condicionesEspeciales.add(condicion);
+		CondicionEspecial c = CondicionEspecial.valueOf(condicion);
+		if (!tieneCondicionEspecial(c)) {
+			condicionesEspeciales.add(c);
+			ProductoDAO.getInstance().update(this);
+		} else {
+			throw new Exception("El producto ya tiene la condicion ingresada.");
+		}
+	}
+
+	private boolean tieneCondicionEspecial(CondicionEspecial c) {
+		for (CondicionEspecial ce : condicionesEspeciales)
+			if (c.equals(ce))
+				return true;
+		return false;
 	}
 
 	public boolean esRestringido() {
