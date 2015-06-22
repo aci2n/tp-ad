@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import views.clientes.CobroParcialView;
+
 @Entity
 @Table(name = "CobrosParciales")
 @AttributeOverride(name = "id", column = @Column(name = "id_cobro_parcial"))
@@ -43,5 +45,10 @@ public class CobroParcial extends PersistentObject {
 
 	public void setMonto(Float monto) {
 		this.monto = monto;
+	}
+	
+	public CobroParcialView getView(){
+		
+		return new CobroParcialView(fecha, monto);
 	}
 }

@@ -2,8 +2,6 @@ package views.clientes;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-
 public class CobroParcialView {
 
 	private int id;
@@ -12,6 +10,12 @@ public class CobroParcialView {
 
 	public CobroParcialView() {
 
+	}
+	
+	public CobroParcialView(Date fecha, Float monto){
+		
+		this.fecha = fecha;
+		this.monto = monto;
 	}
 
 	public int getId() {

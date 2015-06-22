@@ -1,7 +1,5 @@
 package impl.clientes;
 
-import impl.misc.Coordenada;
-import impl.misc.Ubicacion;
 import impl.productos.Producto;
 
 import java.util.ArrayList;
@@ -9,7 +7,6 @@ import java.util.List;
 
 import persistence.ClienteDAO;
 import views.clientes.ReceptorView;
-import views.misc.UbicacionView;
 
 public class AdministradorClientes {
 	private static AdministradorClientes instance;

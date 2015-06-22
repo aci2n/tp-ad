@@ -3,7 +3,7 @@ package views.clientes;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
+import views.cargas.CargaView;
 
 public class FacturaView {
 
@@ -12,9 +12,17 @@ public class FacturaView {
 	private Date fechaCreacion;
 	private Float montoTotal;
 	private List<CobroParcialView> cobrosParciales;
+	private CargaView carga;
 
 	public FacturaView() {
 
+	}
+
+	public FacturaView(String tipoFactura, Date fechaCreacion, Float montoTotal) {
+
+		this.tipoFactura = tipoFactura;
+		this.fechaCreacion = fechaCreacion;
+		this.montoTotal = montoTotal;
 	}
 
 	public int getId() {
@@ -55,6 +63,14 @@ public class FacturaView {
 
 	public void setCobrosParciales(List<CobroParcialView> cobrosParciales) {
 		this.cobrosParciales = cobrosParciales;
+	}
+
+	public CargaView getCarga() {
+		return carga;
+	}
+
+	public void setCarga(CargaView carga) {
+		this.carga = carga;
 	}
 
 }

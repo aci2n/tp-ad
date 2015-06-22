@@ -1,5 +1,6 @@
 package views.clientes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ParticularView {
@@ -8,10 +9,18 @@ public class ParticularView {
 	private String dni;
 	private String nombre;
 	private String apellido;
-	private List<ReceptorView> receptores;
+	private List<ReceptorView> receptores = new ArrayList<ReceptorView>();
 
 	public ParticularView() {
-
+		
+	}
+	
+	public ParticularView(int id, String dni, String nombre, String apellido) {
+		
+		this.id = id;
+		this.dni = dni;
+		this.nombre = nombre;
+		this.apellido = apellido;
 	}
 
 	public int getId() {

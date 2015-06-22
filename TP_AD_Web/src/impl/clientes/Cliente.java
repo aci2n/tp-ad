@@ -9,8 +9,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
-import persistence.ClienteDAO;
-
 @Entity
 @Table(name = "Clientes")
 @AttributeOverride(name = "id", column = @Column(name = "id_cliente"))

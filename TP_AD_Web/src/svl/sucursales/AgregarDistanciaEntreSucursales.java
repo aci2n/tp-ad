@@ -7,12 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controllers.ControladorPrincipal;
 import svl.GenericHttpServlet;
-import views.misc.CoordenadaView;
-import views.misc.UbicacionView;
 import views.sucursales.DistanciaEntreSucursalesView;
-import views.sucursales.SucursalView;
+import controllers.ControladorPrincipal;
 
 @WebServlet("/jsp/Sucursales/AgregarDistanciaEntreSucursales")
 public class AgregarDistanciaEntreSucursales extends GenericHttpServlet {

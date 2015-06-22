@@ -4,6 +4,7 @@ import impl.productos.Producto;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -14,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import persistence.ClienteDAO;
+import views.clientes.EmpresaView;
+import views.productos.ProductoView;
 
 @Entity
 @Table(name = "Clientes_Empresas")
@@ -74,5 +77,23 @@ public class Empresa extends Cliente {
 		if (productos == null)
 			productos = new ArrayList<Producto>();
 		productos.add(producto);
+	}
+
+	public EmpresaView getView() {
+
+		EmpresaView view = new EmpresaView(nombre, Boolean.toString(regular));
+		List<ProductoView> productos = null;
+
+		try {
+			productos = new ArrayList<ProductoView>();
+			for (Producto p : getProductos())
+				productos.add(p.getView());
+
+			view.setCuentaCorriente(cuentaCorriente.getView());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return view;
 	}
 }

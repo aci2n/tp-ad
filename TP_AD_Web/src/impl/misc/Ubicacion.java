@@ -37,14 +37,13 @@ public class Ubicacion extends PersistentObject {
 	private Coordenada coordenadaDestino;
 
 	public Ubicacion(UbicacionView u) {
-		this.pais = u.getPais();
-		this.provincia = u.getProvincia();
-		this.ciudad = u.getCiudad();
-		this.calle = u.getCalle();
-		this.altura = u.getAltura();
-		this.piso = u.getPiso();
-		this.departamento = u.getDepartamento();
-		this.coordenadaDestino = new Coordenada(u.getCoordenadaDestino());
+		pais = u.getPais();
+		ciudad = u.getCiudad();
+		provincia = u.getProvincia();
+		calle = u.getCalle();
+		altura = u.getAltura();
+		piso = u.getPiso();
+		departamento = u.getDepartamento();
 		this.id = UbicacionDAO.getInstance().insert(this);
 	}
 
@@ -116,6 +115,13 @@ public class Ubicacion extends PersistentObject {
 	}
 
 	public float calcularDistanciaEnKilometros(Ubicacion ubicacion) {
-		return this.coordenadaDestino.calcularDistanciaEnKilometros(ubicacion.getCoordenadaDestino());
+		return this.coordenadaDestino.calcularDistanciaEnKilometros(ubicacion
+				.getCoordenadaDestino());
+	}
+
+	public UbicacionView getView() {
+
+		return new UbicacionView(pais, provincia, ciudad, calle, altura, piso,
+				departamento, getCoordenadaDestino().getView());
 	}
 }

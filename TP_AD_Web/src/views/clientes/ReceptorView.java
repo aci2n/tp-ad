@@ -11,7 +11,8 @@ public class ReceptorView {
 	public ReceptorView() {
 	}
 
-	public ReceptorView(String dni, String nombre, String apellido, UbicacionView ubicacion) {
+	public ReceptorView(String dni, String nombre, String apellido,
+			UbicacionView ubicacion) {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -49,4 +50,5 @@ public class ReceptorView {
 	public void setUbicacion(UbicacionView ubicacion) {
 		this.ubicacion = ubicacion;
 	}
+
 }

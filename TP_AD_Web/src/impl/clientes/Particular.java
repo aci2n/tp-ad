@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import persistence.ClienteDAO;
+import views.clientes.ParticularView;
 import views.clientes.ReceptorView;
 
 @Entity
@@ -80,6 +81,24 @@ public class Particular extends Cliente {
 		Receptor receptor = new Receptor(r.getDni(), r.getNombre(), r.getApellido(), r.getUbicacion());
 		receptores.add(receptor);
 		ClienteDAO.getInstance().update(this);
+	}
+	
+	public ParticularView getView(){
+		
+		ParticularView view = new ParticularView(this.id, this.dni, this.nombre, this.apellido);
+		List<ReceptorView> receptores = null;
+		try{
+			receptores = new ArrayList<ReceptorView>();
+			for(Receptor r : getReceptores())
+				receptores.add(r.getView());
+			
+			view.setReceptores(receptores);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return view;
 	}
 
 }

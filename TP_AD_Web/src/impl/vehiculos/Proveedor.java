@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import persistence.ProveedorDAO;
+import views.vehiculos.ProveedorView;
 
 @Entity
 @Table(name = "Proveedores")
@@ -68,4 +69,8 @@ public class Proveedor extends PersistentObject{
 //		vehiculos.add(vehiculo);		
 //	}
 	
+	public ProveedorView getView(){
+		
+		return new ProveedorView(cuit, nombre);
+	}
 }

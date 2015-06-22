@@ -223,4 +223,10 @@ public class Producto extends PersistentObject {
 		}
 		return false;
 	}
+
+	public ProductoView getView() {
+		return new ProductoView(nombre, fragilidad.toString(), tratamiento.toString(), tamano.getView(), peso, apilable, manipulacion, material,
+				consideraciones, refrigerada);
+
+	}
 }

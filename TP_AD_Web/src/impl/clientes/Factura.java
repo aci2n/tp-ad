@@ -16,6 +16,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import views.clientes.CobroParcialView;
+import views.clientes.FacturaView;
+
 @Entity
 @Table(name = "Facturas")
 @AttributeOverride(name = "id", column = @Column(name = "id_factura"))
@@ -86,5 +89,26 @@ public class Factura extends PersistentObject {
 		if (cobrosParciales == null)
 			cobrosParciales = new ArrayList<CobroParcial>();
 		cobrosParciales.add(new CobroParcial(fecha, monto));
+	}
+
+	public FacturaView getView() {
+
+		FacturaView view = new FacturaView(tipoFactura, fechaCreacion,
+				montoTotal);
+		List<CobroParcialView> cobros = null;
+
+		try {
+			cobros = new ArrayList<CobroParcialView>();
+			for(CobroParcial c : cobrosParciales)
+				cobros.add(c.getView());
+			
+			view.setCobrosParciales(cobros);	
+			view.setCarga(carga.getView());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return view;
 	}
 }
