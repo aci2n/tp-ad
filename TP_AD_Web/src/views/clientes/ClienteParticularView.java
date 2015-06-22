@@ -1,4 +1,4 @@
-package impl.productos;
+package views.clientes;
 
 public class ClienteParticularView {
 
