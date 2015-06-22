@@ -29,7 +29,6 @@ public class AltaVehiculoLocal extends GenericHttpServlet {
 		String peso = request.getParameter("peso");
 		String vencimientoGarantia = request.getParameter("vencimientoGarantia");
 		String tipoPlan = request.getParameter("tipoPlan");
-
 		try {
 			PlanMantenimientoView p = procesarPlanMantenimientoView(tipoPlan, request);
 			TamanoView t = new TamanoView(Float.parseFloat(profundidad), Float.parseFloat(alto), Float.parseFloat(ancho));
@@ -42,7 +41,7 @@ public class AltaVehiculoLocal extends GenericHttpServlet {
 			forwardGenerico(request, response, e.getMessage());
 		}
 	}
-	
+
 	private PlanMantenimientoView procesarPlanMantenimientoView(String tipoPlan, HttpServletRequest request) {
 		PlanMantenimientoView plan = new PlanMantenimientoView(tipoPlan);
 		switch (tipoPlan) {

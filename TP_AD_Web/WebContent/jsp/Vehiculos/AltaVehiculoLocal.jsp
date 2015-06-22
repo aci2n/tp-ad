@@ -26,10 +26,7 @@
 </script>
 <title>Alta Vehiculo Local</title>
 </head>
-<body>
-	<!-- HAY Q PONER Q EL PLAN TENGA IDVEHICULO NO AL REVESSSSSS -->
-	<!-- TAMBIEN HAY Q HACER Q SIEMPRE APAREZCA EL CAMPO AL FINAL -->
-	<!-- IF YOU'RE TIRED OF STARTING OVER STOP GIVING UP -->
+<body onload="setFormPlan();">
 	<form action="AltaVehiculoLocal">
 		<table style="table-layout: fixed; width: 400px">
 			<tr>
@@ -88,7 +85,6 @@
 				<td>Plan Mantenimiento:</td>
 				<td><select id="selectPlan" name="tipoPlan"
 					onchange="setFormPlan();">
-						<option disabled selected></option>
 						<option value="kilometraje">Kilometraje</option>
 						<option value="kilometrajeRelativo">Kilometraje Relativo</option>
 						<option value="temporal">Temporal</option>
