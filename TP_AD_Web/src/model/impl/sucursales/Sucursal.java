@@ -1,6 +1,8 @@
 package model.impl.sucursales;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
@@ -15,9 +17,12 @@ import model.impl.PersistentObject;
 import model.impl.cargas.Carga;
 import model.impl.misc.Ubicacion;
 import model.impl.personal.Empleado;
+import model.impl.vehiculos.TipoVehiculo;
 import model.impl.vehiculos.VehiculoLocal;
 import model.impl.viajes.Seguro;
 import model.impl.viajes.Viaje;
+import model.persistence.SucursalDAO;
+import model.views.VehiculoLocalView;
 
 @Entity
 @Table(name = "Sucursales")
@@ -27,30 +32,24 @@ public class Sucursal extends PersistentObject {
 	 * 
 	 */
 	private static final long serialVersionUID = -2534989790774285551L;
-	
 	@Column(name = "nombre")
 	private String nombre;
-	
 	@ManyToOne
 	@JoinColumn(name = "id_ubicacion")
 	private Ubicacion ubicacion;
-	
 	@OneToMany
-	@JoinColumn (name = "id_sucursal")
+	@JoinColumn(name = "id_sucursal")
 	private List<Carga> cargas;
-
 	@OneToMany
 	@JoinColumn(name = "id_sucursal")
 	private List<Empleado> empleados;
-	
 	@OneToMany
 	@JoinColumn(name = "id_sucursal")
 	private List<VehiculoLocal> vehiculos;
 
-	public Sucursal () {
-		
+	public Sucursal() {
 	}
-	
+
 	public Sucursal(String nombre, Ubicacion ubicacion) {
 		this.nombre = nombre;
 		this.ubicacion = ubicacion;
@@ -92,13 +91,11 @@ public class Sucursal extends PersistentObject {
 	}
 
 	public Carga retirarCarga(Integer codigoCarga) {
-
 		for (Carga carga : this.cargas) {
 			if (carga.getId().equals(codigoCarga)) {
 				return carga;
 			}
 		}
-
 		return null;
 	}
 
@@ -121,11 +118,9 @@ public class Sucursal extends PersistentObject {
 	}
 
 	public void crearViaje() {
-
 	}
 
 	public void asignarSeguroAViaje(Seguro seguro, Viaje viaje) {
-
 	}
 
 	public void agregarEmpleado(Empleado e) {
@@ -134,15 +129,30 @@ public class Sucursal extends PersistentObject {
 		this.empleados.add(e);
 	}
 
-	public void agregarVehiculo(VehiculoLocal vehiculo) {
+	public Integer agregarVehiculo(VehiculoLocalView v) {
 		if (vehiculos == null)
 			vehiculos = new ArrayList<VehiculoLocal>();
-		vehiculos.add(vehiculo);		
+		VehiculoLocal vehiculo = new VehiculoLocal(v.getPatente(), v.getTamano(), v.getPeso(), v.getTara(), v.getTarifa(), TipoVehiculo.valueOf(v
+				.getTipo()), parseDate(v.getVencimientoGarantia()));
+		vehiculos.add(vehiculo);
+		SucursalDAO.getInstance().update(this);
+		return vehiculo.getId();
+	}
+
+	private Date parseDate(String fecha) {
+		Date d = new Date();
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			d = formatter.parse(fecha);
+		} catch (Exception e) {
+			// mandar saludos
+		}
+		return d;
 	}
 
 	public boolean existeVehiculo(String patente) {
-		for (VehiculoLocal v : vehiculos){
-			if (v.getPatente().equals(patente)){
+		for (VehiculoLocal v : vehiculos) {
+			if (v.getPatente().equals(patente)) {
 				return true;
 			}
 		}
@@ -155,14 +165,14 @@ public class Sucursal extends PersistentObject {
 				return c;
 		return null;
 	}
-	
-	public boolean existeCarga(int codigoCarga){
+
+	public boolean existeCarga(int codigoCarga) {
 		for (Carga c : cargas)
 			if (c.getId() == codigoCarga)
 				return true;
 		return false;
 	}
-	
+
 	public List<Carga> getCargas() {
 		return cargas;
 	}
@@ -174,6 +184,6 @@ public class Sucursal extends PersistentObject {
 	public void agregarCarga(Carga carga) {
 		if (cargas == null)
 			cargas = new ArrayList<Carga>();
-		cargas.add(carga);		
+		cargas.add(carga);
 	}
 }

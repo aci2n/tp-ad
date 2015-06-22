@@ -2,15 +2,9 @@ package model.view.clientes;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import model.impl.vehiculos.Proveedor;
-
 public class PagoView {
 
-	private ProveedorView proveedor;
+	private String proveedor;
 	private int id;
 	private Float monto;
 	private Date fecha;
@@ -52,11 +46,11 @@ public class PagoView {
 		this.pagado = pagado;
 	}
 
-	public ProveedorView getProveedor() {
+	public String getProveedor() {
 		return proveedor;
 	}
 
-	public void setProveedor(ProveedorView proveedor) {
+	public void setProveedor(String proveedor) {
 		this.proveedor = proveedor;
 	}
 	
