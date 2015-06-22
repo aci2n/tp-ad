@@ -1,5 +1,6 @@
-body{
-	//background-color: green;
+.body{
+	background-image: url("http://i.huffpost.com/gen/3028486/images/o-SHIA-LABEOUF-JUST-DO-IT-PARODIES-facebook.jpg");
+	background-size: cover;
 }
 
 .no-display{

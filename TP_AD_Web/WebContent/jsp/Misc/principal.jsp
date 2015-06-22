@@ -28,13 +28,14 @@
 			data-toggle="dropdown"> Clientes <b class="caret"></b>
 		</a>
 			<ul class="dropdown-menu">
-				<li id="alta-cliente"><a href="#">Alta</a></li>
+				<li id="alta-cliente-par"><a href="#">Alta Particular</a></li>
+				<li id="alta-cliente-emp"><a href="#">Alta Empresa</a></li>
 				<li><a href="#">Baja</a></li>
 				<li><a href="#">Modificación</a></li>
 				<li class="divider"></li>
 				<li><a href="#">Listar</a></li>
 				<li class="divider"></li>
-				<li><a href="#">Cuentas clientes</a></li>
+				<li><a href="#"></a></li>
 			</ul></li>
 
 		<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -66,13 +67,43 @@
 				<li><a href="#">JUST DO IT</a></li>
 				<li class="divider"></li>
 			</ul></li>
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+			data-toggle="dropdown"> Proveedores <b class="caret"></b>
+		</a>
+			<ul class="dropdown-menu">
+				<li><a href="#">Alta</a></li>
+				<li><a href="#">Baja</a></li>
+				<li class="divider"></li>
+				<li><a href="#">Listar</a></li>
+				<li class="divider"></li>
+			</ul></li>
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+			data-toggle="dropdown"> Vehiculos <b class="caret"></b>
+		</a>
+			<ul class="dropdown-menu">
+				<li><a href="#">Alta</a></li>
+				<li><a href="#">Baja</a></li>
+				<li class="divider"></li>
+				<li><a href="#">Listar</a></li>
+				<li class="divider"></li>
+			</ul></li>
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+			data-toggle="dropdown"> Viajes <b class="caret"></b>
+		</a>
+			<ul class="dropdown-menu">
+				<li id="alta-proveedor"><a href="#">Alta</a></li>
+				<li><a href="#">Baja</a></li>
+				<li class="divider"></li>
+				<li><a href="#">Listar</a></li>
+				<li class="divider"></li>
+			</ul></li>
 	</ul>
 </div>
 </nav>
 
 
 </head>
-<body>
+<body class="body">
 
 <div id="content">
 
@@ -92,12 +123,20 @@
 		
 	<script>
 	
-	$( "#alta-cliente" ).click(function() {
-		  $("#content").load('../Cliente/AltaClienteParticular.jsp');
+	$( "#alta-cliente-par" ).click(function() {
+		  $("#content").load('../Clientes/AltaClienteParticular.jsp');
 	});
 
+	$( "#alta-cliente-emp" ).click(function() {
+		  $("#content").load('../Clientes/AltaClienteEmpresa.jsp');
+	});
+	
 	$('#inicio').click(function(){
 		  $("#content").load('inicio.jsp');
+	});
+	
+	$( "#alta-proveedor" ).click(function() {
+		  $("#content").load('../Vehiculos/AltaVehiculoLocal.jsp');
 	});
 	
 	</script>	
