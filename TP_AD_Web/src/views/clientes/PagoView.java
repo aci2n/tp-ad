@@ -2,16 +2,26 @@ package views.clientes;
 
 import java.util.Date;
 
+import views.vehiculos.ProveedorView;
+
 public class PagoView {
 
-	private String proveedor;
 	private int id;
+	private ProveedorView proveedor;
 	private Float monto;
 	private Date fecha;
 	private boolean pagado;
 	
 	public PagoView(){
 		
+	}
+	
+	public PagoView(ProveedorView proveedor, Float monto, Date fecha, boolean pagado){
+		
+		this.proveedor = proveedor;
+		this.monto = monto;
+		this.fecha = fecha;
+		this.pagado = pagado;
 	}
 
 	public int getId() {
@@ -46,11 +56,11 @@ public class PagoView {
 		this.pagado = pagado;
 	}
 
-	public String getProveedor() {
+	public ProveedorView getProveedor() {
 		return proveedor;
 	}
 
-	public void setProveedor(String proveedor) {
+	public void setProveedor(ProveedorView proveedor) {
 		this.proveedor = proveedor;
 	}
 	

@@ -10,7 +10,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import views.cargas.CargaView;
 
 @Entity
 @Table(name = "Cargas")
@@ -187,6 +198,16 @@ public class Carga extends PersistentObject {
 		if (productos == null)
 			productos = new ArrayList<ItemProducto>();
 		productos.add(new ItemProducto(producto, cantidad));
+	}
+
+	public CargaView getView() {
+
+		CargaView view = new CargaView(tipo, fechaMaximaEntrega,
+				fechaProbableEntrega, manifiesto, origen.getView(),
+				destino.getView(), estadoCarga);
+		
+		return view;
+
 	}
 
 }

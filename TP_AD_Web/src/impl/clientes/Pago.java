@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import views.clientes.PagoView;
+
 @Entity
 @Table(name = "Pagos")
 @AttributeOverride (name = "id", column = @Column(name ="id_pago"))
@@ -67,4 +69,8 @@ public class Pago extends PersistentObject {
 		this.pagado = estado;
 	}
 	
+	public PagoView getView(){
+	
+		return new PagoView(proveedor.getView(), monto, fecha, pagado);		
+	}
 }

@@ -1,6 +1,5 @@
 package views.productos;
 
-
 public class ItemProductoView {
 	private ProductoView producto;
 	private float cantidad;

@@ -21,6 +21,23 @@ public class ProductoView {
 	private List<CondicionEspecial> condicionesEspeciales;
 	private boolean refrigerada;
 	
+	public ProductoView(String nombre, Float peso,
+			TipoFragilidad fragilidad, Integer apilable, String manipulacion,
+			String material, TipoTratamiento tratamiento,
+			String consideraciones,
+			List<CondicionEspecial> condicionesEspeciales) {
+
+		this.nombre = nombre;
+		this.peso = peso;
+		this.fragilidad = fragilidad;
+		this.apilable = apilable;
+		this.manipulacion = manipulacion;
+		this.material = material;
+		this.tratamiento = tratamiento;
+		this.consideraciones = consideraciones;
+		this.condicionesEspeciales = condicionesEspeciales;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}

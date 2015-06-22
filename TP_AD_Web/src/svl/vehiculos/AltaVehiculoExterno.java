@@ -7,10 +7,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controllers.ControladorPrincipal;
 import svl.GenericHttpServlet;
 import views.misc.TamanoView;
 import views.vehiculos.VehiculoExternoView;
+import controllers.ControladorPrincipal;
 
 @WebServlet("/jsp/Vehiculos/AltaVehiculoExterno")
 public class AltaVehiculoExterno extends GenericHttpServlet {

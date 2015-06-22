@@ -7,9 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controllers.ControladorPrincipal;
 import svl.GenericHttpServlet;
 import views.personal.EmpleadoView;
+import controllers.ControladorPrincipal;
 
 @WebServlet("/jsp/Personal/AgregarEmpleado")
 public class AgregarEmpleado extends GenericHttpServlet {

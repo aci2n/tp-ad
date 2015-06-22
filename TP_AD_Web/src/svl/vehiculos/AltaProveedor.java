@@ -7,8 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controllers.ControladorPrincipal;
 import svl.GenericHttpServlet;
+import controllers.ControladorPrincipal;
 
 @WebServlet("/jsp/Vehiculos/AltaProveedor")
 public class AltaProveedor extends GenericHttpServlet {

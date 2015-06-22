@@ -17,11 +17,11 @@ public class Tamano {
 	public Tamano() {
 		
 	}
-
-	public Tamano(TamanoView tamano) {
-		profundidad = tamano.getProfundidad();
-		alto = tamano.getAlto();
-		ancho = tamano.getAncho();
+	
+	public Tamano(Float i, Float j, Float k) {
+		profundidad = i;
+		alto = j;
+		ancho = k;
 	}
 
 	public Float getProfundidad() {
@@ -50,5 +50,10 @@ public class Tamano {
 
 	public Float calcularVolumen() {
 		return profundidad * alto * ancho;
+	}
+	
+	public TamanoView getView(){
+		
+		return new TamanoView(profundidad, ancho, alto);	
 	}
 }

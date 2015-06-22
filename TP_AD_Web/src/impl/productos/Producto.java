@@ -17,6 +17,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import views.productos.ProductoView;
+
 @Entity
 @Table(name = "Productos")
 @AttributeOverride(name = "id", column = @Column(name = "id_producto"))
@@ -213,5 +215,16 @@ public class Producto extends PersistentObject {
 			}
 		}
 		return false;
+	}
+
+	public ProductoView getView() {
+
+		ProductoView view = new ProductoView(nombre, peso, fragilidad,
+				apilable, manipulacion, material, tratamiento, consideraciones,
+				condicionesEspeciales);
+		view.setTamano(tamano.getView());
+
+		return view;
+
 	}
 }

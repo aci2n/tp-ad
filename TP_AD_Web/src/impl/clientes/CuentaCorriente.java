@@ -3,6 +3,8 @@ package impl.clientes;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import views.clientes.CuentaCorrienteView;
+
 @Embeddable
 public class CuentaCorriente {
 
@@ -56,5 +58,10 @@ public class CuentaCorriente {
 		} else {
 			throw new Exception("Monto no autorizado");
 		}
+	}
+	
+	public CuentaCorrienteView getView(){
+		
+		return new CuentaCorrienteView(Boolean.toString(depositoPrevio), montoAutorizado, montoActual);
 	}
 }

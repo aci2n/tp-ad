@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import persistence.ReceptorDAO;
+import views.clientes.ReceptorView;
 import views.misc.UbicacionView;
 
 @Entity
@@ -35,7 +36,8 @@ public class Receptor extends PersistentObject {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.ubicacion = new Ubicacion(u);
+		this.ubicacion = new Ubicacion(u.getPais(), u.getProvincia(), u.getCiudad(), u.getCalle(), u.getAltura(), u.getPiso(), u.getDepartamento(),
+				u.getCoordenadaDestino());
 		this.id = ReceptorDAO.getInstance().insert(this);
 	}
 
@@ -72,5 +74,10 @@ public class Receptor extends PersistentObject {
 
 	public void setUbicacion(Ubicacion ubicacion) {
 		this.ubicacion = ubicacion;
+	}
+	
+	public ReceptorView getView(){
+		
+		return new ReceptorView(dni, nombre, apellido, getUbicacion().getView());
 	}
 }

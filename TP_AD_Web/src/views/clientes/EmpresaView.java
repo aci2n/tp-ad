@@ -8,12 +8,17 @@ public class EmpresaView {
 
 	private int id;
 	private String nombre;
-	private boolean esRegular;
+	private String esRegular;
 	private List<ProductoView> productos;
 	private CuentaCorrienteView cuentaCorriente;
 
 	public EmpresaView() {
 
+	}
+
+	public EmpresaView(String nombre, String esRegular) {
+		this.nombre = nombre;
+		this.esRegular = esRegular;
 	}
 
 	public int getId() {
@@ -32,11 +37,11 @@ public class EmpresaView {
 		this.nombre = nombre;
 	}
 
-	public boolean isEsRegular() {
+	public String isEsRegular() {
 		return esRegular;
 	}
 
-	public void setEsRegular(boolean esRegular) {
+	public void setEsRegular(String esRegular) {
 		this.esRegular = esRegular;
 	}
 
@@ -56,5 +61,4 @@ public class EmpresaView {
 		this.cuentaCorriente = cuentaCorriente;
 	}
 
-	
 }

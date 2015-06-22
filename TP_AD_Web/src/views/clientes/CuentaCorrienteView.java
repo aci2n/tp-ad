@@ -1,16 +1,22 @@
 package views.clientes;
 
-import javax.persistence.Column;
-
 public class CuentaCorrienteView {
-	
+
 	private int id;
-	private boolean depositoPrevio;
+	private String depositoPrevio;
 	private Float montoAutorizado;
 	private Float montoActual;
-	
-	public CuentaCorrienteView(){
-		
+
+	public CuentaCorrienteView() {
+
+	}
+
+	public CuentaCorrienteView(String depositoPrevio, Float montoAutorizado,
+			Float montoActual) {
+
+		this.depositoPrevio = depositoPrevio;
+		this.montoAutorizado = montoAutorizado;
+		this.montoActual = montoActual;
 	}
 
 	public int getId() {
@@ -21,11 +27,11 @@ public class CuentaCorrienteView {
 		this.id = id;
 	}
 
-	public boolean isDepositoPrevio() {
+	public String isDepositoPrevio() {
 		return depositoPrevio;
 	}
 
-	public void setDepositoPrevio(boolean depositoPrevio) {
+	public void setDepositoPrevio(String depositoPrevio) {
 		this.depositoPrevio = depositoPrevio;
 	}
 
