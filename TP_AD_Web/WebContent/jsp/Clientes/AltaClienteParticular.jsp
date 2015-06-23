@@ -7,8 +7,12 @@
 <title>Alta Cliente Particular</title>
 </head>
 <body>
-	<div class="row">
-		<form action="AltaClienteParticular">
+
+	<div class="row container z-depth-3 ">
+	<div class="header-box z-depth-1">
+	<h3 style="color:white;">Alta cliente particular</h3>
+	</div>
+		<form action="AltaClienteParticular" class="box-padding">
 			<!-- <div class="form-group">
 				<label for="dni">DNI</label> <input type="text" class="form-control"
 					placeholder="DNI" name="dni">
@@ -35,5 +39,6 @@
 			</div>
 			<input class="btn btn-primary" type="submit" value="Alta">
 		</form>
+	</div>
 	</div>
 </body>
