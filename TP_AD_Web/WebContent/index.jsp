@@ -8,7 +8,8 @@
 <link rel="stylesheet" href="css/materialize.min.css">
 
 <link type="text/css" rel="stylesheet" href="css/styles.css">
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 
 <title>Insert title here</title>
 

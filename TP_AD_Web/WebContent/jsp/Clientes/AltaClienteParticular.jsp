@@ -8,10 +8,16 @@
 </head>
 <body>
 
-	<div class="row container z-depth-3 ">
-	<div class="header-box z-depth-1">
-	<h3 style="color:white;">Alta cliente particular</h3>
+	<div class="row">
+		<div class="container">
+			<div class="card blue-grey darken-1">
+				<div class="card-content white-text">
+					<span class="card-title">Alta Cliente Particular</span>
+				</div>
+			</div>
+		</div>
 	</div>
+	<div class="row container z-depth-1">
 		<form action="AltaClienteParticular" class="box-padding">
 			<!-- <div class="form-group">
 				<label for="dni">DNI</label> <input type="text" class="form-control"
