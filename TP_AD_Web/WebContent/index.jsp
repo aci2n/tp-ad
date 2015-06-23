@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="css/materialize.min.css">
 
-<link type="text/css" rel="stylesheet" href="css/styles.css">
+<!-- <link type="text/css" rel="stylesheet" href="css/styles.css"> -->
 
 
 <title>Insert title here</title>
@@ -26,10 +26,14 @@
 							class="mdi-navigation-arrow-drop-down"></i></a>
 						<div class="collapsible-body">
 							<ul>
-								<li><a href="#!">Alta</a></li>
-								<li><a href="#!">Baja</a></li>
-								<li><a href="#!">Modificacion</a></li>
-								<li><a href="#!">Listar</a></li>
+								<li><a class="menu-anchor"
+									id="jsp/Clientes/AltaClienteParticular" href="#!">Alta
+										Particular</a></li>
+								<li><a class="menu-anchor"
+									id="jsp/Clientes/AltaClienteEmpresa" href="#!">Alta Empresa</a></li>
+								<li><a class="menu-anchor" href="#!">Baja</a></li>
+								<li><a class="menu-anchor" href="#!">Modificacion</a></li>
+								<li><a class="menu-anchor" href="#!">Listar</a></li>
 							</ul>
 						</div></li>
 				</ul>
@@ -128,26 +132,26 @@
 			style="display: inline;"><i class="mdi-navigation-menu"></i></a>
 	</nav>
 
+	<div id="content" class="row container"></div>
 
-	<div id="content"></div>
 
-
-	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<!-- SCRIPTS -->
+	
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
 
 	<script type="text/javascript">
 		$(".button-collapse").sideNav();
 
-		$('.menu-anchor').click(
-				function(event) {
-					event.preventDefault();
-					$('#content').load(
-							'jsp/Clientes/' + $(this).attr('href') + '.jsp');
-					$('.button-collapse').sideNav('hide');
+		$('.menu-anchor').click(function(event) {
+			event.preventDefault();
+			$('#content').load($(this).attr('id') + '.jsp');
+			$('.button-collapse').sideNav('hide');
 		});
-		
-		$(document).ready(function(){
+
+		$(document).ready(function() {
 			$('a').addClass('waves-effect waves-teal');
 		});
 	</script>

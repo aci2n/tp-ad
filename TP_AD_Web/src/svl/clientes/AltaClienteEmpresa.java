@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import svl.GenericHttpServlet;
 import controllers.ControladorPrincipal;
 
-@WebServlet("/jsp/Clientes/AltaClienteEmpresa")
+@WebServlet("/AltaClienteEmpresa")
 public class AltaClienteEmpresa extends GenericHttpServlet {
 	private static final long serialVersionUID = 1L;
 
