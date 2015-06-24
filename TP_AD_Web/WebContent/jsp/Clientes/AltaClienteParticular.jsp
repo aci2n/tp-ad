@@ -32,7 +32,7 @@
 					class="form-control" placeholder="Apellido" name="apellido">
 			</div> -->
 			<div class="input-field col s12">
-				<input type="text" class="validate" name="dni"> <label
+				<input type="number" class="validate" name="dni"> <label
 					for="email">DNI</label>
 			</div>
 			<div class="input-field col s12">

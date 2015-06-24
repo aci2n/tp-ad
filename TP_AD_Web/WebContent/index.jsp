@@ -19,7 +19,8 @@
 	<div>
 		<nav style="background-color: #7374C2;">
 			<ul id="slide-out" class="side-nav">
-				<li><a class="menu-anchor" href="AltaClienteParticular">Inicio</a></li>
+				<li class="navegacion inactive">Navegación</li>
+				<li><a class="menu-anchor" href="Inicio">Inicio</a></li>
 				<li class="no-padding">
 					<ul class="collapsible collapsible-accordion">
 						<li><a class="collapsible-header">Clientes<i
@@ -27,10 +28,10 @@
 							<div class="collapsible-body">
 								<ul>
 									<li><a class="menu-anchor"
-										id="jsp/Clientes/AltaClienteParticular" href="#!">Alta
+										id="jsp/Clientes/AltaClienteParticular" href="Alta Particular">Alta
 											Particular</a></li>
 									<li><a class="menu-anchor"
-										id="jsp/Clientes/AltaClienteEmpresa" href="#!">Alta
+										id="jsp/Clientes/AltaClienteEmpresa" href="Alta Empresa">Alta
 											Empresa</a></li>
 									<li><a class="menu-anchor" href="#!">Baja</a></li>
 									<li><a class="menu-anchor" href="#!">Modificacion</a></li>
@@ -131,9 +132,11 @@
 			</ul>
 			<a href="#" data-activates="slide-out" class="button-collapse"
 				style="display: inline;"><i class="mdi-navigation-menu"></i></a>
-		<ul id="title"></ul>
-		</nav>
 		
+			<h4 class="nav-header" id="title"></h4>
+			
+		</nav>
+
 	</div>
 
 	<div id="content" class=""></div>
@@ -152,13 +155,15 @@
 		$('.menu-anchor').click(function(event) {
 			event.preventDefault();
 			$('#content').load($(this).attr('id') + '.jsp');
-			$('#title').html($(this).attr('id'));
+			$('#title').html($(this).text());
 			$('.button-collapse').sideNav('hide');
 		});
 
 		$(document).ready(function() {
 			$('a').addClass('waves-effect waves-teal');
 		});
+
+		
 	</script>
 
 </body>
