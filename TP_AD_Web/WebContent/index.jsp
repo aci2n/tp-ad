@@ -131,7 +131,9 @@
 			</ul>
 			<a href="#" data-activates="slide-out" class="button-collapse"
 				style="display: inline;"><i class="mdi-navigation-menu"></i></a>
+		<ul id="title"></ul>
 		</nav>
+		
 	</div>
 
 	<div id="content" class=""></div>
@@ -150,6 +152,7 @@
 		$('.menu-anchor').click(function(event) {
 			event.preventDefault();
 			$('#content').load($(this).attr('id') + '.jsp');
+			$('#title').html($(this).attr('id'));
 			$('.button-collapse').sideNav('hide');
 		});
 

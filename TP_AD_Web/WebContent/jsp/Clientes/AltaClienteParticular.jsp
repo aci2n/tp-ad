@@ -46,5 +46,5 @@
 			<input class="btn btn-primary" type="submit" value="Alta">
 		</form>
 	</div>
-	</div>
+	
 </body>

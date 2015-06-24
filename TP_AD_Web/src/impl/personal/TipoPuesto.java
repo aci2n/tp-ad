@@ -5,6 +5,7 @@ public enum TipoPuesto {
 	DEPOSITO("Deposito"),
 	DESPACHO("Despacho"),
 	RECEPCION("Recepcion"),
+	CHOFER("Chofer"),
 	OTRO("Otro");
 	
 	private String puesto;
