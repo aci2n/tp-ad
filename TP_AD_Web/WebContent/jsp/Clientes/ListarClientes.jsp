@@ -37,7 +37,7 @@
 				<tr>
 					<td>1</td>
 					<td>12345</td>
-					<td>Nombre 1</td>
+					<td>Pepe</td>
 					<td>Apellido 1</td>
 				</tr>
 				<tr>
