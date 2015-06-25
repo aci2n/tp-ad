@@ -64,6 +64,7 @@
 					});
 					Materialize.toast('Cliente dado de alta exitosamente', 4000);
 					$('input[type="text"]').val('');
+					$('label').removeClass('active');
 				}
 			});
 		});
