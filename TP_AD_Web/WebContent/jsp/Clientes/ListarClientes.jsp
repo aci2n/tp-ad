@@ -17,23 +17,24 @@
 </head>
 <body>
 
-	<div class="row">
-		<div class="container">
-			<div class="card blue-grey darken-1">
-				<div class="card-content white-text">
-					<span class="card-title">Listado de Clientes</span>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row container z-depth-1">
 
-		<div class="input-field col s6">
-			<input id="filtrado" type="text" class="validate"> <label
-				for="first_name">Filtrado de Tabla</label>
-		</div>
-
-		<table>
+	<div class="row z-depth-1"">
+	    <div class="col s12 m4 l2"><p></p></div>
+	
+        <div class="col s12 m4 l8 ">
+          <div class="card">
+            <div class="card-content white-text blue-grey darken-1">
+              <span class="card-title">Listado de Clientes</span>
+            </div>
+            <div class="card-action" style="border-bottom: 1px solid rgba(160,160,160,0.2);">
+		        <div class="input-field">
+		          <i class="material-icons prefix">list</i>
+		          <input id="filtrado" type="text" class="validate">
+		          <label for="icon_list">Filtrar tabla</label>
+		        </div>
+            </div>
+            <div class="card-content">
+              <table>
 			<thead>
 				<tr>
 					<th class="">ID</th>
@@ -62,7 +63,12 @@
 				%>
 			</tbody>
 		</table>
-	</div>
+              
+            </div>
+          </div>
+        </div>
+            <div class="col s12 m4 l2"><p></p></div>
+      </div>
 
 
 	<script>
