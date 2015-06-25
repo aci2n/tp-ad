@@ -27,27 +27,36 @@
 			<thead>
 				<tr>
 					<th class="">ID</th>
-					<th data-field="name">Name</th>
-					<th data-field="item-name">Item Name</th>
-					<th data-field="price">Item Price</th>
+					<th data-field="name">DNI</th>
+					<th data-field="item-name">Nombre</th>
+					<th data-field="price">Apellido</th>
 				</tr>
 			</thead>
 
 			<tbody id="tbody">
 				<tr>
-					<td>Alvin</td>
-					<td>Eclair</td>
-					<td>$0.87</td>
+					<td>1</td>
+					<td>12345</td>
+					<td>Pepe</td>
+					<td>Apellido 1</td>
 				</tr>
 				<tr>
-					<td>Alan</td>
-					<td>Jellybean</td>
-					<td>$3.76</td>
+					<td>2</td>
+					<td>12345</td>
+					<td>Nombre 2</td>
+					<td>Apellido 2</td>
 				</tr>
 				<tr>
-					<td>Jonathan</td>
-					<td>Lollipop</td>
-					<td>$7.00</td>
+					<td>3</td>
+					<td>12345</td>
+					<td>Nombre 3</td>
+					<td>Apellido 3</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>12345</td>
+					<td>Nombre 4</td>
+					<td>Apellido 4</td>
 				</tr>
 			</tbody>
 		</table>
