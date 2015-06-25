@@ -26,6 +26,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import persistence.ViajeDAO;
+import util.Utilities;
+import views.viajes.ViajeView;
+
 @Entity
 @Table(name = "Viajes")
 @AttributeOverride(name = "id", column = @Column(name = "id_viaje"))
@@ -37,57 +41,45 @@ public class Viaje extends PersistentObject {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_viaje")
 	private List<ItemCarga> cargas;
-
 	@ManyToOne
 	@JoinColumn(name = "id_seguro")
 	private Seguro seguro;
-
 	@ManyToOne
 	@JoinColumn(name = "id_vehiculo")
 	private Vehiculo vehiculo;
-
 	@ManyToOne
 	@JoinColumn(name = "id_origen")
 	private Ubicacion origen;
-
 	@ManyToOne
 	@JoinColumn(name = "id_destino")
 	private Ubicacion destino;
-
 	@Column(name = "fecha_salida")
 	private Date fechaSalida;
-
 	@Column(name = "fecha_llegada")
 	private Date fechaLlegada;
-
 	@ElementCollection(targetClass = CondicionEspecial.class)
 	@CollectionTable(name = "Viajes_CondicionesEspeciales", joinColumns = @JoinColumn(name = "id_viaje"))
 	@Column(name = "condicion_especial")
 	@Enumerated(EnumType.STRING)
 	private List<CondicionEspecial> condicionesEspeciales;
-
 	@Column(name = "esta_atrasado")
 	private boolean estaAtrasado;
-
 	@OneToMany
 	@JoinColumn(name = "id_viaje")
 	@OrderBy(value = "llegada asc")
 	private Collection<ParadaIntermedia> paradasIntermedias;
 
-	public Viaje(List<ItemCarga> cargas, Seguro seguro, Vehiculo vehiculo,
-			Date fechaSalida, List<CondicionEspecial> condicionesEspeciales,
-			Collection<ParadaIntermedia> paradasIntermedias) {
-		this.cargas = cargas;
-		this.seguro = seguro;
-		this.vehiculo = vehiculo;
-		this.fechaSalida = fechaSalida;
-		this.condicionesEspeciales = condicionesEspeciales;
-		this.paradasIntermedias = paradasIntermedias;
-		paradasIntermedias = new ArrayList<ParadaIntermedia>();
+	public Viaje() {
 	}
 
-	public Viaje() {
-
+	public Viaje(Vehiculo v, Seguro s, ViajeView vi) {
+		vehiculo = v;
+		seguro = s;
+		origen = new Ubicacion(vi.getOrigen());
+		destino = new Ubicacion(vi.getDestino());
+		fechaLlegada = Utilities.parseDate(vi.getFechaLlegada());
+		fechaSalida = Utilities.parseDate(vi.getFechaSalida());
+		id = ViajeDAO.getInstance().insert(this);
 	}
 
 	public void agregarCarga(Carga carga) {
@@ -119,7 +111,6 @@ public class Viaje extends PersistentObject {
 	}
 
 	public float calcularVolumenDisponible() {
-
 		float volumen = 0;
 		for (ItemCarga c : cargas)
 			volumen += c.getCarga().calcularVolumenTotal();
@@ -127,12 +118,10 @@ public class Viaje extends PersistentObject {
 	}
 
 	public int cantidadParadasIntemedias() {
-
 		return paradasIntermedias.size();
 	}
 
 	public void generarRemito() {
-
 	}
 
 	public List<CondicionEspecial> getCondicionesEspeciales() {
@@ -163,8 +152,7 @@ public class Viaje extends PersistentObject {
 		return estaAtrasado;
 	}
 
-	public void setCondicionesEspeciales(
-			List<CondicionEspecial> condicionesEspeciales) {
+	public void setCondicionesEspeciales(List<CondicionEspecial> condicionesEspeciales) {
 		this.condicionesEspeciales = condicionesEspeciales;
 	}
 
@@ -180,8 +168,7 @@ public class Viaje extends PersistentObject {
 		this.fechaSalida = fechaSalida;
 	}
 
-	public void setParadasIntermedias(
-			Collection<ParadaIntermedia> paradasIntermedias) {
+	public void setParadasIntermedias(Collection<ParadaIntermedia> paradasIntermedias) {
 		this.paradasIntermedias = paradasIntermedias;
 	}
 
@@ -218,7 +205,6 @@ public class Viaje extends PersistentObject {
 	}
 
 	public Date existeLLegadaUbicacion(Ubicacion ubicacion) {
-
 		for (ParadaIntermedia p : paradasIntermedias)
 			if (p.getUbicacion().equals(ubicacion))
 				return p.getLlegada();
@@ -226,20 +212,17 @@ public class Viaje extends PersistentObject {
 	}
 
 	public boolean pasaPorSucursal(Sucursal sucursal) {
-		if (origen.equals(sucursal.getUbicacion())
-				|| destino.equals(sucursal.getUbicacion()))
+		if (origen.equals(sucursal.getUbicacion()) || destino.equals(sucursal.getUbicacion()))
 			return true;
 		for (ParadaIntermedia parada : paradasIntermedias) {
-			if (!parada.isChecked()
-					&& parada.getUbicacion().equals(sucursal.getUbicacion()))
+			if (!parada.isChecked() && parada.getUbicacion().equals(sucursal.getUbicacion()))
 				return true;
 		}
 		return false;
 	}
 
 	public boolean puedeTransportar(Carga carga) {
-		return carga.calcularPesoTotal() <= calcularPesoDisponible()
-				&& carga.calcularVolumenTotal() <= calcularVolumenDisponible();
+		return carga.calcularPesoTotal() <= calcularPesoDisponible() && carga.calcularVolumenTotal() <= calcularVolumenDisponible();
 	}
 
 	public Date obtenerLlegadaAParada(Sucursal sucursal) {
@@ -255,5 +238,4 @@ public class Viaje extends PersistentObject {
 		}
 		return null;
 	}
-
 }

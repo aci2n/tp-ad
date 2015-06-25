@@ -1,7 +1,6 @@
 package impl.viajes;
 
 import impl.cargas.Carga;
-import impl.productos.CondicionEspecial;
 import impl.sucursales.AdministradorSucursales;
 import impl.sucursales.Sucursal;
 import impl.vehiculos.EstrategiaMantenimiento;
@@ -9,12 +8,14 @@ import impl.vehiculos.Vehiculo;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import persistence.CompaniaSeguroDAO;
+import persistence.SeguroDAO;
+import persistence.VehiculoDAO;
 import views.viajes.CompaniaSeguroView;
 import views.viajes.SeguroView;
+import views.viajes.ViajeView;
 
 public class AdministradorViajes {
 	private static AdministradorViajes instance;
@@ -45,18 +46,28 @@ public class AdministradorViajes {
 		return null;
 	}
 
+	public Integer altaViaje(int idVehiculo, int idSeguro, ViajeView viaje) throws Exception {
+		Vehiculo v = VehiculoDAO.getInstance().get(idVehiculo);
+		Seguro s = SeguroDAO.getInstance().get(idSeguro);
+		if (v != null) {
+			// el seguro puede ser null
+			Viaje vi = new Viaje(v, s, viaje);
+			return vi.getId();
+		} else {
+			throw new Exception("No existe vehiculo con el ID ingresado.");
+		}
+	}
+
 	// REVISAR ESTE METODO QUE NO SE PUEDEN USAR VECTORES EN HIBERNATE
 	public void determinarCostoViaje(Viaje v, List<Sucursal> sucursales) {
 		if (v == null)
 			return;
-
 		AdministradorSucursales admSuc = AdministradorSucursales.getInstance();
 		Calendar cal;
 		ArrayList<ParadaIntermedia> paradasIntermedias = (ArrayList<ParadaIntermedia>) v.getParadasIntermedias();
 		if (v.getParadasIntermedias().size() == 0) {
 			cal = Calendar.getInstance();
 			Sucursal sucursalA = null, sucursalB = null;
-
 			for (Sucursal s : sucursales) {
 				if (v.getOrigen().equals(s.getUbicacion()))
 					sucursalA = s;
@@ -68,7 +79,6 @@ public class AdministradorViajes {
 			float costo = admSuc.calcularHorasEntreSucursales(sucursalA, sucursalB);
 			int horas = (int) costo;
 			int minutos = (int) (60 * (costo - horas));
-
 			cal.add(Calendar.HOUR, horas);
 			cal.add(Calendar.MINUTE, minutos);
 			v.setFechaLlegada(cal.getTime());
@@ -77,46 +87,31 @@ public class AdministradorViajes {
 					admSuc.obtenerSucursalCercana(paradasIntermedias.get(0).getUbicacion()));
 			int horas = (int) horasDistancia;
 			int minutos = (int) (60 * (horasDistancia - horas));
-
 			cal = Calendar.getInstance();
 			cal.add(Calendar.HOUR, horas);
 			cal.add(Calendar.MINUTE, minutos);
-
 			v.getParadasIntermedias().iterator().next().setLlegada(cal.getTime());
-
 			if (v.getParadasIntermedias().size() > 1) {
 				for (int i = 1; i < v.getParadasIntermedias().size() - 1; i++) {
 					Sucursal sucA = admSuc.obtenerSucursalCercana(paradasIntermedias.get(i - 1).getUbicacion());
 					Sucursal sucB = admSuc.obtenerSucursalCercana(paradasIntermedias.get(i).getUbicacion());
-
 					horasDistancia = admSuc.calcularHorasEntreSucursales(sucA, sucB);
 					horas = (int) horasDistancia;
 					minutos = (int) (60 * (horasDistancia - horas));
 					cal.add(Calendar.HOUR, horas);
 					cal.add(Calendar.MINUTE, minutos);
-
 					paradasIntermedias.get(i).setLlegada(cal.getTime());
 				}
 			}
-
 			Sucursal sucA = admSuc.obtenerSucursalCercana(paradasIntermedias.get(v.getParadasIntermedias().size() - 1).getUbicacion());
 			Sucursal sucB = admSuc.obtenerSucursalCercana(v.getDestino());
-
 			horasDistancia = admSuc.calcularHorasEntreSucursales(sucA, sucB);
 			horas = (int) horasDistancia;
 			minutos = (int) (60 * (horasDistancia - horas));
-
 			cal.add(Calendar.HOUR, horas);
 			cal.add(Calendar.MINUTE, minutos);
-
 			v.setFechaLlegada(cal.getTime());
 		}
-
-	}
-
-	public void altaViaje(List<ItemCarga> list, Seguro seguro, Vehiculo vehiculo, Date fechaSalida, List<CondicionEspecial> condicionesEspeciales,
-			ArrayList<ParadaIntermedia> paradasIntermedias) {
-		viajes.add(new Viaje(list, seguro, vehiculo, fechaSalida, condicionesEspeciales, paradasIntermedias));
 	}
 
 	// public void altaViajeExterno(List<Carga> cargas, Seguro seguro, Date
@@ -132,7 +127,6 @@ public class AdministradorViajes {
 	// viajesExternos.add(new Viaje(cargas, seguro, vehiculo, fechaSalida,
 	// condicionesEspeciales, null));
 	// }
-
 	// public void actualizarViaje(Viaje viaje, Sucursal sucursal) {
 	// for (Iterator<Carga> iterator = viaje.getCargas().iterator();
 	// iterator.hasNext();) {
@@ -159,10 +153,8 @@ public class AdministradorViajes {
 	// }
 	// }
 	// }
-
 	public Viaje obtenerMejorViaje(Sucursal sucursal, Carga carga) {
 		Viaje mejorViaje = null;
-
 		for (Viaje viaje : viajes) {
 			if (viaje.pasaPorSucursal(sucursal) && viaje.puedeTransportar(carga)) {
 				if (mejorViaje == null
@@ -203,5 +195,4 @@ public class AdministradorViajes {
 			throw new Exception("No existe compania de seguros con el id ingresado.");
 		}
 	}
-
 }

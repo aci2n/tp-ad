@@ -1,12 +1,11 @@
 package views.viajes;
 
 public class SeguroView {
-	String nombre;
-	String tipoCarga;
-	Float tarifa;
+	private String nombre;
+	private String tipoCarga;
+	private Float tarifa;
 
 	public SeguroView(String nombre, String tipoCarga, Float tarifa) {
-
 		this.nombre = nombre;
 		this.tipoCarga = tipoCarga;
 		this.tarifa = tarifa;
@@ -35,5 +34,4 @@ public class SeguroView {
 	public void setTarifa(Float tarifa) {
 		this.tarifa = tarifa;
 	}
-
 }
