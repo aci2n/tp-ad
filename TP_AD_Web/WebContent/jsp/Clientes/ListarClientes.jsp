@@ -1,5 +1,14 @@
+<%@page import="com.sun.media.sound.ModelAbstractChannelMixer"%>
+<%@page import="java.util.*"%>
+<%@page import="impl.clientes.*"%>
+<%@page import="persistence.*"%>
+<%@page import="org.hibernate.Query"%>
+<%@page import="org.hibernate.Session"%>
+
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,10 +27,11 @@
 		</div>
 	</div>
 	<div class="row container z-depth-1">
+
 		<div class="input-field col s6">
-          <input id="filtrado" type="text" class="validate">
-          <label for="first_name">Filtrado de Tabla</label>
-        </div>
+			<input id="filtrado" type="text" class="validate"> <label
+				for="first_name">Filtrado de Tabla</label>
+		</div>
 
 		<table>
 			<thead>
@@ -34,33 +44,26 @@
 			</thead>
 
 			<tbody id="tbody">
-				<tr>
-					<td>1</td>
-					<td>12345</td>
-					<td>Pepe</td>
-					<td>Apellido 1</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>12345</td>
-					<td>Nombre 2</td>
-					<td>Apellido 2</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>12345</td>
-					<td>Nombre 3</td>
-					<td>Apellido 3</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>12345</td>
-					<td>Nombre 4</td>
-					<td>Apellido 4</td>
-				</tr>
+				<%
+					Session s = HibernateUtil.getSessionFactory().openSession();
+							
+								List<Particular> clientes = new ArrayList<Particular>();
+								Query q = s.createQuery("from Particular");
+								clientes = (List<Particular>) q.list();
+								for(Particular c : clientes)
+							{ %>
+							<tr>
+								<td style="color: #1565C0; font-weight: bold;"><%=c.getId() %></td>
+								<td><%=c.getDni() %></td>
+								<td><%=c.getNombre() %></td>
+								<td><%=c.getApellido() %></td>
+							</tr>
+							<% }
+				%>
 			</tbody>
 		</table>
 	</div>
+
 
 	<script>
 		$("#filtrado").keyup(function() {
