@@ -35,7 +35,7 @@
 											Empresa</a></li>
 									<li><a class="menu-anchor" href="#!">Baja</a></li>
 									<li><a class="menu-anchor" href="#!">Modificacion</a></li>
-									<li><a class="menu-anchor" href="#!">Listar</a></li>
+									<li><a id="jsp/Clientes/ListarClientes" class="menu-anchor" href="#!">Listar</a></li>
 								</ul>
 							</div></li>
 					</ul>
