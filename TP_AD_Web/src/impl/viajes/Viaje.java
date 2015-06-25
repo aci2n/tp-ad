@@ -28,6 +28,7 @@ import javax.persistence.Table;
 
 import persistence.ViajeDAO;
 import util.Utilities;
+import views.viajes.ParadaIntermediaView;
 import views.viajes.ViajeView;
 
 @Entity
@@ -64,7 +65,7 @@ public class Viaje extends PersistentObject {
 	private List<CondicionEspecial> condicionesEspeciales;
 	@Column(name = "esta_atrasado")
 	private boolean estaAtrasado;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_viaje")
 	@OrderBy(value = "llegada asc")
 	private Collection<ParadaIntermedia> paradasIntermedias;
@@ -89,16 +90,31 @@ public class Viaje extends PersistentObject {
 		cargas.add(new ItemCarga(carga));
 	}
 
-	public void agregarCondicionEspecial(CondicionEspecial condicion) {
+	public void agregarCondicionEspecial(String condicion) throws Exception {
 		if (condicionesEspeciales == null)
 			condicionesEspeciales = new ArrayList<CondicionEspecial>();
-		condicionesEspeciales.add(condicion);
+		CondicionEspecial c = CondicionEspecial.valueOf(condicion);
+		if (!tieneCondicionEspecial(c)) {
+			condicionesEspeciales.add(c);
+			ViajeDAO.getInstance().update(this);
+		} else {
+			throw new Exception("El viaje ya tiene la condicion ingresada.");
+		}
 	}
 
-	public void agregarParadaIntermedia(ParadaIntermedia pi) {
+	private boolean tieneCondicionEspecial(CondicionEspecial c) {
+		for (CondicionEspecial ce : condicionesEspeciales)
+			if (c.equals(ce))
+				return true;
+		return false;
+	}
+
+	public void agregarParadaIntermedia(ParadaIntermediaView p) {
 		if (paradasIntermedias == null)
 			paradasIntermedias = new ArrayList<ParadaIntermedia>();
-		paradasIntermedias.add(pi);
+		ParadaIntermedia parada = new ParadaIntermedia(p);
+		paradasIntermedias.add(parada);
+		ViajeDAO.getInstance().update(this);
 	}
 
 	public float calcularPesoDisponible() {

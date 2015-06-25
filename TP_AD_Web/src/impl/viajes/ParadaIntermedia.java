@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import util.Utilities;
+import views.viajes.ParadaIntermediaView;
+
 @Entity
 @Table(name = "ParadasIntermedias")
 @AttributeOverride(name = "id", column = @Column(name = "id_parada_intermedia"))
@@ -20,7 +23,6 @@ public class ParadaIntermedia extends PersistentObject {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
 	@ManyToOne
 	@JoinColumn(name = "id_ubicacion")
 	private Ubicacion ubicacion;
@@ -28,6 +30,12 @@ public class ParadaIntermedia extends PersistentObject {
 	private Date llegada;
 	@Column(name = "checked")
 	private boolean checked;
+
+	public ParadaIntermedia(ParadaIntermediaView p) {
+		ubicacion = new Ubicacion(p.getUbicacion());
+		llegada = Utilities.parseDate(p.getLlegada());
+		checked = false;
+	}
 
 	public boolean isChecked() {
 		return checked;

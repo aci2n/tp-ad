@@ -13,7 +13,9 @@ import java.util.List;
 import persistence.CompaniaSeguroDAO;
 import persistence.SeguroDAO;
 import persistence.VehiculoDAO;
+import persistence.ViajeDAO;
 import views.viajes.CompaniaSeguroView;
+import views.viajes.ParadaIntermediaView;
 import views.viajes.SeguroView;
 import views.viajes.ViajeView;
 
@@ -193,6 +195,24 @@ public class AdministradorViajes {
 			return c.agregarSeguro(s);
 		} else {
 			throw new Exception("No existe compania de seguros con el id ingresado.");
+		}
+	}
+
+	public void agregarCondicionEspecialAViaje(Integer id, String condicionEspecial) throws Exception {
+		Viaje v = ViajeDAO.getInstance().get(id);
+		if (v != null) {
+			v.agregarCondicionEspecial(condicionEspecial);
+		} else {
+			throw new Exception("No existe viaje con el id ingresado.");
+		}
+	}
+
+	public void agregarParadaIntermediaAViaje(int id, ParadaIntermediaView p) throws Exception {
+		Viaje v = ViajeDAO.getInstance().get(id);
+		if (v != null) {
+			v.agregarParadaIntermedia(p);
+		} else {
+			throw new Exception("No existe viaje con el id ingresado.");
 		}
 	}
 }
