@@ -18,7 +18,7 @@
 		</div>
 	</div>
 	<div class="row container z-depth-1">
-		<form action="AltaClienteParticular" class="box-padding">
+		<form id="alta-cliente" action="AltaClienteParticular" class="box-padding">
 			<!-- <div class="form-group">
 				<label for="dni">DNI</label> <input type="text" class="form-control"
 					placeholder="DNI" name="dni">
@@ -47,4 +47,32 @@
 		</form>
 	</div>
 	
+	<script>
+		var form = $('#alta-cliente');
+		form.submit(function(event) {
+			event.preventDefault();
+			
+			$.ajax({
+				url: form.attr('action'),
+				type: 'POST',
+				data: form.serialize(),
+				success: function() {
+					Materialize.toast('Cliente dado de alta exitosamente', 4000);
+					$('input').val('');
+				}
+			});
+		});
+	</script>
+	
 </body>
+
+
+
+
+
+
+
+
+
+
+
