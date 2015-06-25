@@ -62,8 +62,13 @@
 					loader.fadeOut('fast', function() {
 						$(this).remove();
 					});
-					Materialize.toast('Cliente dado de alta exitosamente', 4000);
+					Materialize.toast('Cliente dado de alta exitosamente', 6000);
+					//Input DNI
+					$('input[type="number"]').val('');
+					$('input[type="number"]').removeClass('valid');
+					//Input nombre, apellido
 					$('input[type="text"]').val('');
+					$('input[type="text"]').removeClass('valid');
 					$('label').removeClass('active');
 				}
 			});

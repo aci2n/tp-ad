@@ -65,21 +65,21 @@
 	<script>
 		$("#filtrado").keyup(function() {
 			//split the current value of searchInput
-			var data = this.value.split(" ");
+			var datos = this.value.split(" ");
 			//create a jquery object of the rows
-			var jo = $("tbody").find("tr");
+			var tabla = $("tbody").find("tr");
 			if (this.value == "") {
-				jo.show();
+				tabla.show();
 				return;
 			}
 			//hide all the rows
-			jo.hide();
+			tabla.hide();
 
 			//Recusively filter the jquery object to get results.
-			jo.filter(function(i, v) {
+			tabla.filter(function(i, v) {
 				var $t = $(this);
-				for (var d = 0; d < data.length; ++d) {
-					if ($t.is(":contains('" + data[d] + "')")) {
+				for (var d = 0; d < datos.length; ++d) {
+					if ($t.is(":contains('" + datos[d] + "')")) {
 						return true;
 					}
 				}
