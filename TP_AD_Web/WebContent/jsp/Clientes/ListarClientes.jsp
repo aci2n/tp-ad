@@ -23,7 +23,7 @@
 	
         <div class="col s12 m4 l8 ">
           <div class="card">
-            <div class="card-content white-text blue-grey darken-1">
+            <div class="card-content white-text pink">
               <span class="card-title">Listado de Clientes</span>
             </div>
             <div class="card-action" style="border-bottom: 1px solid rgba(160,160,160,0.2);">

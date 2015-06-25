@@ -19,7 +19,7 @@
 	<div>
 		<nav style="background-color: #7374C2;">
 			<ul id="slide-out" class="side-nav">
-				<li class="navegacion inactive">Navegación</li>
+				<li class="pink inactive">Navegación</li>
 				<li><a class="menu-anchor" href="Inicio">Inicio</a></li>
 				<li class="no-padding">
 					<ul class="collapsible collapsible-accordion">
