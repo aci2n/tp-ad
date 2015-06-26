@@ -32,7 +32,7 @@
 
 					<!-- 	 -->
 					<div id="test1" class="col s12">
-						<%@include file="AgregarEmpleado.jsp"%>
+						<%@include file="AltaSucursal.jsp"%>
 					</div>
 
 					<div id="test2" class="col s12"></div>
@@ -53,7 +53,7 @@
 
 
 	<script>
-		var form = $('#alta-empleado');
+		var form = $('#alta-cliente');
 		form.submit(function(event) {
 			var loader = renderLoader();
 			form.find('input[type="submit"]').after(loader);
@@ -68,7 +68,7 @@
 						$(this).remove();
 					});
 					Materialize
-							.toast('Empleado dado de alta exitosamente', 6000);
+							.toast('Cliente dado de alta exitosamente', 6000);
 					//Input DNI
 					$('input[type="number"]').val('');
 					$('input[type="number"]').removeClass('valid');

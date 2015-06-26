@@ -28,7 +28,7 @@
 							<div class="collapsible-body">
 								<ul>
 									<li><a class="menu-anchor"
-										id="jsp/Clientes/AltaClienteParticular" href="Alta Particular">Administración</a></li>
+										id="jsp/Clientes/AdministrarClientes" href="">Administración</a></li>
 									<li><a id="jsp/Clientes/ListarClientes" class="menu-anchor" href="#!">Listar</a></li>
 								</ul>
 							</div></li>
