@@ -11,7 +11,7 @@ import svl.GenericHttpServlet;
 import views.personal.EmpleadoView;
 import controllers.ControladorPrincipal;
 
-@WebServlet("/jsp/Personal/AgregarEmpleado")
+@WebServlet("/AgregarEmpleado")
 public class AgregarEmpleado extends GenericHttpServlet {
 	private static final long serialVersionUID = 1L;
 

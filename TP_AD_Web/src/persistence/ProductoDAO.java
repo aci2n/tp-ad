@@ -1,7 +1,12 @@
 package persistence;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import impl.clientes.Particular;
 import impl.productos.Producto;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class ProductoDAO extends AbstractGenericDAO<Producto> {
@@ -20,5 +25,16 @@ public class ProductoDAO extends AbstractGenericDAO<Producto> {
 		Producto Producto = (Producto) session.get(Producto.class, id);
 		session.close();
 		return Producto;
+	}
+	
+	public List<Producto> getAll(){
+	
+		List<Producto> productos = new ArrayList<Producto>();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query q = session.createQuery("from Particular");
+		productos = (List<Producto>) q.list();
+		session.close();
+		return productos;
 	}
 }

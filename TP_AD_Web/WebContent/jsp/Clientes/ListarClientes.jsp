@@ -19,15 +19,15 @@
 
 
 	<div class="row z-depth-1"">
-	    <div class="col s12 m4 l2"><p></p></div>
+	    <div class="col s12 m4 l1"><p></p></div>
 	
-        <div class="col s12 m4 l8 ">
+        <div class="col s12 m4 l10 ">
           <div class="card">
             <div class="card-content white-text pink">
               <span class="card-title">Listado de Clientes</span>
             </div>
-            <div class="card-action" style="border-bottom: 1px solid rgba(160,160,160,0.2);">
-		        <div class="input-field">
+            <div class="card-action row" style="border-bottom: 1px solid rgba(160,160,160,0.2);">
+		        <div class="input-field col s6">
 		          <i class="material-icons prefix">list</i>
 		          <input id="filtrado" type="text" class="validate">
 		          <label for="icon_list">Filtrar tabla</label>
@@ -46,18 +46,14 @@
 
 			<tbody id="tbody">
 				<%
-					Session s = HibernateUtil.getSessionFactory().openSession();
-							
-								List<Particular> clientes = new ArrayList<Particular>();
-								Query q = s.createQuery("from Particular");
-								clientes = (List<Particular>) q.list();
+								List<Particular> clientes = ClienteDAO.getInstance().getAllClientesParticulares();
 								for(Particular c : clientes)
 							{ %>
 							<tr>
 								<td style="color: #1565C0; font-weight: bold;"><%=c.getId() %></td>
 								<td><%=c.getDni() %></td>
 								<td><%=c.getNombre() %></td>
-								<td><%=c.getApellido() %></td>
+								<td><%=c.getApellido() %></td>												
 							</tr>
 							<% }
 				%>
@@ -67,7 +63,7 @@
             </div>
           </div>
         </div>
-            <div class="col s12 m4 l2"><p></p></div>
+            <div class="col s12 m4 l1"><p></p></div>
       </div>
 
 

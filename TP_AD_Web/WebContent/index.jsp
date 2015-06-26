@@ -28,13 +28,7 @@
 							<div class="collapsible-body">
 								<ul>
 									<li><a class="menu-anchor"
-										id="jsp/Clientes/AltaClienteParticular" href="Alta Particular">Alta
-											Particular</a></li>
-									<li><a class="menu-anchor"
-										id="jsp/Clientes/AltaClienteEmpresa" href="Alta Empresa">Alta
-											Empresa</a></li>
-									<li><a class="menu-anchor" href="#!">Baja</a></li>
-									<li><a class="menu-anchor" href="#!">Modificacion</a></li>
+										id="jsp/Clientes/AltaClienteParticular" href="Alta Particular">Administración</a></li>
 									<li><a id="jsp/Clientes/ListarClientes" class="menu-anchor" href="#!">Listar</a></li>
 								</ul>
 							</div></li>
@@ -46,8 +40,9 @@
 								class="mdi-navigation-arrow-drop-down"></i></a>
 							<div class="collapsible-body">
 								<ul>
-									<li><a href="#!">Alta</a></li>
-									<li><a href="#!">Baja</a></li>
+									<li><a class="menu-anchor"
+										id="jsp/Personal/AgregarEmpleado" href="#!">Alta</a></li>
+									<li><a class="menu-anchor" id="jsp/Personal/AdministrarEmpleado" href="#!">Administración</a></li>
 									<li><a href="#!">Listar</a></li>
 								</ul>
 							</div></li>
@@ -59,7 +54,8 @@
 								class="mdi-navigation-arrow-drop-down"></i></a>
 							<div class="collapsible-body">
 								<ul>
-									<li><a href="#!">Alta</a></li>
+									<li><a class="menu-anchor"
+										id="jsp/Sucursales/AltaSucursal" href="#!">Alta</a></li>
 									<li><a href="#!">Listar</a></li>
 								</ul>
 							</div></li>
@@ -71,19 +67,8 @@
 								class="mdi-navigation-arrow-drop-down"></i></a>
 							<div class="collapsible-body">
 								<ul>
-									<li><a href="#!">Alta</a></li>
-									<li><a href="#!">Listar</a></li>
-								</ul>
-							</div></li>
-					</ul>
-				</li>
-				<li class="no-padding">
-					<ul class="collapsible collapsible-accordion">
-						<li><a class="collapsible-header">Sucursales<i
-								class="mdi-navigation-arrow-drop-down"></i></a>
-							<div class="collapsible-body">
-								<ul>
-									<li><a href="#!">Alta</a></li>
+									<li><a class="menu-anchor"
+										id="jsp/Productos/AltaProducto" href="#!">Alta</a></li>
 									<li><a href="#!">Listar</a></li>
 								</ul>
 							</div></li>
@@ -95,7 +80,10 @@
 								class="mdi-navigation-arrow-drop-down"></i></a>
 							<div class="collapsible-body">
 								<ul>
-									<li><a href="#!">Alta</a></li>
+									<li><a class="menu-anchor"
+										id="jsp/Vehiculos/AltaVehiculoLocal href="#!">Alta Local</a></li>
+									<li><a class="menu-anchor"
+										id="jsp/Vehiculos/AltaVehiculoExterno href="#!">Alta Externo</a></li>
 									<li><a href="#!">Baja</a></li>
 									<li><a href="#!">Listar Vehiculos Locales</a></li>
 									<li><a href="#!">Listar Vehiculos EXternos</a></li>
@@ -122,7 +110,22 @@
 								class="mdi-navigation-arrow-drop-down"></i></a>
 							<div class="collapsible-body">
 								<ul>
-									<li><a href="#!">Alta</a></li>
+									<li><a class="menu-anchor"
+										id="jsp/Viajes/AltaViaje" href="#!">Alta</a></li>
+									<li><a href="#!">Baja</a></li>
+									<li><a href="#!">Listar</a></li>
+								</ul>
+							</div></li>
+					</ul>
+				</li>
+				<li class="no-padding">
+					<ul class="collapsible collapsible-accordion">
+						<li><a class="collapsible-header">Proveedores<i
+								class="mdi-navigation-arrow-drop-down"></i></a>
+							<div class="collapsible-body">
+								<ul>
+									<li><a class="menu-anchor"
+										id="jsp/Vehiculos/AltaProveedor" href="#!">Alta</a></li>
 									<li><a href="#!">Baja</a></li>
 									<li><a href="#!">Listar</a></li>
 								</ul>
@@ -133,7 +136,7 @@
 			<a href="#" data-activates="slide-out" class="button-collapse"
 				style="display: inline;"><i class="mdi-navigation-menu"></i></a>
 		
-			<h4 class="nav-header" id="title"></h4>
+			<h5 class="nav-header" id="title"></h5>
 			
 		</nav>
 

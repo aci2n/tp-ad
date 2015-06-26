@@ -1,6 +1,10 @@
 package persistence;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import impl.clientes.Cliente;
+import impl.clientes.Empresa;
 import impl.clientes.Particular;
 
 import org.hibernate.Query;
@@ -8,7 +12,7 @@ import org.hibernate.Session;
 
 public class ClienteDAO extends AbstractGenericDAO<Cliente> {
 	private static ClienteDAO instance;
-	
+
 	public static ClienteDAO getInstance() {
 		if (instance == null)
 			instance = new ClienteDAO();
@@ -27,10 +31,43 @@ public class ClienteDAO extends AbstractGenericDAO<Cliente> {
 	public Particular obtenerClienteParticular(Integer id) {
 		Particular particular = null;
 		Session session = sf.openSession();
+		session.beginTransaction();
 		String hql = "from Particular where id = :id";
 		Query query = session.createQuery(hql).setParameter("id", id);
-		particular = (Particular)query.uniqueResult();
+		particular = (Particular) query.uniqueResult();
 		session.close();
 		return particular;
+	}
+
+	public List<Particular> getAllClientesParticulares() {
+
+		List<Particular> particulares = new ArrayList<Particular>();
+		Session s = sf.openSession();
+		Query q = s.createQuery("from Particular");
+		particulares = (List<Particular>) q.list();
+		s.close();
+		return particulares;
+	}
+
+	public List<Empresa> getAllClientesEmpresas() {
+
+		List<Empresa> empresas = new ArrayList<Empresa>();
+		Session s = sf.openSession();
+		s.beginTransaction();
+		Query q = s.createQuery("from Empresa");
+		empresas = (List<Empresa>) q.list();
+		s.close();
+		return empresas;
+	}
+	
+	public List<Cliente> getAllClientes(){
+		
+		List<Cliente> clientes = new ArrayList<Cliente>();
+		Session s = sf.openSession();
+		s.beginTransaction();
+		Query q = s.createQuery("from Cliente");
+		clientes = (List<Cliente>) q.list();
+		s.close();
+		return clientes;
 	}
 }

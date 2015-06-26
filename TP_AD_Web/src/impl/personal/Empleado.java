@@ -106,4 +106,9 @@ public class Empleado extends PersistentObject {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
+	public EmpleadoView getView() {
+
+		return new EmpleadoView(cuit, dni, nombre, apellido, fechaNacimiento.toString(),
+				puesto.toString());
+	}
 }

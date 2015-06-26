@@ -7,7 +7,7 @@
 <title>Agregar Empleado</title>
 </head>
 <body>
-	<form action="AgregarEmpleado">
+	<%-- <form action="AgregarEmpleado">
 		<table>
 			<tr>
 				<td>- Sucursal -</td>
@@ -44,13 +44,78 @@
 				<td><select name="tipo">
 						<%
 							for (TipoPuesto t : TipoPuesto.values()) {
-								out.print("<option value=\"" + t.toString() + "\">" + t.toString() + "</option>");
+								out.print("<option value=\"" + t.toString() + "\">"
+										+ t.toString() + "</option>");
 							}
 						%>
 				</select></td>
 			</tr>
 		</table>
 		<br /> <input type="submit" value="Alta">
-	</form>
+	</form> --%>
+
+	<div id="test1" class="col s12">
+
+		<form id="alta-empleado" action="AgregarEmpleado" class="box-padding"
+			class="form-control">
+
+			<div class="input-field col s12">
+				<input type="number" class="validate" name="id"> <label
+					for="email">ID de Sucursal</label>
+			</div>
+			<div class="input-field col s12">
+				<input type="text" class="validate" name="cuit"> <label
+					for="email">CUIT</label>
+			</div>
+			<div class="input-field col s12">
+				<input type="number" class="validate" name="dni"> <label
+					for="email">DNI</label>
+			</div>
+			<div class="input-field col s12">
+				<input type="text" class="validate" name="nombre"> <label
+					for="email">Nombre</label>
+			</div>
+			<div class="input-field col s12">
+				<input type="text" class="validate" name="apellido"> <label
+					for="email">Apellido</label>
+			</div>
+			<div class="input-field col s12">
+				<select>
+					<option value="" disabled selected></option>
+					<%
+						for (TipoPuesto t : TipoPuesto.values()) 								
+									{
+					%>
+					<option><%=t.getPuesto().toString()%></option>
+					<%
+						}
+					%>
+				</select> <label>Tipo de Puesto</label>
+			</div>
+
+			<div class="input-field col s12">
+				<input type="date" class="datepicker" name="fechaNacimiento">
+				<label>Fecha de Nacimiento</label>
+			</div>
+
+			<input class="btn btn-primary" type="submit" value="Alta">
+		</form>
+
+	</div>
+
+
+	<script>
+		$(document).ready(function() {
+			$('select').material_select();
+		});
+
+		$('.datepicker').pickadate({
+			selectMonths : true, // Creates a dropdown to control month
+			selectYears : 15
+		// Creates a dropdown of 15 years to control year
+		});
+	</script>
+
+
 </body>
 </html>
