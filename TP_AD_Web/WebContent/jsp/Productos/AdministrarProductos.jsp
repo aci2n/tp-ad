@@ -4,7 +4,7 @@
 <html>
 <head>
 
-<title>Administración de Empleados</title>
+<title>Administración de Productos</title>
 </head>
 <body>
 
@@ -17,7 +17,7 @@
 		<div class="col s12 m4 l10 ">
 			<div class="card">
 				<div class="card-content white-text pink">
-					<span class="card-title">Administración de Empleados</span>
+					<span class="card-title">Administración de Productos</span>
 				</div>
 
 				<div class="card-content">
@@ -32,7 +32,7 @@
 
 					<!-- 	 -->
 					<div id="test1" class="col s12">
-						<%@include file="AgregarEmpleado.jsp"%>
+						<%@include file="AltaProducto.jsp"%>
 					</div>
 
 					<div id="test2" class="col s12">Implementar baja</div>

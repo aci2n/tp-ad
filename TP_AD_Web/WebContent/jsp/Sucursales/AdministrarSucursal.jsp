@@ -4,7 +4,7 @@
 <html>
 <head>
 
-<title>Administración de Empleados</title>
+<title>Sucursales</title>
 </head>
 <body>
 
@@ -17,7 +17,7 @@
 		<div class="col s12 m4 l10 ">
 			<div class="card">
 				<div class="card-content white-text pink">
-					<span class="card-title">Administración de Empleados</span>
+					<span class="card-title">Administración de Sucursales</span>
 				</div>
 
 				<div class="card-content">
@@ -35,8 +35,8 @@
 						<%@include file="AltaSucursal.jsp"%>
 					</div>
 
-					<div id="test2" class="col s12"></div>
-					<div id="test3" class="col s12">Implementar baja</div>
+					<div id="test2" class="col s12">Implementar baja</div>
+					<div id="test3" class="col s12">Implementar modificación</div>
 
 				</div>
 			</div>

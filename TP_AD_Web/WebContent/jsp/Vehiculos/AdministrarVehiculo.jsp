@@ -4,7 +4,7 @@
 <html>
 <head>
 
-<title>Administración de Empleados</title>
+<title>Vehiculos</title>
 </head>
 <body>
 
@@ -17,27 +17,37 @@
 		<div class="col s12 m4 l10 ">
 			<div class="card">
 				<div class="card-content white-text pink">
-					<span class="card-title">Administración de Empleados</span>
+					<span class="card-title">Administración de Vehiculos</span>
 				</div>
 
 				<div class="card-content">
 
 					<div class="col s12">
 						<ul class="tabs">
-							<li class="tab col s3"><a class="active" href="#test1">Alta</a></li>
-							<li class="tab col s3"><a href="#test2">Baja</a></li>
-							<li class="tab col s3"><a href="#test3">Modificación</a></li>
+							<li class="tab col s3"><a class="active" href="#test1">Alta Local</a></li>
+							<li class="tab col s3"><a href="#test2">Alta Externo</a></li>
+							<li class="tab col s3"><a href="#test3">Baja</a></li>
+							<li class="tab col s3"><a href="#test4">Modificación</a></li>
 						</ul>
 					</div>
 
-					<!-- 	 -->
+					<!--	ALTA VEHICUL LOCAL 	 -->
 					<div id="test1" class="col s12">
-						<%@include file="AgregarEmpleado.jsp"%>
+						<%@include file="AltaVehiculoLocal.jsp"%>
 					</div>
 
-					<div id="test2" class="col s12">Implementar baja</div>
-					<div id="test3" class="col s12">Implementar modificación</div>
-
+					<!--	ALTA VEHICUL LOCAL 	 -->
+					<div id="test2" class="col s12">
+						<%@include file="AltaVehiculoExterno.jsp" %>
+					</div>
+					
+					<!--	BAJA VEHICULO 	 -->
+					<div id="test3" class="col s12">Implementar baja</div>
+					
+					<!--	MODIFICACION VEHICULO LOCAL 	 -->
+					<div id="test4" class="col s12">Implementar modificación</div>
+					
+	
 				</div>
 			</div>
 
@@ -53,7 +63,7 @@
 
 
 	<script>
-		var form = $('#alta-empleado');
+		var form = $('#alta-cliente');
 		form.submit(function(event) {
 			var loader = renderLoader();
 			form.find('input[type="submit"]').after(loader);
@@ -68,7 +78,7 @@
 						$(this).remove();
 					});
 					Materialize
-							.toast('Empleado dado de alta exitosamente', 6000);
+							.toast('Cliente dado de alta exitosamente', 6000);
 					//Input DNI
 					$('input[type="number"]').val('');
 					$('input[type="number"]').removeClass('valid');

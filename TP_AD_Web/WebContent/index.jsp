@@ -17,7 +17,7 @@
 </head>
 <body>
 	<div>
-		<nav style="background-color: #7374C2;">
+		<nav class="blue darken-1">
 			<ul id="slide-out" class="side-nav">
 				<li class="pink inactive">Navegación</li>
 				<li><a class="menu-anchor" href="Inicio">Inicio</a></li>
@@ -40,8 +40,6 @@
 								class="mdi-navigation-arrow-drop-down"></i></a>
 							<div class="collapsible-body">
 								<ul>
-									<li><a class="menu-anchor"
-										id="jsp/Personal/AgregarEmpleado" href="#!">Alta</a></li>
 									<li><a class="menu-anchor" id="jsp/Personal/AdministrarEmpleado" href="#!">Administración</a></li>
 									<li><a href="#!">Listar</a></li>
 								</ul>
@@ -55,7 +53,7 @@
 							<div class="collapsible-body">
 								<ul>
 									<li><a class="menu-anchor"
-										id="jsp/Sucursales/AltaSucursal" href="#!">Alta</a></li>
+										id="jsp/Sucursales/AdministrarSucursal" href="#!">Administración</a></li>
 									<li><a href="#!">Listar</a></li>
 								</ul>
 							</div></li>
@@ -68,7 +66,7 @@
 							<div class="collapsible-body">
 								<ul>
 									<li><a class="menu-anchor"
-										id="jsp/Productos/AltaProducto" href="#!">Alta</a></li>
+										id="jsp/Productos/AdministrarProductos" href="#!">Administración</a></li>
 									<li><a href="#!">Listar</a></li>
 								</ul>
 							</div></li>
@@ -81,10 +79,7 @@
 							<div class="collapsible-body">
 								<ul>
 									<li><a class="menu-anchor"
-										id="jsp/Vehiculos/AltaVehiculoLocal href="#!">Alta Local</a></li>
-									<li><a class="menu-anchor"
-										id="jsp/Vehiculos/AltaVehiculoExterno href="#!">Alta Externo</a></li>
-									<li><a href="#!">Baja</a></li>
+										id="jsp/Vehiculos/AdministrarVehiculo" href="#!">Administración</a></li>
 									<li><a href="#!">Listar Vehiculos Locales</a></li>
 									<li><a href="#!">Listar Vehiculos EXternos</a></li>
 								</ul>
@@ -125,8 +120,7 @@
 							<div class="collapsible-body">
 								<ul>
 									<li><a class="menu-anchor"
-										id="jsp/Vehiculos/AltaProveedor" href="#!">Alta</a></li>
-									<li><a href="#!">Baja</a></li>
+										id="jsp/Proveedores/AdministrarProveedor" href="#!">Administración</a></li>
 									<li><a href="#!">Listar</a></li>
 								</ul>
 							</div></li>

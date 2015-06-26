@@ -4,7 +4,7 @@
 <html>
 <head>
 
-<title>Administración de Empleados</title>
+<title>Administración de Proveedores</title>
 </head>
 <body>
 
@@ -17,7 +17,7 @@
 		<div class="col s12 m4 l10 ">
 			<div class="card">
 				<div class="card-content white-text pink">
-					<span class="card-title">Administración de Empleados</span>
+					<span class="card-title">Administración de Proveedores</span>
 				</div>
 
 				<div class="card-content">
@@ -32,7 +32,7 @@
 
 					<!-- 	 -->
 					<div id="test1" class="col s12">
-						<%@include file="AgregarEmpleado.jsp"%>
+						<%@include file="AltaProveedor.jsp"%>
 					</div>
 
 					<div id="test2" class="col s12">Implementar baja</div>
@@ -46,10 +46,6 @@
 			<p></p>
 		</div>
 	</div>
-
-
-
-
 
 
 	<script>
@@ -67,8 +63,8 @@
 					loader.fadeOut('fast', function() {
 						$(this).remove();
 					});
-					Materialize
-							.toast('Empleado dado de alta exitosamente', 6000);
+					Materialize.toast('Empleado dado de alta exitosamente',
+							6000);
 					//Input DNI
 					$('input[type="number"]').val('');
 					$('input[type="number"]').removeClass('valid');
