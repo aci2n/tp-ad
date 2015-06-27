@@ -204,7 +204,7 @@ public class Carga extends PersistentObject {
 
 		CargaView view = new CargaView(tipo, fechaMaximaEntrega,
 				fechaProbableEntrega, manifiesto, origen.getView(),
-				destino.getView(), estadoCarga);
+				destino.getView(), estadoCarga, id);
 		
 		return view;
 

@@ -13,6 +13,7 @@ import views.productos.ItemProductoView;
 
 public class CargaView extends GenericView{
 
+	private int id;
 	private Collection<ItemProductoView> productos;
 	// private Cliente cliente;
 	private UbicacionView origen;
@@ -29,7 +30,8 @@ public class CargaView extends GenericView{
 	
 	public CargaView(TipoCarga tipoCarga, Date fechaMaximaEntrega,
 			Date fechaProbableEntrega, String manifiesto, UbicacionView origen,
-			UbicacionView destino, EstadoCarga estadoCarga) {
+			UbicacionView destino, EstadoCarga estadoCarga, int id) {
+		this.id = id;
 		this.tipo = tipoCarga;
 		this.fechaMaximaEntrega = fechaMaximaEntrega;
 		this.fechaProbableEntrega = fechaProbableEntrega;
@@ -46,6 +48,14 @@ public class CargaView extends GenericView{
 
 	public void setProductos(Collection<ItemProductoView> productos) {
 		this.productos = productos;
+	}
+	
+	public int getId(){
+		return id;
+	}
+	
+	public void setId(int id){
+		this.id = id;
 	}
 
 	public UbicacionView getOrigen() {
