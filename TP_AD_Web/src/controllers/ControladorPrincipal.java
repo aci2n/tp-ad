@@ -68,14 +68,8 @@ public class ControladorPrincipal {
 		return administradorClientes.altaClienteParticular(particular);
 	}
 	
-	public Integer agregarReceptor(Integer clienteId, ReceptorView receptor) {
-		try {
-			return administradorClientes.agregarReceptor(clienteId, receptor);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+	public Integer agregarReceptor(Integer clienteId, ReceptorView receptor) throws Exception {
+		return administradorClientes.agregarReceptor(clienteId, receptor);
 	}
 	
 	public List<EmpresaView> obtenerClientesEmpresas() {
@@ -93,35 +87,19 @@ public class ControladorPrincipal {
 		return administradorSucursales.altaSucursal(sucursal);
 	}
 	
-	public Integer agregarEmpleadoASucursal(Integer id, EmpleadoView empleado) {
-		try {
-			return administradorSucursales.agregarEmpleadoASucursal(id, empleado);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+	public Integer agregarEmpleadoASucursal(Integer id, EmpleadoView empleado) throws Exception {
+		return administradorSucursales.agregarEmpleadoASucursal(id, empleado);
 	}
 	
-	public void agregarDistanciaEntreSucursales(DistanciaEntreSucursalesView dist) {
-		try {
-			administradorSucursales.agregarDistanciaEntreSucursales(dist);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void agregarDistanciaEntreSucursales(DistanciaEntreSucursalesView dist) throws Exception {
+		administradorSucursales.agregarDistanciaEntreSucursales(dist);
 	}
 	
 	
 	//	PRODUCTOS
 	
-	public void agregarCondicionEspecialAProducto(Integer id, String condicionEspecial) {
-		try {
-			administradorProductos.agregarCondicionEspecialAProducto(id, condicionEspecial);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void agregarCondicionEspecialAProducto(Integer id, String condicionEspecial) throws Exception {
+		administradorProductos.agregarCondicionEspecialAProducto(id, condicionEspecial);
 	}
 	
 	public Integer altaProducto(ProductoView producto) {
@@ -135,54 +113,26 @@ public class ControladorPrincipal {
 		return administradorVehiculos.altaProveedor(proveedor);
 	}
 	
-	public Integer altaVehiculoExterno(Integer idProveedor, VehiculoExternoView vehiculoExterno) {
-		try {
-			return administradorVehiculos.altaVehiculoExterno(idProveedor, vehiculoExterno);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+	public Integer altaVehiculoExterno(Integer idProveedor, VehiculoExternoView vehiculoExterno) throws Exception {
+		return administradorVehiculos.altaVehiculoExterno(idProveedor, vehiculoExterno);
 	}
 	
-	public Integer altaVehiculoLocal(Integer idSucursal, VehiculoLocalView v, PlanMantenimientoView p) {
-		try {
-			return administradorVehiculos.altaVehiculoLocal(idSucursal, v, p);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+	public Integer altaVehiculoLocal(Integer idSucursal, VehiculoLocalView v, PlanMantenimientoView p) throws Exception {
+		return administradorVehiculos.altaVehiculoLocal(idSucursal, v, p);
 	}
 	
-	public void agregarCondicionEspecialAViaje(Integer id, String condicionEspecial) {
-		try {
-			administradorViajes.agregarCondicionEspecialAViaje(id, condicionEspecial);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void agregarCondicionEspecialAViaje(Integer id, String condicionEspecial) throws Exception {
+		administradorViajes.agregarCondicionEspecialAViaje(id, condicionEspecial);
 	}
 
 
-	public void agregarParadaIntermediaAViaje(Integer viajeId, ParadaIntermediaView p) {
-		try {
-			administradorViajes.agregarParadaIntermediaAViaje(viajeId, p);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void agregarParadaIntermediaAViaje(Integer viajeId, ParadaIntermediaView p) throws Exception {
+		administradorViajes.agregarParadaIntermediaAViaje(viajeId, p);
 	}
 
 
-	public Integer agregarSeguro(Integer companiaId, SeguroView s) {
-		try {
-			return administradorViajes.agregarSeguro(companiaId, s);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+	public Integer agregarSeguro(Integer companiaId, SeguroView s) throws Exception {
+		return administradorViajes.agregarSeguro(companiaId, s);
 	}
 	
 	public Integer altaCompaniaSeguro(CompaniaSeguroView c) {
@@ -190,44 +140,23 @@ public class ControladorPrincipal {
 	}
 
 
-	public Integer altaViaje(Integer idVehiculo, Integer idSeguro, ViajeView viaje) {
-		try {
-			return administradorViajes.altaViaje(idVehiculo, idSeguro, viaje);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+	public Integer altaViaje(Integer idVehiculo, Integer idSeguro, ViajeView viaje) throws Exception {
+		return administradorViajes.altaViaje(idVehiculo, idSeguro, viaje);
 	}
 
 
-	public void actualizarPrecioVehiculo(Integer id, Float precio) {
-		try {
-			administradorVehiculos.actualizarPrecioVehiculo(id, precio);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void actualizarPrecioVehiculo(Integer id, Float precio) throws Exception {
+		administradorVehiculos.actualizarPrecioVehiculo(id, precio);
 	}
 
 
-	public void agregarTarea(Integer id, TareaView tarea) {
-		try {
-			administradorVehiculos.agregarTarea(id, tarea);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void agregarTarea(Integer id, TareaView tarea) throws Exception {
+		administradorVehiculos.agregarTarea(id, tarea);
 	}
 
 
-	public void bajaEmpleado(Integer id) {
-		try {
-			administradorSucursales.bajaEmpleado(id);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void bajaEmpleado(Integer id) throws Exception {
+		administradorSucursales.bajaEmpleado(id);
 	}
 
 
@@ -239,6 +168,10 @@ public class ControladorPrincipal {
 	
 	public List<CargaView> obtenerCargasView(){
 		return administradorCargas.obtenerCargasView();
+	}
+	
+	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView carga) throws Exception {
+		return administradorCargas.altaCarga(idSucursal, idCliente, carga);
 	}
 	
 	
