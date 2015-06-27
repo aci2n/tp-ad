@@ -62,14 +62,20 @@ public class SucursalDAO extends AbstractGenericDAO<Sucursal> {
 	}
 
 	public Sucursal obtenerSucursalDesdeUbicacion(Coordenada c) {
-		Sucursal sucursal;
+		Sucursal sucursal = null;
 		Session s = sf.openSession();
 		s.beginTransaction();
-		Query q = s.createQuery("select s from Sucursal s inner join s.ubicacion u where u.coordenadaDestino.latitud = :lat and u.coordenadaDestino.longitud = :lon");
+		Query q = s
+				.createQuery("select s from Sucursal s inner join s.ubicacion u where u.coordenadaDestino.latitud = :lat and u.coordenadaDestino.longitud = :lon");
 		q.setParameter("lat", c.getLatitud());
 		q.setParameter("lon", c.getLongitud());
-		sucursal = (Sucursal) q.uniqueResult(); //no siempre da unique results...
+		List<Sucursal> sucursales = (List<Sucursal>) q.list();
 		s.close();
+		if (sucursales.size() > 0) {
+			sucursal = sucursales.get(0); // elijo el primero arbitrariamente
+			// no se puede usar uniqueResult porque a veces devuelve mas de 1
+			// sucursal
+		}
 		return sucursal;
 	}
 }
