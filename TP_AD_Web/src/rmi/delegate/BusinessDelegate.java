@@ -13,7 +13,7 @@ public class BusinessDelegate {
 	private BusinessDelegate() {
 		try {
 			Registry registry = LocateRegistry.getRegistry(Parametros.getIp(), Parametros.getPort());
-			interfaz = (TDAControllerAdministrador) registry.lookup(Parametros.getServername());
+			interfaz = (TDAControllerAdministrador) registry.lookup(Parametros.getServerName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
