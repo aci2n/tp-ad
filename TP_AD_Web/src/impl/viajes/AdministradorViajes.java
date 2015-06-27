@@ -1,7 +1,6 @@
 package impl.viajes;
 
 import impl.cargas.Carga;
-import impl.misc.Ubicacion;
 import impl.sucursales.AdministradorSucursales;
 import impl.sucursales.Sucursal;
 import impl.vehiculos.Vehiculo;
@@ -10,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import persistence.CargaDAO;
 import persistence.CompaniaSeguroDAO;
 import persistence.SeguroDAO;
 import persistence.VehiculoDAO;
@@ -208,23 +208,28 @@ public class AdministradorViajes {
 		return companias;
 	}
 
-	public ViajeOptimoView obtenerViajeOptimo(Ubicacion origen, Ubicacion destino) {
-		List<Viaje> viajesPosibles = obtenerViajesPosibles(origen, destino);
-		ViajeOptimo viajeOptimo = null;
-		for (Viaje v : viajesPosibles) {
-			ViajeOptimo aux = v.getViajeOptimo(origen, destino);
-			if (viajeOptimo == null || aux.getDistanciaOptima() < viajeOptimo.getDistanciaOptima()) {
-				viajeOptimo = aux;
+	public ViajeOptimoView obtenerViajeOptimo(Integer idCarga) throws Exception {
+		Carga carga = CargaDAO.getInstance().get(idCarga);
+		if (carga != null) {
+			List<Viaje> viajesPosibles = obtenerViajesPosibles(carga);
+			ViajeOptimo viajeOptimo = null;
+			for (Viaje v : viajesPosibles) {
+				ViajeOptimo aux = v.getViajeOptimo(carga.getOrigen(), carga.getDestino());
+				if (viajeOptimo == null || aux.getDistanciaOptima() < viajeOptimo.getDistanciaOptima()) {
+					viajeOptimo = aux;
+				}
 			}
+			return viajeOptimo.getView();
+		} else {
+			throw new Exception("No existe carga con el ID ingresado.");
 		}
-		return viajeOptimo.getView();
 	}
 
-	private List<Viaje> obtenerViajesPosibles(Ubicacion origen, Ubicacion destino) {
+	private List<Viaje> obtenerViajesPosibles(Carga carga) {
 		List<Viaje> viajes = ViajeDAO.getInstance().getAll();
 		List<Viaje> viajesPosibles = new ArrayList<Viaje>();
 		for (Viaje v : viajes) {
-			if (v.tieneUbicacion(origen) && v.tieneUbicacion(destino)) {
+			if (v.puedeTransportar(carga) && v.tieneUbicacion(carga.getOrigen()) && v.tieneUbicacion(carga.getDestino())) {
 				viajesPosibles.add(v);
 			}
 		}
