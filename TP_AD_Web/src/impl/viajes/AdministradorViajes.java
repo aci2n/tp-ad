@@ -213,9 +213,7 @@ public class AdministradorViajes {
 		ViajeOptimo viajeOptimo = null;
 		for (Viaje v : viajesPosibles) {
 			ViajeOptimo aux = v.getViajeOptimo(origen, destino);
-			if (viajeOptimo == null) {
-				viajeOptimo = aux;
-			} else if (aux.getDistanciaOptima() < viajeOptimo.getDistanciaOptima()) {
+			if (viajeOptimo == null || aux.getDistanciaOptima() < viajeOptimo.getDistanciaOptima()) {
 				viajeOptimo = aux;
 			}
 		}
