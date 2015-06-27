@@ -251,8 +251,8 @@ public class AdministradorViajes {
 		}
 
 		for (int i = indiceComienzo; i < paradas.size(); i++) {
-			distancia += calcularDistanciaEntreUbicaciones(origen, destino);
-			if (!paradas.get(i).getUbicacion().equals(destino)) {
+			distancia += calcularDistanciaEntreUbicaciones(paradas.get(i).getUbicacion(), paradas.get(i + 1).getUbicacion());
+			if (paradas.get(i + 1).getUbicacion().equals(destino)) {
 				break;
 			}
 		}
