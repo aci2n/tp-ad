@@ -6,7 +6,7 @@ import org.hibernate.Session;
 
 public class EmpleadoDAO extends AbstractGenericDAO<Empleado> {
 	private static EmpleadoDAO instance;
-	
+
 	public static EmpleadoDAO getInstance() {
 		if (instance == null)
 			instance = new EmpleadoDAO();
@@ -21,4 +21,11 @@ public class EmpleadoDAO extends AbstractGenericDAO<Empleado> {
 		session.close();
 		return Empleado;
 	}
+
+	/*
+	 * public List<Empleado> getEmpleados() { List<Empleado> empleados = new
+	 * ArrayList<Empleado>(); Session s = sf.openSession(); Query q =
+	 * s.createQuery("from Empleado"); empleados = (List<Empleado>) q.list();
+	 * s.close(); return empleados; }
+	 */
 }

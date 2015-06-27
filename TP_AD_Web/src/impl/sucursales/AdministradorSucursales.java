@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import persistence.EmpleadoDAO;
 import persistence.SucursalDAO;
 import views.personal.EmpleadoView;
 import views.sucursales.DistanciaEntreSucursalesView;
@@ -162,5 +163,14 @@ public class AdministradorSucursales {
 
 	public void setDistancias(List<DistanciaEntreSucursales> distancias) {
 		this.distancias = distancias;
+	}
+
+	public void bajaEmpleado(int id) throws Exception {
+		Empleado e = EmpleadoDAO.getInstance().get(id);
+		if (e != null) {
+			EmpleadoDAO.getInstance().delete(e);
+		} else {
+			throw new Exception("No existe empleado con el ID ingresado.");
+		}
 	}
 }
