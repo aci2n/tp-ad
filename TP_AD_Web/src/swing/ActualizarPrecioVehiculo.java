@@ -1,4 +1,4 @@
-package rmi.clientes;
+package swing;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -16,18 +16,18 @@ import javax.swing.border.EmptyBorder;
 
 import rmi.delegate.BusinessDelegate;
 
-public class BajaEmpleado extends JFrame implements ActionListener {
+public class ActualizarPrecioVehiculo extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField[] textFields;
-	private JButton btnEliminar;
+	private JButton btnActualizar;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BajaEmpleado frame = new BajaEmpleado();
+					ActualizarPrecioVehiculo frame = new ActualizarPrecioVehiculo();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,7 +36,7 @@ public class BajaEmpleado extends JFrame implements ActionListener {
 		});
 	}
 
-	public BajaEmpleado() {
+	public ActualizarPrecioVehiculo() {
 		inicializar();
 		configurar();
 	}
@@ -48,14 +48,14 @@ public class BajaEmpleado extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		setTitle("Baja Empleado");
+		setTitle("Actualizar Precio Vehiculo");
 	}
 
 	private void configurar() {
 		JPanel panelCentro = new JPanel();
 		panelCentro.setLayout(new GridLayout(0, 1));
 
-		String[] labelStrings = { "ID Empleado" };
+		String[] labelStrings = { "ID Vehiculo", "Precio nuevo" };
 		textFields = new JTextField[labelStrings.length];
 
 		for (int i = 0; i < labelStrings.length; i++) {
@@ -66,21 +66,23 @@ public class BajaEmpleado extends JFrame implements ActionListener {
 
 		contentPane.add(panelCentro, BorderLayout.CENTER);
 
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.addActionListener(this);
-		contentPane.add(btnEliminar, BorderLayout.SOUTH);
+		btnActualizar = new JButton("Agregar");
+		btnActualizar.addActionListener(this);
+		contentPane.add(btnActualizar, BorderLayout.SOUTH);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnEliminar) {
+		if (e.getSource() == btnActualizar) {
 			if (!hayCampoVacio()) {
 				int i = 0;
-				String idEmpleado = textFields[i++].getText();
+				String idVehiculo = textFields[i++].getText();
+				String precio = textFields[i++].getText();
 
 				try {
-					int id = Integer.parseInt(idEmpleado);
-					BusinessDelegate.getInstance().getInterfaz().bajaEmpleado(id);
-					mostrarInformacion("Empleado eliminado correctamente.");
+					int id = Integer.parseInt(idVehiculo);
+					float precioF = Float.parseFloat(precio);
+					BusinessDelegate.getInstance().getInterfaz().actualizarPrecioVehiculo(id, precioF);
+					mostrarInformacion("Vehiculo actualizado correctamente.");
 				} catch (Exception ex) {
 					mostrarError(ex.getMessage());
 				}
