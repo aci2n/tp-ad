@@ -180,11 +180,13 @@ create table VehiculosLocales(
 
 	id_vehiculo int not null,
 	id_sucursal int,
+	id_empleado int,
 	id_plan_mantenimiento int,
 	vencimiento_garantia datetime,
  
 	constraint pk_vehiculos_locales primary key(id_vehiculo),
 	constraint fk_vehiculos_sucursales foreign key(id_sucursal) references Sucursales,
+	constraint fk_vehiculos_empleados foreign key(id_empleado) references Empleados,
 	constraint fk_vehiculos_planes foreign key(id_plan_mantenimiento) references PlanesMantenimiento
 )
 

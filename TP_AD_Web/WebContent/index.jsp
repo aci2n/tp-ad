@@ -21,7 +21,7 @@
 			<ul id="slide-out" class="side-nav">
 				<li class="pink inactive">Navegación</li>
 				<li><a class="menu-anchor" href="Inicio">Inicio</a></li>
-				<li class="no-padding">
+				<!-- <li class="no-padding">
 					<ul class="collapsible collapsible-accordion">
 						<li><a class="collapsible-header">Clientes<i
 								class="mdi-navigation-arrow-drop-down"></i></a>
@@ -89,7 +89,7 @@
 								</ul>
 							</div></li>
 					</ul>
-				</li>
+				</li> -->
 				<li class="no-padding">
 					<ul class="collapsible collapsible-accordion">
 						<li><a class="collapsible-header">Cargas<i
@@ -118,7 +118,7 @@
 							</div></li>
 					</ul>
 				</li>
-				<li class="no-padding">
+				<!-- <li class="no-padding">
 					<ul class="collapsible collapsible-accordion">
 						<li><a class="collapsible-header">Proveedores<i
 								class="mdi-navigation-arrow-drop-down"></i></a>
@@ -133,7 +133,17 @@
 								</ul>
 							</div></li>
 					</ul>
-				</li>
+				</li> -->
+				<ul class="collapsible collapsible-accordion">
+						<li><a class="collapsible-header">Choferes<i
+								class="mdi-navigation-arrow-drop-down"></i></a>
+							<div class="collapsible-body">
+								<ul>
+									<li><a class="menu-anchor"
+										id="jsp/Choferes/MisViajes" href="#!">Mis viajes</a></li>
+								</ul>
+							</div></li>
+					</ul>
 			</ul>
 			<a href="#" data-activates="slide-out" class="button-collapse"
 				style="display: inline;"><i class="mdi-navigation-menu"></i></a>
