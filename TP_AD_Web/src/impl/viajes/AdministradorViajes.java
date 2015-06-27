@@ -2,10 +2,8 @@ package impl.viajes;
 
 import impl.cargas.Carga;
 import impl.cargas.TipoCarga;
-import impl.clientes.Cliente;
 import impl.misc.Coordenada;
 import impl.misc.Ubicacion;
-import impl.productos.Producto;
 //github.com/alvarocalace/tp_ad_web.git
 import impl.sucursales.AdministradorSucursales;
 import impl.sucursales.Sucursal;
@@ -15,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import persistence.ClienteDAO;
 import persistence.CompaniaSeguroDAO;
 import persistence.SeguroDAO;
 import persistence.SucursalDAO;
@@ -23,7 +20,6 @@ import persistence.VehiculoDAO;
 import persistence.ViajeDAO;
 import util.Utilities;
 import views.cargas.CargaView;
-import views.productos.ItemProductoView;
 import views.viajes.CompaniaSeguroView;
 import views.viajes.ParadaIntermediaView;
 import views.viajes.SeguroView;
@@ -236,43 +232,14 @@ public class AdministradorViajes {
 		List<Viaje> viajes = ViajeDAO.getInstance().getAll();
 		List<Viaje> viajesPosibles = new ArrayList<Viaje>();
 		for (Viaje v : viajes) {
-			if (v.puedeTransportar(carga) && v.tieneUbicacion(carga.getOrigen()) && v.tieneUbicacion(carga.getDestino())) {
+			if (v.puedeTransportar(carga) && v.tieneTrayecto(carga.getOrigen(), carga.getDestino())) {
 				viajesPosibles.add(v);
 			}
 		}
 		return viajesPosibles;
 	}
 
-	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView c) throws Exception {
-		for (ItemProductoView ipv : c.getProductos()) {
-			if (Producto.esMaterialPermitido(ipv.getProducto().getMaterial())) {
-				throw new Exception("La carga tiene un material prohibido.");
-			}
-		}
-		Cliente cli = ClienteDAO.getInstance().get(idCliente);
-		Sucursal suc = SucursalDAO.getInstance().get(idSucursal);
-		if (cli != null && suc != null) {
-			Carga carga = new Carga(c, cli);
-			suc.agregarCarga(carga);
-			asignarCargaAViajeOptimo(carga);
-			return carga.getId();
-		} else {
-			throw new Exception("No existe cliente o sucursal con el ID ingresado.");
-		}
-	}
-
-	private void asignarCargaAViajeOptimo(Carga c) throws Exception {
-		ViajeOptimo viajeOptimo = obtenerViajeOptimo(c);
-		if (viajeOptimo != null) {
-			viajeOptimo.getViaje().agregarCarga(c);
-			viajeOptimo.getViaje()
-					.agregarParadaIntermedia(new ParadaIntermediaView(c.getFechaProbableEntrega().toString(), c.getDestino().getView()));
-		} else {
-			crearViajeEnBaseACarga(c);
-		}
-	}
-
-	private void crearViajeEnBaseACarga(Carga c) throws Exception {
+	public void crearViajeEnBaseACarga(Carga c) throws Exception {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(c.getFechaMaximaEntrega());
 		calendar.add(Calendar.DAY_OF_MONTH, -1);

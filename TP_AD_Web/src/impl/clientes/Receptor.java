@@ -1,7 +1,6 @@
 package impl.clientes;
 
 import impl.PersistentObject;
-import impl.misc.Coordenada;
 import impl.misc.Ubicacion;
 
 import javax.persistence.AttributeOverride;

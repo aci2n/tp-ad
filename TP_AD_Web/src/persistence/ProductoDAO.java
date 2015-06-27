@@ -1,10 +1,9 @@
 package persistence;
 
+import impl.productos.Producto;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import impl.clientes.Particular;
-import impl.productos.Producto;
 
 import org.hibernate.Query;
 import org.hibernate.Session;

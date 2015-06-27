@@ -12,9 +12,9 @@ import persistence.SucursalDAO;
 import persistence.VehiculoDAO;
 import views.vehiculos.PlanMantenimientoView;
 import views.vehiculos.ProveedorView;
-import views.vehiculos.VehiculoLocalView;
 import views.vehiculos.TareaView;
 import views.vehiculos.VehiculoExternoView;
+import views.vehiculos.VehiculoLocalView;
 
 public class AdministradorVehiculos {
 	private static AdministradorVehiculos instance;

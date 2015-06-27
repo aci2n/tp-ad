@@ -9,7 +9,6 @@ import impl.sucursales.Sucursal;
 import impl.vehiculos.Vehiculo;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -273,6 +272,31 @@ public class Viaje extends PersistentObject {
 			}
 		}
 		return false;
+	}
+	
+	public boolean tieneTrayecto(Ubicacion a, Ubicacion b) {
+		int pasaPorA = Integer.MIN_VALUE;
+		int pasaPorB = Integer.MIN_VALUE;
+		
+		if (this.origen.tieneMismasCoordenadas(a)) {
+			pasaPorA = -1;
+		}
+		
+		if (this.destino.tieneMismasCoordenadas(b)) {
+			pasaPorB = this.cantidadParadasIntemedias();
+		}
+		
+		if (pasaPorA == Integer.MIN_VALUE || pasaPorB == Integer.MIN_VALUE) {
+			for (int i = 0; i < this.cantidadParadasIntemedias(); i++) {
+				if (this.paradasIntermedias.get(i).getUbicacion().tieneMismasCoordenadas(a)) {
+					pasaPorA = i;
+				} else if (this.paradasIntermedias.get(i).getUbicacion().tieneMismasCoordenadas(b)) {
+					pasaPorB = i;
+				}
+			}
+		}
+		
+		return (pasaPorA != Integer.MIN_VALUE && pasaPorB != Integer.MIN_VALUE) && pasaPorA < pasaPorB; 
 	}
 
 	public ViajeOptimo getViajeOptimo(Ubicacion o, Ubicacion d) {

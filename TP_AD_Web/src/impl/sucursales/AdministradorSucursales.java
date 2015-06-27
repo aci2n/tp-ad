@@ -6,6 +6,8 @@ import impl.clientes.Cliente;
 import impl.misc.Coordenada;
 import impl.misc.Ubicacion;
 import impl.personal.Empleado;
+import impl.productos.ItemProducto;
+import impl.productos.Producto;
 import impl.viajes.AdministradorViajes;
 import impl.viajes.Viaje;
 
@@ -111,7 +113,15 @@ public class AdministradorSucursales {
 			Cliente cliente = carga.getCliente();
 			if (cliente != null) {
 				if (!sucursal.existeCarga(carga.getId())) {
-					if (!AdministradorCargas.getInstance().tieneMaterialesProhibidos(carga)) {
+					boolean tieneMaterialesProhibidos = false;
+					for (ItemProducto item : carga.getProductos()) {
+						if (!Producto.esMaterialPermitido(item.getProducto().getManipulacion())) {
+							tieneMaterialesProhibidos = true;
+							break;
+						}
+					}
+					
+					if (!tieneMaterialesProhibidos) {
 						sucursal.getCargas().add(carga);
 					} else {
 						throw new Exception("La carga de codigo " + carga.getId() + " tiene materiales prohibidos.");
