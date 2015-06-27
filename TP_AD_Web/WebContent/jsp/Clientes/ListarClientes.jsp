@@ -111,7 +111,7 @@
 																			{
 								%>
 								<tr>
-									<td style="color: #1565C0; font-weight: bold;"><%=c.getId()%></td>
+									<td style="color: #1565C0; font-weight: bold;"><%=e.getId()%></td>
 									<td><%=e.getNombre()%></td>
 									<td><%=e.getCuentaCorriente().getMontoActual()%></td>
 								</tr>
