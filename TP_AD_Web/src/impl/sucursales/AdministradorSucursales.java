@@ -172,6 +172,7 @@ public class AdministradorSucursales {
 		} else {
 			throw new Exception("No existe empleado con el ID ingresado.");
 		}
+	}
 
 	public List<EmpleadoView> obtenerEmpleadosView() {
 

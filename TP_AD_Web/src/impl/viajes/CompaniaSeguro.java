@@ -3,6 +3,7 @@ package impl.viajes;
 import impl.PersistentObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
@@ -74,6 +75,16 @@ public class CompaniaSeguro extends PersistentObject {
 		seguros.add(seguro);
 		CompaniaSeguroDAO.getInstance().update(this);
 		return seguro.getId();
+	}
+
+	public CompaniaSeguroView getView() {
+		CompaniaSeguroView compania = new CompaniaSeguroView(cuil, nombre);
+		Collection<SeguroView> segurosV = new ArrayList<SeguroView>();
+		for (Seguro s : seguros) {
+			segurosV.add(s.getView());
+		}
+		compania.setSegurosView(segurosV);
+		return compania;
 	}
 
 }
