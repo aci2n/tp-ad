@@ -6,14 +6,13 @@
 <title>Alta Empresa</title>
 </head>
 <body>
-	<form action="AltaClienteEmpresa">
-		<table>
-			<tr>
-				<td>Nombre:</td>
-				<td><input type="text" name="nombre"></td>
-			</tr>
-		</table>
-		<br /> <input type="submit" value="Alta">
+	<form id="alta-cliente" action="AltaClienteEmpresa"
+		class="box-padding" class="form-control">
+		<div class="input-field col s12">
+			<input type="text" class="validate" name="nombre"> <label
+				for="email">Nombre</label>
+		</div>
+		<input class="btn btn-primary" type="submit" value="Alta">
 	</form>
 </body>
 </html>

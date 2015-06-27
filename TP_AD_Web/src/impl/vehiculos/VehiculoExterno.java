@@ -48,4 +48,10 @@ public class VehiculoExterno extends Vehiculo {
 		this.proveedor = proveedor;
 	}
 
+	public VehiculoExternoView getView() {
+
+		return new VehiculoExternoView(patente, tamano.getView(), peso, tara,
+				tarifa, tipo.toString());
+	}
+
 }

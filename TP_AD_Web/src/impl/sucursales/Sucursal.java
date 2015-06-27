@@ -127,7 +127,7 @@ public class Sucursal extends PersistentObject {
 			empleados = new ArrayList<Empleado>();
 		Empleado empleado = new Empleado(e);
 		empleados.add(empleado);
-		return empleado.getId();		
+		return empleado.getId();
 	}
 
 	public Integer agregarVehiculo(VehiculoLocalView v, PlanMantenimientoView p) {
@@ -174,5 +174,10 @@ public class Sucursal extends PersistentObject {
 		if (cargas == null)
 			cargas = new ArrayList<Carga>();
 		cargas.add(carga);
+	}
+
+	public SucursalView getView() {
+		SucursalView view = new SucursalView(nombre, ubicacion.getView());
+		return view;
 	}
 }
