@@ -1,4 +1,4 @@
-package rmi.clientes;
+package swing;
 
 import impl.personal.TipoPuesto;
 
