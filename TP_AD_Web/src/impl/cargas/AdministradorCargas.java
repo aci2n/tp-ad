@@ -17,6 +17,7 @@ import java.util.List;
 import persistence.CargaDAO;
 import persistence.ClienteDAO;
 import persistence.SucursalDAO;
+import util.Utilities;
 import views.cargas.CargaView;
 import views.productos.ItemProductoView;
 import views.viajes.ParadaIntermediaView;
@@ -27,21 +28,20 @@ public class AdministradorCargas {
 	private ClienteDAO clienteDao;
 	private AdministradorViajes admVi;
 	private CargaDAO cargaDao;
-	
-	
+
 	public static AdministradorCargas getInstance() {
-		if (instance == null) 
+		if (instance == null)
 			instance = new AdministradorCargas();
 		return instance;
 	}
-	
+
 	private AdministradorCargas() {
 		this.sucursalDao = SucursalDAO.getInstance();
 		this.clienteDao = ClienteDAO.getInstance();
 		this.admVi = AdministradorViajes.getInstance();
 		this.cargaDao = CargaDAO.getInstance();
 	}
-	
+
 	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView c) throws Exception {
 		for (ItemProductoView ipv : c.getProductos()) {
 			if (!Producto.esMaterialPermitido(ipv.getProducto().getMaterial())) {
@@ -59,35 +59,29 @@ public class AdministradorCargas {
 			throw new Exception("No existe cliente o sucursal con el ID ingresado.");
 		}
 	}
-	
+
 	public Date fechaMaximaDeSalida(Viaje viaje) {
 		Date salidaMaxima = null;
-		
 		for (ItemCarga carga : viaje.getCargas()) {
 			Date salidaCarga = fechaMaximaDeSalida(carga.getCarga());
 			if (salidaMaxima == null || salidaMaxima.after(salidaCarga)) {
 				salidaMaxima = salidaCarga;
 			}
 		}
-		
 		return salidaMaxima;
 	}
-	
+
 	public Date fechaMaximaDeSalida(Carga carga) {
 		Calendar cal = Calendar.getInstance();
-		
 		AdministradorSucursales admSuc = AdministradorSucursales.getInstance();
 		Sucursal origen = admSuc.obtenerSucursalCercana(carga.getOrigen());
 		Sucursal destino = admSuc.obtenerSucursalCercana(carga.getDestino());
-		
 		float distancia = admSuc.calcularHorasEntreSucursales(origen, destino);
-		
 		cal.add(Calendar.HOUR, -((int) distancia));
 		cal.add(Calendar.MINUTE, -((int) ((distancia - (int) distancia) * 60)));
-		
 		return cal.getTime();
 	}
-	
+
 	public List<CargaView> obtenerCargasView() {
 		List<CargaView> cargas = new ArrayList<CargaView>();
 		for (Carga carga : cargaDao.getAll()) {
@@ -95,16 +89,15 @@ public class AdministradorCargas {
 		}
 		return cargas;
 	}
-	
+
 	private void asignarCargaAViajeOptimo(Carga c) throws Exception {
 		ViajeOptimo viajeOptimo = admVi.obtenerViajeOptimo(c);
 		if (viajeOptimo != null) {
 			viajeOptimo.getViaje().agregarCarga(c);
-			viajeOptimo.getViaje()
-					.agregarParadaIntermedia(new ParadaIntermediaView(c.getFechaProbableEntrega().toString(), c.getDestino().getView()));
+			viajeOptimo.getViaje().agregarParadaIntermedia(
+					new ParadaIntermediaView(Utilities.invParseDate(c.getFechaProbableEntrega()), c.getDestino().getView()));
 		} else {
 			admVi.crearViajeEnBaseACarga(c);
 		}
 	}
-
 }
