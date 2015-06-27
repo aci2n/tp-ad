@@ -24,5 +24,5 @@ public abstract class AbstractGenericDAO<T> {
 		session.update(obj);
 		session.getTransaction().commit();
 		session.close();
-	};	
+	};
 }

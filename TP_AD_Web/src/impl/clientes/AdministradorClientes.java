@@ -1,25 +1,20 @@
 package impl.clientes;
 
-import impl.productos.Producto;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import persistence.ClienteDAO;
+import views.clientes.CuentaCorrienteView;
 import views.clientes.EmpresaView;
 import views.clientes.ParticularView;
 import views.clientes.ReceptorView;
 
 public class AdministradorClientes {
 	private static AdministradorClientes instance;
-	private List<Cliente> clientes;
-	private List<Pago> pagos;
-	private List<Producto> productos;
+	private ClienteDAO clienteDao;
 
 	private AdministradorClientes() {
-		this.clientes = new ArrayList<Cliente>();
-		this.pagos = new ArrayList<Pago>();
-		this.productos = new ArrayList<Producto>();
+		this.clienteDao = ClienteDAO.getInstance();
 	}
 
 	public static AdministradorClientes getInstance() {
@@ -28,91 +23,47 @@ public class AdministradorClientes {
 		return instance;
 	}
 
-	public Integer altaClienteEmpresa(String nombre) {
-		Empresa e = new Empresa(nombre);
+	public Integer altaClienteEmpresa(EmpresaView view) {
+		CuentaCorriente c = null;
+		if (view.getCuentaCorriente() != null) {
+			c = new CuentaCorriente(view.getCuentaCorriente().isDepositoPrevio(),
+					view.getCuentaCorriente().getMontoActual(),
+					view.getCuentaCorriente().getMontoAutorizado());
+		}
+		Empresa e = new Empresa(view.getNombre(), c);
 		return e.getId();
 	}
 
-	public Integer altaClienteParticular(String dni, String nombre,
-			String apellido) {
-		Particular p = new Particular(dni, nombre, apellido);
+	public Integer altaClienteParticular(ParticularView view) {
+		Particular p = new Particular(view.getDni(), view.getNombre(), view.getApellido());
 		return p.getId();
 	}
 
-	public void agregarReceptor(Integer id, ReceptorView r) throws Exception {
+	public Integer agregarReceptor(Integer clienteId, ReceptorView r) throws Exception {
 		Particular particular = ClienteDAO.getInstance()
 				.obtenerClienteParticular(id);
 		if (particular != null) {
-			particular.agregarReceptor(r);
+			return particular.agregarReceptor(r);
 		} else {
 			throw new Exception("El cliente particular ingresado no existe.");
 		}
 	}
 
 	public void bajaCliente(Integer id) {
-		for (Cliente c : clientes) {
-			if (c.getId().equals(id)) {
-				clientes.remove(c);
-				return;
-			}
+		//	TODO
+	}
+
+	public void asignarCuentaCorriente(EmpresaView eView, CuentaCorrienteView cView) throws Exception {
+		Cliente cliente = clienteDao.get(eView.getId());
+
+		if (cliente != null) {
+			Empresa e = (Empresa) cliente;
+			e.setCuentaCorriente(new CuentaCorriente(cView.isDepositoPrevio(), cView.getMontoActual(), cView.getMontoAutorizado()));
+		} else {
+			throw new Exception("El cliente con id" + eView.getId() + " no es una empresa");
 		}
 	}
-
-	public void asignarCuentaCorriente(Integer id, Float montoActual,
-			Float montoAutorizado) throws Exception {
-		if (esClienteEmpresa(id)) {
-			Empresa c = (Empresa) obtenerCliente(id);
-			c.setCuentaCorriente(new CuentaCorriente(montoActual,
-					montoAutorizado));
-		} else
-			throw new Exception("El cliente con id" + id + " no es una empresa");
-	}
-
-	public boolean esClienteEmpresa(Integer id) {
-		for (Cliente c : clientes)
-			if (c.getId().equals(id) && c.getClass().equals(Empresa.class))
-				return true;
-		return false;
-	}
-
-	public Cliente obtenerCliente(Integer id) {
-		for (Cliente c : clientes)
-			if (c.getId().equals(id))
-				return c;
-		return null;
-	}
-
-	private Producto obtenerProducto(int codigoProducto) {
-		for (Producto p : productos)
-			if (p.getId() == codigoProducto)
-				return p;
-		return null;
-	}
-
-	public List<Cliente> getClientes() {
-		return clientes;
-	}
-
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
-	}
-
-	public List<Pago> getPagos() {
-		return pagos;
-	}
-
-	public void setPagos(List<Pago> pagos) {
-		this.pagos = pagos;
-	}
-
-	public List<Producto> getProductos() {
-		return productos;
-	}
-
-	public void setProductos(List<Producto> productos) {
-		this.productos = productos;
-	}
-
+	
 	public List<ParticularView> obtenerClientesParticulares() {
 
 		List<ParticularView> particulares = new ArrayList<ParticularView>();
@@ -133,4 +84,9 @@ public class AdministradorClientes {
 
 		return empresas;
 	}
+
+	public Cliente obtenerCliente(Integer id) {
+		return clienteDao.get(id);
+	}
+
 }

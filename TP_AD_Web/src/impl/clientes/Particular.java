@@ -75,12 +75,13 @@ public class Particular extends Cliente {
 		
 	}
 	
-	public void agregarReceptor(ReceptorView r) {
+	public Integer agregarReceptor(ReceptorView r) {
 		if (receptores == null)
 			receptores = new ArrayList<Receptor>();
 		Receptor receptor = new Receptor(r.getDni(), r.getNombre(), r.getApellido(), r.getUbicacion());
 		receptores.add(receptor);
 		ClienteDAO.getInstance().update(this);
+		return receptor.getId();
 	}
 	
 	public ParticularView getView(){

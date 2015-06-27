@@ -34,8 +34,9 @@ public class Empresa extends Cliente {
 	@JoinTable(name = "Empresas_Productos", joinColumns = @JoinColumn(name = "id_empresa"), inverseJoinColumns = @JoinColumn(name = "id_producto"))
 	private Collection<Producto> productos;
 
-	public Empresa(String nombre) {
+	public Empresa(String nombre, CuentaCorriente cuentaCorriente) {
 		this.nombre = nombre;
+		this.cuentaCorriente = cuentaCorriente;
 		this.id = ClienteDAO.getInstance().insert(this);
 	}
 

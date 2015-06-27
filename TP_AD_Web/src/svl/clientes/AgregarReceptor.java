@@ -35,7 +35,7 @@ public class AgregarReceptor extends GenericHttpServlet {
 			CoordenadaView c = new CoordenadaView(Float.parseFloat(latitud), Float.parseFloat(longitud));
 			UbicacionView u = new UbicacionView(pais, provincia, ciudad, calle, altura, piso, departamento, c);
 			ReceptorView r = new ReceptorView(dni, nombre, apellido, u);
-			ControladorPrincipal.getInstance().getAdministradorClientes().agregarReceptor(Integer.parseInt(id), r);
+			ControladorPrincipal.getInstance().agregarReceptor(Integer.parseInt(id), r);
 			forwardGenerico(request, response, "Receptor agregado exitosamente.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

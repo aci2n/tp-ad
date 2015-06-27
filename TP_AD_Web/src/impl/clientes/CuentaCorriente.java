@@ -15,8 +15,8 @@ public class CuentaCorriente {
 	@Column(name = "monto_actual")
 	private Float montoActual;
 
-	public CuentaCorriente(Float montoActual, Float montoAutorizado) {
-
+	public CuentaCorriente(boolean depositoPrevio, Float montoActual, Float montoAutorizado) {
+		this.depositoPrevio = depositoPrevio;
 		this.montoActual = montoActual;
 		this.montoAutorizado = montoAutorizado;
 	}
@@ -61,7 +61,6 @@ public class CuentaCorriente {
 	}
 	
 	public CuentaCorrienteView getView(){
-		
-		return new CuentaCorrienteView(Boolean.toString(depositoPrevio), montoAutorizado, montoActual);
+		return new CuentaCorrienteView(depositoPrevio, montoAutorizado, montoActual);
 	}
 }

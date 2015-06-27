@@ -3,7 +3,7 @@ package views.clientes;
 public class CuentaCorrienteView {
 
 	private int id;
-	private String depositoPrevio;
+	private boolean depositoPrevio;
 	private Float montoAutorizado;
 	private Float montoActual;
 
@@ -11,9 +11,7 @@ public class CuentaCorrienteView {
 
 	}
 
-	public CuentaCorrienteView(String depositoPrevio, Float montoAutorizado,
-			Float montoActual) {
-
+	public CuentaCorrienteView(boolean depositoPrevio, Float montoAutorizado, Float montoActual) {
 		this.depositoPrevio = depositoPrevio;
 		this.montoAutorizado = montoAutorizado;
 		this.montoActual = montoActual;
@@ -27,11 +25,11 @@ public class CuentaCorrienteView {
 		this.id = id;
 	}
 
-	public String isDepositoPrevio() {
+	public boolean isDepositoPrevio() {
 		return depositoPrevio;
 	}
 
-	public void setDepositoPrevio(String depositoPrevio) {
+	public void setDepositoPrevio(boolean depositoPrevio) {
 		this.depositoPrevio = depositoPrevio;
 	}
 
