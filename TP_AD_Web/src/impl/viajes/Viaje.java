@@ -281,7 +281,7 @@ public class Viaje extends PersistentObject {
 		ubicaciones[0] = origen;
 		int aux = 1;
 		for (ParadaIntermedia pi : paradasIntermedias) {
-			ubicaciones[aux] = pi.getUbicacion();
+			ubicaciones[aux++] = pi.getUbicacion();
 		}
 		ubicaciones[ubicaciones.length - 1] = destino;
 
@@ -290,6 +290,7 @@ public class Viaje extends PersistentObject {
 		for (int i = 0; i < ubicaciones.length; i++) {
 			if (ubicaciones[i].tieneMismasCoordenadas(o)) {
 				indiceComienzo = i;
+				break;
 			}
 		}
 		for (int i = indiceComienzo; i < ubicaciones.length - 1; i++) {
@@ -298,12 +299,14 @@ public class Viaje extends PersistentObject {
 				break;
 			}
 		}
+		System.out.println(distancia);
 		return distancia;
 	}
 
 	private Float calcularDistanciaEntreUbicaciones(Ubicacion a, Ubicacion b) {
 		// probamos con sucursales, si no usamos coordenadas
 		Sucursal sucA = SucursalDAO.getInstance().obtenerSucursalDesdeUbicacion(a.getCoordenadaDestino());
+		System.out.println(b.getCoordenadaDestino().toString());
 		Sucursal sucB = SucursalDAO.getInstance().obtenerSucursalDesdeUbicacion(b.getCoordenadaDestino());
 		if (sucA != null && sucB != null) {
 			DistanciaEntreSucursales des = SucursalDAO.getInstance().obtenerDistanciaEntreSucursales(sucA, sucB);

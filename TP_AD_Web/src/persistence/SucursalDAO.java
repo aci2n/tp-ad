@@ -66,9 +66,9 @@ public class SucursalDAO extends AbstractGenericDAO<Sucursal> {
 		Session s = sf.openSession();
 		s.beginTransaction();
 		Query q = s.createQuery("select s from Sucursal s inner join s.ubicacion u where u.coordenadaDestino.latitud = :lat and u.coordenadaDestino.longitud = :lon");
-		q.setParameter("lat", c.getLongitud());
+		q.setParameter("lat", c.getLatitud());
 		q.setParameter("lon", c.getLongitud());
-		sucursal = (Sucursal) q.uniqueResult();
+		sucursal = (Sucursal) q.uniqueResult(); //no siempre da unique results...
 		s.close();
 		return sucursal;
 	}
