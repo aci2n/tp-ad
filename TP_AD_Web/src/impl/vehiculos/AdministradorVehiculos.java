@@ -11,10 +11,11 @@ import java.util.List;
 
 import persistence.ProveedorDAO;
 import persistence.SucursalDAO;
+import persistence.VehiculoDAO;
 import views.vehiculos.PlanMantenimientoView;
+import views.vehiculos.TareaView;
 import views.vehiculos.VehiculoExternoView;
 import views.vehiculos.VehiculoLocalView;
-import views.viajes.CompaniaSeguroView;
 
 public class AdministradorVehiculos {
 	private static AdministradorVehiculos instance;
@@ -95,6 +96,7 @@ public class AdministradorVehiculos {
 		}
 		return null;
 	}
+
 	// public List<Proveedor> obtenerViajesDeProveedores(Date fechaSalida, Date
 	// fechaLLegada, TipoVehiculo tipoVehiculo){
 	//
@@ -111,4 +113,22 @@ public class AdministradorVehiculos {
 	// return proveedores;
 	// }
 
+	public void actualizarPrecioVehiculo(int id, float precioF) throws Exception {
+		Vehiculo v = VehiculoDAO.getInstance().get(id);
+		if (v != null) {
+			v.actualizarPrecio(precioF);
+		} else {
+			throw new Exception("No existe vehiculo con el ID ingresado.");
+		}
+
+	}
+
+	public void agregarTarea(int id, TareaView tarea) throws Exception {
+		VehiculoLocal v = VehiculoDAO.getInstance().getVehiculoLocal(id);
+		if (v != null) {
+			v.getPlanMantenimiento().agregarTarea(tarea);
+		} else {
+			throw new Exception("No existe vehiculo local con el ID ingresado.");
+		}
+	}
 }

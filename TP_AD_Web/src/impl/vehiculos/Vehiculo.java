@@ -13,6 +13,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import persistence.VehiculoDAO;
+
 @Entity
 @Table(name = "Vehiculos")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -95,4 +97,9 @@ public abstract class Vehiculo extends PersistentObject {
 	}
 
 	public abstract boolean estaDisponible();
+
+	public void actualizarPrecio(float precio) {
+		setTarifa(precio);
+		VehiculoDAO.getInstance().update(this);
+	}
 }
