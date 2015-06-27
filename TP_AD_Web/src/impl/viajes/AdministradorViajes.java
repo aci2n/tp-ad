@@ -251,8 +251,8 @@ public class AdministradorViajes {
 		}
 
 		for (int i = indiceComienzo; i < paradas.size(); i++) {
-			distancia += calcularDistanciaEntreUbicaciones(origen, destino);
-			if (!paradas.get(i).getUbicacion().equals(destino)) {
+			distancia += calcularDistanciaEntreUbicaciones(paradas.get(i).getUbicacion(), paradas.get(i + 1).getUbicacion());
+			if (paradas.get(i + 1).getUbicacion().equals(destino)) {
 				break;
 			}
 		}
@@ -264,7 +264,7 @@ public class AdministradorViajes {
 		//probamos con sucursales, si no usamos coordenadas
 		Sucursal sucA = SucursalDAO.getInstance().obtenerSucursalDesdeUbicacion(a.getId());
 		Sucursal sucB = SucursalDAO.getInstance().obtenerSucursalDesdeUbicacion(b.getId());
-		if (sucA != null && sucB != null) {
+		if (sucA != null || sucB != null) {
 			return SucursalDAO.getInstance().obtenerDistanciaEntreSucursales(sucA, sucB).getDistanciaEnKm();
 		} else {
 			return calcularDistanciaEntreUbicaciones(a, b);
