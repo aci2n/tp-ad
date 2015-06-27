@@ -1,6 +1,12 @@
 package views.viajes;
 
-public class SeguroView {
+import views.GenericView;
+
+public class SeguroView extends GenericView {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nombre;
 	private String tipoCarga;
 	private Float tarifa;

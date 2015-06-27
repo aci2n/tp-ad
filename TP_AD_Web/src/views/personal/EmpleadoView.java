@@ -1,7 +1,9 @@
 package views.personal;
 
+import views.GenericView;
 
-public class EmpleadoView {
+
+public class EmpleadoView extends GenericView{
 	private String cuit;
 	private String dni;
 	private String nombre;

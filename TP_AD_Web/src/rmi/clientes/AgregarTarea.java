@@ -1,4 +1,4 @@
-package swing;
+package rmi.clientes;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -14,20 +14,21 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import controllers.ControladorPrincipal;
+import rmi.delegate.BusinessDelegate;
+import views.vehiculos.TareaView;
 
-public class ActualizarPrecioVehiculo extends JFrame implements ActionListener {
+public class AgregarTarea extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField[] textFields;
-	private JButton btnActualizar;
+	private JButton btnAgregar;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ActualizarPrecioVehiculo frame = new ActualizarPrecioVehiculo();
+					AgregarTarea frame = new AgregarTarea();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,26 +37,26 @@ public class ActualizarPrecioVehiculo extends JFrame implements ActionListener {
 		});
 	}
 
-	public ActualizarPrecioVehiculo() {
+	public AgregarTarea() {
 		inicializar();
 		configurar();
 	}
 
 	private void inicializar() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 150);
+		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		setTitle("Actualizar Precio Vehiculo");
+		setTitle("Agregar Tarea");
 	}
 
 	private void configurar() {
 		JPanel panelCentro = new JPanel();
 		panelCentro.setLayout(new GridLayout(0, 1));
 
-		String[] labelStrings = { "ID Vehiculo", "Precio nuevo" };
+		String[] labelStrings = { "ID Vehiculo", "Kilometraje", "Fecha entrega", "Fecha devolucion" };
 		textFields = new JTextField[labelStrings.length];
 
 		for (int i = 0; i < labelStrings.length; i++) {
@@ -66,23 +67,26 @@ public class ActualizarPrecioVehiculo extends JFrame implements ActionListener {
 
 		contentPane.add(panelCentro, BorderLayout.CENTER);
 
-		btnActualizar = new JButton("Agregar");
-		btnActualizar.addActionListener(this);
-		contentPane.add(btnActualizar, BorderLayout.SOUTH);
+		btnAgregar = new JButton("Agregar");
+		btnAgregar.addActionListener(this);
+		contentPane.add(btnAgregar, BorderLayout.SOUTH);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnActualizar) {
+		if (e.getSource() == btnAgregar) {
 			if (!hayCampoVacio()) {
 				int i = 0;
 				String idVehiculo = textFields[i++].getText();
-				String precio = textFields[i++].getText();
+				String kilometraje = textFields[i++].getText();
+				String fechaEntrega = textFields[i++].getText();
+				String fechaDevolucion = textFields[i++].getText();
 
 				try {
 					int id = Integer.parseInt(idVehiculo);
-					float precioF = Float.parseFloat(precio);
-					ControladorPrincipal.getInstance().getAdministradorVehiculos().actualizarPrecioVehiculo(id, precioF);
-					mostrarInformacion("Vehiculo actualizado correctamente.");
+					float kilometrajeF = Float.parseFloat(kilometraje);
+					TareaView tarea = new TareaView(kilometrajeF, fechaEntrega, fechaDevolucion);
+					BusinessDelegate.getInstance().getInterfaz().agregarTarea(id, tarea);
+					mostrarInformacion("Tarea agregada correctamente.");
 				} catch (Exception ex) {
 					mostrarError(ex.getMessage());
 				}

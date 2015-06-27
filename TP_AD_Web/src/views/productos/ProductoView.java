@@ -1,8 +1,9 @@
 package views.productos;
 
+import views.GenericView;
 import views.misc.TamanoView;
 
-public class ProductoView {
+public class ProductoView extends GenericView{
 	private String nombre;
 	private String fragilidad;
 	private String tratamiento;

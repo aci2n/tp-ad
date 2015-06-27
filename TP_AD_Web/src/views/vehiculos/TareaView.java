@@ -1,6 +1,8 @@
 package views.vehiculos;
 
-public class TareaView {
+import views.GenericView;
+
+public class TareaView extends GenericView{
 	Float kilometraje;
 	String fechaEntrega;
 	String fechaDevolucion;

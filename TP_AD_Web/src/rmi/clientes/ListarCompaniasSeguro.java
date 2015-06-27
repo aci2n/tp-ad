@@ -1,9 +1,10 @@
-package swing;
+package rmi.clientes;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -13,9 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import rmi.delegate.BusinessDelegate;
 import views.viajes.CompaniaSeguroView;
 import views.viajes.SeguroView;
-import controllers.ControladorPrincipal;
 
 public class ListarCompaniasSeguro extends JFrame implements ActionListener {
 
@@ -55,7 +56,12 @@ public class ListarCompaniasSeguro extends JFrame implements ActionListener {
 		contentPane.setLayout(new BorderLayout());
 
 		comboCompanias = new JComboBox<CompaniaSeguroView>();
-		List<CompaniaSeguroView> companias = ControladorPrincipal.getInstance().getAdministradorViajes().getCompaniasSeguroView();
+		List<CompaniaSeguroView> companias = new ArrayList<CompaniaSeguroView>();
+		try {
+			companias = BusinessDelegate.getInstance().getInterfaz().getCompaniasSeguroView();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		for (int i = 0; i < companias.size(); i++) {
 			comboCompanias.addItem(companias.get(i));
 		}

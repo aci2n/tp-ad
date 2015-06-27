@@ -1,6 +1,8 @@
 package views.vehiculos;
 
-public class PlanMantenimientoView {
+import views.GenericView;
+
+public class PlanMantenimientoView extends GenericView{
 	private String tipoPlan;
 	private Float puntoControl;
 	private Integer intervaloMantenimiento;

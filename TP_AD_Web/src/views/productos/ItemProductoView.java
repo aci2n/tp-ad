@@ -1,6 +1,8 @@
 package views.productos;
 
-public class ItemProductoView {
+import views.GenericView;
+
+public class ItemProductoView extends GenericView{
 	private ProductoView producto;
 	private float cantidad;
 	

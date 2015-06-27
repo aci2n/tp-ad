@@ -1,4 +1,4 @@
-package swing;
+package rmi.clientes;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import controllers.ControladorPrincipal;
+import rmi.delegate.BusinessDelegate;
 
 public class BajaEmpleado extends JFrame implements ActionListener {
 
@@ -79,7 +79,7 @@ public class BajaEmpleado extends JFrame implements ActionListener {
 
 				try {
 					int id = Integer.parseInt(idEmpleado);
-					ControladorPrincipal.getInstance().getAdministradorSucursales().bajaEmpleado(id);
+					BusinessDelegate.getInstance().getInterfaz().bajaEmpleado(id);
 					mostrarInformacion("Empleado eliminado correctamente.");
 				} catch (Exception ex) {
 					mostrarError(ex.getMessage());
@@ -100,7 +100,7 @@ public class BajaEmpleado extends JFrame implements ActionListener {
 	private void mostrarError(String mensaje) {
 		JOptionPane.showMessageDialog(new JFrame(), mensaje, "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	private void mostrarInformacion(String mensaje) {
 		JOptionPane.showMessageDialog(new JFrame(), mensaje, "Informacion", JOptionPane.INFORMATION_MESSAGE);
 	}

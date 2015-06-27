@@ -1,7 +1,9 @@
 package views.misc;
 
+import views.GenericView;
 
-public class TamanoView {
+
+public class TamanoView extends GenericView{
 	private Float profundidad;
 	private Float alto;
 	private Float ancho;

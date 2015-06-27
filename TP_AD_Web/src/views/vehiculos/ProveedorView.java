@@ -1,6 +1,8 @@
 package views.vehiculos;
 
-public class ProveedorView {
+import views.GenericView;
+
+public class ProveedorView extends GenericView{
 
 	private int id;
 	private String cuit;

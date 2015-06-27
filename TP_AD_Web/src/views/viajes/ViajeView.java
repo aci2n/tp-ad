@@ -1,8 +1,9 @@
 package views.viajes;
 
+import views.GenericView;
 import views.misc.UbicacionView;
 
-public class ViajeView {
+public class ViajeView extends GenericView{
 	private String fechaSalida;
 	private String fechaLlegada;
 	private UbicacionView origen;

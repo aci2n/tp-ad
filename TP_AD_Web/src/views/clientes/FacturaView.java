@@ -3,9 +3,10 @@ package views.clientes;
 import java.util.Date;
 import java.util.List;
 
+import views.GenericView;
 import views.cargas.CargaView;
 
-public class FacturaView {
+public class FacturaView extends GenericView{
 
 	private int id;
 	private String tipoFactura;

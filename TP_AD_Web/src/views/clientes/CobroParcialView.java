@@ -2,7 +2,9 @@ package views.clientes;
 
 import java.util.Date;
 
-public class CobroParcialView {
+import views.GenericView;
+
+public class CobroParcialView extends GenericView{
 
 	private int id;
 	private Date fecha;

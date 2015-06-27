@@ -1,8 +1,9 @@
 package views.sucursales;
 
+import views.GenericView;
 import views.misc.UbicacionView;
 
-public class SucursalView {
+public class SucursalView extends GenericView{
 	private String nombre;
 	private UbicacionView ubicacion;
 

@@ -1,6 +1,8 @@
 package views.sucursales;
 
-public class DistanciaEntreSucursalesView {
+import views.GenericView;
+
+public class DistanciaEntreSucursalesView extends GenericView{
 	private Integer sucursalA;
 	private Integer sucursalB;
 	private Float duracionEnKm;

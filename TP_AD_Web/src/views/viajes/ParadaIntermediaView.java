@@ -1,8 +1,9 @@
 package views.viajes;
 
+import views.GenericView;
 import views.misc.UbicacionView;
 
-public class ParadaIntermediaView {
+public class ParadaIntermediaView extends GenericView{
 	private String llegada;
 	private UbicacionView ubicacion;
 

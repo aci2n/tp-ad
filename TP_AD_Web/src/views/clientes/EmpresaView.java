@@ -2,9 +2,10 @@ package views.clientes;
 
 import java.util.List;
 
+import views.GenericView;
 import views.productos.ProductoView;
 
-public class EmpresaView {
+public class EmpresaView extends GenericView{
 
 	private int id;
 	private String nombre;
