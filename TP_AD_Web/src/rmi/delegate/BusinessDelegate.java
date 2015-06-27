@@ -4,16 +4,16 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 import rmi.tda.Parametros;
-import rmi.tda.TDAControllerAdministrador;
+import rmi.tda.TDAControladorPrincipal;
 
 public class BusinessDelegate {
 	private static BusinessDelegate instance;
-	private TDAControllerAdministrador interfaz;
+	private TDAControladorPrincipal interfaz;
 
 	private BusinessDelegate() {
 		try {
 			Registry registry = LocateRegistry.getRegistry(Parametros.getIp(), Parametros.getPort());
-			interfaz = (TDAControllerAdministrador) registry.lookup(Parametros.getServerName());
+			interfaz = (TDAControladorPrincipal) registry.lookup(Parametros.getServerName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -23,10 +23,9 @@ public class BusinessDelegate {
 		if (instance == null)
 			instance = new BusinessDelegate();
 		return instance;
-
 	}
 
-	public TDAControllerAdministrador getInterfaz() {
+	public TDAControladorPrincipal getInterfaz() {
 		return interfaz;
 	}
 }

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import svl.GenericHttpServlet;
 import views.misc.TamanoView;
 import views.vehiculos.VehiculoExternoView;
-import controllers.ControladorPrincipal;
 
 @WebServlet("/jsp/Vehiculos/AltaVehiculoExterno")
 public class AltaVehiculoExterno extends GenericHttpServlet {
@@ -29,7 +28,7 @@ public class AltaVehiculoExterno extends GenericHttpServlet {
 		try {
 			TamanoView t = new TamanoView(Float.parseFloat(profundidad), Float.parseFloat(alto), Float.parseFloat(ancho));
 			VehiculoExternoView v = new VehiculoExternoView(patente, t, Float.parseFloat(peso), Float.parseFloat(tara), Float.parseFloat(tarifa), tipo);
-			Integer i = ControladorPrincipal.getInstance().altaVehiculoExterno(Integer.parseInt(id), v);
+			Integer i = delegate.getInterfaz().altaVehiculoExterno(Integer.parseInt(id), v);
 			forwardGenerico(request, response, "Vehiculo externo agregado exitosamente con id: " + i + ".");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

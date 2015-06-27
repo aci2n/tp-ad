@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import rmi.delegate.BusinessDelegate;
 import svl.GenericHttpServlet;
 import views.clientes.ReceptorView;
 import views.misc.CoordenadaView;
@@ -35,7 +34,7 @@ public class AgregarReceptor extends GenericHttpServlet {
 			CoordenadaView c = new CoordenadaView(Float.parseFloat(latitud), Float.parseFloat(longitud));
 			UbicacionView u = new UbicacionView(pais, provincia, ciudad, calle, altura, piso, departamento, c);
 			ReceptorView r = new ReceptorView(dni, nombre, apellido, u);
-			BusinessDelegate.getInstance().getInterfaz().agregarReceptor(Integer.parseInt(id), r);
+			delegate.getInterfaz().agregarReceptor(Integer.parseInt(id), r);
 			forwardGenerico(request, response, "Receptor agregado exitosamente.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

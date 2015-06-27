@@ -8,8 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import rmi.delegate.BusinessDelegate;
+
 public abstract class GenericHttpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	protected static BusinessDelegate delegate = BusinessDelegate.getInstance();
 
 	public GenericHttpServlet() {
 	}
@@ -20,8 +23,9 @@ public abstract class GenericHttpServlet extends HttpServlet {
 		request.setAttribute("mensaje", mensaje);
 		request.getRequestDispatcher("/jsp/Misc/GenericForward.jsp").forward(request, response);
 	}
-	
-	protected void forwardJsp(HttpServletRequest request, HttpServletResponse response, String path, Map<String, Object> params) throws ServletException, IOException {
+
+	protected void forwardJsp(HttpServletRequest request, HttpServletResponse response, String path, Map<String, Object> params)
+			throws ServletException, IOException {
 		for (String key : params.keySet()) {
 			request.setAttribute(key, params.get(key));
 		}

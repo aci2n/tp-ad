@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import svl.GenericHttpServlet;
 import views.clientes.EmpresaView;
-import controllers.ControladorPrincipal;
 
 @WebServlet("/AltaClienteEmpresa")
 public class AltaClienteEmpresa extends GenericHttpServlet {
@@ -22,7 +21,7 @@ public class AltaClienteEmpresa extends GenericHttpServlet {
 		try {
 			EmpresaView empresa = new EmpresaView();
 			empresa.setNombre(nombre);
-			Integer id = ControladorPrincipal.getInstance().altaEmpresa(empresa);
+			Integer id = delegate.getInterfaz().altaEmpresa(empresa);
 			forwardGenerico(request, response, "Cliente agregado exitosamente con id: " + id + ".");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

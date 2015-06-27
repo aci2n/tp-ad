@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import svl.GenericHttpServlet;
 import views.viajes.CompaniaSeguroView;
-import controllers.ControladorPrincipal;
 
 @WebServlet("/jsp/Viajes/AltaCompaniaSeguro")
 public class AltaCompaniaSeguro extends GenericHttpServlet {
@@ -21,7 +20,7 @@ public class AltaCompaniaSeguro extends GenericHttpServlet {
 
 		try {
 			CompaniaSeguroView c = new CompaniaSeguroView(cuit, nombre);
-			Integer i = ControladorPrincipal.getInstance().altaCompaniaSeguro(c);
+			Integer i = delegate.getInterfaz().altaCompaniaSeguro(c);
 			forwardGenerico(request, response, "Compania de seguros agregada exitosamente con id: " + i + ".");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

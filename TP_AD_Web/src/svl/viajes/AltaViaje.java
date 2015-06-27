@@ -11,7 +11,6 @@ import svl.GenericHttpServlet;
 import views.misc.CoordenadaView;
 import views.misc.UbicacionView;
 import views.viajes.ViajeView;
-import controllers.ControladorPrincipal;
 
 @WebServlet("/jsp/Viajes/AltaViaje")
 public class AltaViaje extends GenericHttpServlet {
@@ -46,7 +45,7 @@ public class AltaViaje extends GenericHttpServlet {
 			UbicacionView destino = new UbicacionView(paisD, provinciaD, ciudadD, calleD, alturaD, pisoD, departamentoD, new CoordenadaView(
 					Integer.parseInt(latitudD), Integer.parseInt(longitudD)));
 			ViajeView viaje = new ViajeView(fechaSalida, fechaLlegada, origen, destino);
-			Integer i = ControladorPrincipal.getInstance().altaViaje(Integer.parseInt(idVehiculo), Integer.parseInt(idSeguro), viaje);
+			Integer i = delegate.getInterfaz().altaViaje(Integer.parseInt(idVehiculo), Integer.parseInt(idSeguro), viaje);
 			forwardGenerico(request, response, "Viaje agregado exitosamente con id: " + i + ".");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

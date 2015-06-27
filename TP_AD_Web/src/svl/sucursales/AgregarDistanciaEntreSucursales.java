@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import svl.GenericHttpServlet;
 import views.sucursales.DistanciaEntreSucursalesView;
-import controllers.ControladorPrincipal;
 
 @WebServlet("/jsp/Sucursales/AgregarDistanciaEntreSucursales")
 public class AgregarDistanciaEntreSucursales extends GenericHttpServlet {
@@ -25,7 +24,7 @@ public class AgregarDistanciaEntreSucursales extends GenericHttpServlet {
 		try {
 			DistanciaEntreSucursalesView d = new DistanciaEntreSucursalesView(Integer.parseInt(idA), Integer.parseInt(idB), Float.parseFloat(km),
 					Float.parseFloat(horas), Float.parseFloat(costo));
-			ControladorPrincipal.getInstance().agregarDistanciaEntreSucursales(d);
+			delegate.getInterfaz().agregarDistanciaEntreSucursales(d);
 			forwardGenerico(request, response, "Distancia entre sucursales agregada correctamente.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

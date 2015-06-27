@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import svl.GenericHttpServlet;
 import views.misc.TamanoView;
 import views.productos.ProductoView;
-import controllers.ControladorPrincipal;
 
 @WebServlet("/jsp/Productos/AltaProducto")
 public class AltaProducto extends GenericHttpServlet {
@@ -34,7 +33,7 @@ public class AltaProducto extends GenericHttpServlet {
 			TamanoView t = new TamanoView(Float.parseFloat(profundidad), Float.parseFloat(alto), Float.parseFloat(ancho));
 			ProductoView p = new ProductoView(nombre, fragilidad, tratamiento, t, Float.parseFloat(peso), Integer.parseInt(apilable), manipulacion,
 					material, consideraciones, new Boolean(refrigerado));
-			Integer id = ControladorPrincipal.getInstance().altaProducto(p);
+			Integer id = delegate.getInterfaz().altaProducto(p);
 			forwardGenerico(request, response, "Producto agregado exitosamente con id: " + id + ".");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

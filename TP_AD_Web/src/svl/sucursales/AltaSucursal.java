@@ -11,7 +11,6 @@ import svl.GenericHttpServlet;
 import views.misc.CoordenadaView;
 import views.misc.UbicacionView;
 import views.sucursales.SucursalView;
-import controllers.ControladorPrincipal;
 
 @WebServlet("/jsp/Sucursales/AltaSucursal")
 public class AltaSucursal extends GenericHttpServlet {
@@ -33,7 +32,7 @@ public class AltaSucursal extends GenericHttpServlet {
 			CoordenadaView c = new CoordenadaView(Float.parseFloat(latitud), Float.parseFloat(longitud));
 			UbicacionView u = new UbicacionView(pais, provincia, ciudad, calle, altura, piso, departamento, c);
 			SucursalView s = new SucursalView(nombre, u);
-			Integer id = ControladorPrincipal.getInstance().altaSucursal(s);
+			Integer id = delegate.getInterfaz().altaSucursal(s);
 			forwardGenerico(request, response, "Sucursal agregada exitosamente con id: " + id + ".");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

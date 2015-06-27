@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import svl.GenericHttpServlet;
 import views.personal.EmpleadoView;
-import controllers.ControladorPrincipal;
 
 @WebServlet("/AgregarEmpleado")
 public class AgregarEmpleado extends GenericHttpServlet {
@@ -26,7 +25,7 @@ public class AgregarEmpleado extends GenericHttpServlet {
 		
 		try {
 			EmpleadoView e = new EmpleadoView(cuit, dni, nombre, apellido, fechaNacimiento, tipo);
-			Integer i = ControladorPrincipal.getInstance().agregarEmpleadoASucursal(Integer.parseInt(id), e);
+			Integer i = delegate.getInterfaz().agregarEmpleadoASucursal(Integer.parseInt(id), e);
 			forwardGenerico(request, response, "Empleado agregado exitosamente con id: " + i + ".");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

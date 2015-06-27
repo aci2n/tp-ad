@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import svl.GenericHttpServlet;
-import controllers.ControladorPrincipal;
 
 @WebServlet("/jsp/Productos/AgregarCondicionEspecial")
 public class AgregarCondicionEspecial extends GenericHttpServlet {
@@ -19,7 +18,7 @@ public class AgregarCondicionEspecial extends GenericHttpServlet {
 		String condicionEspecial = request.getParameter("condicionEspecial");
 
 		try {
-			ControladorPrincipal.getInstance().agregarCondicionEspecialAProducto(Integer.parseInt(id), condicionEspecial);
+			delegate.getInterfaz().agregarCondicionEspecialAProducto(Integer.parseInt(id), condicionEspecial);
 			forwardGenerico(request, response, "Condicion especial agregada exitosamente.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
