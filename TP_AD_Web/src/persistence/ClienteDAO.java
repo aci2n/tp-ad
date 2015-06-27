@@ -1,11 +1,11 @@
 package persistence;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import impl.clientes.Cliente;
 import impl.clientes.Empresa;
 import impl.clientes.Particular;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -39,6 +39,7 @@ public class ClienteDAO extends AbstractGenericDAO<Cliente> {
 		return particular;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Particular> getAllClientesParticulares() {
 
 		List<Particular> particulares = new ArrayList<Particular>();
@@ -49,6 +50,7 @@ public class ClienteDAO extends AbstractGenericDAO<Cliente> {
 		return particulares;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Empresa> getAllClientesEmpresas() {
 
 		List<Empresa> empresas = new ArrayList<Empresa>();
@@ -59,9 +61,10 @@ public class ClienteDAO extends AbstractGenericDAO<Cliente> {
 		s.close();
 		return empresas;
 	}
-	
-	public List<Cliente> getAllClientes(){
-		
+
+	@SuppressWarnings("unchecked")
+	public List<Cliente> getAllClientes() {
+
 		List<Cliente> clientes = new ArrayList<Cliente>();
 		Session s = sf.openSession();
 		s.beginTransaction();

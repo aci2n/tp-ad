@@ -165,5 +165,24 @@ public class AdministradorSucursales {
 	public Empleado obtenerEmpleado(String cuit) {
 		return empleadoDao.obtenerPorCuit(cuit);
 	}
-	
+
+	public void bajaEmpleado(int id) throws Exception {
+		Empleado e = EmpleadoDAO.getInstance().get(id);
+		if (e != null) {
+			EmpleadoDAO.getInstance().delete(e);
+		} else {
+			throw new Exception("No existe empleado con el ID ingresado.");
+		}
+	}
+
+	public List<EmpleadoView> obtenerEmpleadosView() {
+
+		List<EmpleadoView> empleadosView = new ArrayList<EmpleadoView>();
+
+		for (Empleado e : EmpleadoDAO.getInstance().getAll())
+			empleadosView.add(e.getView());
+
+		return empleadosView;
+
+	}
 }

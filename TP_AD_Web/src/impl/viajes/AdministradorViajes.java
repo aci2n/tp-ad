@@ -215,4 +215,12 @@ public class AdministradorViajes {
 			throw new Exception("No existe viaje con el id ingresado.");
 		}
 	}
+
+	public List<CompaniaSeguroView> getCompaniasSeguroView() {
+		List<CompaniaSeguroView> companias = new ArrayList<CompaniaSeguroView>();
+		for (CompaniaSeguro cs : CompaniaSeguroDAO.getInstance().getAll()) {
+			companias.add(cs.getView());
+		}
+		return companias;
+	}
 }

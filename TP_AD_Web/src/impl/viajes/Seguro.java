@@ -28,35 +28,44 @@ public class Seguro extends PersistentObject {
 	private TipoCarga tipoCarga;
 	@Column(name = "tarifa")
 	private Float tarifa;
-	
+
 	public Seguro() {
-		
+
 	}
-	
+
 	public Seguro(SeguroView s) {
 		nombre = s.getNombre();
 		tarifa = s.getTarifa();
 		tipoCarga = TipoCarga.valueOf(s.getTipoCarga());
 		id = SeguroDAO.getInstance().insert(this);
 	}
-	
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public TipoCarga getTipoCarga() {
 		return tipoCarga;
 	}
+
 	public void setTipoCarga(TipoCarga tipoCarga) {
 		this.tipoCarga = tipoCarga;
 	}
+
 	public Float getTarifa() {
 		return tarifa;
 	}
+
 	public void setTarifa(Float tarifa) {
 		this.tarifa = tarifa;
 	}
-	
+
+	public SeguroView getView() {
+		return new SeguroView(nombre, tipoCarga.getTipo(), tarifa);
+	}
+
 }

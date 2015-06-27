@@ -14,6 +14,7 @@ import persistence.SucursalDAO;
 import views.vehiculos.PlanMantenimientoView;
 import views.vehiculos.VehiculoExternoView;
 import views.vehiculos.VehiculoLocalView;
+import views.viajes.CompaniaSeguroView;
 
 public class AdministradorVehiculos {
 	private static AdministradorVehiculos instance;

@@ -5,9 +5,9 @@ import org.hibernate.SessionFactory;
 
 public abstract class AbstractGenericDAO<T> {
 	protected static SessionFactory sf = HibernateUtil.getSessionFactory();
-	
+
 	protected abstract T get(Integer id);
-	
+
 	public Integer insert(Object obj) {
 		Integer id = null;
 		Session session = sf.openSession();
@@ -16,8 +16,8 @@ public abstract class AbstractGenericDAO<T> {
 		session.getTransaction().commit();
 		session.close();
 		return id;
-	};
-	
+	}
+
 	public void update(Object obj) {
 		Session session = sf.openSession();
 		session.beginTransaction();
@@ -25,4 +25,13 @@ public abstract class AbstractGenericDAO<T> {
 		session.getTransaction().commit();
 		session.close();
 	};
+
+	public void delete(Object obj) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.delete(obj);
+		session.getTransaction().commit();
+		session.close();
+	}
+
 }
