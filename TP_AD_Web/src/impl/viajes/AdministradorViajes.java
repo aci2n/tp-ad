@@ -1,6 +1,8 @@
 package impl.viajes;
 
 import impl.cargas.Carga;
+import impl.cargas.TipoCarga;
+import impl.clientes.Cliente;
 import impl.sucursales.AdministradorSucursales;
 import impl.sucursales.Sucursal;
 import impl.vehiculos.Vehiculo;
@@ -9,15 +11,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import persistence.CargaDAO;
+import persistence.ClienteDAO;
 import persistence.CompaniaSeguroDAO;
 import persistence.SeguroDAO;
 import persistence.VehiculoDAO;
 import persistence.ViajeDAO;
+import util.Utilities;
+import views.cargas.CargaView;
 import views.viajes.CompaniaSeguroView;
 import views.viajes.ParadaIntermediaView;
 import views.viajes.SeguroView;
-import views.viajes.ViajeOptimoView;
 import views.viajes.ViajeView;
 
 public class AdministradorViajes {
@@ -208,21 +211,16 @@ public class AdministradorViajes {
 		return companias;
 	}
 
-	public ViajeOptimoView obtenerViajeOptimo(Integer idCarga) throws Exception {
-		Carga carga = CargaDAO.getInstance().get(idCarga);
-		if (carga != null) {
-			List<Viaje> viajesPosibles = obtenerViajesPosibles(carga);
-			ViajeOptimo viajeOptimo = null;
-			for (Viaje v : viajesPosibles) {
-				ViajeOptimo aux = v.getViajeOptimo(carga.getOrigen(), carga.getDestino());
-				if (viajeOptimo == null || aux.getDistanciaOptima() < viajeOptimo.getDistanciaOptima()) {
-					viajeOptimo = aux;
-				}
+	public ViajeOptimo obtenerViajeOptimo(Carga carga) throws Exception {
+		List<Viaje> viajesPosibles = obtenerViajesPosibles(carga);
+		ViajeOptimo viajeOptimo = null;
+		for (Viaje v : viajesPosibles) {
+			ViajeOptimo aux = v.getViajeOptimo(carga.getOrigen(), carga.getDestino());
+			if (viajeOptimo == null || aux.getDistanciaOptima() < viajeOptimo.getDistanciaOptima()) {
+				viajeOptimo = aux;
 			}
-			return viajeOptimo.getView();
-		} else {
-			throw new Exception("No existe carga con el ID ingresado.");
 		}
+		return viajeOptimo;
 	}
 
 	private List<Viaje> obtenerViajesPosibles(Carga carga) {
@@ -234,5 +232,58 @@ public class AdministradorViajes {
 			}
 		}
 		return viajesPosibles;
+	}
+
+	public Integer altaCarga(Integer idCliente, CargaView c) throws Exception {
+		Cliente cli = ClienteDAO.getInstance().get(idCliente);
+		if (cli != null) {
+			Carga carga = new Carga(c, cli);
+			asignarCargaAViajeOptimo(carga);
+			return carga.getId();
+		} else {
+			throw new Exception("No existe cliente con el ID ingresado.");
+		}
+	}
+
+	private void asignarCargaAViajeOptimo(Carga c) throws Exception {
+		ViajeOptimo viajeOptimo = obtenerViajeOptimo(c);
+		if (viajeOptimo != null) {
+			viajeOptimo.getViaje().agregarCarga(c);
+			viajeOptimo.getViaje()
+					.agregarParadaIntermedia(new ParadaIntermediaView(c.getFechaProbableEntrega().toString(), c.getDestino().getView()));
+		} else {
+			crearViajeEnBaseACarga(c);
+		}
+	}
+
+	private void crearViajeEnBaseACarga(Carga c) throws Exception {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(c.getFechaMaximaEntrega());
+		calendar.add(Calendar.DAY_OF_MONTH, -1);
+		// seteo fecha inicio viaje a 1 dia menos
+
+		ViajeView vv = new ViajeView(Utilities.invParseDate(calendar.getTime()), Utilities.invParseDate(c.getFechaMaximaEntrega()), c.getOrigen()
+				.getView(), c.getDestino().getView());
+
+		Vehiculo vehiculoDisponible = obtenerVehiculoDisponible();
+		Seguro seguro = obtenerSeguro(c.getTipo());
+		if (vehiculoDisponible != null && seguro != null) {			
+			altaViaje(vehiculoDisponible.getId(), seguro.getId(), vv);
+		} else {
+			throw new Exception("No hay vehiculos o seguros disponibles.");
+		}
+	}
+
+	public Vehiculo obtenerVehiculoDisponible() {
+		for (Vehiculo v : VehiculoDAO.getInstance().getAll()) {
+			if (v.estaDisponible()) {
+				return v;
+			}
+		}
+		return null;
+	}
+
+	public Seguro obtenerSeguro(TipoCarga tipo) {
+		return SeguroDAO.getInstance().obtenerSeguroPorTipo(tipo);
 	}
 }
