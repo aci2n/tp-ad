@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import persistence.CargaDAO;
+import util.Utilities;
 import views.cargas.CargaView;
 
 public class AdministradorCargas {
@@ -37,8 +38,7 @@ public class AdministradorCargas {
 		AdministradorViajes admVi = AdministradorViajes.getInstance();
 		AdministradorVehiculos admVeh = AdministradorVehiculos.getInstance();
 
-		Date fechaEstimadaLlegada = admSuc.estimarLlegada(sucursal,
-				admSuc.obtenerSucursalCercana(carga.getDestino()));
+		Date fechaEstimadaLlegada = admSuc.estimarLlegada(sucursal, admSuc.obtenerSucursalCercana(carga.getDestino()));
 		Viaje mejorViaje = admVi.obtenerMejorViaje(sucursal, carga);
 
 		if (mejorViaje != null) {
@@ -125,12 +125,10 @@ public class AdministradorCargas {
 		List<CargaView> cargas = new ArrayList<CargaView>();
 
 		for (Carga c : CargaDAO.getInstance().getAll())
-			cargas.add(new CargaView(c.getTipo(), c.getFechaMaximaEntrega(), c
-					.getFechaProbableEntrega(), c.getManifiesto(), c
-					.getOrigen().getView(), c.getDestino().getView(), c
-					.getEstadoCarga(), c.getId()));
-		
+			cargas.add(new CargaView(c.getTipo().toString(), Utilities.invParseDate(c.getFechaMaximaEntrega()), Utilities.invParseDate(c
+					.getFechaProbableEntrega()), c.getManifiesto(), c.getOrigen().getView(), c.getDestino().getView(), c.getEstadoCarga().toString(),
+					c.getId()));
+
 		return cargas;
 	}
-
 }
