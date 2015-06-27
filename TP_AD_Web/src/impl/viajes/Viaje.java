@@ -109,12 +109,13 @@ public class Viaje extends PersistentObject {
 		return false;
 	}
 
-	public void agregarParadaIntermedia(ParadaIntermediaView p) {
+	public Integer agregarParadaIntermedia(ParadaIntermediaView p) {
 		if (paradasIntermedias == null)
 			paradasIntermedias = new ArrayList<ParadaIntermedia>();
 		ParadaIntermedia parada = new ParadaIntermedia(p);
 		paradasIntermedias.add(parada);
 		ViajeDAO.getInstance().update(this);
+		return parada.getId();
 	}
 
 	public float calcularPesoDisponible() {

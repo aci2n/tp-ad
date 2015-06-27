@@ -23,7 +23,7 @@ public class AgregarSeguro extends GenericHttpServlet {
 
 		try {
 			SeguroView s = new SeguroView(nombre, tipo, Float.parseFloat(tarifa));
-			Integer i = ControladorPrincipal.getInstance().getAdministradorViajes().agregarSeguro(Integer.parseInt(id), s);
+			Integer i = ControladorPrincipal.getInstance().agregarSeguro(Integer.parseInt(id), s);
 			forwardGenerico(request, response, "Compania de seguros agregada exitosamente con id: " + i + ".");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

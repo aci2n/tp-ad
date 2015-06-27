@@ -33,7 +33,7 @@ public class AltaSucursal extends GenericHttpServlet {
 			CoordenadaView c = new CoordenadaView(Float.parseFloat(latitud), Float.parseFloat(longitud));
 			UbicacionView u = new UbicacionView(pais, provincia, ciudad, calle, altura, piso, departamento, c);
 			SucursalView s = new SucursalView(nombre, u);
-			Integer id = ControladorPrincipal.getInstance().getAdministradorSucursales().altaSucursal(s);
+			Integer id = ControladorPrincipal.getInstance().altaSucursal(s);
 			forwardGenerico(request, response, "Sucursal agregada exitosamente con id: " + id + ".");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

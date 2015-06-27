@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import svl.GenericHttpServlet;
+import views.vehiculos.ProveedorView;
 import controllers.ControladorPrincipal;
 
 @WebServlet("/jsp/Vehiculos/AltaProveedor")
@@ -18,7 +19,8 @@ public class AltaProveedor extends GenericHttpServlet {
 		String cuit = request.getParameter("cuit");
 		String nombre = request.getParameter("nombre");		
 		try {
-			Integer id = ControladorPrincipal.getInstance().getAdministradorVehiculos().altaProveedor(cuit, nombre);
+			ProveedorView proveedor = new ProveedorView(cuit, nombre);
+			Integer id = ControladorPrincipal.getInstance().altaProveedor(proveedor);
 			forwardGenerico(request, response, "Proveedor agregado exitosamente con id: " + id + ".");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

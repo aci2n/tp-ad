@@ -7,21 +7,23 @@ import impl.viajes.Viaje;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import persistence.ProveedorDAO;
 import persistence.SucursalDAO;
+import persistence.VehiculoDAO;
 import views.vehiculos.PlanMantenimientoView;
+import views.vehiculos.ProveedorView;
 import views.vehiculos.VehiculoExternoView;
 import views.vehiculos.VehiculoLocalView;
-import views.viajes.CompaniaSeguroView;
 
 public class AdministradorVehiculos {
 	private static AdministradorVehiculos instance;
-	private List<Proveedor> proveedores;
+	private VehiculoDAO vehiculoDao;
+	private ProveedorDAO proveedorDao;
 
 	private AdministradorVehiculos() {
-		proveedores = new ArrayList<Proveedor>();
+		vehiculoDao = VehiculoDAO.getInstance();
+		proveedorDao = ProveedorDAO.getInstance();
 	}
 
 	public static AdministradorVehiculos getInstance() {
@@ -30,8 +32,8 @@ public class AdministradorVehiculos {
 		return instance;
 	}
 
-	public Integer altaProveedor(String cuit, String nombre) {
-		Proveedor p = new Proveedor(cuit, nombre);
+	public Integer altaProveedor(ProveedorView view) {
+		Proveedor p = new Proveedor(view.getCuit(), view.getNombre());
 		return p.getId();
 	}
 
@@ -75,7 +77,7 @@ public class AdministradorVehiculos {
 	}
 
 	public boolean estaDisponibleVehiculo(Vehiculo vehiculo, Date fechaDesde, Date fechaHasta) {
-		for (Viaje viaje : AdministradorViajes.getInstance().getViajes()) {
+		for (Viaje viaje : AdministradorViajes.getInstance().obtenerViajes()) {
 			if (viaje.getVehiculo().equals(vehiculo)) {
 				if ((viaje.getFechaSalida().after(fechaDesde) && viaje.getFechaLlegada().before(fechaDesde))
 						|| (viaje.getFechaSalida().before(fechaDesde) && viaje.getFechaLlegada().after(fechaHasta))
@@ -88,12 +90,7 @@ public class AdministradorVehiculos {
 	}
 
 	public Proveedor obtenerProveedor(String cuit) {
-		for (Proveedor p : proveedores) {
-			if (p.getCuit().equals(cuit)) {
-				return p;
-			}
-		}
-		return null;
+		return proveedorDao.obtenerPorCuit(cuit);
 	}
 	// public List<Proveedor> obtenerViajesDeProveedores(Date fechaSalida, Date
 	// fechaLLegada, TipoVehiculo tipoVehiculo){
@@ -111,4 +108,22 @@ public class AdministradorVehiculos {
 	// return proveedores;
 	// }
 
+	public void actualizarPrecioVehiculo(int id, float precioF) throws Exception {
+		Vehiculo v = vehiculoDao.get(id);
+		if (v != null) {
+			v.actualizarPrecio(precioF);
+		} else {
+			throw new Exception("No existe vehiculo con el ID ingresado.");
+		}
+
+	}
+
+	public void agregarTarea(int id, TareaView tarea) throws Exception {
+		VehiculoLocal v = vehiculoDao.getVehiculoLocal(id);
+		if (v != null) {
+			v.getPlanMantenimiento().agregarTarea(tarea);
+		} else {
+			throw new Exception("No existe vehiculo local con el ID ingresado.");
+		}
+	}
 }

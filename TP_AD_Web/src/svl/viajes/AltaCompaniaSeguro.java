@@ -21,7 +21,7 @@ public class AltaCompaniaSeguro extends GenericHttpServlet {
 
 		try {
 			CompaniaSeguroView c = new CompaniaSeguroView(cuit, nombre);
-			Integer i = ControladorPrincipal.getInstance().getAdministradorViajes().altaCompaniaSeguro(c);
+			Integer i = ControladorPrincipal.getInstance().altaCompaniaSeguro(c);
 			forwardGenerico(request, response, "Compania de seguros agregada exitosamente con id: " + i + ".");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

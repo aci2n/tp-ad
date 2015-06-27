@@ -5,9 +5,10 @@ import views.productos.ProductoView;
 
 public class AdministradorProductos {
 	private static AdministradorProductos instance;
+	private ProductoDAO productoDao;
 
 	private AdministradorProductos() {
-
+		productoDao = ProductoDAO.getInstance();
 	}
 
 	public static AdministradorProductos getInstance() {
@@ -22,7 +23,7 @@ public class AdministradorProductos {
 	}
 
 	public void agregarCondicionEspecialAProducto(Integer id, String condicionEspecial) throws Exception {
-		Producto p = ProductoDAO.getInstance().get(id);
+		Producto p = productoDao.get(id);
 		if (p != null) {
 			p.agregarCondicionEspecial(condicionEspecial);
 		} else {

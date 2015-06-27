@@ -19,7 +19,7 @@ public class AgregarCondicionEspecialAViaje extends GenericHttpServlet {
 		String condicionEspecial = request.getParameter("condicionEspecial");
 
 		try {
-			ControladorPrincipal.getInstance().getAdministradorViajes().agregarCondicionEspecialAViaje(Integer.parseInt(id), condicionEspecial);
+			ControladorPrincipal.getInstance().agregarCondicionEspecialAViaje(Integer.parseInt(id), condicionEspecial);
 			forwardGenerico(request, response, "Condicion especial agregada exitosamente.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

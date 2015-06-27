@@ -25,7 +25,7 @@ public class AgregarDistanciaEntreSucursales extends GenericHttpServlet {
 		try {
 			DistanciaEntreSucursalesView d = new DistanciaEntreSucursalesView(Integer.parseInt(idA), Integer.parseInt(idB), Float.parseFloat(km),
 					Float.parseFloat(horas), Float.parseFloat(costo));
-			ControladorPrincipal.getInstance().getAdministradorSucursales().agregarDistanciaEntreSucursales(d);
+			ControladorPrincipal.getInstance().agregarDistanciaEntreSucursales(d);
 			forwardGenerico(request, response, "Distancia entre sucursales agregada correctamente.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

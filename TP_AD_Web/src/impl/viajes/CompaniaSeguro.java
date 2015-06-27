@@ -35,9 +35,9 @@ public class CompaniaSeguro extends PersistentObject {
 	private List<Seguro> seguros;
 
 	public CompaniaSeguro(CompaniaSeguroView c) {
-		cuil = c.getCuil();
-		nombre = c.getNombre();
-		id = CompaniaSeguroDAO.getInstance().insert(this);
+		this.cuil = c.getCuil();
+		this.nombre = c.getNombre();
+		this.id = CompaniaSeguroDAO.getInstance().insert(this);
 	}
 
 	public CompaniaSeguro() {

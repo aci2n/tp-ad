@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import persistence.ViajeDAO;
 import util.Utilities;
 import views.viajes.ParadaIntermediaView;
 
@@ -37,6 +38,7 @@ public class ParadaIntermedia extends PersistentObject {
 		}
 		this.llegada = Utilities.parseDate(p.getLlegada());
 		this.checked = false;
+		this.id = ViajeDAO.getInstance().insert(this);
 	}
 
 	public boolean isChecked() {

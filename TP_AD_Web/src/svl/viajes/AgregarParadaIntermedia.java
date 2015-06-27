@@ -33,7 +33,7 @@ public class AgregarParadaIntermedia extends GenericHttpServlet {
 			CoordenadaView c = new CoordenadaView(Float.parseFloat(latitud), Float.parseFloat(longitud));
 			UbicacionView u = new UbicacionView(pais, provincia, ciudad, calle, altura, piso, departamento, c);
 			ParadaIntermediaView p = new ParadaIntermediaView(llegada, u);
-			ControladorPrincipal.getInstance().getAdministradorViajes().agregarParadaIntermediaAViaje(Integer.parseInt(id), p);
+			ControladorPrincipal.getInstance().agregarParadaIntermediaAViaje(Integer.parseInt(id), p);
 			forwardGenerico(request, response, "Parada intermedia agregada exitosamente.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

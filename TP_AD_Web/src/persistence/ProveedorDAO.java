@@ -35,4 +35,14 @@ public class ProveedorDAO extends AbstractGenericDAO<Proveedor> {
 		session.close();
 		return proveedores;
 	}
+	
+	public Proveedor obtenerPorCuit(String cuit) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query q = session.createQuery("from Proveedor where cuit = :cuit");
+		q.setString("cuit", cuit);
+		Proveedor proveedor = (Proveedor) q.uniqueResult();
+		session.close();
+		return proveedor;
+	}
 }

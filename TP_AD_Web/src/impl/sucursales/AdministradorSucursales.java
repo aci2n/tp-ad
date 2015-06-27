@@ -130,7 +130,7 @@ public class AdministradorSucursales {
 	public Date estimarLlegada(Sucursal origen, Sucursal destino) {
 		Date partida = new Date();
 		Float distancia = null;
-		for (Viaje v : AdministradorViajes.getInstance().getViajes()) {
+		for (Viaje v : AdministradorViajes.getInstance().obtenerViajes()) {
 			if (v.getOrigen().equals(origen.getUbicacion()))
 				if (v.getDestino().equals(destino.getUbicacion()))
 					return v.getFechaLlegada();

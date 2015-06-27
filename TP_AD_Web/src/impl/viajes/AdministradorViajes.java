@@ -21,10 +21,10 @@ import views.viajes.ViajeView;
 
 public class AdministradorViajes {
 	private static AdministradorViajes instance;
-	private List<Viaje> viajes;
-	private List<Viaje> viajesExternos;
-	private List<EstrategiaMantenimiento> mantenimientos;
-	private List<CompaniaSeguro> companiasSeguros;
+	private ViajeDAO viajeDao;
+	private CompaniaSeguroDAO companiaSeguroDao;
+	private VehiculoDAO vehiculoDao;
+	private SeguroDAO seguroDao;
 
 	public static AdministradorViajes getInstance() {
 		if (instance == null)
@@ -33,24 +33,19 @@ public class AdministradorViajes {
 	}
 
 	private AdministradorViajes() {
-		this.viajes = new ArrayList<Viaje>();
-		this.viajesExternos = new ArrayList<Viaje>();
-		this.mantenimientos = new ArrayList<EstrategiaMantenimiento>();
-		this.companiasSeguros = new ArrayList<CompaniaSeguro>();
+		viajeDao = ViajeDAO.getInstance();
+		companiaSeguroDao = CompaniaSeguroDAO.getInstance();
+		vehiculoDao = VehiculoDAO.getInstance();
+		seguroDao = SeguroDAO.getInstance();
 	}
 
 	public Viaje obtenerViaje(Integer codigoViaje) {
-		for (Viaje viaje : viajes) {
-			if (viaje.getId().equals(codigoViaje)) {
-				return viaje;
-			}
-		}
-		return null;
+		return viajeDao.get(codigoViaje);
 	}
 
 	public Integer altaViaje(int idVehiculo, int idSeguro, ViajeView viaje) throws Exception {
-		Vehiculo v = VehiculoDAO.getInstance().get(idVehiculo);
-		Seguro s = SeguroDAO.getInstance().get(idSeguro);
+		Vehiculo v = vehiculoDao.get(idVehiculo);
+		Seguro s = seguroDao.get(idSeguro);
 		if (v != null) {
 			// el seguro puede ser null
 			Viaje vi = new Viaje(v, s, viaje);
@@ -157,7 +152,7 @@ public class AdministradorViajes {
 	// }
 	public Viaje obtenerMejorViaje(Sucursal sucursal, Carga carga) {
 		Viaje mejorViaje = null;
-		for (Viaje viaje : viajes) {
+		for (Viaje viaje : obtenerViajes()) {
 			if (viaje.pasaPorSucursal(sucursal) && viaje.puedeTransportar(carga)) {
 				if (mejorViaje == null
 						|| (viaje.puedeTransportar(carga) && viaje.obtenerLlegadaAParada(sucursal).before(mejorViaje.obtenerLlegadaAParada(sucursal)))) {
@@ -167,23 +162,7 @@ public class AdministradorViajes {
 		}
 		return mejorViaje;
 	}
-
-	public List<Viaje> getViajes() {
-		return viajes;
-	}
-
-	public void setViajes(List<Viaje> viajes) {
-		this.viajes = viajes;
-	}
-
-	public List<Viaje> getViajesExternos() {
-		return viajesExternos;
-	}
-
-	public void setViajesExternos(List<Viaje> viajesExternos) {
-		this.viajesExternos = viajesExternos;
-	}
-
+	
 	public Integer altaCompaniaSeguro(CompaniaSeguroView c) {
 		CompaniaSeguro compania = new CompaniaSeguro(c);
 		return compania.getId();
@@ -199,7 +178,7 @@ public class AdministradorViajes {
 	}
 
 	public void agregarCondicionEspecialAViaje(Integer id, String condicionEspecial) throws Exception {
-		Viaje v = ViajeDAO.getInstance().get(id);
+		Viaje v = viajeDao.get(id);
 		if (v != null) {
 			v.agregarCondicionEspecial(condicionEspecial);
 		} else {
@@ -207,18 +186,22 @@ public class AdministradorViajes {
 		}
 	}
 
-	public void agregarParadaIntermediaAViaje(int id, ParadaIntermediaView p) throws Exception {
-		Viaje v = ViajeDAO.getInstance().get(id);
+	public Integer agregarParadaIntermediaAViaje(int id, ParadaIntermediaView p) throws Exception {
+		Viaje v = viajeDao.get(id);
 		if (v != null) {
-			v.agregarParadaIntermedia(p);
+			return v.agregarParadaIntermedia(p);
 		} else {
 			throw new Exception("No existe viaje con el id ingresado.");
 		}
 	}
+	
+	public List<Viaje> obtenerViajes() {
+		return viajeDao.getAll();
+	}
 
 	public List<CompaniaSeguroView> getCompaniasSeguroView() {
 		List<CompaniaSeguroView> companias = new ArrayList<CompaniaSeguroView>();
-		for (CompaniaSeguro cs : CompaniaSeguroDAO.getInstance().getAll()) {
+		for (CompaniaSeguro cs : companiaSeguroDao.getAll()) {
 			companias.add(cs.getView());
 		}
 		return companias;
