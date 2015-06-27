@@ -49,11 +49,31 @@ public class Sucursal extends PersistentObject {
 	private List<VehiculoLocal> vehiculos;
 
 	public Sucursal() {
+
 	}
 
-	public Sucursal(SucursalView s) {
-		this.nombre = s.getNombre();
-		this.ubicacion = new Ubicacion(s.getUbicacion());
+	public Sucursal(String nombre, Ubicacion ubicacion) {
+		this(nombre, ubicacion, null, null, null);
+	}
+	
+	public Sucursal(String nombre, Ubicacion ubicacion, List<Carga> cargas, List<Empleado> empleados, List<VehiculoLocal> vehiculos) {
+		this.nombre = nombre;
+		this.ubicacion = ubicacion;
+		if (cargas != null) {
+			this.cargas = cargas;
+		} else {
+			this.cargas = new ArrayList<Carga>();
+		}
+		if (empleados != null) {
+			this.empleados = empleados;
+		} else {
+			this.empleados = new ArrayList<Empleado>();
+		}
+		if (vehiculos != null) {
+			this.vehiculos = vehiculos;
+		} else {
+			this.vehiculos = new ArrayList<VehiculoLocal>();
+		}
 		this.id = SucursalDAO.getInstance().insert(this);
 	}
 
@@ -125,7 +145,14 @@ public class Sucursal extends PersistentObject {
 	public Integer agregarEmpleado(EmpleadoView e) {
 		if (empleados == null)
 			empleados = new ArrayList<Empleado>();
-		Empleado empleado = new Empleado(e);
+		Empleado empleado = new Empleado(
+			e.getCuit(),
+			e.getDni(),
+			e.getNombre(),
+			e.getApellido(),
+			e.getFechaNacimiento(),
+			e.getTipo()
+		);
 		empleados.add(empleado);
 		return empleado.getId();
 	}

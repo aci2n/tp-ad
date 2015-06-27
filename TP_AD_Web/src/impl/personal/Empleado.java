@@ -44,13 +44,13 @@ public class Empleado extends PersistentObject {
 	@Enumerated(EnumType.STRING)
 	private TipoPuesto puesto;
 
-	public Empleado(EmpleadoView e) {
-		cuit = e.getCuit();
-		dni = e.getDni();
-		nombre = e.getNombre();
-		apellido = e.getApellido();
-		fechaNacimiento = Utilities.parseDate(e.getFechaNacimiento());
-		puesto = TipoPuesto.valueOf(e.getTipo());
+	public Empleado(String cuit, String dni, String nombre, String apellido, String fechaNacimiento, String puesto) {
+		this.cuit = cuit;
+		this.dni = dni;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.fechaNacimiento = Utilities.parseDate(fechaNacimiento);
+		this.puesto = TipoPuesto.valueOf(puesto);
 		id = EmpleadoDAO.getInstance().insert(this);
 	}
 

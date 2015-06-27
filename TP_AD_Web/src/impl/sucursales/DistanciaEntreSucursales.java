@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import persistence.DistanciaEntreSucursalesDAO;
+import persistence.SucursalDAO;
 
 @Entity
 @Table(name = "Distancia_Sucursales")
@@ -40,7 +40,7 @@ public class DistanciaEntreSucursales extends PersistentObject {
 		this.distanciaEnKm = distanciaEnKm;
 		this.duracionEnHoras = duracionEnHoras;
 		this.costo = costo;
-		this.id = DistanciaEntreSucursalesDAO.getInstance().insert(this);
+		this.id = SucursalDAO.getInstance().insert(this);
 	}
 
 	public DistanciaEntreSucursales() {

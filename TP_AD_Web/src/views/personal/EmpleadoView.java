@@ -1,6 +1,5 @@
 package views.personal;
 
-import java.util.Date;
 
 public class EmpleadoView {
 	private String cuit;

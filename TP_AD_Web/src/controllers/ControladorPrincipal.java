@@ -9,6 +9,8 @@ import impl.viajes.AdministradorViajes;
 import views.clientes.EmpresaView;
 import views.clientes.ParticularView;
 import views.clientes.ReceptorView;
+import views.personal.EmpleadoView;
+import views.sucursales.SucursalView;
 
 public class ControladorPrincipal {
 	public static ControladorPrincipal getInstance() {
@@ -24,6 +26,7 @@ public class ControladorPrincipal {
 	private AdministradorVehiculos administradorVehiculos;
 	private AdministradorClientes administradorClientes;
 	private AdministradorProductos administradorProductos;
+
 
 	private ControladorPrincipal() {
 		administradorViajes = AdministradorViajes.getInstance();
@@ -52,5 +55,42 @@ public class ControladorPrincipal {
 		}
 	}
 	
+	public Integer altaSucursal(SucursalView sucursal) {
+		return administradorSucursales.altaSucursal(sucursal);
+	}
+	
+	public Integer agregarEmpleadoASucursal(Integer id, EmpleadoView empleado) {
+		try {
+			return administradorSucursales.agregarEmpleadoASucursal(id, empleado);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public AdministradorViajes getAdministradorViajes() {
+		return administradorViajes;
+	}
+
+	public AdministradorSucursales getAdministradorSucursales() {
+		return administradorSucursales;
+	}
+
+	public AdministradorCargas getAdministradorCargas() {
+		return administradorCargas;
+	}
+
+	public AdministradorVehiculos getAdministradorVehiculos() {
+		return administradorVehiculos;
+	}
+
+	public AdministradorClientes getAdministradorClientes() {
+		return administradorClientes;
+	}
+
+	public AdministradorProductos getAdministradorProductos() {
+		return administradorProductos;
+	}
 	
 }

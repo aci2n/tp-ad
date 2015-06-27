@@ -3,6 +3,7 @@ package impl.sucursales;
 import impl.cargas.AdministradorCargas;
 import impl.cargas.Carga;
 import impl.clientes.Cliente;
+import impl.misc.Coordenada;
 import impl.misc.Ubicacion;
 import impl.personal.Empleado;
 import impl.viajes.AdministradorViajes;
@@ -21,8 +22,8 @@ import views.sucursales.SucursalView;
 
 public class AdministradorSucursales {
 	private static AdministradorSucursales instance;
-	private List<Sucursal> sucursales;
-	private List<DistanciaEntreSucursales> distancias;
+	private SucursalDAO sucursalDao;
+	private EmpleadoDAO empleadoDao;
 
 	public static AdministradorSucursales getInstance() {
 		if (instance == null)
@@ -31,17 +32,40 @@ public class AdministradorSucursales {
 	}
 
 	private AdministradorSucursales() {
-		this.sucursales = new ArrayList<Sucursal>();
-		this.distancias = new ArrayList<DistanciaEntreSucursales>();
+		sucursalDao = SucursalDAO.getInstance();
+		empleadoDao = EmpleadoDAO.getInstance();
 	}
 
 	public Integer altaSucursal(SucursalView s) {
-		Sucursal sucursal = new Sucursal(s);
+		Ubicacion ubicacion = null;
+		if (s.getUbicacion() != null) {
+			Coordenada coordenada = null;
+			if (s.getUbicacion().getCoordenadaDestino() != null) {
+				coordenada = new Coordenada(
+					s.getUbicacion().getCoordenadaDestino().getLatitud(),
+					s.getUbicacion().getCoordenadaDestino().getLongitud()
+				);
+			}
+			ubicacion = new Ubicacion(
+				s.getUbicacion().getPais(),
+				s.getUbicacion().getCiudad(),
+				s.getUbicacion().getProvincia(),
+				s.getUbicacion().getCalle(),
+				s.getUbicacion().getAltura(),
+				s.getUbicacion().getPiso(),
+				s.getUbicacion().getDepartamento(),
+				coordenada
+			);
+		}
+		Sucursal sucursal = new Sucursal(
+			s.getNombre(),
+			ubicacion
+		);
 		return sucursal.getId();
 	}
 
 	public Integer agregarEmpleadoASucursal(Integer id, EmpleadoView e) throws Exception {
-		Sucursal s = SucursalDAO.getInstance().get(id);
+		Sucursal s = sucursalDao.get(id);
 		if (s != null) {
 			return s.agregarEmpleado(e);
 		} else {
@@ -62,19 +86,19 @@ public class AdministradorSucursales {
 	}
 
 	public float calcularHorasEntreSucursales(Sucursal sucursalA, Sucursal sucursalB) {
-		for (DistanciaEntreSucursales d : distancias)
-			if (d.getSucursalA().getId() == sucursalA.getId() || d.getSucursalB().getId() == sucursalB.getId())
-				if (d.getSucursalB().getId() == sucursalB.getId() || d.getSucursalB().getId() == sucursalA.getId())
-					return d.getDuracionEnHoras();
-		return 0;
+		DistanciaEntreSucursales dist = sucursalDao.obtenerDistanciaEntreSucursales(sucursalA, sucursalB);
+		return dist != null ? dist.getDuracionEnHoras() : 0;
 	}
 
 	public Sucursal obtenerSucursalCercana(Ubicacion ubicacion) {
 		Sucursal cercana = null;
-		for (Sucursal sucursal : sucursales) {
+		for (Sucursal sucursal : sucursalDao.getAll()) {
 			if (cercana == null
-					|| cercana.getUbicacion().calcularDistanciaEnKilometros(ubicacion) > sucursal.getUbicacion().calcularDistanciaEnKilometros(
-							ubicacion)) {
+					||
+				cercana.getUbicacion().calcularDistanciaEnKilometros(ubicacion)
+						>
+				sucursal.getUbicacion().calcularDistanciaEnKilometros(ubicacion)
+				) {
 				cercana = sucursal;
 			}
 		}
@@ -126,53 +150,20 @@ public class AdministradorSucursales {
 	}
 
 	public Sucursal obtenerSucursal(Integer numero) {
-		for (Sucursal s : sucursales)
-			if (s.getId() == numero)
-				return s;
-		return null;
+		return sucursalDao.get(numero);
 	}
 
-	public Ubicacion obtenerUbicacion(int codigoUbicacion) {
-		for (Sucursal sucursal : sucursales) {
-			if (sucursal.getUbicacion().getId() == codigoUbicacion) {
-				return sucursal.getUbicacion();
-			}
-		}
-		return null;
-	}
+//	public Ubicacion obtenerUbicacion(int codigoUbicacion) {
+//		for (Sucursal sucursal : sucursales) {
+//			if (sucursal.getUbicacion().getId() == codigoUbicacion) {
+//				return sucursal.getUbicacion();
+//			}
+//		}
+//		return null;
+//	}
 
 	public Empleado obtenerEmpleado(String cuit) {
-		for (Sucursal s : sucursales)
-			for (Empleado e : s.getEmpleados())
-				if (e.getCuit().equals(cuit))
-					return e;
-		return null;
-	}
-
-	public List<Sucursal> getSucursales() {
-		return sucursales;
-	}
-
-	public void setSucursales(List<Sucursal> sucursales) {
-		this.sucursales = sucursales;
-	}
-
-	public List<DistanciaEntreSucursales> getDistancias() {
-		return distancias;
-	}
-
-	public void setDistancias(List<DistanciaEntreSucursales> distancias) {
-		this.distancias = distancias;
+		return empleadoDao.obtenerPorCuit(cuit);
 	}
 	
-	public List<EmpleadoView> obtenerEmpleadosView(){
-		
-		List<EmpleadoView> empleadosView = new ArrayList<EmpleadoView>();
-		
-		for(Empleado e : EmpleadoDAO.getInstance().getAll())
-			empleadosView.add(e.getView());
-		
-		return empleadosView;
-		
-	}
 }

@@ -36,15 +36,32 @@ public class Ubicacion extends PersistentObject {
 	@Embedded
 	private Coordenada coordenadaDestino;
 
-	public Ubicacion(UbicacionView u) {
-		pais = u.getPais();
-		ciudad = u.getCiudad();
-		provincia = u.getProvincia();
-		calle = u.getCalle();
-		altura = u.getAltura();
-		piso = u.getPiso();
-		departamento = u.getDepartamento();
-		coordenadaDestino = new Coordenada(u.getCoordenadaDestino());
+	public Ubicacion(UbicacionView view) {
+		this(
+			view.getPais(),
+			view.getCiudad(),
+			view.getProvincia(),
+			view.getCalle(),
+			view.getAltura(),
+			view.getPiso(),
+			view.getDepartamento(),
+			view.getCoordenadaDestino() != null ?
+				new Coordenada(view.getCoordenadaDestino().getLatitud(), view.getCoordenadaDestino().getLongitud())
+				:
+				null
+		);
+	}
+	
+	public Ubicacion(String pais, String ciudad, String provincia, String calle,
+			String altura, String piso, String departamento, Coordenada coordenadaDestino) {
+		this.pais = pais;
+		this.ciudad = ciudad;
+		this.provincia = provincia;
+		this.calle = calle;
+		this.altura = altura;
+		this.piso = piso;
+		this.departamento = departamento;
+		this.coordenadaDestino = coordenadaDestino;
 		this.id = UbicacionDAO.getInstance().insert(this);
 	}
 

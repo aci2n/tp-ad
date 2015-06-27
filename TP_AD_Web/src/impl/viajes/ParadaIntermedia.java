@@ -32,9 +32,11 @@ public class ParadaIntermedia extends PersistentObject {
 	private boolean checked;
 
 	public ParadaIntermedia(ParadaIntermediaView p) {
-		ubicacion = new Ubicacion(p.getUbicacion());
-		llegada = Utilities.parseDate(p.getLlegada());
-		checked = false;
+		if (p.getUbicacion() != null) {
+			this.ubicacion = new Ubicacion(p.getUbicacion());
+		}
+		this.llegada = Utilities.parseDate(p.getLlegada());
+		this.checked = false;
 	}
 
 	public boolean isChecked() {

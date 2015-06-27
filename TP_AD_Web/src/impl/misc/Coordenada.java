@@ -16,9 +16,9 @@ public class Coordenada {
 
 	}
 
-	public Coordenada(CoordenadaView c) {
-		this.latitud = c.getLatitud();
-		this.longitud = c.getLongitud();
+	public Coordenada(float latitud, float longitud) {
+		this.latitud = latitud;
+		this.longitud = longitud;
 	}
 
 	public Float getLatitud() {

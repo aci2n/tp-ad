@@ -25,14 +25,22 @@ public class EmpleadoDAO extends AbstractGenericDAO<Empleado> {
 		return Empleado;
 	}
 	
+	public Empleado obtenerPorCuit(String cuit) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query q = session.createQuery("from Empleado where cuit = :cuit");
+		q.setString("cuit", cuit);
+		Empleado empleado = (Empleado) q.uniqueResult();
+		session.close();
+		return empleado;
+	}
+	
 	public List<Empleado> getAll(){
-		
 		Session session = sf.openSession();
 		session.beginTransaction();
 		Query q = session.createQuery("from Empleado");
 		List<Empleado> empleados = (List<Empleado>) q.list();
 		session.close();
 		return empleados;
-		
 	}
 }

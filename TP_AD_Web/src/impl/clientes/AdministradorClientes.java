@@ -40,8 +40,7 @@ public class AdministradorClientes {
 	}
 
 	public Integer agregarReceptor(Integer clienteId, ReceptorView r) throws Exception {
-		Particular particular = ClienteDAO.getInstance()
-				.obtenerClienteParticular(id);
+		Particular particular = ClienteDAO.getInstance().obtenerClienteParticular(clienteId);
 		if (particular != null) {
 			return particular.agregarReceptor(r);
 		} else {
