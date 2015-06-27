@@ -12,7 +12,7 @@ go
 
 -- crear tablas
 
-use TPAD
+use TPAD	
 
 create table Productos(
 
@@ -363,6 +363,30 @@ create table Viajes_CondicionesEspeciales (
 
 	constraint pk_viajes_ce primary key (id_viaje, condicion_especial),
 	constraint fk_viajece_viajes foreign key (id_viaje) references Viajes
+)
+
+create table SeguimientoCargas(
+	
+	id_seguimientoCarga int identity not null,
+	id_carga int,
+	estadoCarga varchar(20),
+	id_estadoCarga int,
+
+	constraint pk_seguimientoCargas primary key(id_seguimientoCarga),
+	constraint fk_seguimiento_carga foreign key(id_carga) references Cargas
+)
+
+create table SeguimientoViajes(
+	
+	id_seguimientoViaje int identity not null,
+	id_viaje int,
+	id_parada_intermedia int,
+	checked bit,
+
+	constraint pk_seguimientoViajes primary key(id_seguimientoViaje),
+	constraint fk_seguimiento_viaje foreign key(id_viaje) references Viajes,
+	constraint fk_paradas_seguimiento foreign key(id_parada_intermedia) references ParadasIntermedias
+
 )
 
 -- crear usuario
