@@ -229,4 +229,13 @@ public class Producto extends PersistentObject {
 				consideraciones, refrigerada);
 
 	}
+
+	public static boolean esMaterialPermitido(String material) {
+		for (String prohibido : materialesRestringidos) {
+			if (material.contains(prohibido))
+				return false;
+		}
+		return true;
+	}
+	
 }
