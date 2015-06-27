@@ -17,6 +17,10 @@ public class ViajeDAO extends AbstractGenericDAO<Viaje> {
 			instance = new ViajeDAO();
 		return instance;
 	}
+	
+	private ViajeDAO() {
+		
+	}
 
 	@Override
 	public Viaje get(Integer id) {
