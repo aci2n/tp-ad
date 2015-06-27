@@ -1,14 +1,18 @@
 package controllers;
 
-import java.util.List;
-
 import impl.cargas.AdministradorCargas;
 import impl.clientes.AdministradorClientes;
+import impl.cobranzas.AdministradorCobranzas;
 import impl.productos.AdministradorProductos;
 import impl.sucursales.AdministradorSucursales;
 import impl.vehiculos.AdministradorVehiculos;
 import impl.viajes.AdministradorViajes;
+
+import java.util.List;
+
+import views.clientes.CuentaCorrienteView;
 import views.clientes.EmpresaView;
+import views.clientes.PagoView;
 import views.clientes.ParticularView;
 import views.clientes.ReceptorView;
 import views.personal.EmpleadoView;
@@ -39,6 +43,7 @@ public class ControladorPrincipal {
 	private AdministradorVehiculos administradorVehiculos;
 	private AdministradorClientes administradorClientes;
 	private AdministradorProductos administradorProductos;
+	private AdministradorCobranzas administradorCobranzas;
 
 
 	private ControladorPrincipal() {
@@ -48,6 +53,7 @@ public class ControladorPrincipal {
 		administradorVehiculos = AdministradorVehiculos.getInstance();
 		administradorClientes = AdministradorClientes.getInstance();
 		administradorProductos = AdministradorProductos.getInstance();
+		administradorCobranzas = AdministradorCobranzas.getInstance();
 	}
 
 	
@@ -229,29 +235,14 @@ public class ControladorPrincipal {
 	}
 	
 	
+	//	COBRANZAS Y PAGOS
 	
-//	public AdministradorViajes getAdministradorViajes() {
-//		return administradorViajes;
-//	}
-//
-//	public AdministradorSucursales getAdministradorSucursales() {
-//		return administradorSucursales;
-//	}
-//
-//	public AdministradorCargas getAdministradorCargas() {
-//		return administradorCargas;
-//	}
-//
-//	public AdministradorVehiculos getAdministradorVehiculos() {
-//		return administradorVehiculos;
-//	}
-//
-//	public AdministradorClientes getAdministradorClientes() {
-//		return administradorClientes;
-//	}
-//
-//	public AdministradorProductos getAdministradorProductos() {
-//		return administradorProductos;
-//	}
+	public List<PagoView> obtenerPagos() {
+		return administradorCobranzas.obtenerPagos();
+	}
+	
+	public List<CuentaCorrienteView> obtenerCuentasCorrientes() {
+		return administradorCobranzas.obtenerCuentasCorrientes();
+	}
 	
 }
