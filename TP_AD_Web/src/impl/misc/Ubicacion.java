@@ -142,4 +142,8 @@ public class Ubicacion extends PersistentObject {
 		return new UbicacionView(pais, provincia, ciudad, calle, altura, piso,
 				departamento, getCoordenadaDestino().getView());
 	}
+	
+	public boolean tieneMismasCoordenadas(Ubicacion u){
+		return coordenadaDestino.equals(u.getCoordenadaDestino());
+	}
 }

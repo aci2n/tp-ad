@@ -41,6 +41,10 @@ public class ParadaIntermedia extends PersistentObject {
 		this.id = ViajeDAO.getInstance().insert(this);
 	}
 
+	public ParadaIntermedia() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public boolean isChecked() {
 		return checked;
 	}
@@ -63,5 +67,9 @@ public class ParadaIntermedia extends PersistentObject {
 
 	public void setLlegada(Date llegada) {
 		this.llegada = llegada;
+	}
+
+	public ParadaIntermediaView getView() {
+		return new ParadaIntermediaView(llegada.toString(), ubicacion.getView());
 	}
 }

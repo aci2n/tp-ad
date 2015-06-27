@@ -41,7 +41,7 @@ public class ViajeDAO extends AbstractGenericDAO<Viaje> {
 		return viajes;
 	}
 
-	public List<Viaje> getViajesPosibles(Integer idOrigen, Integer idDestino) {
+	/*public List<Viaje> getViajesPosibles(Integer idOrigen, Integer idDestino) {
 		List<Viaje> viajes = new ArrayList<Viaje>();
 		Session s = sf.openSession();
 		s.beginTransaction();
@@ -54,5 +54,6 @@ public class ViajeDAO extends AbstractGenericDAO<Viaje> {
 		viajes = (List<Viaje>) q.list();
 		s.close();
 		return viajes;
-	}
+	}*/
+
 }

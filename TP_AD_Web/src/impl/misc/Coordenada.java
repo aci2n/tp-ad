@@ -52,4 +52,13 @@ public class Coordenada {
 
 		return new CoordenadaView(latitud, longitud);
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o != null && o instanceof Coordenada) {
+			Coordenada c = (Coordenada) o;
+			return c.getLatitud().equals(latitud) && c.getLongitud().equals(longitud);
+		}
+		return false;
+	}
 }

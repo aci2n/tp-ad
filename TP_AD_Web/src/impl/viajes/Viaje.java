@@ -4,6 +4,7 @@ import impl.PersistentObject;
 import impl.cargas.Carga;
 import impl.misc.Ubicacion;
 import impl.productos.CondicionEspecial;
+import impl.sucursales.DistanciaEntreSucursales;
 import impl.sucursales.Sucursal;
 import impl.vehiculos.Vehiculo;
 
@@ -26,6 +27,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import persistence.SucursalDAO;
 import persistence.ViajeDAO;
 import util.Utilities;
 import views.viajes.ParadaIntermediaView;
@@ -169,8 +171,7 @@ public class Viaje extends PersistentObject {
 		return estaAtrasado;
 	}
 
-	public void setCondicionesEspeciales(
-			List<CondicionEspecial> condicionesEspeciales) {
+	public void setCondicionesEspeciales(List<CondicionEspecial> condicionesEspeciales) {
 		this.condicionesEspeciales = condicionesEspeciales;
 	}
 
@@ -186,8 +187,7 @@ public class Viaje extends PersistentObject {
 		this.fechaSalida = fechaSalida;
 	}
 
-	public void setParadasIntermedias(
-			Collection<ParadaIntermedia> paradasIntermedias) {
+	public void setParadasIntermedias(Collection<ParadaIntermedia> paradasIntermedias) {
 		this.paradasIntermedias = paradasIntermedias;
 	}
 
@@ -231,20 +231,17 @@ public class Viaje extends PersistentObject {
 	}
 
 	public boolean pasaPorSucursal(Sucursal sucursal) {
-		if (origen.equals(sucursal.getUbicacion())
-				|| destino.equals(sucursal.getUbicacion()))
+		if (origen.equals(sucursal.getUbicacion()) || destino.equals(sucursal.getUbicacion()))
 			return true;
 		for (ParadaIntermedia parada : paradasIntermedias) {
-			if (!parada.isChecked()
-					&& parada.getUbicacion().equals(sucursal.getUbicacion()))
+			if (!parada.isChecked() && parada.getUbicacion().equals(sucursal.getUbicacion()))
 				return true;
 		}
 		return false;
 	}
 
 	public boolean puedeTransportar(Carga carga) {
-		return carga.calcularPesoTotal() <= calcularPesoDisponible()
-				&& carga.calcularVolumenTotal() <= calcularVolumenDisponible();
+		return carga.calcularPesoTotal() <= calcularPesoDisponible() && carga.calcularVolumenTotal() <= calcularVolumenDisponible();
 	}
 
 	public Date obtenerLlegadaAParada(Sucursal sucursal) {
@@ -263,8 +260,57 @@ public class Viaje extends PersistentObject {
 
 	public ViajeView getView() {
 
-		return new ViajeView(fechaSalida.toString(), fechaSalida.toString(),
-				origen.getView(), destino.getView());
+		return new ViajeView(fechaSalida.toString(), fechaSalida.toString(), origen.getView(), destino.getView());
 	}
 
+	public boolean tieneUbicacion(Ubicacion u) {
+		if (origen.tieneMismasCoordenadas(u) || destino.tieneMismasCoordenadas(u)) {
+			return true;
+		}
+		for (ParadaIntermedia pi : paradasIntermedias) {
+			if (pi.getUbicacion().tieneMismasCoordenadas(u)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Float getDistancia(Ubicacion o, Ubicacion d) {
+		Float distancia = 0f;
+		Ubicacion[] ubicaciones = new Ubicacion[paradasIntermedias.size() + 2];
+		ubicaciones[0] = origen;
+		int aux = 1;
+		for (ParadaIntermedia pi : paradasIntermedias) {
+			ubicaciones[aux] = pi.getUbicacion();
+		}
+		ubicaciones[ubicaciones.length - 1] = destino;
+
+		Integer indiceComienzo = 0;
+
+		for (int i = 0; i < ubicaciones.length; i++) {
+			if (ubicaciones[i].tieneMismasCoordenadas(o)) {
+				indiceComienzo = i;
+			}
+		}
+		for (int i = indiceComienzo; i < ubicaciones.length - 1; i++) {
+			distancia += calcularDistanciaEntreUbicaciones(ubicaciones[i], ubicaciones[i + 1]);
+			if (ubicaciones[i + 1].tieneMismasCoordenadas(d)) {
+				break;
+			}
+		}
+		return distancia;
+	}
+
+	private Float calcularDistanciaEntreUbicaciones(Ubicacion a, Ubicacion b) {
+		// probamos con sucursales, si no usamos coordenadas
+		Sucursal sucA = SucursalDAO.getInstance().obtenerSucursalDesdeUbicacion(a.getCoordenadaDestino());
+		Sucursal sucB = SucursalDAO.getInstance().obtenerSucursalDesdeUbicacion(b.getCoordenadaDestino());
+		if (sucA != null && sucB != null) {
+			DistanciaEntreSucursales des = SucursalDAO.getInstance().obtenerDistanciaEntreSucursales(sucA, sucB);
+			if (des != null) {
+				return des.getDistanciaEnKm();
+			}
+		}
+		return a.getCoordenadaDestino().calcularDistanciaEnKilometros(b.getCoordenadaDestino());
+	}
 }

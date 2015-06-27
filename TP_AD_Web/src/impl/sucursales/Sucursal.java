@@ -201,6 +201,7 @@ public class Sucursal extends PersistentObject {
 		if (cargas == null)
 			cargas = new ArrayList<Carga>();
 		cargas.add(carga);
+		SucursalDAO.getInstance().update(this);
 	}
 
 	public SucursalView getView() {

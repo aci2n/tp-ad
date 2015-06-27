@@ -1,5 +1,6 @@
 package persistence;
 
+import impl.misc.Coordenada;
 import impl.sucursales.DistanciaEntreSucursales;
 import impl.sucursales.Sucursal;
 
@@ -60,12 +61,13 @@ public class SucursalDAO extends AbstractGenericDAO<Sucursal> {
 		return sucursal;
 	}
 
-	public Sucursal obtenerSucursalDesdeUbicacion(Integer id) {
+	public Sucursal obtenerSucursalDesdeUbicacion(Coordenada c) {
 		Sucursal sucursal;
 		Session s = sf.openSession();
 		s.beginTransaction();
-		Query q = s.createQuery("select s from Sucursal s inner join s.ubicacion u where u.id = :id");
-		q.setParameter("id", id);
+		Query q = s.createQuery("select s from Sucursal s inner join s.ubicacion u where u.coordenadaDestino.latitud = :lat and u.coordenadaDestino.longitud = :lon");
+		q.setParameter("lat", c.getLongitud());
+		q.setParameter("lon", c.getLongitud());
 		sucursal = (Sucursal) q.uniqueResult();
 		s.close();
 		return sucursal;
