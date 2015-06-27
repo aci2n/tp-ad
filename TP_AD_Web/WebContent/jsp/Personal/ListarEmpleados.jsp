@@ -34,8 +34,7 @@
 				<div class="col s12">
 					<ul class="tabs">
 						<li class="tab col s3"><a class="active" href="#test1">Listar
-								Particular</a></li>
-						<li class="tab col s3"><a href="#test2">Listar Empresa</a></li>
+								Empleados</a></li>
 					</ul>
 				</div>
 
@@ -54,18 +53,23 @@
 						<table>
 							<thead>
 								<tr>
-									<th class="">ID</th>
+									<th class="">ID Empleados</th>
+									<th class="">ID Sucursal</th>
+									<th class="">CUIT</th>
 									<th data-field="name">DNI</th>
 									<th data-field="item-name">Nombre</th>
 									<th data-field="price">Apellido</th>
+									<th data-field="price">Fecha de Nacimiento</th>
+									<th data-field="price">Puesto</th>
+
 								</tr>
 							</thead>
 
 							<tbody id="tbody">
-								<%
+								<%-- <%
 									List<ParticularView> clientes = ControladorPrincipal.getInstance().getAdministradorClientes().obtenerClientesParticulares();
-									for(ParticularView c : clientes)
-									{
+																																						for(ParticularView c : clientes)
+																																					{
 								%>
 								<tr>
 									<td style="color: #1565C0; font-weight: bold;"><%=c.getId()%></td>
@@ -75,56 +79,12 @@
 								</tr>
 								<%
 									}
-								%>
+								%> --%>
 							</tbody>
 						</table>
 						<div></div>
 					</div>
 				</div>
-
-
-				<div id="test2">
-					<div class="card-action row"
-						style="border-bottom: 1px solid rgba(160, 160, 160, 0.2);">
-						<div class="input-field col s6">
-							<i class="material-icons prefix">list</i> <input id="filtrado"
-								type="text" class="validate"> <label for="icon_list">Filtrar
-								tabla</label>
-						</div>
-					</div>
-					<div class="card-content">
-						<table>
-							<thead>
-								<tr>
-									<th class="">ID</th>
-									<th data-field="nombre">Nombre</th>
-									<th data-field="regular">Regular</th>
-									<th data-field="regular">Monto Actual</th>
-
-								</tr>
-							</thead>
-
-							<tbody id="tbody">
-								<%
-									List<EmpresaView> empresas = ControladorPrincipal.getInstance().getAdministradorClientes().obtenerClientesEmpresas();
-									for(EmpresaView e : empresas)
-									{
-								%>
-								<%-- <tr>
-									<td style="color: #1565C0; font-weight: bold;"><%=e.getId()%></td>
-									<td><%=e.getNombre()%></td>
-									<td><%=%></td>
-								</tr> --%>
-								<%
-									}
-								%>
-							</tbody>
-						</table>
-						<div></div>
-					</div>
-				</div> 
-
-
 
 				<div class="col s12 m4 l1">
 					<p></p>

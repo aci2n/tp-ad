@@ -15,7 +15,7 @@
 <html>
 <head>
 
-<title>Listado de Clientes</title>
+<title>Listado de Sucursales</title>
 </head>
 <body>
 
@@ -28,14 +28,14 @@
 		<div class="col s12 m4 l10 ">
 			<div class="card">
 				<div class="card-content white-text pink">
-					<span class="card-title">Listado de Clientes</span>
+					<span class="card-title">Listado de Sucursales</span>
 				</div>
 
 				<div class="col s12">
 					<ul class="tabs">
 						<li class="tab col s3"><a class="active" href="#test1">Listar
-								Particular</a></li>
-						<li class="tab col s3"><a href="#test2">Listar Empresa</a></li>
+								Sucursal</a></li>
+						<li class="tab col s3"><a href="#test2">Distancia entre Sucursales</a></li>
 					</ul>
 				</div>
 
@@ -55,17 +55,23 @@
 							<thead>
 								<tr>
 									<th class="">ID</th>
-									<th data-field="name">DNI</th>
-									<th data-field="item-name">Nombre</th>
-									<th data-field="price">Apellido</th>
+									<th data-field="name">Nombre</th>
+									<th data-field="item-name">Pais</th>
+									<th data-field="price">Provincia</th>
+									<th data-field="name">Ciudad</th>
+									<th data-field="item-name">Calle</th>
+									<th data-field="price">Altura</th>
+									<th data-field="price">Departamento</th>
+									<th data-field="price">Longitud</th>
+									<th data-field="price">Latitud</th>
 								</tr>
 							</thead>
 
 							<tbody id="tbody">
-								<%
+								<%-- <%
 									List<ParticularView> clientes = ControladorPrincipal.getInstance().getAdministradorClientes().obtenerClientesParticulares();
-									for(ParticularView c : clientes)
-									{
+																										for(ParticularView c : clientes)
+																									{
 								%>
 								<tr>
 									<td style="color: #1565C0; font-weight: bold;"><%=c.getId()%></td>
@@ -75,14 +81,13 @@
 								</tr>
 								<%
 									}
-								%>
+								%> --%>
 							</tbody>
 						</table>
 						<div></div>
 					</div>
 				</div>
-
-
+				
 				<div id="test2">
 					<div class="card-action row"
 						style="border-bottom: 1px solid rgba(160, 160, 160, 0.2);">
@@ -96,33 +101,36 @@
 						<table>
 							<thead>
 								<tr>
-									<th class="">ID</th>
-									<th data-field="nombre">Nombre</th>
-									<th data-field="regular">Regular</th>
-									<th data-field="regular">Monto Actual</th>
-
+									<th class="">ID Origen</th>
+									<th data-field="name">Sucursal origen</th>
+									<th data-field="item-name">ID Destino</th>
+									<th data-field="price">Sucursal Destino</th>
+									<th data-field="price">Distancia</th>
+									<th data-field="price">Duración</th>
+									<th data-field="price">Costo</th>
 								</tr>
 							</thead>
 
 							<tbody id="tbody">
-								<%
-									List<EmpresaView> empresas = ControladorPrincipal.getInstance().getAdministradorClientes().obtenerClientesEmpresas();
-									for(EmpresaView e : empresas)
-									{
+								<%-- <%
+									List<ParticularView> clientes = ControladorPrincipal.getInstance().getAdministradorClientes().obtenerClientesParticulares();
+																										for(ParticularView c : clientes)
+																									{
 								%>
-								<%-- <tr>
-									<td style="color: #1565C0; font-weight: bold;"><%=e.getId()%></td>
-									<td><%=e.getNombre()%></td>
-									<td><%=%></td>
-								</tr> --%>
+								<tr>
+									<td style="color: #1565C0; font-weight: bold;"><%=c.getId()%></td>
+									<td><%=c.getDni()%></td>
+									<td><%=c.getNombre()%></td>
+									<td><%=c.getApellido()%></td>
+								</tr>
 								<%
 									}
-								%>
+								%> --%>
 							</tbody>
 						</table>
 						<div></div>
 					</div>
-				</div> 
+				</div>
 
 
 

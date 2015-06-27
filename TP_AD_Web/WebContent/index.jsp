@@ -29,7 +29,8 @@
 								<ul>
 									<li><a class="menu-anchor"
 										id="jsp/Clientes/AdministrarClientes" href="">Administración</a></li>
-									<li><a id="jsp/Clientes/ListarClientes" class="menu-anchor" href="#!">Listar</a></li>
+									<li><a id="jsp/Clientes/ListarClientes"
+										class="menu-anchor" href="#!">Listar</a></li>
 								</ul>
 							</div></li>
 					</ul>
@@ -40,8 +41,10 @@
 								class="mdi-navigation-arrow-drop-down"></i></a>
 							<div class="collapsible-body">
 								<ul>
-									<li><a class="menu-anchor" id="jsp/Personal/AdministrarEmpleado" href="#!">Administración</a></li>
-									<li><a href="#!">Listar</a></li>
+									<li><a class="menu-anchor"
+										id="jsp/Personal/AdministrarEmpleado" href="#!">Administración</a></li>
+									<li><a class="menu-anchor"
+										id="jsp/Personal/ListarEmpleados" href="#!">Listar</a></li>
 								</ul>
 							</div></li>
 					</ul>
@@ -54,7 +57,8 @@
 								<ul>
 									<li><a class="menu-anchor"
 										id="jsp/Sucursales/AdministrarSucursal" href="#!">Administración</a></li>
-									<li><a href="#!">Listar</a></li>
+									<li><a class="menu-anchor"
+										id="jsp/Sucursales/ListarSucursal" href="#!">Listar</a></li>
 								</ul>
 							</div></li>
 					</ul>
@@ -105,8 +109,8 @@
 								class="mdi-navigation-arrow-drop-down"></i></a>
 							<div class="collapsible-body">
 								<ul>
-									<li><a class="menu-anchor"
-										id="jsp/Viajes/AltaViaje" href="#!">Alta</a></li>
+									<li><a class="menu-anchor" id="jsp/Viajes/AltaViaje"
+										href="#!">Alta</a></li>
 									<li><a href="#!">Baja</a></li>
 									<li><a href="#!">Listar</a></li>
 								</ul>
@@ -121,7 +125,10 @@
 								<ul>
 									<li><a class="menu-anchor"
 										id="jsp/Proveedores/AdministrarProveedor" href="#!">Administración</a></li>
-									<li><a href="#!">Listar</a></li>
+									<li><a class="menu-anchor"
+										id="jsp/Proveedores/ListarProveedores" href="#!">Listar</a></li>
+									<li><a class="menu-anchor"
+										id="jsp/Proveedores/PagoAProveedores" href="#!">Pago</a></li>
 								</ul>
 							</div></li>
 					</ul>
@@ -129,9 +136,9 @@
 			</ul>
 			<a href="#" data-activates="slide-out" class="button-collapse"
 				style="display: inline;"><i class="mdi-navigation-menu"></i></a>
-		
+
 			<h5 class="nav-header" id="title"></h5>
-			
+
 		</nav>
 
 	</div>
@@ -159,8 +166,6 @@
 		$(document).ready(function() {
 			$('a').addClass('waves-effect waves-teal');
 		});
-
-		
 	</script>
 
 </body>

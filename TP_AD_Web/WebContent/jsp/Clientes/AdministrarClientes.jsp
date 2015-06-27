@@ -63,28 +63,34 @@
 
 					<div class="col s12">
 						<ul class="tabs">
-							<li class="tab col s3"><a class="active" href="#test1">Alta Particular</a></li>
+							<li class="tab col s3"><a class="active" href="#test1">Alta
+									Particular</a></li>
 							<li class="tab col s3"><a href="#test2">Alta Empresa</a></li>
 							<li class="tab col s3"><a href="#test3">Baja</a></li>
 							<li class="tab col s3"><a href="#test4">Modificación</a></li>
+							<li class="tab col s3"><a href="#test5">Cuentas Corrientes</a></li>
+
 						</ul>
 					</div>
-					
+
 					<!--	ALTA CLIENTE PARTICULAR 	 -->
 					<div id="test1" class="col s12">
-						<%@include file="AltaClienteParticular.jsp" %>
+						<%@include file="AltaClienteParticular.jsp"%>
 					</div>
 
 					<!--	ALTA CLIENTE EMPRESA 	 -->
 					<div id="test2" class="col s12">
-						<%@include file="AltaClienteEmpresa.jsp" %>
+						<%@include file="AltaClienteEmpresa.jsp"%>
 					</div>
-				
+
 					<!--	BAJA CLIENTE	 -->
 					<div id="test3" class="col s12">Implementar baja</div>
-					
-					<!--	MODIFICACION CLIENTE	 -->					
+
+					<!--	MODIFICACION CLIENTE	 -->
 					<div id="test4" class="col s12">Implementar modificación</div>
+					
+					<!--	MODIFICACION CLIENTE	 -->
+					<div id="test5" class="col s12">Implementar cuenta corriente</div>
 				</div>
 
 			</div>
@@ -129,7 +135,7 @@
 		});
 
 		function renderLoader() {
-			var loader = $('<div class="preloader-wrapper small active"><div class="spinner-layer spinner-blue"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-red"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-yellow"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-green"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div>');
+			var loader = $('<div class="preloader-wrapper small active"><div class="spinner-layer spinner-blue"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div>_$tag__$tag___________________________________$tag_____________________________$tag________________$tag__$tag__$tag___________________$tag________________$tag__$tag__$tag______________________________$tag________________$tag__$tag__$tag__$tag______________________________________$tag_____________________________$tag________________$tag__$tag__$tag___________________$tag________________$tag__$tag__$tag______________________________$tag________________$tag__$tag__$tag__$tag_____________________________________$tag_____________________________$tag________________$tag__$tag__$tag___________________$tag________________$tag__$tag__$tag______________________________$tag________________$tag__$tag__$tag__$tag_');
 			loader.width(25).height(25).css('margin-bottom', -8).css(
 					'margin-left', 20);
 			return loader;
