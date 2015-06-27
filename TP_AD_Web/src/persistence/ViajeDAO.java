@@ -30,12 +30,27 @@ public class ViajeDAO extends AbstractGenericDAO<Viaje> {
 		session.close();
 		return Viaje;
 	}
-	
+
 	public List<Viaje> getAll() {
 		List<Viaje> viajes = new ArrayList<Viaje>();
 		Session s = sf.openSession();
 		s.beginTransaction();
 		Query q = s.createQuery("from Viaje");
+		viajes = (List<Viaje>) q.list();
+		s.close();
+		return viajes;
+	}
+
+	public List<Viaje> getViajesPosibles(Integer idOrigen, Integer idDestino) {
+		List<Viaje> viajes = new ArrayList<Viaje>();
+		Session s = sf.openSession();
+		s.beginTransaction();
+		String hql = "select v1 from Viaje v1 where " +
+				"exists (select v2 from Viaje v2 inner join v2.paradasIntermedias pi where v2.id = v1.id and pi.ubicacion.id = :idOrigen) " +
+				"and exists (select v2 from Viaje v2 inner join v2.paradasIntermedias pi where v2.id = v1.id and pi.ubicacion.id = :idDestino)";
+		Query q = s.createQuery(hql);
+		q.setParameter("idOrigen", idOrigen);
+		q.setParameter("idDestino", idDestino);
 		viajes = (List<Viaje>) q.list();
 		s.close();
 		return viajes;

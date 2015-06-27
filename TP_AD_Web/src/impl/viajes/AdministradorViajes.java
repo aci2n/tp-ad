@@ -1,17 +1,19 @@
 package impl.viajes;
 
 import impl.cargas.Carga;
+import impl.misc.Ubicacion;
 import impl.sucursales.AdministradorSucursales;
 import impl.sucursales.Sucursal;
-import impl.vehiculos.EstrategiaMantenimiento;
 import impl.vehiculos.Vehiculo;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import persistence.CargaDAO;
 import persistence.CompaniaSeguroDAO;
 import persistence.SeguroDAO;
+import persistence.SucursalDAO;
 import persistence.VehiculoDAO;
 import persistence.ViajeDAO;
 import views.viajes.CompaniaSeguroView;
@@ -162,7 +164,7 @@ public class AdministradorViajes {
 		}
 		return mejorViaje;
 	}
-	
+
 	public Integer altaCompaniaSeguro(CompaniaSeguroView c) {
 		CompaniaSeguro compania = new CompaniaSeguro(c);
 		return compania.getId();
@@ -194,7 +196,7 @@ public class AdministradorViajes {
 			throw new Exception("No existe viaje con el id ingresado.");
 		}
 	}
-	
+
 	public List<Viaje> obtenerViajes() {
 		return viajeDao.getAll();
 	}
@@ -205,5 +207,67 @@ public class AdministradorViajes {
 			companias.add(cs.getView());
 		}
 		return companias;
+	}
+
+	public Integer obtenerIdViajeOptimo(Integer idCarga) throws Exception {
+		Carga carga = CargaDAO.getInstance().get(idCarga);
+		Sucursal sucursal = SucursalDAO.getInstance().obtenerSucursalAPartirDeCarga(idCarga);
+		if (sucursal != null && carga != null) {
+			Viaje viajeOptimo = obtenerViajeOptimo(sucursal.getUbicacion(), carga.getDestino());
+			return viajeOptimo.getId();
+		} else {
+			throw new Exception("Hubo un error al intentar obtener el viaje optimo.");
+		}
+	}
+
+	private Viaje obtenerViajeOptimo(Ubicacion origen, Ubicacion destino) {
+		List<Viaje> viajesPosibles = obtenerViajesPosibles(origen, destino);
+		Viaje viajeOptimo = null;
+		Float distanciaOptima = Float.MAX_VALUE;
+		for (Viaje v : viajesPosibles) {
+			Float distanciaTemp = getDistancia(v, origen, destino);
+			if (distanciaOptima > distanciaTemp) {
+				viajeOptimo = v;
+				distanciaOptima = distanciaTemp;
+			}
+		}
+		return viajeOptimo;
+	}
+
+	private List<Viaje> obtenerViajesPosibles(Ubicacion origen, Ubicacion destino) {
+		return ViajeDAO.getInstance().getViajesPosibles(origen.getId(), destino.getId());
+	}
+
+	private Float getDistancia(Viaje v, Ubicacion origen, Ubicacion destino) {
+		Float distancia = 0f;
+		ArrayList<ParadaIntermedia> paradas = (ArrayList<ParadaIntermedia>) v.getParadasIntermedias();
+		Integer indiceComienzo = 0;
+
+		for (int i = 0; i < paradas.size(); i++) {
+			if (paradas.get(i).getUbicacion().equals(origen)) {
+				indiceComienzo = i;
+				break;
+			}
+		}
+
+		for (int i = indiceComienzo; i < paradas.size(); i++) {
+			distancia += calcularDistanciaEntreUbicaciones(origen, destino);
+			if (!paradas.get(i).getUbicacion().equals(destino)) {
+				break;
+			}
+		}
+
+		return distancia;
+	}
+	
+	private Float calcularDistanciaEntreUbicaciones(Ubicacion a, Ubicacion b) {
+		//probamos con sucursales, si no usamos coordenadas
+		Sucursal sucA = SucursalDAO.getInstance().obtenerSucursalDesdeUbicacion(a.getId());
+		Sucursal sucB = SucursalDAO.getInstance().obtenerSucursalDesdeUbicacion(b.getId());
+		if (sucA != null && sucB != null) {
+			return SucursalDAO.getInstance().obtenerDistanciaEntreSucursales(sucA, sucB).getDistanciaEnKm();
+		} else {
+			return calcularDistanciaEntreUbicaciones(a, b);
+		}
 	}
 }
