@@ -239,14 +239,16 @@ public class AdministradorViajes {
 		return viajesPosibles;
 	}
 
-	public Integer altaCarga(Integer idCliente, CargaView c) throws Exception {
+	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView c) throws Exception {
 		Cliente cli = ClienteDAO.getInstance().get(idCliente);
-		if (cli != null) {
+		Sucursal suc = SucursalDAO.getInstance().get(idSucursal);
+		if (cli != null && suc != null) {
 			Carga carga = new Carga(c, cli);
+			suc.agregarCarga(carga);
 			asignarCargaAViajeOptimo(carga);
 			return carga.getId();
 		} else {
-			throw new Exception("No existe cliente con el ID ingresado.");
+			throw new Exception("No existe cliente o sucursal con el ID ingresado.");
 		}
 	}
 
@@ -272,7 +274,7 @@ public class AdministradorViajes {
 
 		Vehiculo vehiculoDisponible = obtenerVehiculoDisponible();
 		Seguro seguro = obtenerSeguro(c.getTipo());
-		if (vehiculoDisponible != null && seguro != null) {			
+		if (vehiculoDisponible != null && seguro != null) {
 			altaViaje(vehiculoDisponible.getId(), seguro.getId(), vv);
 		} else {
 			throw new Exception("No hay vehiculos o seguros disponibles.");
