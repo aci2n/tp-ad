@@ -70,7 +70,7 @@ public class Viaje extends PersistentObject {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_viaje")
 	@OrderBy(value = "id asc")
-	private Collection<ParadaIntermedia> paradasIntermedias;
+	private List<ParadaIntermedia> paradasIntermedias;
 
 	public Viaje() {
 	}
@@ -155,7 +155,7 @@ public class Viaje extends PersistentObject {
 		return fechaSalida;
 	}
 
-	public Collection<ParadaIntermedia> getParadasIntermedias() {
+	public List<ParadaIntermedia> getParadasIntermedias() {
 		return paradasIntermedias;
 	}
 
@@ -187,7 +187,7 @@ public class Viaje extends PersistentObject {
 		this.fechaSalida = fechaSalida;
 	}
 
-	public void setParadasIntermedias(Collection<ParadaIntermedia> paradasIntermedias) {
+	public void setParadasIntermedias(List<ParadaIntermedia> paradasIntermedias) {
 		this.paradasIntermedias = paradasIntermedias;
 	}
 
