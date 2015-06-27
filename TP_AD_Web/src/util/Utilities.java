@@ -14,4 +14,15 @@ public class Utilities {
 		}
 		return d;
 	}
+
+	public static String invParseDate(Date date) {
+		String s = "";
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			s = formatter.format(date);
+		} catch (Exception e) {
+			// mandar saludos
+		}
+		return s;
+	}
 }

@@ -1,9 +1,8 @@
 package impl.viajes;
 
 import impl.cargas.Carga;
-import impl.misc.Ubicacion;
-import impl.sucursales.AdministradorSucursales;
-import impl.sucursales.DistanciaEntreSucursales;
+import impl.cargas.TipoCarga;
+import impl.clientes.Cliente;
 import impl.sucursales.Sucursal;
 import impl.vehiculos.Vehiculo;
 
@@ -11,17 +10,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import persistence.CargaDAO;
+import persistence.ClienteDAO;
 import persistence.CompaniaSeguroDAO;
 import persistence.SeguroDAO;
 import persistence.SucursalDAO;
 import persistence.VehiculoDAO;
 import persistence.ViajeDAO;
+import util.Utilities;
+import views.cargas.CargaView;
 import views.viajes.CompaniaSeguroView;
 import views.viajes.ParadaIntermediaView;
 import views.viajes.SeguroView;
-import views.viajes.ViajeOptimoView;
 import views.viajes.ViajeView;
+//github.com/alvarocalace/tp_ad_web.git
+import impl.sucursales.AdministradorSucursales;
 
 public class AdministradorViajes {
 	private static final float VELOCIDAD_PROMEDIO = 180f;
@@ -214,21 +216,16 @@ public class AdministradorViajes {
 		return companias;
 	}
 
-	public ViajeOptimoView obtenerViajeOptimo(Integer idCarga) throws Exception {
-		Carga carga = CargaDAO.getInstance().get(idCarga);
-		if (carga != null) {
-			List<Viaje> viajesPosibles = obtenerViajesPosibles(carga);
-			ViajeOptimo viajeOptimo = null;
-			for (Viaje v : viajesPosibles) {
-				ViajeOptimo aux = v.getViajeOptimo(carga.getOrigen(), carga.getDestino());
-				if (viajeOptimo == null || aux.getDistanciaOptima() < viajeOptimo.getDistanciaOptima()) {
-					viajeOptimo = aux;
-				}
+	public ViajeOptimo obtenerViajeOptimo(Carga carga) throws Exception {
+		List<Viaje> viajesPosibles = obtenerViajesPosibles(carga);
+		ViajeOptimo viajeOptimo = null;
+		for (Viaje v : viajesPosibles) {
+			ViajeOptimo aux = v.getViajeOptimo(carga.getOrigen(), carga.getDestino());
+			if (viajeOptimo == null || aux.getDistanciaOptima() < viajeOptimo.getDistanciaOptima()) {
+				viajeOptimo = aux;
 			}
-			return viajeOptimo.getView();
-		} else {
-			throw new Exception("No existe carga con el ID ingresado.");
 		}
+		return viajeOptimo;
 	}
 
 	private List<Viaje> obtenerViajesPosibles(Carga carga) {
@@ -241,82 +238,57 @@ public class AdministradorViajes {
 		}
 		return viajesPosibles;
 	}
-	
-	private Float duracionViajeCarga(Viaje viaje, Carga carga) throws Exception {
-		if (viaje.tieneUbicacion(carga.getOrigen()) && viaje.tieneUbicacion(carga.getDestino())) {
-			float duracion = 0;
-			int indiceOrigen = Integer.MIN_VALUE;
-			int indiceDestino = Integer.MIN_VALUE;
-			
-			//	Busco indice de origen y destino de la carga entre origen, destino y paradas intermedias del viaje
-			if (carga.getOrigen().tieneMismasCoordenadas(viaje.getOrigen())) {
-				indiceOrigen = -1;
-			}
-			if (carga.getDestino().tieneMismasCoordenadas(viaje.getDestino())) {
-				indiceDestino = viaje.cantidadParadasIntemedias();
-			}
-			
-			for (int i = 0; i < viaje.getParadasIntermedias().size(); i++) {
-				Ubicacion ub = viaje.getParadasIntermedias().get(i).getUbicacion();
-				if (ub.tieneMismasCoordenadas(carga.getOrigen())) {
-					indiceOrigen = i;
-				} else if (ub.tieneMismasCoordenadas(carga.getDestino())) {
-					indiceDestino = i;
-				}
-				if (indiceOrigen != Integer.MIN_VALUE && indiceDestino != Integer.MIN_VALUE) {
-					break;
-				}
-			}
-			
-			if (indiceOrigen != Integer.MIN_VALUE && indiceDestino != Integer.MIN_VALUE) {
-				
-				//	Si paradasIntermedias = 0, duracion = origen a destino
-				if (viaje.cantidadParadasIntemedias() == 0) {
-					duracion = viaje.getOrigen().calcularDistanciaEnKilometros(viaje.getDestino()) / VELOCIDAD_PROMEDIO;
-				} else {
-					//	Si el origen de la carga es el mismo que el del viaje
-					if (indiceOrigen == -1) {
-						Sucursal sucOrigen = sucursalDao.obtenerSucursalDesdeUbicacion(viaje.getOrigen().getCoordenadaDestino());;
-						Sucursal sucDestino = sucursalDao.obtenerSucursalDesdeUbicacion(viaje.getParadasIntermedias().get(0).getUbicacion().getCoordenadaDestino());
-						
-						//	Si el origen del viaje y la primera parada del viaje son sucursales, obtengo la duracion predefinida del trayecto
-						if (sucOrigen != null && sucDestino != null) {
-							DistanciaEntreSucursales dis = sucursalDao.obtenerDistanciaEntreSucursales(sucOrigen, sucDestino);
-							duracion += dis.getDuracionEnHoras();
-						} else {
-						//	Si el origen y/o la primera parada o el destino final del viaje no son sucursales, calculo duracion
-							Ubicacion ubicacionDestino = viaje.cantidadParadasIntemedias() > 0 ? viaje.getParadasIntermedias().get(0).getUbicacion() : viaje.getDestino();
-							duracion += viaje.getOrigen().calcularDistanciaEnKilometros(ubicacionDestino) / VELOCIDAD_PROMEDIO;
-						}
-					}
-					
-					//	Si indiceOrigen == -1 (origen carga = origen viaje), itero desde la primera parada intermedia
-					//	Aplico misma lógica (invertida) para el tope de la iteración con el destino de la carga
-					for (int i = Math.max(indiceOrigen, 0); i < Math.min(indiceDestino, viaje.cantidadParadasIntemedias()); i++) {
-						Ubicacion ubA = viaje.getParadasIntermedias().get(i).getUbicacion();
-						Ubicacion ubB = viaje.getParadasIntermedias().get(i + 1).getUbicacion();
-						
-						Sucursal sucA = sucursalDao.obtenerSucursalDesdeUbicacion(ubA.getCoordenadaDestino());
-						Sucursal sucB = sucursalDao.obtenerSucursalDesdeUbicacion(ubB.getCoordenadaDestino());
-						
-						if (sucA != null && sucB != null) {
-							DistanciaEntreSucursales dis = sucursalDao.obtenerDistanciaEntreSucursales(sucA, sucB);
-							duracion += dis.getDuracionEnHoras();
-						} else {
-							duracion += ubA.calcularDistanciaEnKilometros(ubB) / VELOCIDAD_PROMEDIO;
-						}
-					}
-					
-					if (indiceDestino == viaje.cantidadParadasIntemedias()) {
-						duracion += viaje
-								.getParadasIntermedias().get(viaje.cantidadParadasIntemedias() - 1)
-								.getUbicacion().calcularDistanciaEnKilometros(viaje.getDestino()) / VELOCIDAD_PROMEDIO;
-					}
-				}
-				
-			}
-			return duracion;
+
+	public Integer altaCarga(Integer idCliente, CargaView c) throws Exception {
+		Cliente cli = ClienteDAO.getInstance().get(idCliente);
+		if (cli != null) {
+			Carga carga = new Carga(c, cli);
+			asignarCargaAViajeOptimo(carga);
+			return carga.getId();
+		} else {
+			throw new Exception("No existe cliente con el ID ingresado.");
 		}
-		throw new Exception("El viaje no pasa por destino y/o origen de la carga");
+	}
+
+	private void asignarCargaAViajeOptimo(Carga c) throws Exception {
+		ViajeOptimo viajeOptimo = obtenerViajeOptimo(c);
+		if (viajeOptimo != null) {
+			viajeOptimo.getViaje().agregarCarga(c);
+			viajeOptimo.getViaje()
+					.agregarParadaIntermedia(new ParadaIntermediaView(c.getFechaProbableEntrega().toString(), c.getDestino().getView()));
+		} else {
+			crearViajeEnBaseACarga(c);
+		}
+	}
+
+	private void crearViajeEnBaseACarga(Carga c) throws Exception {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(c.getFechaMaximaEntrega());
+		calendar.add(Calendar.DAY_OF_MONTH, -1);
+		// seteo fecha inicio viaje a 1 dia menos
+
+		ViajeView vv = new ViajeView(Utilities.invParseDate(calendar.getTime()), Utilities.invParseDate(c.getFechaMaximaEntrega()), c.getOrigen()
+				.getView(), c.getDestino().getView());
+
+		Vehiculo vehiculoDisponible = obtenerVehiculoDisponible();
+		Seguro seguro = obtenerSeguro(c.getTipo());
+		if (vehiculoDisponible != null && seguro != null) {			
+			altaViaje(vehiculoDisponible.getId(), seguro.getId(), vv);
+		} else {
+			throw new Exception("No hay vehiculos o seguros disponibles.");
+		}
+	}
+
+	public Vehiculo obtenerVehiculoDisponible() {
+		for (Vehiculo v : VehiculoDAO.getInstance().getAll()) {
+			if (v.estaDisponible()) {
+				return v;
+			}
+		}
+		return null;
+	}
+
+	public Seguro obtenerSeguro(TipoCarga tipo) {
+		return SeguroDAO.getInstance().obtenerSeguroPorTipo(tipo);
 	}
 }

@@ -1,37 +1,32 @@
 package views.cargas;
 
-import impl.cargas.EstadoCarga;
-import impl.cargas.TipoCarga;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 
 import views.GenericView;
 import views.misc.UbicacionView;
 import views.productos.ItemProductoView;
 
-public class CargaView extends GenericView{
+public class CargaView extends GenericView {
 
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private Collection<ItemProductoView> productos;
 	// private Cliente cliente;
 	private UbicacionView origen;
 	private UbicacionView destino;
-	private TipoCarga tipo;
-	private EstadoCarga estadoCarga;
-	private Date fechaMaximaEntrega;
-	private Date fechaProbableEntrega;
+	private String tipo;
+	private String estadoCarga;
+	private String fechaMaximaEntrega;
+	private String fechaProbableEntrega;
 	private String manifiesto;
 
 	public CargaView() {
 
 	}
-	
-	public CargaView(TipoCarga tipoCarga, Date fechaMaximaEntrega,
-			Date fechaProbableEntrega, String manifiesto, UbicacionView origen,
-			UbicacionView destino, EstadoCarga estadoCarga, int id) {
-		this.id = id;
+
+	public CargaView(String tipoCarga, String fechaMaximaEntrega, String fechaProbableEntrega, String manifiesto, UbicacionView origen,
+			UbicacionView destino, String estadoCarga, Integer id) {
 		this.tipo = tipoCarga;
 		this.fechaMaximaEntrega = fechaMaximaEntrega;
 		this.fechaProbableEntrega = fechaProbableEntrega;
@@ -39,6 +34,7 @@ public class CargaView extends GenericView{
 		this.origen = origen;
 		this.destino = destino;
 		this.estadoCarga = estadoCarga;
+		this.id = id;
 		this.productos = new ArrayList<ItemProductoView>();
 	}
 
@@ -49,12 +45,12 @@ public class CargaView extends GenericView{
 	public void setProductos(Collection<ItemProductoView> productos) {
 		this.productos = productos;
 	}
-	
-	public int getId(){
+
+	public int getId() {
 		return id;
 	}
-	
-	public void setId(int id){
+
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -74,35 +70,35 @@ public class CargaView extends GenericView{
 		this.destino = destino;
 	}
 
-	public TipoCarga getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(TipoCarga tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 
-	public EstadoCarga getEstadoCarga() {
+	public String getEstadoCarga() {
 		return estadoCarga;
 	}
 
-	public void setEstadoCarga(EstadoCarga estadoCarga) {
+	public void setEstadoCarga(String estadoCarga) {
 		this.estadoCarga = estadoCarga;
 	}
 
-	public Date getFechaMaximaEntrega() {
+	public String getFechaMaximaEntrega() {
 		return fechaMaximaEntrega;
 	}
 
-	public void setFechaMaximaEntrega(Date fechaMaximaEntrega) {
+	public void setFechaMaximaEntrega(String fechaMaximaEntrega) {
 		this.fechaMaximaEntrega = fechaMaximaEntrega;
 	}
 
-	public Date getFechaProbableEntrega() {
+	public String getFechaProbableEntrega() {
 		return fechaProbableEntrega;
 	}
 
-	public void setFechaProbableEntrega(Date fechaProbableEntrega) {
+	public void setFechaProbableEntrega(String fechaProbableEntrega) {
 		this.fechaProbableEntrega = fechaProbableEntrega;
 	}
 

@@ -21,6 +21,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import persistence.CargaDAO;
+import util.Utilities;
 import views.cargas.CargaView;
 
 @Entity
@@ -65,22 +67,21 @@ public class Carga extends PersistentObject {
 	@Column(name = "manifiesto")
 	private String manifiesto;
 
-	public Carga(TipoCarga tipoCarga, Date fechaMaximaEntrega,
-			Date fechaProbableEntrega, Cliente cliente, String manifiesto,
-			Ubicacion origen, Ubicacion destino, EstadoCarga estadoCarga) {
-		this.tipo = tipoCarga;
-		this.fechaMaximaEntrega = fechaMaximaEntrega;
-		this.fechaProbableEntrega = fechaProbableEntrega;
-		this.cliente = cliente;
-		this.manifiesto = manifiesto;
-		this.origen = origen;
-		this.destino = destino;
-		this.estadoCarga = estadoCarga;
-		this.productos = new ArrayList<ItemProducto>();
-	}
-
 	public Carga() {
 
+	}
+
+	public Carga(CargaView c, Cliente cli) {
+		tipo = TipoCarga.valueOf(c.getTipo());
+		fechaMaximaEntrega = Utilities.parseDate(c.getFechaMaximaEntrega());
+		fechaProbableEntrega = Utilities.parseDate(c.getFechaProbableEntrega());
+		manifiesto = c.getManifiesto();
+		origen = new Ubicacion(c.getOrigen());
+		destino = new Ubicacion(c.getDestino());
+		estadoCarga = EstadoCarga.valueOf(c.getEstadoCarga());
+		cliente = cli;
+		productos = new ArrayList<ItemProducto>();
+		id = CargaDAO.getInstance().insert(this);
 	}
 
 	public TipoCarga getTipo() {
@@ -183,8 +184,7 @@ public class Carga extends PersistentObject {
 	public Float calcularFactorProductos() { // public para testear
 		Float total = 1f;
 		for (ItemProducto ip : productos) {
-			total += ip.getProducto().calcularFactorProducto()
-					* ip.getCantidad();
+			total += ip.getProducto().calcularFactorProducto() * ip.getCantidad();
 		}
 		return total;
 	}
@@ -202,10 +202,9 @@ public class Carga extends PersistentObject {
 
 	public CargaView getView() {
 
-		CargaView view = new CargaView(tipo, fechaMaximaEntrega,
-				fechaProbableEntrega, manifiesto, origen.getView(),
-				destino.getView(), estadoCarga, id);
-		
+		CargaView view = new CargaView(tipo.toString(), fechaMaximaEntrega.toString(), fechaProbableEntrega.toString(), manifiesto, origen.getView(),
+				destino.getView(), estadoCarga.toString(), id);
+
 		return view;
 
 	}
