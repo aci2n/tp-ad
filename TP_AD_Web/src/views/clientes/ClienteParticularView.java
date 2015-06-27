@@ -1,5 +1,7 @@
 package views.clientes;
 
-public class ClienteParticularView {
+import views.GenericView;
+
+public class ClienteParticularView extends GenericView{
 
 }

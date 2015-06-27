@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import views.GenericView;
 import views.misc.UbicacionView;
 import views.productos.ItemProductoView;
 
-public class CargaView {
+public class CargaView extends GenericView{
 
 	private Collection<ItemProductoView> productos;
 	// private Cliente cliente;

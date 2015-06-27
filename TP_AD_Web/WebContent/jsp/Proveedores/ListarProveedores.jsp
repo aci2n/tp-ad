@@ -15,7 +15,7 @@
 <html>
 <head>
 
-<title>Listado de Clientes</title>
+<title>Listado de Proveedores</title>
 </head>
 <body>
 
@@ -28,14 +28,13 @@
 		<div class="col s12 m4 l10 ">
 			<div class="card">
 				<div class="card-content white-text pink">
-					<span class="card-title">Listado de Clientes</span>
+					<span class="card-title">Listado de Proveedores</span>
 				</div>
 
 				<div class="col s12">
 					<ul class="tabs">
 						<li class="tab col s3"><a class="active" href="#test1">Listar
-								Particular</a></li>
-						<li class="tab col s3"><a href="#test2">Listar Empresa</a></li>
+								Proveedores</a></li>
 					</ul>
 				</div>
 
@@ -62,20 +61,10 @@
 							</thead>
 
 							<tbody id="tbody">
-								<%
-									List<ParticularView> clientes = ControladorPrincipal.getInstance().getAdministradorClientes().obtenerClientesParticulares();
-									for(ParticularView c : clientes)
-									{
-								%>
-								<tr>
-									<td style="color: #1565C0; font-weight: bold;"><%=c.getId()%></td>
-									<td><%=c.getDni()%></td>
-									<td><%=c.getNombre()%></td>
-									<td><%=c.getApellido()%></td>
-								</tr>
-								<%
-									}
-								%>
+							
+							
+							
+							
 							</tbody>
 						</table>
 						<div></div>
@@ -83,7 +72,7 @@
 				</div>
 
 
-				<div id="test2">
+				<%-- <div id="test2">
 					<div class="card-action row"
 						style="border-bottom: 1px solid rgba(160, 160, 160, 0.2);">
 						<div class="input-field col s6">
@@ -107,14 +96,14 @@
 							<tbody id="tbody">
 								<%
 									List<EmpresaView> empresas = ControladorPrincipal.getInstance().getAdministradorClientes().obtenerClientesEmpresas();
-									for(EmpresaView e : empresas)
-									{
+																				for(EmpresaView e : empresas)
+																			{
 								%>
-								<%-- <tr>
+								<tr>
 									<td style="color: #1565C0; font-weight: bold;"><%=e.getId()%></td>
 									<td><%=e.getNombre()%></td>
-									<td><%=%></td>
-								</tr> --%>
+									<td><%=e.getCuentaCorriente().getMontoActual()%></td>
+								</tr>
 								<%
 									}
 								%>
@@ -122,7 +111,7 @@
 						</table>
 						<div></div>
 					</div>
-				</div> 
+				</div> --%>
 
 
 

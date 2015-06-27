@@ -3,7 +3,13 @@ package views.viajes;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class CompaniaSeguroView {
+import views.GenericView;
+
+public class CompaniaSeguroView extends GenericView{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String cuil;
 	private String nombre;
 	private Collection<SeguroView> segurosView;

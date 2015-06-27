@@ -5,7 +5,6 @@ import impl.sucursales.Sucursal;
 import impl.viajes.AdministradorViajes;
 import impl.viajes.Viaje;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import persistence.ProveedorDAO;
@@ -13,8 +12,9 @@ import persistence.SucursalDAO;
 import persistence.VehiculoDAO;
 import views.vehiculos.PlanMantenimientoView;
 import views.vehiculos.ProveedorView;
-import views.vehiculos.VehiculoExternoView;
 import views.vehiculos.VehiculoLocalView;
+import views.vehiculos.TareaView;
+import views.vehiculos.VehiculoExternoView;
 
 public class AdministradorVehiculos {
 	private static AdministradorVehiculos instance;
@@ -92,6 +92,7 @@ public class AdministradorVehiculos {
 	public Proveedor obtenerProveedor(String cuit) {
 		return proveedorDao.obtenerPorCuit(cuit);
 	}
+
 	// public List<Proveedor> obtenerViajesDeProveedores(Date fechaSalida, Date
 	// fechaLLegada, TipoVehiculo tipoVehiculo){
 	//

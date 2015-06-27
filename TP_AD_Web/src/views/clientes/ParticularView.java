@@ -3,7 +3,9 @@ package views.clientes;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParticularView {
+import views.GenericView;
+
+public class ParticularView extends GenericView{
 
 	private int id;
 	private String dni;

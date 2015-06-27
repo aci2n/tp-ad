@@ -1,6 +1,8 @@
 package views.misc;
 
-public class UbicacionView {
+import views.GenericView;
+
+public class UbicacionView extends GenericView{
 	private String pais;
 	private String provincia;
 	private String ciudad;

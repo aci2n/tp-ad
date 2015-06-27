@@ -1,6 +1,8 @@
 package views.clientes;
 
-public class CuentaCorrienteView {
+import views.GenericView;
+
+public class CuentaCorrienteView extends GenericView{
 
 	private int id;
 	private boolean depositoPrevio;

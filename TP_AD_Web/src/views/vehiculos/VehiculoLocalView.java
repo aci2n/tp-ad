@@ -1,9 +1,10 @@
 package views.vehiculos;
 
+import views.GenericView;
 import views.misc.TamanoView;
 
 
-public class VehiculoLocalView {
+public class VehiculoLocalView extends GenericView{
 	private String patente;
 	private TamanoView tamano;
 	private Float peso;

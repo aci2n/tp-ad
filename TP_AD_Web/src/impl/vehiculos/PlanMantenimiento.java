@@ -18,6 +18,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import persistence.PlanMantenimientoDAO;
+import views.vehiculos.TareaView;
+
 @Entity
 @Table(name = "PlanesMantenimiento")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -71,11 +74,12 @@ public abstract class PlanMantenimiento extends PersistentObject {
 		tareas.add(estrategiaMantenimiento.realizarMantenimiento(this));
 	}
 	
-	public void agregarTarea(Tarea tarea) {
+	public void agregarTarea(TareaView tarea) {
 		if (tareas == null) {
 			tareas = new ArrayList<Tarea>();
 		}
-		tareas.add(tarea);
+		tareas.add(new Tarea(tarea));
+		PlanMantenimientoDAO.getInstance().update(this);
 	}
 
 	public abstract float calcularRetraso();

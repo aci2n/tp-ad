@@ -1,7 +1,9 @@
 package views.misc;
 
+import views.GenericView;
 
-public class CoordenadaView {
+
+public class CoordenadaView extends GenericView{
 	private float latitud;
 	private float longitud;
 

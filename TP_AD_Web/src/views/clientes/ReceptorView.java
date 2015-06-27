@@ -1,8 +1,9 @@
 package views.clientes;
 
+import views.GenericView;
 import views.misc.UbicacionView;
 
-public class ReceptorView {
+public class ReceptorView extends GenericView{
 	private String dni;
 	private String nombre;
 	private String apellido;

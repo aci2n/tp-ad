@@ -2,9 +2,10 @@ package views.clientes;
 
 import java.util.Date;
 
+import views.GenericView;
 import views.vehiculos.ProveedorView;
 
-public class PagoView {
+public class PagoView extends GenericView{
 
 	private int id;
 	private ProveedorView proveedor;
