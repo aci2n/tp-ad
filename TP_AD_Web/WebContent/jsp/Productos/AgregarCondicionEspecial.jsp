@@ -26,5 +26,10 @@
 		</table>
 		<br /> <input type="submit" value="Alta">
 	</form>
+	<script>
+		$(document).ready(function() {
+			$('select').material_select();
+		});
+	</script>
 </body>
 </html>

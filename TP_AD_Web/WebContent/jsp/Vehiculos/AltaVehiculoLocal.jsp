@@ -69,7 +69,7 @@
 			</tr>
 			<tr>
 				<td>Tipo:</td>
-				<td><select name="tipo">
+				<td class="input-field"><select name="tipo">
 						<%
 							for (TipoVehiculo t : TipoVehiculo.values()) {
 								out.print("<option value=\"" + t.toString() + "\">" + t.toString() + "</option>");
@@ -96,5 +96,10 @@
 		</table>
 		<br /> <input type="submit" value="Alta">
 	</form>
+	<script>
+		$(document).ready(function() {
+			$('select').material_select();
+		});
+	</script>
 </body>
 </html>
