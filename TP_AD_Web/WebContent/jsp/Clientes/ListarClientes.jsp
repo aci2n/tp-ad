@@ -63,7 +63,7 @@
 
 							<tbody id="tbody">
 								<%
-									List<ParticularView> clientes = ControladorPrincipal.getInstance().getAdministradorClientes().obtenerClientesParticulares();
+									List<ParticularView> clientes = ControladorPrincipal.getInstance().obtenerClientesParticulares();
 									for(ParticularView c : clientes)
 									{
 								%>
@@ -106,7 +106,7 @@
 
 							<tbody id="tbody">
 								<%
-									List<EmpresaView> empresas = ControladorPrincipal.getInstance().getAdministradorClientes().obtenerClientesEmpresas();
+									List<EmpresaView> empresas = ControladorPrincipal.getInstance().obtenerClientesEmpresas();
 									for(EmpresaView e : empresas)
 									{
 								%>

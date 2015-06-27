@@ -199,7 +199,7 @@ public class AdministradorViajes {
 		return viajeDao.getAll();
 	}
 
-	public List<CompaniaSeguroView> getCompaniasSeguroView() {
+	public List<CompaniaSeguroView> obtenerCompaniasSeguroView() {
 		List<CompaniaSeguroView> companias = new ArrayList<CompaniaSeguroView>();
 		for (CompaniaSeguro cs : companiaSeguroDao.getAll()) {
 			companias.add(cs.getView());

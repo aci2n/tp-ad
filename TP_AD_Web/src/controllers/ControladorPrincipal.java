@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.List;
+
 import impl.cargas.AdministradorCargas;
 import impl.clientes.AdministradorClientes;
 import impl.productos.AdministradorProductos;
@@ -15,6 +17,7 @@ import views.sucursales.DistanciaEntreSucursalesView;
 import views.sucursales.SucursalView;
 import views.vehiculos.PlanMantenimientoView;
 import views.vehiculos.ProveedorView;
+import views.vehiculos.TareaView;
 import views.vehiculos.VehiculoExternoView;
 import views.vehiculos.VehiculoLocalView;
 import views.viajes.CompaniaSeguroView;
@@ -66,6 +69,14 @@ public class ControladorPrincipal {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public List<EmpresaView> obtenerClientesEmpresas() {
+		return administradorClientes.obtenerClientesEmpresas();
+	}
+	
+	public List<ParticularView> obtenerClientesParticulares() {
+		return administradorClientes.obtenerClientesParticulares();
 	}
 	
 	
@@ -181,6 +192,43 @@ public class ControladorPrincipal {
 			return null;
 		}
 	}
+
+
+	public void actualizarPrecioVehiculo(Integer id, Float precio) {
+		try {
+			administradorVehiculos.actualizarPrecioVehiculo(id, precio);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+	public void agregarTarea(Integer id, TareaView tarea) {
+		try {
+			administradorVehiculos.agregarTarea(id, tarea);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+	public void bajaEmpleado(Integer id) {
+		try {
+			administradorSucursales.bajaEmpleado(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+	public List<CompaniaSeguroView> getCompaniasSeguroView() {
+		return administradorViajes.obtenerCompaniasSeguroView();
+	}
+	
+	
 	
 //	public AdministradorViajes getAdministradorViajes() {
 //		return administradorViajes;

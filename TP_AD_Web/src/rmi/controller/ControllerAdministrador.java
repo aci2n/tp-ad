@@ -14,9 +14,10 @@ public class ControllerAdministrador extends UnicastRemoteObject implements TDAC
 
 	private static final long serialVersionUID = 1L;
 	private static ControllerAdministrador instance;
+	private ControladorPrincipal controlador;
 
 	private ControllerAdministrador() throws RemoteException {
-
+		controlador = ControladorPrincipal.getInstance();
 	}
 
 	public static ControllerAdministrador getInstance() throws RemoteException {
@@ -27,28 +28,28 @@ public class ControllerAdministrador extends UnicastRemoteObject implements TDAC
 
 	@Override
 	public void actualizarPrecioVehiculo(Integer id, Float precio) throws Exception {
-		ControladorPrincipal.getInstance().getAdministradorVehiculos().actualizarPrecioVehiculo(id, precio);
+		controlador.actualizarPrecioVehiculo(id, precio);
 	}
 
 	@Override
 	public void agregarTarea(Integer id, TareaView tarea) throws Exception {
-		ControladorPrincipal.getInstance().getAdministradorVehiculos().agregarTarea(id, tarea);
+		controlador.agregarTarea(id, tarea);
 	}
 
 	@Override
 	public void agregarEmpleadoASucursal(Integer idSucursal, EmpleadoView empleado) throws Exception {
-		ControladorPrincipal.getInstance().getAdministradorSucursales().agregarEmpleadoASucursal(idSucursal, empleado);
+		controlador.agregarEmpleadoASucursal(idSucursal, empleado);
 
 	}
 
 	@Override
 	public void bajaEmpleado(Integer id) throws Exception {
-		ControladorPrincipal.getInstance().getAdministradorSucursales().bajaEmpleado(id);
+		controlador.bajaEmpleado(id);
 	}
 
 	@Override
 	public List<CompaniaSeguroView> getCompaniasSeguroView() throws Exception {
-		return ControladorPrincipal.getInstance().getAdministradorViajes().getCompaniasSeguroView();
+		return controlador.getCompaniasSeguroView();
 	}
 
 }
