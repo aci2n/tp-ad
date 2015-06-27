@@ -68,7 +68,7 @@ public class Carga extends PersistentObject {
 	private String manifiesto;
 
 	public Carga() {
-
+		productos = new ArrayList<ItemProducto>();
 	}
 
 	public Carga(CargaView c, Cliente cli) {

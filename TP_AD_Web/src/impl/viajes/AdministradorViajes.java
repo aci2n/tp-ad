@@ -3,6 +3,11 @@ package impl.viajes;
 import impl.cargas.Carga;
 import impl.cargas.TipoCarga;
 import impl.clientes.Cliente;
+import impl.misc.Coordenada;
+import impl.misc.Ubicacion;
+import impl.productos.Producto;
+//github.com/alvarocalace/tp_ad_web.git
+import impl.sucursales.AdministradorSucursales;
 import impl.sucursales.Sucursal;
 import impl.vehiculos.Vehiculo;
 
@@ -18,12 +23,11 @@ import persistence.VehiculoDAO;
 import persistence.ViajeDAO;
 import util.Utilities;
 import views.cargas.CargaView;
+import views.productos.ItemProductoView;
 import views.viajes.CompaniaSeguroView;
 import views.viajes.ParadaIntermediaView;
 import views.viajes.SeguroView;
 import views.viajes.ViajeView;
-//github.com/alvarocalace/tp_ad_web.git
-import impl.sucursales.AdministradorSucursales;
 
 public class AdministradorViajes {
 	private static final float VELOCIDAD_PROMEDIO = 180f;
@@ -240,6 +244,11 @@ public class AdministradorViajes {
 	}
 
 	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView c) throws Exception {
+		for (ItemProductoView ipv : c.getProductos()) {
+			if (Producto.esMaterialPermitido(ipv.getProducto().getMaterial())) {
+				throw new Exception("La carga tiene un material prohibido.");
+			}
+		}
 		Cliente cli = ClienteDAO.getInstance().get(idCliente);
 		Sucursal suc = SucursalDAO.getInstance().get(idSucursal);
 		if (cli != null && suc != null) {
@@ -292,5 +301,30 @@ public class AdministradorViajes {
 
 	public Seguro obtenerSeguro(TipoCarga tipo) {
 		return SeguroDAO.getInstance().obtenerSeguroPorTipo(tipo);
+	}
+
+	public String fechaProbable(CargaView c) throws Exception {
+		Carga carga = new Carga();
+		Ubicacion origen = new Ubicacion();
+		Ubicacion destino = new Ubicacion();
+		origen.setCoordenadaDestino(new Coordenada(c.getOrigen().getCoordenadaDestino().getLatitud(), c.getOrigen().getCoordenadaDestino()
+				.getLongitud()));
+		destino.setCoordenadaDestino(new Coordenada(c.getDestino().getCoordenadaDestino().getLatitud(), c.getDestino().getCoordenadaDestino()
+				.getLongitud()));
+		carga.setOrigen(origen);
+		carga.setDestino(destino);
+		ViajeOptimo viaje = obtenerViajeOptimo(carga);
+		if (viaje != null) {
+			return calcularFechaProbable(carga, viaje);
+		} else {
+			throw new Exception("No existen viajes disponibles.");
+		}
+	}
+
+	private String calcularFechaProbable(Carga carga, ViajeOptimo viaje) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(viaje.getViaje().getFechaSalida());
+		cal.add(Calendar.HOUR, (int) (float) viaje.getDuracionOptima());
+		return Utilities.invParseDate(cal.getTime());
 	}
 }
