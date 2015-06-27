@@ -221,7 +221,7 @@ public class AdministradorViajes {
 		ViajeOptimo viajeOptimo = null;
 		for (Viaje v : viajesPosibles) {
 			ViajeOptimo aux = v.getViajeOptimo(carga.getOrigen(), carga.getDestino());
-			if (viajeOptimo == null || aux.getDistanciaOptima() < viajeOptimo.getDistanciaOptima()) {
+			if (viajeOptimo == null || aux.getViaje().calcularVolumenDisponible() > viajeOptimo.getViaje().calcularVolumenDisponible()) {
 				viajeOptimo = aux;
 			}
 		}
@@ -244,10 +244,8 @@ public class AdministradorViajes {
 		calendar.setTime(c.getFechaMaximaEntrega());
 		calendar.add(Calendar.DAY_OF_MONTH, -1);
 		// seteo fecha inicio viaje a 1 dia menos
-
 		ViajeView vv = new ViajeView(Utilities.invParseDate(calendar.getTime()), Utilities.invParseDate(c.getFechaMaximaEntrega()), c.getOrigen()
 				.getView(), c.getDestino().getView());
-
 		Vehiculo vehiculoDisponible = obtenerVehiculoDisponible();
 		Seguro seguro = obtenerSeguro(c.getTipo());
 		if (vehiculoDisponible != null && seguro != null) {

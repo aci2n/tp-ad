@@ -44,7 +44,7 @@ public class AdministradorCargas {
 	
 	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView c) throws Exception {
 		for (ItemProductoView ipv : c.getProductos()) {
-			if (Producto.esMaterialPermitido(ipv.getProducto().getMaterial())) {
+			if (!Producto.esMaterialPermitido(ipv.getProducto().getMaterial())) {
 				throw new Exception("La carga tiene un material prohibido.");
 			}
 		}
