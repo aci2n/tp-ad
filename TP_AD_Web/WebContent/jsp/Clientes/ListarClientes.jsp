@@ -83,7 +83,7 @@
 				</div>
 
 
-				<div id="test2">
+				<%-- <div id="test2">
 					<div class="card-action row"
 						style="border-bottom: 1px solid rgba(160, 160, 160, 0.2);">
 						<div class="input-field col s6">
@@ -122,7 +122,7 @@
 						</table>
 						<div></div>
 					</div>
-				</div>
+				</div> --%>
 
 
 
