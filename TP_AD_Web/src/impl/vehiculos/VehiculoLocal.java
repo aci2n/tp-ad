@@ -79,7 +79,8 @@ public class VehiculoLocal extends Vehiculo {
 	public boolean estaDisponible() {
 		Date ahora = new Date();
 		for (Tarea tarea : planMantenimiento.getTareas()) {
-			if (tarea.getFechaDevolucion().after(ahora) && tarea.getFechaEntrega().before(ahora)) {
+			if (tarea.getFechaDevolucion().after(ahora)
+					&& tarea.getFechaEntrega().before(ahora)) {
 				return false;
 			}
 		}
@@ -87,10 +88,12 @@ public class VehiculoLocal extends Vehiculo {
 	}
 
 	public void realizarMantenimiento(boolean esEspecifico) {
-		planMantenimiento.realizarMantenimiento(establecerEstrategiaMantenimiento(esEspecifico));
+		planMantenimiento
+				.realizarMantenimiento(establecerEstrategiaMantenimiento(esEspecifico));
 	}
 
-	private EstrategiaMantenimiento establecerEstrategiaMantenimiento(boolean esEspecifico) {
+	private EstrategiaMantenimiento establecerEstrategiaMantenimiento(
+			boolean esEspecifico) {
 		if (vencimientoGarantia.after(new Date())) {
 			return new MantenimientoGarantia();
 		} else if (esEspecifico) {
@@ -98,5 +101,11 @@ public class VehiculoLocal extends Vehiculo {
 		} else {
 			return new MantenimientoGeneral();
 		}
+	}
+
+	public VehiculoLocalView getView() {
+
+		return new VehiculoLocalView(patente, tamano.getView(), peso, tara,
+				tarifa, tipo.toString(), vencimientoGarantia.toString());
 	}
 }

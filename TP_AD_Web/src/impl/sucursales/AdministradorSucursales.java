@@ -172,5 +172,15 @@ public class AdministradorSucursales {
 		} else {
 			throw new Exception("No existe empleado con el ID ingresado.");
 		}
+
+	public List<EmpleadoView> obtenerEmpleadosView() {
+
+		List<EmpleadoView> empleadosView = new ArrayList<EmpleadoView>();
+
+		for (Empleado e : EmpleadoDAO.getInstance().getAll())
+			empleadosView.add(e.getView());
+
+		return empleadosView;
+
 	}
 }

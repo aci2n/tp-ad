@@ -1,7 +1,10 @@
 package persistence;
 
+import java.util.List;
+
 import impl.personal.Empleado;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class EmpleadoDAO extends AbstractGenericDAO<Empleado> {
@@ -21,11 +24,13 @@ public class EmpleadoDAO extends AbstractGenericDAO<Empleado> {
 		session.close();
 		return Empleado;
 	}
-
-	/*
-	 * public List<Empleado> getEmpleados() { List<Empleado> empleados = new
-	 * ArrayList<Empleado>(); Session s = sf.openSession(); Query q =
-	 * s.createQuery("from Empleado"); empleados = (List<Empleado>) q.list();
-	 * s.close(); return empleados; }
-	 */
+	public List<Empleado> getAll(){
+		
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query q = session.createQuery("from Empleado");
+		List<Empleado> empleados = (List<Empleado>) q.list();
+		session.close();
+		return empleados;
+	}
 }

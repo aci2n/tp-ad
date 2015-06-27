@@ -168,7 +168,8 @@ public class Viaje extends PersistentObject {
 		return estaAtrasado;
 	}
 
-	public void setCondicionesEspeciales(List<CondicionEspecial> condicionesEspeciales) {
+	public void setCondicionesEspeciales(
+			List<CondicionEspecial> condicionesEspeciales) {
 		this.condicionesEspeciales = condicionesEspeciales;
 	}
 
@@ -184,7 +185,8 @@ public class Viaje extends PersistentObject {
 		this.fechaSalida = fechaSalida;
 	}
 
-	public void setParadasIntermedias(Collection<ParadaIntermedia> paradasIntermedias) {
+	public void setParadasIntermedias(
+			Collection<ParadaIntermedia> paradasIntermedias) {
 		this.paradasIntermedias = paradasIntermedias;
 	}
 
@@ -228,17 +230,20 @@ public class Viaje extends PersistentObject {
 	}
 
 	public boolean pasaPorSucursal(Sucursal sucursal) {
-		if (origen.equals(sucursal.getUbicacion()) || destino.equals(sucursal.getUbicacion()))
+		if (origen.equals(sucursal.getUbicacion())
+				|| destino.equals(sucursal.getUbicacion()))
 			return true;
 		for (ParadaIntermedia parada : paradasIntermedias) {
-			if (!parada.isChecked() && parada.getUbicacion().equals(sucursal.getUbicacion()))
+			if (!parada.isChecked()
+					&& parada.getUbicacion().equals(sucursal.getUbicacion()))
 				return true;
 		}
 		return false;
 	}
 
 	public boolean puedeTransportar(Carga carga) {
-		return carga.calcularPesoTotal() <= calcularPesoDisponible() && carga.calcularVolumenTotal() <= calcularVolumenDisponible();
+		return carga.calcularPesoTotal() <= calcularPesoDisponible()
+				&& carga.calcularVolumenTotal() <= calcularVolumenDisponible();
 	}
 
 	public Date obtenerLlegadaAParada(Sucursal sucursal) {
@@ -254,4 +259,11 @@ public class Viaje extends PersistentObject {
 		}
 		return null;
 	}
+
+	public ViajeView getView() {
+
+		return new ViajeView(fechaSalida.toString(), fechaSalida.toString(),
+				origen.getView(), destino.getView());
+	}
+
 }

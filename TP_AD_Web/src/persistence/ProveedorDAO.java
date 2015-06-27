@@ -2,6 +2,10 @@ package persistence;
 
 import impl.vehiculos.Proveedor;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class ProveedorDAO extends AbstractGenericDAO<Proveedor> {
@@ -20,5 +24,15 @@ public class ProveedorDAO extends AbstractGenericDAO<Proveedor> {
 		Proveedor Proveedor = (Proveedor) session.get(Proveedor.class, id);
 		session.close();
 		return Proveedor;
+	}
+	
+	public List<Proveedor> getAll(){
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query q = session.createQuery("from Proveedor");
+		List<Proveedor> proveedores = new ArrayList<Proveedor>();
+		proveedores = (List<Proveedor>) q.list();
+		session.close();
+		return proveedores;
 	}
 }

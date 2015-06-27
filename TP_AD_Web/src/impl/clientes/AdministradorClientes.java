@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import persistence.ClienteDAO;
+import views.clientes.EmpresaView;
+import views.clientes.ParticularView;
 import views.clientes.ReceptorView;
 
 public class AdministradorClientes {
@@ -31,13 +33,15 @@ public class AdministradorClientes {
 		return e.getId();
 	}
 
-	public Integer altaClienteParticular(String dni, String nombre, String apellido) {
+	public Integer altaClienteParticular(String dni, String nombre,
+			String apellido) {
 		Particular p = new Particular(dni, nombre, apellido);
 		return p.getId();
 	}
 
 	public void agregarReceptor(Integer id, ReceptorView r) throws Exception {
-		Particular particular = ClienteDAO.getInstance().obtenerClienteParticular(id);
+		Particular particular = ClienteDAO.getInstance()
+				.obtenerClienteParticular(id);
 		if (particular != null) {
 			particular.agregarReceptor(r);
 		} else {
@@ -54,10 +58,12 @@ public class AdministradorClientes {
 		}
 	}
 
-	public void asignarCuentaCorriente(Integer id, Float montoActual, Float montoAutorizado) throws Exception {
+	public void asignarCuentaCorriente(Integer id, Float montoActual,
+			Float montoAutorizado) throws Exception {
 		if (esClienteEmpresa(id)) {
 			Empresa c = (Empresa) obtenerCliente(id);
-			c.setCuentaCorriente(new CuentaCorriente(montoActual, montoAutorizado));
+			c.setCuentaCorriente(new CuentaCorriente(montoActual,
+					montoAutorizado));
 		} else
 			throw new Exception("El cliente con id" + id + " no es una empresa");
 	}
@@ -105,5 +111,26 @@ public class AdministradorClientes {
 
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
+	}
+
+	public List<ParticularView> obtenerClientesParticulares() {
+
+		List<ParticularView> particulares = new ArrayList<ParticularView>();
+
+		for (Particular p : ClienteDAO.getInstance()
+				.getAllClientesParticulares())
+			particulares.add(p.getView());
+
+		return particulares;
+	}
+
+	public List<EmpresaView> obtenerClientesEmpresas() {
+
+		List<EmpresaView> empresas = new ArrayList<EmpresaView>();
+
+		for (Empresa p : ClienteDAO.getInstance().getAllClientesEmpresas())
+			empresas.add(p.getView());
+
+		return empresas;
 	}
 }
