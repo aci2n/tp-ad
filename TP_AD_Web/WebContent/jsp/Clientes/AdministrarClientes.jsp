@@ -90,7 +90,7 @@
 					<div id="test4" class="col s12">Implementar modificación</div>
 					
 					<!--	MODIFICACION CLIENTE	 -->
-					<div id="test5" class="col s12">Implementar cuenta corriente</div>
+					<div id="test5" class="col s12"><%@include file="CuentasCorrientes.jsp" %></div>
 				</div>
 
 			</div>

@@ -12,6 +12,14 @@
 			<input type="text" class="validate" name="nombre"> <label
 				for="email">Nombre</label>
 		</div>
+		<div class="input-field col s12">
+			<input type="number" class="validate" name="monto"> <label
+				for="email">Monto Autorizado</label>
+		</div>
+		<div class="input-field col s12">	
+			<input type="number" class="validate" name="saldo"> <label
+				for="email">Saldo Inicial</label>
+		</div>
 		<input class="btn btn-primary" type="submit" value="Alta">
 	</form>
 </body>

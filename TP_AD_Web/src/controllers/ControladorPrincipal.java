@@ -10,6 +10,7 @@ import impl.viajes.AdministradorViajes;
 
 import java.util.List;
 
+import views.cargas.CargaView;
 import views.clientes.CuentaCorrienteView;
 import views.clientes.EmpresaView;
 import views.clientes.PagoView;
@@ -232,6 +233,12 @@ public class ControladorPrincipal {
 
 	public List<CompaniaSeguroView> getCompaniasSeguroView() {
 		return administradorViajes.obtenerCompaniasSeguroView();
+	}
+	
+	// CARGAS
+	
+	public List<CargaView> obtenerCargasView(){
+		return administradorCargas.obtenerCargasView();
 	}
 	
 	

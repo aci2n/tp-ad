@@ -9,7 +9,11 @@ import views.productos.ItemProductoView;
 
 public class CargaView extends GenericView {
 
+<<<<<<< HEAD
 	private static final long serialVersionUID = 1L;
+=======
+	private int id;
+>>>>>>> branch 'master' of https://github.com/alvarocalace/tp_ad_web
 	private Collection<ItemProductoView> productos;
 	// private Cliente cliente;
 	private UbicacionView origen;
@@ -23,9 +27,17 @@ public class CargaView extends GenericView {
 	public CargaView() {
 
 	}
+<<<<<<< HEAD
 
 	public CargaView(String tipoCarga, String fechaMaximaEntrega, String fechaProbableEntrega, String manifiesto, UbicacionView origen,
 			UbicacionView destino, String estadoCarga) {
+=======
+	
+	public CargaView(TipoCarga tipoCarga, Date fechaMaximaEntrega,
+			Date fechaProbableEntrega, String manifiesto, UbicacionView origen,
+			UbicacionView destino, EstadoCarga estadoCarga, int id) {
+		this.id = id;
+>>>>>>> branch 'master' of https://github.com/alvarocalace/tp_ad_web
 		this.tipo = tipoCarga;
 		this.fechaMaximaEntrega = fechaMaximaEntrega;
 		this.fechaProbableEntrega = fechaProbableEntrega;
@@ -42,6 +54,14 @@ public class CargaView extends GenericView {
 
 	public void setProductos(Collection<ItemProductoView> productos) {
 		this.productos = productos;
+	}
+	
+	public int getId(){
+		return id;
+	}
+	
+	public void setId(int id){
+		this.id = id;
 	}
 
 	public UbicacionView getOrigen() {

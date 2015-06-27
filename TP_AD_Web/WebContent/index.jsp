@@ -96,7 +96,8 @@
 								class="mdi-navigation-arrow-drop-down"></i></a>
 							<div class="collapsible-body">
 								<ul>
-									<li><a href="#!">Alta</a></li>
+									<li><a class="menu-anchor"
+										id="jsp/Cargas/AdministrarCarga" href="#!">Alta</a></li>
 									<li><a href="#!">Baja</a></li>
 									<li><a href="#!">Listar</a></li>
 								</ul>
@@ -109,8 +110,8 @@
 								class="mdi-navigation-arrow-drop-down"></i></a>
 							<div class="collapsible-body">
 								<ul>
-									<li><a class="menu-anchor" id="jsp/Viajes/AltaViaje"
-										href="#!">Alta</a></li>
+									<li><a class="menu-anchor" id="jsp/Viajes/AdministrarViaje"
+										href="#!">Administración</a></li>
 									<li><a href="#!">Baja</a></li>
 									<li><a href="#!">Listar</a></li>
 								</ul>

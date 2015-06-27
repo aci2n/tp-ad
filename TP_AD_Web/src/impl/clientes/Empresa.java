@@ -83,6 +83,7 @@ public class Empresa extends Cliente {
 	public EmpresaView getView() {
 		// TODO
 		EmpresaView view = new EmpresaView(nombre, Boolean.toString(regular));
+		view.setId(id);
 		List<ProductoView> productos = null;
 
 		try {
@@ -90,7 +91,8 @@ public class Empresa extends Cliente {
 			for (Producto p : getProductos())
 				productos.add(p.getView());
 
-			//view.setCuentaCorriente(cuentaCorriente.getView());
+			if(this.cuentaCorriente != null)
+				view.setCuentaCorriente(cuentaCorriente.getView());
 
 		} catch (Exception e) {
 			e.printStackTrace();
