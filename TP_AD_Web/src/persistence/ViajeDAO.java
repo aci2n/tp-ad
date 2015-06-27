@@ -1,10 +1,9 @@
 package persistence;
 
+import impl.viajes.Viaje;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import impl.clientes.Cliente;
-import impl.viajes.Viaje;
 
 import org.hibernate.Query;
 import org.hibernate.Session;

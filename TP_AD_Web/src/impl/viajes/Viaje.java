@@ -69,7 +69,7 @@ public class Viaje extends PersistentObject {
 	private boolean estaAtrasado;
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_viaje")
-	@OrderBy(value = "llegada asc")
+	@OrderBy(value = "id asc")
 	private Collection<ParadaIntermedia> paradasIntermedias;
 
 	public Viaje() {
@@ -275,8 +275,11 @@ public class Viaje extends PersistentObject {
 		return false;
 	}
 
-	public Float getDistancia(Ubicacion o, Ubicacion d) {
+	public ViajeOptimo getViajeOptimo(Ubicacion o, Ubicacion d) {
 		Float distancia = 0f;
+		Float duracion = 0f;
+		Float costo = 0f;
+
 		Ubicacion[] ubicaciones = new Ubicacion[paradasIntermedias.size() + 2];
 		ubicaciones[0] = origen;
 		int aux = 1;
@@ -294,26 +297,36 @@ public class Viaje extends PersistentObject {
 			}
 		}
 		for (int i = indiceComienzo; i < ubicaciones.length - 1; i++) {
-			distancia += calcularDistanciaEntreUbicaciones(ubicaciones[i], ubicaciones[i + 1]);
+			Float[] parametros = calcularParametrosEntreUbicaciones(ubicaciones[i], ubicaciones[i + 1]);
+			distancia += parametros[0];
+			duracion += parametros[1];
+			costo += parametros[2];
 			if (ubicaciones[i + 1].tieneMismasCoordenadas(d)) {
 				break;
 			}
 		}
-		System.out.println(distancia);
-		return distancia;
+
+		return new ViajeOptimo(this, distancia, duracion, costo);
 	}
 
-	private Float calcularDistanciaEntreUbicaciones(Ubicacion a, Ubicacion b) {
+	private Float[] calcularParametrosEntreUbicaciones(Ubicacion a, Ubicacion b) {
+		Float[] parametros = new Float[3];
 		// probamos con sucursales, si no usamos coordenadas
 		Sucursal sucA = SucursalDAO.getInstance().obtenerSucursalDesdeUbicacion(a.getCoordenadaDestino());
-		System.out.println(b.getCoordenadaDestino().toString());
 		Sucursal sucB = SucursalDAO.getInstance().obtenerSucursalDesdeUbicacion(b.getCoordenadaDestino());
 		if (sucA != null && sucB != null) {
 			DistanciaEntreSucursales des = SucursalDAO.getInstance().obtenerDistanciaEntreSucursales(sucA, sucB);
 			if (des != null) {
-				return des.getDistanciaEnKm();
+				parametros[0] = des.getDistanciaEnKm();
+				parametros[1] = des.getDuracionEnHoras();
+				parametros[2] = des.getCosto();
+				return parametros;
 			}
 		}
-		return a.getCoordenadaDestino().calcularDistanciaEnKilometros(b.getCoordenadaDestino());
+		parametros[0] = a.getCoordenadaDestino().calcularDistanciaEnKilometros(b.getCoordenadaDestino());
+		parametros[1] = parametros[0] / 180f; // kilometros por hora promedio
+		parametros[2] = parametros[0] * 7.35f; // costo por kilometro promedio
+
+		return parametros;
 	}
 }

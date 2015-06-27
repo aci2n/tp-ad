@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import persistence.CargaDAO;
 import persistence.CompaniaSeguroDAO;
 import persistence.SeguroDAO;
 import persistence.VehiculoDAO;
@@ -18,6 +17,7 @@ import persistence.ViajeDAO;
 import views.viajes.CompaniaSeguroView;
 import views.viajes.ParadaIntermediaView;
 import views.viajes.SeguroView;
+import views.viajes.ViajeOptimoView;
 import views.viajes.ViajeView;
 
 public class AdministradorViajes {
@@ -208,32 +208,18 @@ public class AdministradorViajes {
 		return companias;
 	}
 
-	public Integer obtenerIdViajeOptimo(Integer idCarga) throws Exception {
-		Carga carga = CargaDAO.getInstance().get(idCarga);
-		if (carga != null) {
-			Viaje viajeOptimo = obtenerViajeOptimo(carga.getOrigen(), carga.getDestino());
-			if (viajeOptimo != null) {
-				return viajeOptimo.getId();
-			} else {
-				throw new Exception("No existe viaje optimo");
-			}
-		} else {
-			throw new Exception("Hubo un error al intentar obtener el viaje optimo.");
-		}
-	}
-
-	private Viaje obtenerViajeOptimo(Ubicacion origen, Ubicacion destino) {
+	public ViajeOptimoView obtenerViajeOptimo(Ubicacion origen, Ubicacion destino) {
 		List<Viaje> viajesPosibles = obtenerViajesPosibles(origen, destino);
-		Viaje viajeOptimo = null;
-		Float distanciaOptima = Float.MAX_VALUE;
+		ViajeOptimo viajeOptimo = null;
 		for (Viaje v : viajesPosibles) {
-			Float distanciaTemp = v.getDistancia(origen, destino);
-			if (distanciaOptima > distanciaTemp) {
-				viajeOptimo = v;
-				distanciaOptima = distanciaTemp;
+			ViajeOptimo aux = v.getViajeOptimo(origen, destino);
+			if (viajeOptimo == null) {
+				viajeOptimo = aux;
+			} else if (aux.getDistanciaOptima() < viajeOptimo.getDistanciaOptima()) {
+				viajeOptimo = aux;
 			}
 		}
-		return viajeOptimo;
+		return viajeOptimo.getView();
 	}
 
 	private List<Viaje> obtenerViajesPosibles(Ubicacion origen, Ubicacion destino) {
@@ -246,5 +232,4 @@ public class AdministradorViajes {
 		}
 		return viajesPosibles;
 	}
-
 }
