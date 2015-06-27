@@ -115,8 +115,39 @@ public class Viaje extends PersistentObject {
 			paradasIntermedias = new ArrayList<ParadaIntermedia>();
 		ParadaIntermedia parada = new ParadaIntermedia(p);
 		paradasIntermedias.add(parada);
+		if (paradasIntermedias.size() > 1) {
+			paradasIntermedias = ordenarParadasIntermedias(origen, paradasIntermedias);
+		}
 		ViajeDAO.getInstance().update(this);
 		return parada.getId();
+	}
+	
+	private List<ParadaIntermedia> ordenarParadasIntermedias(Ubicacion origen, List<ParadaIntermedia> paradas) {
+		List<ParadaIntermedia> ordenadas = new ArrayList<ParadaIntermedia>();
+		
+		if (paradas.size() == 1) {
+			ordenadas.add(paradas.get(0));
+		} else {
+			ParadaIntermedia masCercana = obtenerParadaMasCercana(origen, paradas);
+			ordenadas.add(masCercana);
+			paradas.remove(masCercana);
+			ordenadas.addAll(ordenarParadasIntermedias(masCercana.getUbicacion(), paradas));
+		}
+		
+		return ordenadas;
+	}
+	
+	private ParadaIntermedia obtenerParadaMasCercana(Ubicacion ubicacion, List<ParadaIntermedia> paradas) {
+		ParadaIntermedia mejorParada = null;
+		float distancia = Integer.MAX_VALUE;
+		for (ParadaIntermedia parada : paradas) {
+			float dist = ubicacion.calcularDistanciaEnKilometros(parada.getUbicacion());
+			if (dist < distancia) {
+				distancia = dist;
+				mejorParada = parada;
+			}
+		}
+		return mejorParada;
 	}
 
 	public float calcularPesoDisponible() {

@@ -72,4 +72,8 @@ public class ParadaIntermedia extends PersistentObject {
 	public ParadaIntermediaView getView() {
 		return new ParadaIntermediaView(llegada.toString(), ubicacion.getView());
 	}
+	
+	public boolean equals(ParadaIntermedia parada) {
+		return this.ubicacion.tieneMismasCoordenadas(parada.ubicacion);
+	}
 }
