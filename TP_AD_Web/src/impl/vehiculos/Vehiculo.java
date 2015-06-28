@@ -1,7 +1,9 @@
 package impl.vehiculos;
 
 import impl.PersistentObject;
+import impl.cargas.Carga;
 import impl.misc.Tamano;
+import impl.productos.ItemProducto;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
@@ -101,5 +103,13 @@ public abstract class Vehiculo extends PersistentObject {
 	public void actualizarPrecio(float precio) {
 		setTarifa(precio);
 		VehiculoDAO.getInstance().update(this);
+	}
+	
+	public boolean esAptoParaCarga(Carga c) {
+		for (ItemProducto item : c.getProductos()) {
+			if (!item.getProducto().aptoParaVehiculo(this))
+				return false;
+		}
+		return true;
 	}
 }

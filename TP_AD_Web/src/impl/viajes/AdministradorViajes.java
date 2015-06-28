@@ -7,6 +7,7 @@ import impl.misc.Ubicacion;
 //github.com/alvarocalace/tp_ad_web.git
 import impl.sucursales.AdministradorSucursales;
 import impl.sucursales.Sucursal;
+import impl.vehiculos.TipoVehiculo;
 import impl.vehiculos.Vehiculo;
 
 import java.util.ArrayList;
@@ -250,7 +251,7 @@ public class AdministradorViajes {
 		// seteo fecha inicio viaje a 1 dia menos
 		ViajeView vv = new ViajeView(Utilities.invParseDate(calendar.getTime()), Utilities.invParseDate(c.getFechaMaximaEntrega()), c.getOrigen()
 				.getView(), c.getDestino().getView());
-		Vehiculo vehiculoDisponible = obtenerVehiculoDisponible();
+		Vehiculo vehiculoDisponible = obtenerVehiculoDisponible(c);
 		Seguro seguro = obtenerSeguro(c.getTipo());
 		if (vehiculoDisponible != null && seguro != null) {
 			altaViaje(vehiculoDisponible.getId(), seguro.getId(), vv);
@@ -259,13 +260,42 @@ public class AdministradorViajes {
 		}
 	}
 
-	public Vehiculo obtenerVehiculoDisponible() {
-		for (Vehiculo v : VehiculoDAO.getInstance().getAll()) {
-			if (v.estaDisponible()) {
-				return v;
+	public Vehiculo obtenerVehiculoDisponible(Carga carga) {
+		Vehiculo veh = null;
+		//	En base al destino se selecciona un vehículo del tipo apropiado
+		Sucursal suc = sucursalDao.obtenerSucursalDesdeUbicacion(carga.getDestino().getCoordenadaDestino());
+		
+		for (Vehiculo v : VehiculoDAO.getInstance().obtenerVehiculosLocalesDisponibles()) {
+			if (v.estaDisponible()
+				&& v.esAptoParaCarga(carga)
+				&& (
+						suc == null
+						|| v.getTipo().equals(TipoVehiculo.TRACTOR)
+						|| v.getTipo().equals(TipoVehiculo.CAMION_CON_CAJA)
+						|| v.getTipo().equals(TipoVehiculo.CAMION_CON_TANQUE)
+					)
+				) {
+				veh = v;
 			}
 		}
-		return null;
+		
+		if (veh == null) {
+			for (Vehiculo v : VehiculoDAO.getInstance().obtenerVehiculosExternosDisponibles()) {
+				if (v.estaDisponible()
+					&& v.esAptoParaCarga(carga)
+					&& (
+							suc == null
+							|| v.getTipo().equals(TipoVehiculo.TRACTOR)
+							|| v.getTipo().equals(TipoVehiculo.CAMION_CON_CAJA)
+							|| v.getTipo().equals(TipoVehiculo.CAMION_CON_TANQUE)
+						)
+					) {
+					veh = v;
+				}
+			}
+		}
+		
+		return veh;
 	}
 
 	public Seguro obtenerSeguro(TipoCarga tipo) {

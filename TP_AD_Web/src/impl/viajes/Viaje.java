@@ -249,7 +249,7 @@ public class Viaje extends PersistentObject {
 	}
 
 	public boolean puedeTransportar(Carga carga) {
-		return carga.calcularPesoTotal() <= calcularPesoDisponible() && carga.calcularVolumenTotal() <= calcularVolumenDisponible();
+		return carga.calcularPesoTotal() <= calcularPesoDisponible() && carga.calcularVolumenTotal() <= calcularVolumenDisponible() && vehiculo.esAptoParaCarga(carga);
 	}
 
 	public Date obtenerLlegadaAParada(Sucursal sucursal) {

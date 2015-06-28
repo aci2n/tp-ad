@@ -1,6 +1,7 @@
 package persistence;
 
 import impl.vehiculos.Vehiculo;
+import impl.vehiculos.VehiculoExterno;
 import impl.vehiculos.VehiculoLocal;
 
 import java.util.ArrayList;
@@ -47,4 +48,26 @@ public class VehiculoDAO extends AbstractGenericDAO<Vehiculo> {
 		s.close();
 		return vehiculos;
 	}
+	
+	public List<VehiculoLocal> obtenerVehiculosLocalesDisponibles() {
+		//	TODO: No existen viajes asociados O están todos terminados
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("from VehiculoLocal v where not exists(select vi.id from Viaje vi where vi.vehiculo.id = v.id)");
+		List<VehiculoLocal> vehiculos = query.list();
+		session.close();
+		return vehiculos;
+	}
+	
+	public List<VehiculoExterno> obtenerVehiculosExternosDisponibles() {
+		//	TODO: No existen viajes asociados O están todos terminados
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("from VehiculoExterno v where not exists(select vi.id from Viaje vi where vi.vehiculo.id = v.id)");
+		List<VehiculoExterno> vehiculos = query.list();
+		session.close();
+		return vehiculos;
+	}
+	
+	
 }

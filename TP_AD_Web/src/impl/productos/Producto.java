@@ -2,6 +2,8 @@ package impl.productos;
 
 import impl.PersistentObject;
 import impl.misc.Tamano;
+import impl.vehiculos.TipoVehiculo;
+import impl.vehiculos.Vehiculo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -234,6 +236,13 @@ public class Producto extends PersistentObject {
 		for (String prohibido : materialesRestringidos) {
 			if (material.contains(prohibido))
 				return false;
+		}
+		return true;
+	}
+	
+	public boolean aptoParaVehiculo(Vehiculo v) {
+		if (tieneCondicionEspecial(CondicionEspecial.TEMPERATURA)) {
+			return v.getTipo().equals(TipoVehiculo.CAMION_CON_CAJA_REFRIGERADO);
 		}
 		return true;
 	}
