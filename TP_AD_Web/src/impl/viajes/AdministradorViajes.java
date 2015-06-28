@@ -232,12 +232,11 @@ public class AdministradorViajes {
 	private List<Viaje> obtenerViajesPosibles(Carga carga) throws Exception {
 		List<Viaje> viajes = ViajeDAO.getInstance().getAll();
 		List<Viaje> viajesPosibles = new ArrayList<Viaje>();
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(fechaProbable(carga));
-		cal.add(Calendar.DATE, -1);
-		Date llegadaMaxima = cal.getTime();
+
 		for (Viaje v : viajes) {
-			if (v.puedeTransportar(carga) && v.tieneTrayecto(carga.getOrigen(), carga.getDestino())) {
+			if (v.puedeTransportar(carga)
+				&& v.tieneTrayecto(carga.getOrigen(), carga.getDestino())
+				&& Utilities.fechaMaximaDeSalida(carga, v).after(new Date())) {
 				viajesPosibles.add(v);
 			}
 		}
