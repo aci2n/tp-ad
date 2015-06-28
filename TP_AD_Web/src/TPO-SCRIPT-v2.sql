@@ -370,7 +370,7 @@ create table SeguimientoCargas(
 	id_seguimientoCarga int identity not null,
 	id_carga int,
 	estadoCarga varchar(20),
-	id_estadoCarga int,
+	id_viaje int,
 
 	constraint pk_seguimientoCargas primary key(id_seguimientoCarga),
 	constraint fk_seguimiento_carga foreign key(id_carga) references Cargas
