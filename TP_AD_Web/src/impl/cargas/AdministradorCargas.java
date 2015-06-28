@@ -100,4 +100,8 @@ public class AdministradorCargas {
 			admVi.crearViajeEnBaseACarga(c);
 		}
 	}
+
+	public Carga obtenerCarga(Integer idCarga) {
+		return cargaDao.get(idCarga);
+	}
 }
