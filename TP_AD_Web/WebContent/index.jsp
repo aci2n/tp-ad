@@ -98,7 +98,8 @@
 								<ul>
 									<li><a class="menu-anchor"
 										id="jsp/Cargas/AdministrarCarga" href="#!">Alta</a></li>
-									<li><a href="#!">Baja</a></li>
+									<li><a class="menu-anchor"
+										id="jsp/Cargas/SeguimientoCarga" href="#!">Seguimiento</a></li>
 									<li><a href="#!">Listar</a></li>
 								</ul>
 							</div></li>
