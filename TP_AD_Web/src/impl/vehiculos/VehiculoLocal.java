@@ -1,6 +1,8 @@
 package impl.vehiculos;
 
 import impl.misc.Tamano;
+import impl.personal.Empleado;
+import impl.personal.TipoPuesto;
 
 import java.util.Date;
 
@@ -28,6 +30,9 @@ public class VehiculoLocal extends Vehiculo {
 	private PlanMantenimiento planMantenimiento;
 	@Column(name = "vencimiento_garantia")
 	private Date vencimientoGarantia;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_empleado")
+	private Empleado empleado;
 
 	public VehiculoLocal() {
 	}
@@ -101,6 +106,17 @@ public class VehiculoLocal extends Vehiculo {
 		} else {
 			return new MantenimientoGeneral();
 		}
+	}
+
+	public void setEmpleado(Empleado e) {
+
+		if (e.getPuesto().equals(TipoPuesto.CHOFER)) {
+			this.empleado = e;
+		}
+	}
+
+	public Empleado getEmpleado() {
+		return empleado;
 	}
 
 	public VehiculoLocalView getView() {

@@ -3,7 +3,8 @@ package impl.cargas;
 public enum EstadoCarga {
 	EN_DEPOSITO("En deposito"),
 	EN_VIAJE("En viaje"),
-	ENTREGADA("Entregada");
+	ENTREGADA("Entregada"),
+	ROTO("Roto");
 	
 	private String estado;
 	

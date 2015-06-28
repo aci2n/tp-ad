@@ -1,6 +1,5 @@
 package impl.sucursales;
 
-import impl.cargas.AdministradorCargas;
 import impl.cargas.Carga;
 import impl.clientes.Cliente;
 import impl.misc.Coordenada;
@@ -43,26 +42,13 @@ public class AdministradorSucursales {
 		if (s.getUbicacion() != null) {
 			Coordenada coordenada = null;
 			if (s.getUbicacion().getCoordenadaDestino() != null) {
-				coordenada = new Coordenada(
-					s.getUbicacion().getCoordenadaDestino().getLatitud(),
-					s.getUbicacion().getCoordenadaDestino().getLongitud()
-				);
+				coordenada = new Coordenada(s.getUbicacion().getCoordenadaDestino().getLatitud(), s.getUbicacion().getCoordenadaDestino()
+						.getLongitud());
 			}
-			ubicacion = new Ubicacion(
-				s.getUbicacion().getPais(),
-				s.getUbicacion().getCiudad(),
-				s.getUbicacion().getProvincia(),
-				s.getUbicacion().getCalle(),
-				s.getUbicacion().getAltura(),
-				s.getUbicacion().getPiso(),
-				s.getUbicacion().getDepartamento(),
-				coordenada
-			);
+			ubicacion = new Ubicacion(s.getUbicacion().getPais(), s.getUbicacion().getCiudad(), s.getUbicacion().getProvincia(), s.getUbicacion()
+					.getCalle(), s.getUbicacion().getAltura(), s.getUbicacion().getPiso(), s.getUbicacion().getDepartamento(), coordenada);
 		}
-		Sucursal sucursal = new Sucursal(
-			s.getNombre(),
-			ubicacion
-		);
+		Sucursal sucursal = new Sucursal(s.getNombre(), ubicacion);
 		return sucursal.getId();
 	}
 
@@ -96,11 +82,8 @@ public class AdministradorSucursales {
 		Sucursal cercana = null;
 		for (Sucursal sucursal : sucursalDao.getAll()) {
 			if (cercana == null
-					||
-				cercana.getUbicacion().calcularDistanciaEnKilometros(ubicacion)
-						>
-				sucursal.getUbicacion().calcularDistanciaEnKilometros(ubicacion)
-				) {
+					|| cercana.getUbicacion().calcularDistanciaEnKilometros(ubicacion) > sucursal.getUbicacion().calcularDistanciaEnKilometros(
+							ubicacion)) {
 				cercana = sucursal;
 			}
 		}
@@ -120,7 +103,6 @@ public class AdministradorSucursales {
 							break;
 						}
 					}
-					
 					if (!tieneMaterialesProhibidos) {
 						sucursal.getCargas().add(carga);
 					} else {
@@ -163,15 +145,14 @@ public class AdministradorSucursales {
 		return sucursalDao.get(numero);
 	}
 
-//	public Ubicacion obtenerUbicacion(int codigoUbicacion) {
-//		for (Sucursal sucursal : sucursales) {
-//			if (sucursal.getUbicacion().getId() == codigoUbicacion) {
-//				return sucursal.getUbicacion();
-//			}
-//		}
-//		return null;
-//	}
-
+	// public Ubicacion obtenerUbicacion(int codigoUbicacion) {
+	// for (Sucursal sucursal : sucursales) {
+	// if (sucursal.getUbicacion().getId() == codigoUbicacion) {
+	// return sucursal.getUbicacion();
+	// }
+	// }
+	// return null;
+	// }
 	public Empleado obtenerEmpleado(String cuit) {
 		return empleadoDao.obtenerPorCuit(cuit);
 	}
@@ -186,13 +167,13 @@ public class AdministradorSucursales {
 	}
 
 	public List<EmpleadoView> obtenerEmpleadosView() {
-
 		List<EmpleadoView> empleadosView = new ArrayList<EmpleadoView>();
-
 		for (Empleado e : EmpleadoDAO.getInstance().getAll())
 			empleadosView.add(e.getView());
-
 		return empleadosView;
+	}
 
+	public Sucursal obtenerSucursalDesdeIdCarga(Integer idCarga) {
+		return sucursalDao.obtenerSucursalDesdeIdCarga(idCarga);
 	}
 }

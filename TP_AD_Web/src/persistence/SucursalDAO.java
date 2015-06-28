@@ -50,7 +50,7 @@ public class SucursalDAO extends AbstractGenericDAO<Sucursal> {
 		return dist;
 	}
 
-	public Sucursal obtenerSucursalAPartirDeCarga(Integer idCarga) {
+	public Sucursal obtenerSucursalDesdeIdCarga(Integer idCarga) {
 		Sucursal sucursal;
 		Session s = sf.openSession();
 		s.beginTransaction();

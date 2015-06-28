@@ -1,10 +1,12 @@
 package controllers;
 
 import impl.cargas.AdministradorCargas;
+import impl.cargas.Carga;
 import impl.clientes.AdministradorClientes;
 import impl.cobranzas.AdministradorCobranzas;
 import impl.productos.AdministradorProductos;
 import impl.sucursales.AdministradorSucursales;
+import impl.sucursales.Sucursal;
 import impl.vehiculos.AdministradorVehiculos;
 import impl.viajes.AdministradorViajes;
 
@@ -18,6 +20,7 @@ import views.clientes.EmpresaView;
 import views.clientes.PagoView;
 import views.clientes.ParticularView;
 import views.clientes.ReceptorView;
+import views.misc.SucursalCargaView;
 import views.personal.EmpleadoView;
 import views.productos.ProductoView;
 import views.sucursales.DistanciaEntreSucursalesView;
@@ -160,6 +163,16 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 
 	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView carga) throws Exception {
 		return administradorCargas.altaCarga(idSucursal, idCliente, carga);
+	}
+
+	public SucursalCargaView obtenerSucursalCargaView(Integer idCarga) throws Exception {
+		Sucursal s = administradorSucursales.obtenerSucursalDesdeIdCarga(idCarga);
+		Carga c = administradorCargas.obtenerCarga(idCarga);
+		if (s != null && c != null) {
+			return new SucursalCargaView(s.getView(), c.getView());
+		} else {
+			throw new Exception("No existe la carga o no se encontro la sucursal asociada a la carga.");
+		}
 	}
 
 	// COBRANZAS Y PAGOS
