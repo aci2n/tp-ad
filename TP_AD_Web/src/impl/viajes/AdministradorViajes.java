@@ -11,6 +11,7 @@ import impl.vehiculos.Vehiculo;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import persistence.CompaniaSeguroDAO;
@@ -26,7 +27,7 @@ import views.viajes.SeguroView;
 import views.viajes.ViajeView;
 
 public class AdministradorViajes {
-	private static final float VELOCIDAD_PROMEDIO = 180f;
+	public static final float VELOCIDAD_PROMEDIO = 180f;
 	private static AdministradorViajes instance;
 	private ViajeDAO viajeDao;
 	private CompaniaSeguroDAO companiaSeguroDao;
@@ -221,16 +222,20 @@ public class AdministradorViajes {
 		ViajeOptimo viajeOptimo = null;
 		for (Viaje v : viajesPosibles) {
 			ViajeOptimo aux = v.getViajeOptimo(carga.getOrigen(), carga.getDestino());
-			if (viajeOptimo == null || aux.getViaje().calcularVolumenDisponible() > viajeOptimo.getViaje().calcularVolumenDisponible()) {
+			if (viajeOptimo == null || v.calcularVolumenDisponible() < viajeOptimo.getViaje().calcularVolumenDisponible()) {
 				viajeOptimo = aux;
 			}
 		}
 		return viajeOptimo;
 	}
 
-	private List<Viaje> obtenerViajesPosibles(Carga carga) {
+	private List<Viaje> obtenerViajesPosibles(Carga carga) throws Exception {
 		List<Viaje> viajes = ViajeDAO.getInstance().getAll();
 		List<Viaje> viajesPosibles = new ArrayList<Viaje>();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(fechaProbable(carga));
+		cal.add(Calendar.DATE, -1);
+		Date llegadaMaxima = cal.getTime();
 		for (Viaje v : viajes) {
 			if (v.puedeTransportar(carga) && v.tieneTrayecto(carga.getOrigen(), carga.getDestino())) {
 				viajesPosibles.add(v);
@@ -278,6 +283,10 @@ public class AdministradorViajes {
 				.getLongitud()));
 		carga.setOrigen(origen);
 		carga.setDestino(destino);
+		return Utilities.invParseDate(fechaProbable(carga));
+	}
+	
+	private Date fechaProbable(Carga carga) throws Exception {
 		ViajeOptimo viaje = obtenerViajeOptimo(carga);
 		if (viaje != null) {
 			return calcularFechaProbable(carga, viaje);
@@ -286,10 +295,10 @@ public class AdministradorViajes {
 		}
 	}
 
-	private String calcularFechaProbable(Carga carga, ViajeOptimo viaje) {
+	private Date calcularFechaProbable(Carga carga, ViajeOptimo viaje) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(viaje.getViaje().getFechaSalida());
 		cal.add(Calendar.HOUR, (int) (float) viaje.getDuracionOptima());
-		return Utilities.invParseDate(cal.getTime());
+		return cal.getTime();
 	}
 }

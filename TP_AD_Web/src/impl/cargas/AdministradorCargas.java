@@ -2,10 +2,10 @@ package impl.cargas;
 
 import impl.clientes.Cliente;
 import impl.productos.Producto;
-import impl.sucursales.AdministradorSucursales;
 import impl.sucursales.Sucursal;
 import impl.viajes.AdministradorViajes;
 import impl.viajes.ItemCarga;
+import impl.viajes.ParadaIntermedia;
 import impl.viajes.Viaje;
 import impl.viajes.ViajeOptimo;
 
@@ -19,7 +19,6 @@ import persistence.ClienteDAO;
 import persistence.SucursalDAO;
 import views.cargas.CargaView;
 import views.productos.ItemProductoView;
-import views.viajes.ParadaIntermediaView;
 
 public class AdministradorCargas {
 	private static AdministradorCargas instance;
@@ -64,7 +63,7 @@ public class AdministradorCargas {
 		Date salidaMaxima = null;
 		
 		for (ItemCarga carga : viaje.getCargas()) {
-			Date salidaCarga = fechaMaximaDeSalida(carga.getCarga());
+			Date salidaCarga = fechaMaximaDeSalida(carga.getCarga(), viaje);
 			if (salidaMaxima == null || salidaMaxima.after(salidaCarga)) {
 				salidaMaxima = salidaCarga;
 			}
@@ -73,17 +72,45 @@ public class AdministradorCargas {
 		return salidaMaxima;
 	}
 	
-	public Date fechaMaximaDeSalida(Carga carga) {
+	public Date fechaMaximaDeSalida(Carga carga, Viaje viaje) {
+		float distancia = 0;
+
+		if (viaje.cantidadParadasIntemedias() == 0) {
+			distancia = viaje.getOrigen().calcularDistanciaEnKilometros(viaje.getDestino());
+		} else if (viaje.cantidadParadasIntemedias() == 1){
+			distancia = viaje.getOrigen().calcularDistanciaEnKilometros(viaje.getParadasIntermedias().get(0).getUbicacion());
+			if (carga.getDestino().tieneMismasCoordenadas(viaje.getDestino())) {
+				distancia += viaje.getParadasIntermedias().get(0).getUbicacion().calcularDistanciaEnKilometros(viaje.getDestino());
+			}
+		} else {
+			distancia += viaje.getOrigen().calcularDistanciaEnKilometros(viaje.getParadasIntermedias().get(0).getUbicacion());
+			if (!viaje.getParadasIntermedias().get(0).getUbicacion().tieneMismasCoordenadas(carga.getDestino())) {
+				boolean llego = false;
+				for (int i = 0; i < viaje.cantidadParadasIntemedias() - 1; i++) {
+					ParadaIntermedia actual = viaje.getParadasIntermedias().get(i);
+					ParadaIntermedia siguiente = viaje.getParadasIntermedias().get(i + 1);
+					
+					distancia += actual.getUbicacion().calcularDistanciaEnKilometros(siguiente.getUbicacion());
+					
+					if (siguiente.getUbicacion().tieneMismasCoordenadas(carga.getDestino())) {
+						llego = true;
+						break;
+					}
+				}
+				
+				if (!llego) {
+					distancia += viaje.getParadasIntermedias().get(viaje.cantidadParadasIntemedias() - 1).getUbicacion().calcularDistanciaEnKilometros(viaje.getDestino());
+				}
+			}
+		}
+		
+		float horas = distancia / AdministradorViajes.VELOCIDAD_PROMEDIO;
+		
 		Calendar cal = Calendar.getInstance();
-		
-		AdministradorSucursales admSuc = AdministradorSucursales.getInstance();
-		Sucursal origen = admSuc.obtenerSucursalCercana(carga.getOrigen());
-		Sucursal destino = admSuc.obtenerSucursalCercana(carga.getDestino());
-		
-		float distancia = admSuc.calcularHorasEntreSucursales(origen, destino);
-		
-		cal.add(Calendar.HOUR, -((int) distancia));
-		cal.add(Calendar.MINUTE, -((int) ((distancia - (int) distancia) * 60)));
+		cal.setTime(carga.getFechaMaximaEntrega());
+		cal.add(Calendar.DATE, -1);
+		cal.add(Calendar.HOUR, -((int) horas));
+		cal.add(Calendar.MINUTE, -((int) ((horas - (int) horas) * 60)));
 		
 		return cal.getTime();
 	}
@@ -101,7 +128,7 @@ public class AdministradorCargas {
 		if (viajeOptimo != null) {
 			viajeOptimo.getViaje().agregarCarga(c);
 			viajeOptimo.getViaje()
-					.agregarParadaIntermedia(new ParadaIntermediaView(c.getFechaProbableEntrega().toString(), c.getDestino().getView()));
+					.agregarParadaIntermedia(new ParadaIntermedia(c.getDestino(), c.getFechaProbableEntrega()));
 		} else {
 			admVi.crearViajeEnBaseACarga(c);
 		}

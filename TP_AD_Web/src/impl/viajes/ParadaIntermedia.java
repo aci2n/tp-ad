@@ -33,10 +33,12 @@ public class ParadaIntermedia extends PersistentObject {
 	private boolean checked;
 
 	public ParadaIntermedia(ParadaIntermediaView p) {
-		if (p.getUbicacion() != null) {
-			this.ubicacion = new Ubicacion(p.getUbicacion());
-		}
-		this.llegada = Utilities.parseDate(p.getLlegada());
+		this(p.getUbicacion() != null ? new Ubicacion(p.getUbicacion()) : null, Utilities.parseDate(p.getLlegada()));
+	}
+	
+	public ParadaIntermedia(Ubicacion ubicacion, Date llegada) {
+		this.ubicacion = ubicacion;
+		this.llegada = llegada;
 		this.checked = false;
 		this.id = ViajeDAO.getInstance().insert(this);
 	}

@@ -2,6 +2,7 @@ package impl.viajes;
 
 import impl.PersistentObject;
 import impl.cargas.Carga;
+import impl.misc.Coordenada;
 import impl.misc.Ubicacion;
 import impl.productos.CondicionEspecial;
 import impl.sucursales.DistanciaEntreSucursales;
@@ -29,6 +30,7 @@ import javax.persistence.Table;
 import persistence.SucursalDAO;
 import persistence.ViajeDAO;
 import util.Utilities;
+import views.misc.UbicacionView;
 import views.viajes.ParadaIntermediaView;
 import views.viajes.ViajeView;
 
@@ -111,9 +113,13 @@ public class Viaje extends PersistentObject {
 	}
 
 	public Integer agregarParadaIntermedia(ParadaIntermediaView p) {
+		ParadaIntermedia parada = new ParadaIntermedia(p);
+		return agregarParadaIntermedia(parada);
+	}
+	
+	public Integer agregarParadaIntermedia(ParadaIntermedia parada) {
 		if (paradasIntermedias == null)
 			paradasIntermedias = new ArrayList<ParadaIntermedia>();
-		ParadaIntermedia parada = new ParadaIntermedia(p);
 		paradasIntermedias.add(parada);
 		if (paradasIntermedias.size() > 1) {
 			paradasIntermedias = ordenarParadasIntermedias(origen, paradasIntermedias);
@@ -339,9 +345,10 @@ public class Viaje extends PersistentObject {
 		ubicaciones[0] = origen;
 		int aux = 1;
 		for (ParadaIntermedia pi : paradasIntermedias) {
-			ubicaciones[aux++] = pi.getUbicacion();
+			ubicaciones[aux] = pi.getUbicacion();
+			aux++;
 		}
-		ubicaciones[ubicaciones.length - 1] = destino;
+		ubicaciones[ubicaciones.length + 1] = destino;
 
 		Integer indiceComienzo = 0;
 
@@ -383,5 +390,12 @@ public class Viaje extends PersistentObject {
 		parametros[2] = parametros[0] * 7.35f; // costo por kilometro promedio
 
 		return parametros;
+	}
+	
+	public Date obtenerLlegadaCarga(Carga carga) {
+		if (cargas.contains(carga)) {
+			
+		}
+		return null;
 	}
 }
