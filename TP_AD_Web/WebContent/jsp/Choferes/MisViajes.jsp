@@ -24,7 +24,8 @@
 
 					<div class="col s12">
 						<ul class="tabs">
-							<li class="tab col s3"><a class="active" href="#test1">Listar mis viajes</a></li>
+							<li class="tab col s3"><a class="active" href="#test1">Listar
+									mis viajes</a></li>
 							<li class="tab col s3"><a href="#test2">Actualizar Viaje</a></li>
 							<li class="tab col s3"><a href="#test3">Cargas de Viaje</a></li>
 
@@ -46,7 +47,7 @@
 						<%@include file="CargasEnViaje.jsp"%>
 					</div>
 
-					
+
 				</div>
 
 			</div>
