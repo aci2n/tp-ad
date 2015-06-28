@@ -6,6 +6,7 @@ import java.util.List;
 import views.clientes.EmpresaView;
 import views.clientes.ParticularView;
 import views.clientes.ReceptorView;
+import views.misc.SucursalCargaView;
 import views.personal.EmpleadoView;
 import views.productos.ProductoView;
 import views.sucursales.DistanciaEntreSucursalesView;
@@ -60,4 +61,6 @@ public interface TDAControladorPrincipal extends Remote {
 	public Integer altaCompaniaSeguro(CompaniaSeguroView c) throws Exception;
 
 	public Integer altaViaje(Integer idVehiculo, Integer idSeguro, ViajeView viaje) throws Exception;
+
+	public SucursalCargaView obtenerSucursalCargaView(Integer idCarga) throws Exception;
 }

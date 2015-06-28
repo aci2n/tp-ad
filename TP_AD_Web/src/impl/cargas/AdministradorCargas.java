@@ -17,6 +17,7 @@ import java.util.List;
 import persistence.CargaDAO;
 import persistence.ClienteDAO;
 import persistence.SucursalDAO;
+import util.Utilities;
 import views.cargas.CargaView;
 import views.productos.ItemProductoView;
 
@@ -26,21 +27,20 @@ public class AdministradorCargas {
 	private ClienteDAO clienteDao;
 	private AdministradorViajes admVi;
 	private CargaDAO cargaDao;
-	
-	
+
 	public static AdministradorCargas getInstance() {
-		if (instance == null) 
+		if (instance == null)
 			instance = new AdministradorCargas();
 		return instance;
 	}
-	
+
 	private AdministradorCargas() {
 		this.sucursalDao = SucursalDAO.getInstance();
 		this.clienteDao = ClienteDAO.getInstance();
 		this.admVi = AdministradorViajes.getInstance();
 		this.cargaDao = CargaDAO.getInstance();
 	}
-	
+
 	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView c) throws Exception {
 		for (ItemProductoView ipv : c.getProductos()) {
 			if (!Producto.esMaterialPermitido(ipv.getProducto().getMaterial())) {
@@ -58,17 +58,15 @@ public class AdministradorCargas {
 			throw new Exception("No existe cliente o sucursal con el ID ingresado.");
 		}
 	}
-	
+
 	public Date fechaMaximaDeSalida(Viaje viaje) {
 		Date salidaMaxima = null;
-		
 		for (ItemCarga carga : viaje.getCargas()) {
 			Date salidaCarga = fechaMaximaDeSalida(carga.getCarga(), viaje);
 			if (salidaMaxima == null || salidaMaxima.after(salidaCarga)) {
 				salidaMaxima = salidaCarga;
 			}
 		}
-		
 		return salidaMaxima;
 	}
 	
@@ -105,16 +103,15 @@ public class AdministradorCargas {
 		}
 		
 		float horas = distancia / AdministradorViajes.VELOCIDAD_PROMEDIO;
-		
+
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(carga.getFechaMaximaEntrega());
 		cal.add(Calendar.DATE, -1);
 		cal.add(Calendar.HOUR, -((int) horas));
 		cal.add(Calendar.MINUTE, -((int) ((horas - (int) horas) * 60)));
-		
 		return cal.getTime();
 	}
-	
+
 	public List<CargaView> obtenerCargasView() {
 		List<CargaView> cargas = new ArrayList<CargaView>();
 		for (Carga carga : cargaDao.getAll()) {
@@ -122,7 +119,7 @@ public class AdministradorCargas {
 		}
 		return cargas;
 	}
-	
+
 	private void asignarCargaAViajeOptimo(Carga c) throws Exception {
 		ViajeOptimo viajeOptimo = admVi.obtenerViajeOptimo(c);
 		if (viajeOptimo != null) {
@@ -134,4 +131,7 @@ public class AdministradorCargas {
 		}
 	}
 
+	public Carga obtenerCarga(Integer idCarga) {
+		return cargaDao.get(idCarga);
+	}
 }
