@@ -22,8 +22,9 @@
 
 					<div class="col s12">
 						<ul class="tabs">
+				
 							<li class="tab col s3"><a class="active" href="#test1">Carga</a></li>
-							<li class="tab col s3 disabled"><a href="#test2">Ubicación
+							<li class="tab col s3"><a href="#test2">Ubicación
 									Origen</a></li>
 							<li class="tab col s3"><a href="#test3">Ubicación
 									Destino</a></li>
@@ -38,8 +39,8 @@
 					</div>
 					<div id="test2" class="col s12">
 						<div class="input-field col s12">
-							<input type="number" class="" name="sucursal">
-							<label>ID Surcursal de Origen</label>
+							<input type="number" class="" name="sucursal"> <label>ID
+								Surcursal de Origen</label>
 						</div>
 					</div>
 					<div id="test3" class="col s12">
@@ -48,6 +49,7 @@
 					<div id="test4" class="col s12">
 						<%@include file="FinalizarAltaCarga.jsp"%>
 					</div>
+					
 
 				</div>
 
@@ -63,11 +65,11 @@
 		$(document).ready(function() {
 			$('ul.tabs').tabs();
 		});
-		
-		$(document).ready(function(){
-		    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-		    $('.modal-trigger').leanModal();
-		  });
+
+		$(document).ready(function() {
+			// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+			$('.modal-trigger').leanModal();
+		});
 	</script>
 
 </body>

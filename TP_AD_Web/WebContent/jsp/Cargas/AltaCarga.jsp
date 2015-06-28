@@ -13,13 +13,19 @@
 
 		<form id="alta-empleado" action="AgregarEmpleado" class="box-padding"
 			class="form-control">
-
+	
+	<div style="padding-top: 20px; padding-bottom: 20px;">
+			<p>
+				<input type="checkbox" id="test6" checked="checked" /> <label
+					for="test6">Envío dentro del país</label>
+			</p>
+			</div>
 			<div class="input-field col s12">
-				<select>
+				<select >
 					<option value="" disabled selected></option>
 					<%
 						for (TipoCarga t : TipoCarga.values()) 								
-																		{
+																								{
 					%>
 					<option><%=t.getTipo().toString()%></option>
 					<%
@@ -27,6 +33,7 @@
 					%>
 				</select> <label>Tipo de Carga</label>
 			</div>
+
 			<div class="input-field col s12">
 				<input type="number" class="validate" name="id"> <label
 					for="email">ID de Sucursal</label>
@@ -35,15 +42,6 @@
 				<input type="number" class="validate" name="cuit"> <label
 					for="email">ID Cliente</label>
 			</div>
-			<div class="input-field col s12">
-				<input type="number" class="validate" name="dni"> <label
-					for="email">Ubicación Origen</label>
-			</div>
-			<div class="input-field col s12">
-				<input type="text" class="validate" name="nombre"> <label
-					for="email">Ubicación Destino</label>
-			</div>
-
 		</form>
 
 	</div>
