@@ -3,6 +3,7 @@ package rmi.tda;
 import java.rmi.Remote;
 import java.util.List;
 
+import views.cargas.CargaView;
 import views.clientes.EmpresaView;
 import views.clientes.ParticularView;
 import views.clientes.ReceptorView;
@@ -63,4 +64,6 @@ public interface TDAControladorPrincipal extends Remote {
 	public Integer altaViaje(Integer idVehiculo, Integer idSeguro, ViajeView viaje) throws Exception;
 
 	public SucursalCargaView obtenerSucursalCargaView(Integer idCarga) throws Exception;
+	
+	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView carga, Boolean esInternacional) throws Exception;
 }

@@ -4,7 +4,6 @@ import impl.vehiculos.Vehiculo;
 import impl.vehiculos.VehiculoExterno;
 import impl.vehiculos.VehiculoLocal;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -39,13 +38,23 @@ public class VehiculoDAO extends AbstractGenericDAO<Vehiculo> {
 		return vehiculoLocal;
 	}
 
-	public List<Vehiculo> getAll() {
-		List<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
-		Session s = sf.openSession();
-		s.beginTransaction();
-		Query q = s.createQuery("from Vehiculo");
-		vehiculos = (List<Vehiculo>) q.list();
-		s.close();
+	public List<Vehiculo> getAllLocales() {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		String hql = "from VehiculoLocal";
+		Query query = session.createQuery(hql);
+		List<Vehiculo> vehiculos = (List<Vehiculo>) query.list();
+		session.close();
+		return vehiculos;
+	}
+
+	public List<Vehiculo> getAllExternos() {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		String hql = "from VehiculoExterno";
+		Query query = session.createQuery(hql);
+		List<Vehiculo> vehiculos = (List<Vehiculo>) query.list();
+		session.close();
 		return vehiculos;
 	}
 	

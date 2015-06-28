@@ -37,6 +37,7 @@
 									<th class="">ID Carga</th>
 									<th>Estado</th>
 									<th>Locación</th>
+									<th>Fecha</th>
 								</tr>
 							</thead>
 

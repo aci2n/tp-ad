@@ -244,14 +244,14 @@ public class AdministradorViajes {
 		return viajesPosibles;
 	}
 
-	public void crearViajeEnBaseACarga(Carga c) throws Exception {
+	public void crearViajeEnBaseACarga(Carga c, boolean esInternacional) throws Exception {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(c.getFechaMaximaEntrega());
 		calendar.add(Calendar.DAY_OF_MONTH, -1);
 		// seteo fecha inicio viaje a 1 dia menos
 		ViajeView vv = new ViajeView(Utilities.invParseDate(calendar.getTime()), Utilities.invParseDate(c.getFechaMaximaEntrega()), c.getOrigen()
 				.getView(), c.getDestino().getView());
-		Vehiculo vehiculoDisponible = obtenerVehiculoDisponible(c);
+		Vehiculo vehiculoDisponible = obtenerVehiculoDisponible(c, esInternacional);
 		Seguro seguro = obtenerSeguro(c.getTipo());
 		if (vehiculoDisponible != null && seguro != null) {
 			altaViaje(vehiculoDisponible.getId(), seguro.getId(), vv);
@@ -260,22 +260,25 @@ public class AdministradorViajes {
 		}
 	}
 
-	public Vehiculo obtenerVehiculoDisponible(Carga carga) {
+	public Vehiculo obtenerVehiculoDisponible(Carga carga, boolean esInternacional) {
 		Vehiculo veh = null;
 		//	En base al destino se selecciona un vehículo del tipo apropiado
+		//	Si suc != null (destino = sucursal), se selecciona tractor o camión
 		Sucursal suc = sucursalDao.obtenerSucursalDesdeUbicacion(carga.getDestino().getCoordenadaDestino());
 		
-		for (Vehiculo v : VehiculoDAO.getInstance().obtenerVehiculosLocalesDisponibles()) {
-			if (v.estaDisponible()
-				&& v.esAptoParaCarga(carga)
-				&& (
-						suc == null
-						|| v.getTipo().equals(TipoVehiculo.TRACTOR)
-						|| v.getTipo().equals(TipoVehiculo.CAMION_CON_CAJA)
-						|| v.getTipo().equals(TipoVehiculo.CAMION_CON_TANQUE)
-					)
-				) {
-				veh = v;
+		if (!esInternacional) {
+			for (Vehiculo v : VehiculoDAO.getInstance().obtenerVehiculosLocalesDisponibles()) {
+				if (v.estaDisponible()
+					&& v.esAptoParaCarga(carga)
+					&& (
+							suc == null
+							|| v.getTipo().equals(TipoVehiculo.TRACTOR)
+							|| v.getTipo().equals(TipoVehiculo.CAMION_CON_CAJA)
+							|| v.getTipo().equals(TipoVehiculo.CAMION_CON_TANQUE)
+						)
+					) {
+					veh = v;
+				}
 			}
 		}
 		
