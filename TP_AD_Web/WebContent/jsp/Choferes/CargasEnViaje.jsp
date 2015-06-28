@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<div class="card-action row">
+	<div class="card-action row" style="border-bottom: 1px solid rgba(160, 160, 160, 0.2);">
 		<div class="input-field col s6">
 			<i class="material-icons prefix">list</i> <input id="filtrado"
 				type="text" class="validate"> <label for="icon_list">Ingrese
