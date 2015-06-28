@@ -9,26 +9,30 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import views.productos.ItemProductoView;
+
 @Entity
 @Table(name = "Cargas_Productos")
-@AttributeOverride (name = "id", column = @Column (name ="id_carga_producto"))
+@AttributeOverride(name = "id", column = @Column(name = "id_carga_producto"))
 public class ItemProducto extends PersistentObject {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6147736562215085115L;
-	
 	@ManyToOne
 	@JoinColumn(name = "id_producto")
 	private Producto producto;
-	
 	@Column(name = "cantidad")
 	private float cantidad;
 
 	public ItemProducto(Producto producto, float cantidad) {
 		this.producto = producto;
 		this.cantidad = cantidad;
+	}
+
+	public ItemProducto(ItemProductoView ipv) {
+		producto = new Producto(ipv.getProducto());
+		cantidad = ipv.getCantidad();
 	}
 
 	public Producto getProducto() {
@@ -50,9 +54,8 @@ public class ItemProducto extends PersistentObject {
 	public float calcularVolumenParcial() {
 		return producto.getTamano().calcularVolumen() * cantidad;
 	}
-	
-	public float calcularPesoParcial(){
+
+	public float calcularPesoParcial() {
 		return producto.getPeso() * cantidad;
 	}
-	
 }
