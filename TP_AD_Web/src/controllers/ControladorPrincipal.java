@@ -161,8 +161,8 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 		return administradorCargas.obtenerCargasView();
 	}
 
-	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView carga) throws Exception {
-		return administradorCargas.altaCarga(idSucursal, idCliente, carga);
+	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView carga, Boolean esInternacional) throws Exception {
+		return administradorCargas.altaCarga(idSucursal, idCliente, carga, esInternacional);
 	}
 
 	public SucursalCargaView obtenerSucursalCargaView(Integer idCarga) throws Exception {

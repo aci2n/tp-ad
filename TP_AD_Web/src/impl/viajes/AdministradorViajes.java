@@ -243,14 +243,14 @@ public class AdministradorViajes {
 		return viajesPosibles;
 	}
 
-	public void crearViajeEnBaseACarga(Carga c) throws Exception {
+	public void crearViajeEnBaseACarga(Carga c, Boolean esInternacional) throws Exception {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(c.getFechaMaximaEntrega());
 		calendar.add(Calendar.DAY_OF_MONTH, -1);
 		// seteo fecha inicio viaje a 1 dia menos
 		ViajeView vv = new ViajeView(Utilities.invParseDate(calendar.getTime()), Utilities.invParseDate(c.getFechaMaximaEntrega()), c.getOrigen()
 				.getView(), c.getDestino().getView());
-		Vehiculo vehiculoDisponible = obtenerVehiculoDisponible();
+		Vehiculo vehiculoDisponible = obtenerVehiculoDisponible(esInternacional);
 		Seguro seguro = obtenerSeguro(c.getTipo());
 		if (vehiculoDisponible != null && seguro != null) {
 			altaViaje(vehiculoDisponible.getId(), seguro.getId(), vv);
@@ -259,8 +259,14 @@ public class AdministradorViajes {
 		}
 	}
 
-	public Vehiculo obtenerVehiculoDisponible() {
-		for (Vehiculo v : VehiculoDAO.getInstance().getAll()) {
+	public Vehiculo obtenerVehiculoDisponible(Boolean esInternacional) {
+		List<Vehiculo> vehiculos;
+		if (esInternacional) {
+			vehiculos = VehiculoDAO.getInstance().getAllExternos();
+		} else {
+			vehiculos = VehiculoDAO.getInstance().getAllLocales();
+		}
+		for (Vehiculo v : vehiculos) {
 			if (v.estaDisponible()) {
 				return v;
 			}
