@@ -371,6 +371,7 @@ create table SeguimientoCargas(
 	id_carga int,
 	estadoCarga varchar(20),
 	id_viaje int,
+	fecha datetime,
 
 	constraint pk_seguimientoCargas primary key(id_seguimientoCarga),
 	constraint fk_seguimiento_carga foreign key(id_carga) references Cargas
@@ -381,6 +382,7 @@ create table SeguimientoViajes(
 	id_seguimientoViaje int identity not null,
 	id_viaje int,
 	id_parada_intermedia int,
+	fecha datetime,
 	checked bit,
 
 	constraint pk_seguimientoViajes primary key(id_seguimientoViaje),
