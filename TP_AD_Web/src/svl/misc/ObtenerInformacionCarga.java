@@ -16,7 +16,6 @@ public class ObtenerInformacionCarga extends GenericHttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/plain");
-		System.out.println("hola");
 		String idCarga = request.getParameter("idCarga");
 		try {
 			SucursalCargaView scv = delegate.getInterfaz().obtenerSucursalCargaView(Integer.parseInt(idCarga));
@@ -28,7 +27,7 @@ public class ObtenerInformacionCarga extends GenericHttpServlet {
 			sb.append("</table>");
 			response.getWriter().print(sb.toString());
 		} catch (Exception e) {
-			response.getWriter().print("No se encontro la carga ingresada.");
+			response.getWriter().print(e.getMessage());
 		}
 	}
 }
