@@ -65,5 +65,5 @@ public interface TDAControladorPrincipal extends Remote {
 
 	public SucursalCargaView obtenerSucursalCargaView(Integer idCarga) throws Exception;
 	
-	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView carga, Boolean esInternacional) throws Exception;
+	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView carga, boolean esInternacional) throws Exception;
 }

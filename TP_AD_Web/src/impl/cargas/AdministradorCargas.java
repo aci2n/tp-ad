@@ -36,7 +36,7 @@ public class AdministradorCargas {
 		this.cargaDao = CargaDAO.getInstance();
 	}
 
-	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView c, Boolean esInternacional) throws Exception {
+	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView c, boolean esInternacional) throws Exception {
 		for (ItemProductoView ipv : c.getProductos()) {
 			if (!Producto.esMaterialPermitido(ipv.getProducto().getMaterial())) {
 				throw new Exception("La carga tiene un material prohibido.");
@@ -62,7 +62,7 @@ public class AdministradorCargas {
 		return cargas;
 	}
 
-	private void asignarCargaAViajeOptimo(Carga c, Boolean esInternacional) throws Exception {
+	private void asignarCargaAViajeOptimo(Carga c, boolean esInternacional) throws Exception {
 		ViajeOptimo viajeOptimo = admVi.obtenerViajeOptimo(c);
 		if (viajeOptimo != null) {
 			viajeOptimo.getViaje().agregarCarga(c);
