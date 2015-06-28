@@ -62,7 +62,7 @@
 								</ul>
 							</div></li>
 					</ul>
-				</li>
+				</li> -->
 				<li class="no-padding">
 					<ul class="collapsible collapsible-accordion">
 						<li><a class="collapsible-header">Productos<i
@@ -76,7 +76,7 @@
 							</div></li>
 					</ul>
 				</li>
-				<li class="no-padding">
+				<!-- <li class="no-padding">
 					<ul class="collapsible collapsible-accordion">
 						<li><a class="collapsible-header">Vehiculos<i
 								class="mdi-navigation-arrow-drop-down"></i></a>
