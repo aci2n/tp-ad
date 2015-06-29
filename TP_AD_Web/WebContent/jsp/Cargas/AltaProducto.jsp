@@ -74,7 +74,6 @@
 				</td>
 			</tr>
 		</table>
-		<br /> <input type="submit" value="Alta">
 	</form>
 	
 	<table id="productos" style="display: none">

@@ -105,8 +105,10 @@
 				type: 'POST',
 				success: function() {
 					Materialize.toast('Carga dada de alta', 4000);
+					_productos = [];
+					$('#productos tbody').html('');
 				}
-			})
+			});
 			
 		});
 	</script>
