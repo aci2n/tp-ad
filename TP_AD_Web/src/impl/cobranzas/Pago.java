@@ -77,9 +77,13 @@ public class Pago extends PersistentObject {
 		this.pagado = estado;
 	}
 
-	public void pagar() {
-		pagado = true;
-		PagoDAO.getInstance().update(this);
+	public void pagar() throws Exception {
+		if (pagado == false) {
+			pagado = true;
+			PagoDAO.getInstance().update(this);
+		} else {
+			throw new Exception("El pago ya estaba pagado.");
+		}
 	}
 
 	public PagoView getView() {

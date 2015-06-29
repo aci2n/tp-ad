@@ -4,7 +4,6 @@ import impl.cargas.AdministradorCargas;
 import impl.cargas.Carga;
 import impl.clientes.AdministradorClientes;
 import impl.cobranzas.AdministradorCobranzas;
-import impl.personal.TipoPuesto;
 import impl.productos.AdministradorProductos;
 import impl.sucursales.AdministradorSucursales;
 import impl.sucursales.Sucursal;
@@ -201,5 +200,13 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 
 	public List<CuentaCorrienteView> obtenerCuentasCorrientes() {
 		return administradorCobranzas.obtenerCuentasCorrientes();
+	}
+
+	public void realizarPago(Integer idPago) throws Exception {
+		administradorCobranzas.realizarPago(idPago);
+	}
+
+	public void realizarCobroParcial(Integer idFactura, Float monto) throws Exception {
+		administradorCobranzas.realizarCobroParcial(idFactura, monto);		
 	}
 }
