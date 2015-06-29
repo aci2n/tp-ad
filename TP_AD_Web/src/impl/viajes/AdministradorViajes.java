@@ -241,6 +241,8 @@ public class AdministradorViajes {
 			if (viajeOptimo == null || v.calcularVolumenDisponible() < viajeOptimo.getViaje().calcularVolumenDisponible()) {
 				viajeOptimo = aux;
 			}
+			// remuevo la parada temporal agregada antes
+			v.removerParadaIntermedia(carga.getDestino());
 		}
 		return viajeOptimo;
 	}
@@ -249,11 +251,19 @@ public class AdministradorViajes {
 		List<Viaje> viajes = ViajeDAO.getInstance().getAll();
 		List<Viaje> viajesPosibles = new ArrayList<Viaje>();
 		for (Viaje v : viajes) {
-			// TODO logica para auto generar parada intermedia
-			
+			// begin magic
+			// si se borra esto tambien cambiar el metodo obtenerViajeOptimo()
+			// y eliminar el removerParadaIntermedia de viaje
+			v.agregarParadaIntermedia(new ParadaIntermedia(carga.getDestino(), null));
+			// end magic
 			if (v.puedeTransportar(carga) && v.tieneTrayecto(carga.getOrigen(), carga.getDestino())
 					&& Utilities.fechaMaximaDeSalida(carga, v).before(new Date())) {
 				viajesPosibles.add(v);
+			}
+			// elimino la parada temporal si no es viaje posible (eliminar si se
+			// saca la logica)
+			else {
+				v.removerParadaIntermedia(carga.getDestino());
 			}
 		}
 		return viajesPosibles;
