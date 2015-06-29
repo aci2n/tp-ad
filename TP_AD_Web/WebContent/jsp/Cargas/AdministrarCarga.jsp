@@ -41,7 +41,7 @@
 					</div>
 					<div id="test3" class="col s12">
 						<div class="input-field col s12">
-							<select name"idSucursalOrigen">
+							<select name="idSucursalOrigen">
 								<option value="" disabled selected></option>
 								<%
 									for (SucursalView suc : ControladorPrincipal.getInstance().obtenerSucursales()) 								

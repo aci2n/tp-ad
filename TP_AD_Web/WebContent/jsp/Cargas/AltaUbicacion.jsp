@@ -10,9 +10,9 @@
 </head>
 <body>
 
-	<form id="" action="" class="box-padding" class="form-control">
+	<form id="altaUbicacion" action="altaUbicacion" class="box-padding" class="form-control">
 		<div id="ubicacion_sucursal">
-			<select name"idSucursalDestino">
+			<select name="idSucursalDestino">
 				<option value="" selected></option>
 				<%
 					for (SucursalView suc : ControladorPrincipal.getInstance().obtenerSucursales()) 								
@@ -26,39 +26,39 @@
 		</div>
 		<div id="ubicacion_nueva">
 			<div class="input-field col s12">
-				<input type="text" class="validate" name="dni"> <label
+				<input type="text" class="validate" name="pais"> <label
 					for="email">País</label>
 			</div>
 			<div class="input-field col s12">
-				<input type="text" class="validate" name="dni"> <label
+				<input type="text" class="validate" name="provincia"> <label
 					for="email">Provincia</label>
 			</div>
 			<div class="input-field col s12">
-				<input type="text" class="validate" name="nombre"> <label
+				<input type="text" class="validate" name="ciudad"> <label
 					for="email">Ciudad</label>
 			</div>
 			<div class="input-field col s12">
-				<input type="text" class="validate" name="apellido"> <label
+				<input type="text" class="validate" name="calle"> <label
 					for="email">Calle</label>
 			</div>
 			<div class="input-field col s12">
-				<input type="text" class="validate" name="dni"> <label
+				<input type="text" class="validate" name="altura"> <label
 					for="email">Altura</label>
 			</div>
 			<div class="input-field col s12">
-				<input type="text" class="validate" name="apellido"> <label
+				<input type="text" class="validate" name="departamento"> <label
 					for="email">Departamento</label>
 			</div>
 			<div class="input-field col s12">
-				<input type="number" class="validate" name="nombre"> <label
+				<input type="number" class="validate" name="piso"> <label
 					for="email">Piso</label>
 			</div>
 			<div class="input-field col s12">
-				<input type="text" class="validate" name="nombre"> <label
+				<input type="text" class="validate" name="longitud"> <label
 					for="email">Longitud</label>
 			</div>
 			<div class="input-field col s12">
-				<input type="text" class="validate" name="apellido"> <label
+				<input type="text" class="validate" name="latitud"> <label
 					for="email">Latitud</label>
 			</div>
 		</div>

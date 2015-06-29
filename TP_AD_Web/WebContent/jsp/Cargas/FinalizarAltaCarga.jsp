@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<form id="" action="" class="box-padding" class="form-control">
+	<form id="finalizarCarga" action="altaCarga" class="box-padding" class="form-control">
 
 		<div class="input-field col s12">
 			<input type="date" class="datepicker" name="fechaMaxEntrega">
@@ -17,18 +17,18 @@
 		</div>
 		
 
-		<div class="input-field col s12">
+		<!-- <div class="input-field col s12">
 			<input type="date" class="datepicker" name="fechaProbEntrega">
 			<label>Fecha probable de entrega</label>
-		</div>
+		</div> -->
 		<div class="input-field col s12">
-			<textarea id="textarea1" class="materialize-textarea"></textarea>
+			<textarea id="textarea1" class="materialize-textarea" name="manifiesto"></textarea>
 			<label for="textarea1">Manifiesto</label>
 		</div>
 		
 		<div>
 			<p>
-				<input type="checkbox" id="test5" /> <label for="test5">Retira
+				<input type="checkbox" id="test5" name="retira"/> <label for="test5">Retira
 					la carga en persona</label>
 			</p>
 		</div>
@@ -62,6 +62,46 @@
 			selectMonths : true, // Creates a dropdown to control month
 			selectYears : 15
 		// Creates a dropdown of 15 years to control year
+		});
+		
+		$('#finalizarCarga').submit(function(event) {
+			event.preventDefault();
+			
+			var data = {
+				tipoCarga: $('#altaCarga input[name="tipoCarga"]').val(),
+				cuit: $('#altaCarga input[name="cuit"]').val(),
+				productos: _productos,
+				idSucursalOrigen: $('input[name="idSucursalOrigen"]').val(),
+				fechaMaxEntrega: $(this).find('input[name="fechaMaxEntrega"]').val(),
+				manifiesto: $(this).find('input[name="manifiesto"]').val(),
+				retira: $(this).find('input[name="retira"]').val(),
+			};
+			
+			if ($('#altaUbicacion input[name="idSucursalDestino"]').val() != '') {
+				data.idSucursalDestino = $('#altaUbicacion input[name="idSucursalDestino"]').val();
+			} else {
+				var form = $('#ubicacion_nueva');
+				
+				data.pais = form.find('input[name="pais"]').val();
+				data.provincia = form.find('input[name="provincia"]').val();
+				data.ciudad = form.find('input[name="ciudad"]').val();
+				data.calle = form.find('input[name="calle"]').val();
+				data.altura = form.find('input[name="altura"]').val();
+				data.departamento = form.find('input[name="departamento"]').val();
+				data.piso = form.find('input[name="piso"]').val();
+				data.longitud = form.find('input[name="longitud"]').val();
+				data.latitud = form.find('input[name="latitud"]').val();
+			}
+			
+			$.ajax({
+				url: $(this).attr('action'),
+				data: data,
+				type: 'POST',
+				success: function() {
+					Materialize.toast('Carga dada de alta', 4000);
+				}
+			})
+			
 		});
 	</script>
 
