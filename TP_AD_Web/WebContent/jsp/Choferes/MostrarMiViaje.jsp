@@ -43,7 +43,9 @@
 				$.ajax({
 					url: $(this).attr('action'),
 					type: 'GET',
-					data: $('select[name="idChofer"]').val(),
+					data: {
+						idChofer: $('select[name="idChofer"]').val(),
+					},
 					success: function(data) {
 						$('#miViaje').append(data);
 					}

@@ -38,7 +38,7 @@ public class Utilities {
 	public static Date parseWebDate(String fecha) {
 		Date d = new Date();
 		try {
-			SimpleDateFormat formatter = new SimpleDateFormat("dd M, yyyy");
+			SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM, yyyy");
 			d = formatter.parse(fecha);
 		} catch (Exception e) {
 			// mandar saludos
