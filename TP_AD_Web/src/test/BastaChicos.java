@@ -22,6 +22,8 @@ import impl.vehiculos.Proveedor;
 import impl.vehiculos.TipoVehiculo;
 import impl.vehiculos.VehiculoLocal;
 import impl.viajes.CompaniaSeguro;
+import impl.viajes.ParadaIntermedia;
+import impl.viajes.Viaje;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -58,14 +60,32 @@ public class BastaChicos {
 		try {
 			controlador = ControladorPrincipal.getInstance();
 			testAltaCargaLocal();
-			testAltaCargaInternacional();
-			testXml();
-			testCargasMismoViaje();
+			//testAltaCargaInternacional();
+			//testXml();
+			//testCargasMismoViaje();
+			testCargasMismoViajePlus();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			System.exit(0);
 		}
+	}
+
+	private static void testCargasMismoViajePlus() throws Exception {
+		System.out.println("/* ALTA CARGAS MISMO VIAJE PLUS */");
+		Particular particular = crearParticular();
+		Sucursal sucursal = crearSucursal();
+		Empleado empleado = crearEmpleado();
+		CompaniaSeguro companiaSeguro = crearCompaniaSeguro();
+		sucursal.agregarVehiculo(crearVehiculoLocalView(), crearPlanMantenimientoKilometrajeView(), empleado.getId());
+		Ubicacion o = crearUbicacion();
+		Ubicacion d = crearUbicacion();
+		controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(o, d), false);
+		Ubicacion o1 = crearUbicacion();
+		Ubicacion d1 = crearUbicacion();
+		Viaje v = ViajeDAO.getInstance().getUltimoViaje();
+		v.agregarParadaIntermedia(new ParadaIntermedia(d1, new Date()));
+		controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(o1, d1), false);
 	}
 
 	private static void testCargasMismoViaje() throws Exception {
@@ -77,7 +97,7 @@ public class BastaChicos {
 		sucursal.agregarVehiculo(crearVehiculoLocalView(), crearPlanMantenimientoKilometrajeView(), empleado.getId());
 		Ubicacion o = crearUbicacion();
 		Ubicacion d = crearUbicacion();
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 30; i++) {
 			controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(o, d), false);
 		}
 	}
