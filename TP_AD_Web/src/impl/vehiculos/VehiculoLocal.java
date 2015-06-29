@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import persistence.EmpleadoDAO;
 import persistence.VehiculoDAO;
 import util.Utilities;
 import views.vehiculos.PlanMantenimientoView;
@@ -37,7 +38,7 @@ public class VehiculoLocal extends Vehiculo {
 	public VehiculoLocal() {
 	}
 
-	public VehiculoLocal(VehiculoLocalView v, PlanMantenimientoView p) {
+	public VehiculoLocal(VehiculoLocalView v, PlanMantenimientoView p, Integer idEmpleado) {
 		patente = v.getPatente();
 		tamano = new Tamano(v.getTamano());
 		peso = v.getPeso();
@@ -46,6 +47,7 @@ public class VehiculoLocal extends Vehiculo {
 		tipo = TipoVehiculo.valueOf(v.getTipo());
 		vencimientoGarantia = Utilities.parseDate(v.getVencimientoGarantia());
 		planMantenimiento = procesarPlanMantenimiento(p);
+		empleado = EmpleadoDAO.getInstance().get(idEmpleado);
 		id = VehiculoDAO.getInstance().insert(this);
 	}
 

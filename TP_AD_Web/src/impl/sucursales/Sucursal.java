@@ -154,9 +154,9 @@ public class Sucursal extends PersistentObject {
 	public Integer agregarVehiculo(VehiculoLocalView v, PlanMantenimientoView p, Integer idEmpleado) {
 		if (vehiculos == null)
 			vehiculos = new ArrayList<VehiculoLocal>();
-		VehiculoLocal vehiculo = new VehiculoLocal(v, p);
-		Empleado e = EmpleadoDAO.getInstance().get(idEmpleado);
-		vehiculo.setEmpleado(e);		
+		VehiculoLocal vehiculo = new VehiculoLocal(v, p, idEmpleado);
+//		Empleado e = EmpleadoDAO.getInstance().get(idEmpleado);
+//		vehiculo.setEmpleado(e);		
 		vehiculos.add(vehiculo);
 		SucursalDAO.getInstance().update(this);
 		return vehiculo.getId();
@@ -167,7 +167,7 @@ public class Sucursal extends PersistentObject {
 			if (v.getPatente().equals(patente)) {
 				return true;
 			}
-		}
+		}	
 		return false;
 	}
 
