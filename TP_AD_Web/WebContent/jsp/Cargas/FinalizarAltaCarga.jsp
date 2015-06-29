@@ -64,7 +64,7 @@
 				tipoCarga: $('#altaCarga select[name="tipoCarga"]').val(),
 				cuit: $('#altaCarga input[name="cuit"]').val(),
 				productos: JSON.stringify(_productos),
-				idSucursalOrigen: $('input[select="idSucursalOrigen"]').val(),
+				idSucursalOrigen: $('select[name="idSucursalOrigen"]').val(),
 				fechaMaxEntrega: $(this).find('input[name="fechaMaxEntrega"]').val(),
 				manifiesto: $(this).find('input[name="manifiesto"]').val(),
 				retira: $(this).find('input[name="retira"]').is(':checked')
