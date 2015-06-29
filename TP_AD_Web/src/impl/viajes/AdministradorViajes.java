@@ -102,7 +102,7 @@ public class AdministradorViajes {
 			cal = Calendar.getInstance();
 			cal.add(Calendar.HOUR, horas);
 			cal.add(Calendar.MINUTE, minutos);
-			v.getParadasIntermedias().iterator().next().setLlegada(cal.getTime());
+			v.getParadasIntermedias().iterator().next().setLlegadaEsperada(cal.getTime());
 			if (v.getParadasIntermedias().size() > 1) {
 				for (int i = 1; i < v.getParadasIntermedias().size() - 1; i++) {
 					Sucursal sucA = admSuc.obtenerSucursalCercana(paradasIntermedias.get(i - 1).getUbicacion());
@@ -112,7 +112,7 @@ public class AdministradorViajes {
 					minutos = (int) (60 * (horasDistancia - horas));
 					cal.add(Calendar.HOUR, horas);
 					cal.add(Calendar.MINUTE, minutos);
-					paradasIntermedias.get(i).setLlegada(cal.getTime());
+					paradasIntermedias.get(i).setLlegadaEsperada(cal.getTime());
 				}
 			}
 			Sucursal sucA = admSuc.obtenerSucursalCercana(paradasIntermedias.get(v.getParadasIntermedias().size() - 1).getUbicacion());
@@ -213,6 +213,16 @@ public class AdministradorViajes {
 	public List<Viaje> obtenerViajes() {
 		return viajeDao.getAll();
 	}
+	
+	public List<ViajeView> obtenerViajesView() {
+		List<ViajeView> viajes = new ArrayList<ViajeView>();
+		for (Viaje v : obtenerViajes()) {
+			ViajeView view = v.getView();
+			view.setId(v.getId());
+			viajes.add(view);
+		}
+		return viajes;
+	}
 
 	public List<CompaniaSeguroView> obtenerCompaniasSeguroView() {
 		List<CompaniaSeguroView> companias = new ArrayList<CompaniaSeguroView>();
@@ -257,10 +267,12 @@ public class AdministradorViajes {
 		Seguro seguro = obtenerSeguro(c.getTipo());
 		if (vehiculoDisponible != null && seguro != null) {
 			Viaje viaje = altaViaje(vehiculoDisponible.getId(), seguro.getId(), vv);
+			viaje.agregarCarga(c);
 			// si uso vehiculo externo genera un pago a proveedor
 			if (vehiculoDisponible instanceof VehiculoExterno) {
 				admCob.generarPago(viaje);
 			}
+			Utilities.saveXml(viaje.generarXml());
 		} else {
 			throw new Exception("No hay vehiculos o seguros disponibles.");
 		}
@@ -326,4 +338,18 @@ public class AdministradorViajes {
 		cal.add(Calendar.HOUR, (int) (float) viaje.getDuracionOptima());
 		return cal.getTime();
 	}
+	
+	public void reportarSeguimiento(Integer idParada) throws Exception {
+		Viaje viaje = viajeDao.getViajePorParada(idParada);
+		for (ParadaIntermedia p : viaje.getParadasIntermedias()) {
+			if (p.getId().equals(idParada)) {
+				p.setLlegada(new Date());
+				p.setChecked(true);
+				viajeDao.update(p);
+				break;
+			}
+		}
+	}
+	
+	
 }

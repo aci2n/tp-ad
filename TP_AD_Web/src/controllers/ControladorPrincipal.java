@@ -199,13 +199,11 @@ public class ControladorPrincipal extends UnicastRemoteObject implements
 	}
 
 	public List<ViajeView> obtenerViajesView() {
-		List<ViajeView> viajes = new ArrayList<ViajeView>();
-		for (Viaje v : ViajeDAO.getInstance().getAll()) {
-			ViajeView view = v.getView();
-			view.setId(v.getId());
-			viajes.add(view);
-		}
-		return viajes;
+		return administradorViajes.obtenerViajesView();
+	}
+	
+	public void registrarParada(Integer idParada) throws Exception {
+		administradorViajes.reportarSeguimiento(idParada);
 	}
 
 	// CARGAS

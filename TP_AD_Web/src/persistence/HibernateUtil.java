@@ -30,7 +30,6 @@ import impl.vehiculos.VehiculoLocal;
 import impl.viajes.CompaniaSeguro;
 import impl.viajes.ItemCarga;
 import impl.viajes.ParadaIntermedia;
-import impl.viajes.SeguimientoViaje;
 import impl.viajes.Seguro;
 import impl.viajes.Viaje;
 
@@ -77,8 +76,6 @@ public class HibernateUtil {
 			config.addAnnotatedClass(PlanMantenimientoTemporal.class);
 			config.addAnnotatedClass(Tarea.class);
 			config.addAnnotatedClass(PlanMantenimiento.class);
-			config.addAnnotatedClass(SeguimientoCarga.class);
-			config.addAnnotatedClass(SeguimientoViaje.class);
 			config.addAnnotatedClass(SeguimientoCarga.class);
 			serviceRegistry = new StandardServiceRegistryBuilder()
 					.applySettings(config.getProperties()).build();

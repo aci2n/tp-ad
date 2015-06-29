@@ -322,7 +322,9 @@ create table ParadasIntermedias (
 	id_viaje int,	
 	id_ubicacion int,
 	llegada date,
+	llegada_esperada date,
 	checked bit,
+	orden int null,
 
 	constraint pk_paradasInter primary key(id_parada_intermedia),
 	constraint fk_paradas_viajes foreign key(id_viaje) references Viajes,
@@ -376,20 +378,6 @@ create table SeguimientoCargas(
 
 	constraint pk_seguimientoCargas primary key(id_seguimientoCarga),
 	constraint fk_seguimiento_carga foreign key(id_carga) references Cargas
-)
-
-create table SeguimientoViajes(
-	
-	id_seguimientoViaje int identity not null,
-	id_viaje int,
-	id_parada_intermedia int,
-	fecha datetime,
-	checked bit,
-
-	constraint pk_seguimientoViajes primary key(id_seguimientoViaje),
-	constraint fk_seguimiento_viaje foreign key(id_viaje) references Viajes,
-	constraint fk_paradas_seguimiento foreign key(id_parada_intermedia) references ParadasIntermedias
-
 )
 
 -- crear usuario

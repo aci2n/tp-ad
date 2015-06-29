@@ -29,8 +29,13 @@ public class ParadaIntermedia extends PersistentObject {
 	private Ubicacion ubicacion;
 	@Column(name = "llegada")
 	private Date llegada;
+	@Column(name = "llegada_esperada")
+	private Date llegadaEsperada;
 	@Column(name = "checked")
 	private boolean checked;
+	@Column(name = "orden")
+	private Integer orden;
+
 
 	public ParadaIntermedia(ParadaIntermediaView p) {
 		this(p.getUbicacion() != null ? new Ubicacion(p.getUbicacion()) : null, Utilities.parseDate(p.getLlegada()));
@@ -38,7 +43,7 @@ public class ParadaIntermedia extends PersistentObject {
 	
 	public ParadaIntermedia(Ubicacion ubicacion, Date llegada) {
 		this.ubicacion = ubicacion;
-		this.llegada = llegada;
+		this.llegadaEsperada = llegada;
 		this.checked = false;
 		this.id = ViajeDAO.getInstance().insert(this);
 	}
@@ -71,11 +76,32 @@ public class ParadaIntermedia extends PersistentObject {
 		this.llegada = llegada;
 	}
 
-	public ParadaIntermediaView getView() {
-		return new ParadaIntermediaView(llegada.toString(), ubicacion.getView());
+	public ParadaIntermediaView getView() { 
+		return new ParadaIntermediaView(
+			llegadaEsperada != null ? Utilities.invParseDate(llegadaEsperada) : null,
+			llegada != null ? Utilities.invParseDate(llegada) : null,
+			ubicacion.getView(),
+			orden
+		);
 	}
 	
 	public boolean equals(ParadaIntermedia parada) {
 		return this.ubicacion.tieneMismasCoordenadas(parada.ubicacion);
+	}
+	
+	public Date getLlegadaEsperada() {
+		return llegadaEsperada;
+	}
+
+	public void setLlegadaEsperada(Date llegadaEsperada) {
+		this.llegadaEsperada = llegadaEsperada;
+	}
+	
+	public Integer getOrden() {
+		return orden;
+	}
+
+	public void setOrden(Integer orden) {
+		this.orden = orden;
 	}
 }
