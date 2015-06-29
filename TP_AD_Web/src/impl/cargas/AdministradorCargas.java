@@ -1,6 +1,7 @@
 package impl.cargas;
 
 import impl.clientes.Cliente;
+import impl.cobranzas.AdministradorCobranzas;
 import impl.productos.Producto;
 import impl.sucursales.Sucursal;
 import impl.viajes.AdministradorViajes;
@@ -22,6 +23,7 @@ public class AdministradorCargas {
 	private ClienteDAO clienteDao;
 	private AdministradorViajes admVi;
 	private CargaDAO cargaDao;
+	private AdministradorCobranzas admCob;
 
 	public static AdministradorCargas getInstance() {
 		if (instance == null)
@@ -34,6 +36,7 @@ public class AdministradorCargas {
 		this.clienteDao = ClienteDAO.getInstance();
 		this.admVi = AdministradorViajes.getInstance();
 		this.cargaDao = CargaDAO.getInstance();
+		this.admCob = AdministradorCobranzas.getInstance();
 	}
 
 	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView c, boolean esInternacional) throws Exception {
@@ -48,6 +51,7 @@ public class AdministradorCargas {
 			Carga carga = new Carga(c, cli);
 			suc.agregarCarga(carga);
 			asignarCargaAViajeOptimo(carga, esInternacional);
+			admCob.generarFactura(carga);
 			return carga.getId();
 		} else {
 			throw new Exception("No existe cliente o sucursal con el ID ingresado.");

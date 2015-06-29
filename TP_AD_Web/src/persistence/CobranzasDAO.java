@@ -2,7 +2,7 @@ package persistence;
 
 import impl.clientes.Cliente;
 import impl.clientes.CuentaCorriente;
-import impl.clientes.Pago;
+import impl.cobranzas.Pago;
 
 import java.util.List;
 

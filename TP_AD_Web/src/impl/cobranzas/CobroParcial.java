@@ -1,4 +1,4 @@
-package impl.clientes;
+package impl.cobranzas;
 
 import impl.PersistentObject;
 

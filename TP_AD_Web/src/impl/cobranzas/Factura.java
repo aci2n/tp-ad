@@ -1,4 +1,4 @@
-package impl.clientes;
+package impl.cobranzas;
 
 import impl.PersistentObject;
 import impl.cargas.Carga;
@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import persistence.FacturaDAO;
 import views.clientes.CobroParcialView;
 import views.clientes.FacturaView;
 
@@ -27,7 +28,6 @@ public class Factura extends PersistentObject {
 	 * 
 	 */
 	private static final long serialVersionUID = 6357766629462615184L;
-
 	@Column(name = "tipo_factura")
 	private String tipoFactura;
 	@Column(name = "fecha_creacion")
@@ -42,7 +42,15 @@ public class Factura extends PersistentObject {
 	private List<CobroParcial> cobrosParciales;
 
 	public Factura() {
+	}
 
+	public Factura(String tipoFactura, Date fechaCreacion, Float montoTotal, Carga carga) {
+		this.tipoFactura = tipoFactura;
+		this.fechaCreacion = fechaCreacion;
+		this.montoTotal = montoTotal;
+		this.carga = carga;
+		this.cobrosParciales = new ArrayList<CobroParcial>();
+		FacturaDAO.getInstance().insert(this);
 	}
 
 	public Float getMontoTotal() {
@@ -89,26 +97,16 @@ public class Factura extends PersistentObject {
 		if (cobrosParciales == null)
 			cobrosParciales = new ArrayList<CobroParcial>();
 		cobrosParciales.add(new CobroParcial(fecha, monto));
+		FacturaDAO.getInstance().update(this);
 	}
 
 	public FacturaView getView() {
-
-		FacturaView view = new FacturaView(tipoFactura, fechaCreacion,
-				montoTotal);
-		List<CobroParcialView> cobros = null;
-
-		try {
-			cobros = new ArrayList<CobroParcialView>();
-			for(CobroParcial c : cobrosParciales)
-				cobros.add(c.getView());
-			
-			view.setCobrosParciales(cobros);	
-			view.setCarga(carga.getView());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		FacturaView view = new FacturaView(tipoFactura, fechaCreacion, montoTotal);
+		List<CobroParcialView> cobros = new ArrayList<CobroParcialView>();
+		for (CobroParcial c : cobrosParciales)
+			cobros.add(c.getView());
+		view.setCobrosParciales(cobros);
+		view.setCarga(carga.getView());
 		return view;
 	}
 }

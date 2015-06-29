@@ -141,7 +141,8 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	}
 
 	public Integer altaViaje(Integer idVehiculo, Integer idSeguro, ViajeView viaje) throws Exception {
-		return administradorViajes.altaViaje(idVehiculo, idSeguro, viaje);
+		// creo que esto no se va a usar
+		return null;
 	}
 
 	public void actualizarPrecioVehiculo(Integer id, Float precio) throws Exception {
@@ -186,12 +187,5 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 
 	public List<CuentaCorrienteView> obtenerCuentasCorrientes() {
 		return administradorCobranzas.obtenerCuentasCorrientes();
-	}
-
-	@Override
-	public Integer altaVehiculoLocal(Integer parseInt, VehiculoLocalView v,
-			PlanMantenimientoView p) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

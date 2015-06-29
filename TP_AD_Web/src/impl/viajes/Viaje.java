@@ -2,12 +2,12 @@ package impl.viajes;
 
 import impl.PersistentObject;
 import impl.cargas.Carga;
-import impl.misc.Coordenada;
 import impl.misc.Ubicacion;
 import impl.productos.CondicionEspecial;
 import impl.sucursales.DistanciaEntreSucursales;
 import impl.sucursales.Sucursal;
 import impl.vehiculos.Vehiculo;
+import impl.vehiculos.VehiculoExterno;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,7 +30,6 @@ import javax.persistence.Table;
 import persistence.SucursalDAO;
 import persistence.ViajeDAO;
 import util.Utilities;
-import views.misc.UbicacionView;
 import views.viajes.ParadaIntermediaView;
 import views.viajes.ViajeView;
 
@@ -116,7 +115,7 @@ public class Viaje extends PersistentObject {
 		ParadaIntermedia parada = new ParadaIntermedia(p);
 		return agregarParadaIntermedia(parada);
 	}
-	
+
 	public Integer agregarParadaIntermedia(ParadaIntermedia parada) {
 		if (paradasIntermedias == null)
 			paradasIntermedias = new ArrayList<ParadaIntermedia>();
@@ -249,7 +248,8 @@ public class Viaje extends PersistentObject {
 	}
 
 	public boolean puedeTransportar(Carga carga) {
-		return carga.calcularPesoTotal() <= calcularPesoDisponible() && carga.calcularVolumenTotal() <= calcularVolumenDisponible() && vehiculo.esAptoParaCarga(carga);
+		return carga.calcularPesoTotal() <= calcularPesoDisponible() && carga.calcularVolumenTotal() <= calcularVolumenDisponible()
+				&& vehiculo.esAptoParaCarga(carga);
 	}
 
 	public Date obtenerLlegadaAParada(Sucursal sucursal) {
@@ -267,7 +267,6 @@ public class Viaje extends PersistentObject {
 	}
 
 	public ViajeView getView() {
-
 		return new ViajeView(fechaSalida.toString(), fechaSalida.toString(), origen.getView(), destino.getView());
 	}
 
@@ -282,19 +281,16 @@ public class Viaje extends PersistentObject {
 		}
 		return false;
 	}
-	
+
 	public boolean tieneTrayecto(Ubicacion a, Ubicacion b) {
 		int pasaPorA = Integer.MIN_VALUE;
 		int pasaPorB = Integer.MIN_VALUE;
-		
 		if (this.origen.tieneMismasCoordenadas(a)) {
 			pasaPorA = -1;
 		}
-		
 		if (this.destino.tieneMismasCoordenadas(b)) {
 			pasaPorB = this.cantidadParadasIntemedias();
 		}
-		
 		if (pasaPorA == Integer.MIN_VALUE || pasaPorB == Integer.MIN_VALUE) {
 			for (int i = 0; i < this.cantidadParadasIntemedias(); i++) {
 				if (this.paradasIntermedias.get(i).getUbicacion().tieneMismasCoordenadas(a)) {
@@ -304,15 +300,13 @@ public class Viaje extends PersistentObject {
 				}
 			}
 		}
-		
-		return (pasaPorA != Integer.MIN_VALUE && pasaPorB != Integer.MIN_VALUE) && pasaPorA < pasaPorB; 
+		return (pasaPorA != Integer.MIN_VALUE && pasaPorB != Integer.MIN_VALUE) && pasaPorA < pasaPorB;
 	}
 
 	public ViajeOptimo getViajeOptimo(Ubicacion o, Ubicacion d) {
 		Float distancia = 0f;
 		Float duracion = 0f;
 		Float costo = 0f;
-
 		Ubicacion[] ubicaciones = new Ubicacion[paradasIntermedias.size() + 2];
 		ubicaciones[0] = origen;
 		int aux = 1;
@@ -321,9 +315,7 @@ public class Viaje extends PersistentObject {
 			aux++;
 		}
 		ubicaciones[ubicaciones.length + 1] = destino;
-
 		Integer indiceComienzo = 0;
-
 		for (int i = 0; i < ubicaciones.length; i++) {
 			if (ubicaciones[i].tieneMismasCoordenadas(o)) {
 				indiceComienzo = i;
@@ -339,7 +331,6 @@ public class Viaje extends PersistentObject {
 				break;
 			}
 		}
-
 		return new ViajeOptimo(this, distancia, duracion, costo);
 	}
 
@@ -360,14 +351,26 @@ public class Viaje extends PersistentObject {
 		parametros[0] = a.getCoordenadaDestino().calcularDistanciaEnKilometros(b.getCoordenadaDestino());
 		parametros[1] = parametros[0] / 180f; // kilometros por hora promedio
 		parametros[2] = parametros[0] * 7.35f; // costo por kilometro promedio
-
 		return parametros;
 	}
-	
+
 	public Date obtenerLlegadaCarga(Carga carga) {
 		if (cargas.contains(carga)) {
-			
 		}
 		return null;
+	}
+
+	public Float getCosto() {
+		// devuelve 0 si no tiene vehiculo externo
+		Float costo = 0f;
+		if (vehiculo != null && vehiculo instanceof VehiculoExterno) {
+			// x pesos por kilometro
+			costo += origen.getCoordenadaDestino().calcularDistanciaEnKilometros(destino.getCoordenadaDestino()) * 10;
+			// x pesos por parada intermedia
+			costo += paradasIntermedias.size() * 500;
+			// x pesos por condicion especial
+			costo += condicionesEspeciales.size() * 1000;
+		}
+		return costo;
 	}
 }

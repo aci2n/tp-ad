@@ -51,7 +51,7 @@ public interface TDAControladorPrincipal extends Remote {
 
 	public Integer altaVehiculoExterno(Integer parseInt, VehiculoExternoView v) throws Exception;
 
-	public Integer altaVehiculoLocal(Integer parseInt, VehiculoLocalView v, PlanMantenimientoView p) throws Exception;
+	public Integer altaVehiculoLocal(Integer parseInt, VehiculoLocalView v, PlanMantenimientoView p, Integer idEmpleado) throws Exception;
 
 	public void agregarCondicionEspecialAViaje(Integer parseInt, String condicionEspecial) throws Exception;
 
