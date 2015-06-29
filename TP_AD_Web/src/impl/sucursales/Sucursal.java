@@ -198,7 +198,7 @@ public class Sucursal extends PersistentObject {
 	}
 
 	public SucursalView getView() {
-		SucursalView view = new SucursalView(nombre, ubicacion.getView());
+		SucursalView view = new SucursalView(nombre, ubicacion.getView(), id);
 		return view;
 	}
 }

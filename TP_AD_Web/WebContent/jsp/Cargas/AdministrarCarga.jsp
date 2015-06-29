@@ -1,3 +1,4 @@
+<%@page import="views.sucursales.SucursalView"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -24,12 +25,10 @@
 						<ul class="tabs">
 				
 							<li class="tab col s3"><a class="active" href="#test1">Carga</a></li>
-							<li class="tab col s3"><a href="#test2">Ubicación
-									Origen</a></li>
-							<li class="tab col s3"><a href="#test3">Ubicación
-									Destino</a></li>
-							<li class="tab col s3"><a href="#test4">Finalizar Alta</a></li>
-
+							<li class="tab col s3"><a class="active" href="#test2">Productos</a></li>
+							<li class="tab col s3"><a href="#test3">Origen</a></li>
+							<li class="tab col s3"><a href="#test4">Destino</a></li>
+							<li class="tab col s3"><a href="#test5">Finalizar Alta</a></li>
 
 						</ul>
 					</div>
@@ -38,15 +37,27 @@
 						<%@include file="AltaCarga.jsp"%>
 					</div>
 					<div id="test2" class="col s12">
-						<div class="input-field col s12">
-							<input type="number" class="" name="sucursal"> <label>ID
-								Surcursal de Origen</label>
-						</div>
+						<%@include file="AltaProducto.jsp"%>
 					</div>
 					<div id="test3" class="col s12">
-						<%@include file="AltaUbicacion.jsp"%>
+						<div class="input-field col s12">
+							<select name"idSucursalOrigen">
+								<option value="" disabled selected></option>
+								<%
+									for (SucursalView suc : ControladorPrincipal.getInstance().obtenerSucursales()) 								
+																											{
+								%>
+								<option value="<%=suc.getId()%>"><%=suc.getNombre()%></option>
+								<%
+									}
+								%>
+							</select> <label>Sucursal</label>
+						</div>
 					</div>
 					<div id="test4" class="col s12">
+						<%@include file="AltaUbicacion.jsp"%>
+					</div>
+					<div id="test5" class="col s12">
 						<%@include file="FinalizarAltaCarga.jsp"%>
 					</div>
 					

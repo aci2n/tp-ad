@@ -61,5 +61,9 @@ public class Tarea extends PersistentObject {
 	public void setKilometraje(Float kilometraje) {
 		this.kilometraje = kilometraje;
 	}
+	
+	public TareaView getView() {
+		return new TareaView(kilometraje, Utilities.invParseDate(fechaEntrega), Utilities.invParseDate(fechaDevolucion));		
+	}
 
 }

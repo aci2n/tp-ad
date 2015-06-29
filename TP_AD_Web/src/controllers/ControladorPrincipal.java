@@ -96,6 +96,10 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	public void agregarDistanciaEntreSucursales(DistanciaEntreSucursalesView dist) throws Exception {
 		administradorSucursales.agregarDistanciaEntreSucursales(dist);
 	}
+	
+	public List<SucursalView> obtenerSucursales() {
+		return administradorSucursales.obtenerSucursalesView();
+	}
 
 	// PRODUCTOS
 	public void agregarCondicionEspecialAProducto(Integer id, String condicionEspecial) throws Exception {

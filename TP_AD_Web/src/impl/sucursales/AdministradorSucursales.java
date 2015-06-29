@@ -176,4 +176,12 @@ public class AdministradorSucursales {
 	public Sucursal obtenerSucursalDesdeIdCarga(Integer idCarga) {
 		return sucursalDao.obtenerSucursalDesdeIdCarga(idCarga);
 	}
+	
+	public List<SucursalView> obtenerSucursalesView() {
+		List<SucursalView> sucViews = new ArrayList<SucursalView>();
+		for (Sucursal suc : sucursalDao.getAll()) {
+			sucViews.add(suc.getView());
+		}
+		return sucViews;
+	}
 }
