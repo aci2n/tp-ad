@@ -4,6 +4,7 @@ import impl.PersistentObject;
 import impl.cargas.Carga;
 import impl.misc.Ubicacion;
 import impl.productos.CondicionEspecial;
+import impl.productos.ItemProducto;
 import impl.sucursales.DistanciaEntreSucursales;
 import impl.sucursales.Sucursal;
 import impl.vehiculos.Vehiculo;
@@ -26,6 +27,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import persistence.SucursalDAO;
 import persistence.ViajeDAO;
@@ -84,6 +90,7 @@ public class Viaje extends PersistentObject {
 		fechaSalida = Utilities.parseDate(vi.getFechaSalida());
 		paradasIntermedias = new ArrayList<ParadaIntermedia>();
 		condicionesEspeciales = new ArrayList<CondicionEspecial>();
+		cargas = new ArrayList<ItemCarga>();
 		id = ViajeDAO.getInstance().insert(this);
 	}
 
@@ -374,5 +381,100 @@ public class Viaje extends PersistentObject {
 			costo += condicionesEspeciales.size() * 1000;
 		}
 		return costo;
+	}
+
+	public Document generarXml() throws Exception {
+		try {
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			Document doc = docBuilder.newDocument();
+			Element eViaje = doc.createElement("viaje");
+			doc.appendChild(eViaje);
+			Element eId = doc.createElement("id");
+			eId.appendChild(doc.createTextNode(id.toString()));
+			eViaje.appendChild(eId);
+			eViaje.appendChild(generarElementoUbicacion(doc, origen, "origen"));
+			eViaje.appendChild(generarElementoUbicacion(doc, destino, "destino"));
+			Element eFechaLlegada = doc.createElement("fechaLlegada");
+			eFechaLlegada.appendChild(doc.createTextNode(Utilities.invParseDate(fechaLlegada)));
+			eViaje.appendChild(eFechaLlegada);
+			Element eCondiciones = doc.createElement("condiciones");
+			eViaje.appendChild(eCondiciones);
+			for (CondicionEspecial ce : condicionesEspeciales) {
+				Element eCondicion = doc.createElement("condicion");
+				eCondicion.appendChild(doc.createTextNode(ce.toString()));
+				eCondiciones.appendChild(eCondicion);
+			}
+			Element eItemsCarga = doc.createElement("itemsCarga");
+			eViaje.appendChild(eItemsCarga);
+			for (ItemCarga ic : cargas) {
+				Element eItemCarga = doc.createElement("itemCarga");
+				eItemsCarga.appendChild(eItemCarga);
+				Element eCarga = doc.createElement("carga");
+				eItemCarga.appendChild(eCarga);
+				Element eCliente = doc.createElement("cliente");
+				eCliente.appendChild(doc.createTextNode(ic.getCarga().getCliente().getId().toString()));
+				eCarga.appendChild(eCliente);
+				Element eManifiesto = doc.createElement("manifiesto");
+				eManifiesto.appendChild(doc.createTextNode(ic.getCarga().getManifiesto()));
+				eCarga.appendChild(eManifiesto);
+				for (ItemProducto ip : ic.getCarga().getProductos()) {
+					Element eItemProducto = doc.createElement("itemProducto");
+					eCarga.appendChild(eItemProducto);
+					Element eProducto = doc.createElement("producto");
+					eItemProducto.appendChild(eProducto);
+					Element eNombre = doc.createElement("nombre");
+					eNombre.appendChild(doc.createTextNode(ip.getProducto().getNombre()));
+					eProducto.appendChild(eNombre);
+					Element eConsideraciones = doc.createElement("consideraciones");
+					eConsideraciones.appendChild(doc.createTextNode(ip.getProducto().getConsideraciones()));
+					eProducto.appendChild(eConsideraciones);
+					Element eCantidad = doc.createElement("cantidad");
+					eCantidad.appendChild(doc.createTextNode(Float.toString(ip.getCantidad())));
+					eItemProducto.appendChild(eCantidad);
+				}
+				Element eFecha = doc.createElement("fecha");
+				eFecha.appendChild(doc.createTextNode(Utilities.invParseDate(ic.getFecha())));
+				eItemCarga.appendChild(eFecha);
+			}
+			return doc;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Error al generar XML.");
+		}
+	}
+
+	private Element generarElementoUbicacion(Document doc, Ubicacion u, String tag) {
+		Element e = doc.createElement(tag);
+		Element pais = doc.createElement("pais");
+		pais.appendChild(doc.createTextNode(u.getPais()));
+		e.appendChild(pais);
+		Element provincia = doc.createElement("provincia");
+		provincia.appendChild(doc.createTextNode(u.getCiudad()));
+		e.appendChild(provincia);
+		Element ciudad = doc.createElement("ciudad");
+		ciudad.appendChild(doc.createTextNode(u.getCiudad()));
+		e.appendChild(ciudad);
+		Element calle = doc.createElement("calle");
+		calle.appendChild(doc.createTextNode(u.getCalle()));
+		e.appendChild(calle);
+		Element altura = doc.createElement("altura");
+		altura.appendChild(doc.createTextNode(u.getAltura()));
+		e.appendChild(altura);
+		Element piso = doc.createElement("piso");
+		piso.appendChild(doc.createTextNode(u.getPiso()));
+		e.appendChild(piso);
+		Element departamento = doc.createElement("departamento");
+		departamento.appendChild(doc.createTextNode(u.getDepartamento()));
+		e.appendChild(departamento);
+		Element c = doc.createElement("coordenadas");
+		e.appendChild(c);
+		Element latitud = doc.createElement("latitud");
+		latitud.appendChild(doc.createTextNode(u.getCoordenadaDestino().getLatitud().toString()));
+		c.appendChild(latitud);
+		Element longitud = doc.createElement("longitud");
+		longitud.appendChild(doc.createTextNode(u.getCoordenadaDestino().getLongitud().toString()));
+		c.appendChild(longitud);
+		return e;
 	}
 }

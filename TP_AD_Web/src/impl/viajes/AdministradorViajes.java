@@ -257,10 +257,12 @@ public class AdministradorViajes {
 		Seguro seguro = obtenerSeguro(c.getTipo());
 		if (vehiculoDisponible != null && seguro != null) {
 			Viaje viaje = altaViaje(vehiculoDisponible.getId(), seguro.getId(), vv);
+			viaje.agregarCarga(c);
 			// si uso vehiculo externo genera un pago a proveedor
 			if (vehiculoDisponible instanceof VehiculoExterno) {
 				admCob.generarPago(viaje);
 			}
+			Utilities.saveXml(viaje.generarXml());
 		} else {
 			throw new Exception("No hay vehiculos o seguros disponibles.");
 		}

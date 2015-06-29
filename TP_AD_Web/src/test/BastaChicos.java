@@ -29,6 +29,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import org.w3c.dom.Document;
+
 import persistence.ClienteDAO;
 import persistence.CompaniaSeguroDAO;
 import persistence.EmpleadoDAO;
@@ -37,6 +39,7 @@ import persistence.ProveedorDAO;
 import persistence.SucursalDAO;
 import persistence.UbicacionDAO;
 import persistence.VehiculoDAO;
+import persistence.ViajeDAO;
 import util.Utilities;
 import views.cargas.CargaView;
 import views.productos.ItemProductoView;
@@ -56,11 +59,18 @@ public class BastaChicos {
 			controlador = ControladorPrincipal.getInstance();
 			testAltaCargaLocal();
 			testAltaCargaInternacional();
+			testXml();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			System.exit(0);
 		}
+	}
+
+	private static void testXml() throws Exception {
+		Document doc = ViajeDAO.getInstance().getUltimoViaje().generarXml();
+		Utilities.printXml(doc);
+		Utilities.saveXml(doc);
 	}
 
 	private static void testAltaCargaLocal() throws Exception {
