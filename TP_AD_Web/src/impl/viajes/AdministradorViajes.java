@@ -248,8 +248,10 @@ public class AdministradorViajes {
 		List<Viaje> viajes = ViajeDAO.getInstance().getAll();
 		List<Viaje> viajesPosibles = new ArrayList<Viaje>();
 		for (Viaje v : viajes) {
+			// TODO logica para auto generar parada intermedia
+			
 			if (v.puedeTransportar(carga) && v.tieneTrayecto(carga.getOrigen(), carga.getDestino())
-					&& Utilities.fechaMaximaDeSalida(carga, v).after(new Date())) {
+					&& Utilities.fechaMaximaDeSalida(carga, v).before(new Date())) {
 				viajesPosibles.add(v);
 			}
 		}
@@ -273,7 +275,7 @@ public class AdministradorViajes {
 				admCob.generarPago(viaje);
 			}
 			if (esInternacional) {
-				Utilities.saveXml(viaje.generarXml());
+				Utilities.saveXml(viaje.getId(), viaje.generarXml());
 			}
 		} else {
 			throw new Exception("No hay vehiculos o seguros disponibles.");
@@ -351,6 +353,10 @@ public class AdministradorViajes {
 				break;
 			}
 		}
+	}
+	
+	public ViajeView obtenerViajeActivo(Integer idChofer) {
+		return viajeDao.getViajeChofer(idChofer).getView();
 	}
 	
 	

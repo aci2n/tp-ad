@@ -69,4 +69,15 @@ public class ViajeDAO extends AbstractGenericDAO<Viaje> {
 		s.close();
 		return viaje;
 	}
+	
+	public Viaje getViajeChofer(int idChofer) {
+		Session s = sf.openSession();
+		s.beginTransaction();
+		Query q = s.createQuery("select v from Viaje v, ParadaIntermedia p where p.llegada is null and p.checked = false"
+				+ " and exists(select veh.id from VehiculoLocal veh where veh.empleado.id = ? and v.vehiculo.id = veh.id)").setMaxResults(1);
+		q.setInteger(0, idChofer);
+		Viaje viaje = (Viaje) q.uniqueResult();
+		s.close();
+		return viaje;
+	}
 }
