@@ -136,12 +136,12 @@ public class Utilities {
 		return mejorParada;
 	}
 
-	public static void saveXml(Document doc) {
+	public static void saveXml(Integer id, Document doc) {
 		try {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("./xml/" + generateFileName() + ".xml"));
+			StreamResult result = new StreamResult(new File("./xml/" + id.toString() + "_" + generateFileName() + ".xml"));
 			transformer.transform(source, result);
 		} catch (TransformerException e) {
 			e.printStackTrace();

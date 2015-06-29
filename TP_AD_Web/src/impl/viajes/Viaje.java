@@ -121,25 +121,39 @@ public class Viaje extends PersistentObject {
 		return false;
 	}
 
-	public Integer agregarParadaIntermedia(ParadaIntermediaView p) {
+	public void agregarParadaIntermedia(ParadaIntermediaView p) {
 		ParadaIntermedia parada = new ParadaIntermedia(p);
-		return agregarParadaIntermedia(parada);
+		agregarParadaIntermedia(parada);
 	}
 
-	public Integer agregarParadaIntermedia(ParadaIntermedia parada) {
+	public void agregarParadaIntermedia(ParadaIntermedia parada) {
 		if (paradasIntermedias == null)
 			paradasIntermedias = new ArrayList<ParadaIntermedia>();
-		paradasIntermedias.add(parada);
-		if (paradasIntermedias.size() > 1) {
-			paradasIntermedias = Utilities.ordenarParadasIntermedias(origen, paradasIntermedias);
+		if (!tieneParada(parada)) {
+			paradasIntermedias.add(parada);
+			if (paradasIntermedias.size() > 1) {
+				paradasIntermedias = Utilities.ordenarParadasIntermedias(origen, paradasIntermedias);
+			}
+
+			for (int i = 0; i < paradasIntermedias.size(); i++) {
+				ParadaIntermedia p = paradasIntermedias.get(i);
+				p.setOrden(i);
+				ViajeDAO.getInstance().update(p);
+			}
+			ViajeDAO.getInstance().update(this);
+		} else {
+			// no es lo mas bonito pero evita duplicados
+			ViajeDAO.getInstance().delete(parada);
 		}
-		for (int i = 1; i <= paradasIntermedias.size(); i++) {
-			ParadaIntermedia p = paradasIntermedias.get(i);
-			p.setOrden(i);
-			ViajeDAO.getInstance().update(p);
+	}
+
+	private boolean tieneParada(ParadaIntermedia parada) {
+		for (ParadaIntermedia pi : paradasIntermedias) {
+			if (parada.getUbicacion().tieneMismasCoordenadas(pi.getUbicacion())) {
+				return true;
+			}
 		}
-		ViajeDAO.getInstance().update(this);
-		return parada.getId();
+		return false;
 	}
 
 	public float calcularPesoDisponible() {
@@ -333,7 +347,7 @@ public class Viaje extends PersistentObject {
 			ubicaciones[aux] = pi.getUbicacion();
 			aux++;
 		}
-		ubicaciones[ubicaciones.length + 1] = destino;
+		ubicaciones[ubicaciones.length - 1] = destino;
 		Integer indiceComienzo = 0;
 		for (int i = 0; i < ubicaciones.length; i++) {
 			if (ubicaciones[i].tieneMismasCoordenadas(o)) {

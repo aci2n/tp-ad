@@ -29,6 +29,7 @@ import views.viajes.ParadaIntermediaView;
 import views.viajes.SeguroView;
 import views.viajes.ViajeView;
 
+
 public class AdministradorViajes {
 	public static final float VELOCIDAD_PROMEDIO = 180f;
 	private static AdministradorViajes instance;
@@ -38,13 +39,13 @@ public class AdministradorViajes {
 	private SeguroDAO seguroDao;
 	private SucursalDAO sucursalDao;
 	private AdministradorCobranzas admCob;
-
+	
 	public static AdministradorViajes getInstance() {
 		if (instance == null)
 			instance = new AdministradorViajes();
 		return instance;
 	}
-
+	
 	private AdministradorViajes() {
 		viajeDao = ViajeDAO.getInstance();
 		companiaSeguroDao = CompaniaSeguroDAO.getInstance();
@@ -53,11 +54,11 @@ public class AdministradorViajes {
 		sucursalDao = SucursalDAO.getInstance();
 		admCob = AdministradorCobranzas.getInstance();
 	}
-
+	
 	public Viaje obtenerViaje(Integer codigoViaje) {
 		return viajeDao.get(codigoViaje);
 	}
-
+	
 	public Viaje altaViaje(int idVehiculo, int idSeguro, ViajeView viaje) throws Exception {
 		Vehiculo v = vehiculoDao.get(idVehiculo);
 		Seguro s = seguroDao.get(idSeguro);
@@ -69,7 +70,7 @@ public class AdministradorViajes {
 			throw new Exception("No existe vehiculo con el ID ingresado.");
 		}
 	}
-
+	
 	// REVISAR ESTE METODO QUE NO SE PUEDEN USAR VECTORES EN HIBERNATE
 	public void determinarCostoViaje(Viaje v, List<Sucursal> sucursales) {
 		if (v == null)
@@ -125,7 +126,7 @@ public class AdministradorViajes {
 			v.setFechaLlegada(cal.getTime());
 		}
 	}
-
+	
 	// public void altaViajeExterno(List<Carga> cargas, Seguro seguro, Date
 	// fechaSalida, Date fechaLLegada,
 	// Proveedor proveedor, TipoVehiculo tipoVehiculo, List<CondicionEspecial>
@@ -177,12 +178,12 @@ public class AdministradorViajes {
 		}
 		return mejorViaje;
 	}
-
+	
 	public Integer altaCompaniaSeguro(CompaniaSeguroView c) {
 		CompaniaSeguro compania = new CompaniaSeguro(c);
 		return compania.getId();
 	}
-
+	
 	public Integer agregarSeguro(Integer id, SeguroView s) throws Exception {
 		CompaniaSeguro c = CompaniaSeguroDAO.getInstance().get(id);
 		if (c != null) {
@@ -191,7 +192,7 @@ public class AdministradorViajes {
 			throw new Exception("No existe compania de seguros con el id ingresado.");
 		}
 	}
-
+	
 	public void agregarCondicionEspecialAViaje(Integer id, String condicionEspecial) throws Exception {
 		Viaje v = viajeDao.get(id);
 		if (v != null) {
@@ -200,16 +201,16 @@ public class AdministradorViajes {
 			throw new Exception("No existe viaje con el id ingresado.");
 		}
 	}
-
-	public Integer agregarParadaIntermediaAViaje(int id, ParadaIntermediaView p) throws Exception {
+	
+	public void agregarParadaIntermediaAViaje(int id, ParadaIntermediaView p) throws Exception {
 		Viaje v = viajeDao.get(id);
 		if (v != null) {
-			return v.agregarParadaIntermedia(p);
+			v.agregarParadaIntermedia(p);
 		} else {
 			throw new Exception("No existe viaje con el id ingresado.");
 		}
 	}
-
+	
 	public List<Viaje> obtenerViajes() {
 		return viajeDao.getAll();
 	}
@@ -223,7 +224,7 @@ public class AdministradorViajes {
 		}
 		return viajes;
 	}
-
+	
 	public List<CompaniaSeguroView> obtenerCompaniasSeguroView() {
 		List<CompaniaSeguroView> companias = new ArrayList<CompaniaSeguroView>();
 		for (CompaniaSeguro cs : companiaSeguroDao.getAll()) {
@@ -231,7 +232,7 @@ public class AdministradorViajes {
 		}
 		return companias;
 	}
-
+	
 	public ViajeOptimo obtenerViajeOptimo(Carga carga) throws Exception {
 		List<Viaje> viajesPosibles = obtenerViajesPosibles(carga);
 		ViajeOptimo viajeOptimo = null;
@@ -243,7 +244,7 @@ public class AdministradorViajes {
 		}
 		return viajeOptimo;
 	}
-
+	
 	private List<Viaje> obtenerViajesPosibles(Carga carga) throws Exception {
 		List<Viaje> viajes = ViajeDAO.getInstance().getAll();
 		List<Viaje> viajesPosibles = new ArrayList<Viaje>();
@@ -257,7 +258,7 @@ public class AdministradorViajes {
 		}
 		return viajesPosibles;
 	}
-
+	
 	public void crearViajeEnBaseACarga(Carga c, boolean esInternacional) throws Exception {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(c.getFechaMaximaEntrega());
@@ -281,7 +282,7 @@ public class AdministradorViajes {
 			throw new Exception("No hay vehiculos o seguros disponibles.");
 		}
 	}
-
+	
 	public Vehiculo obtenerVehiculoDisponible(Carga carga, boolean esInternacional) {
 		Vehiculo veh = null;
 		// En base al destino se selecciona un vehículo del tipo apropiado
@@ -292,7 +293,7 @@ public class AdministradorViajes {
 				if (v.estaDisponible()
 						&& v.esAptoParaCarga(carga)
 						&& (suc == null || v.getTipo().equals(TipoVehiculo.TRACTOR) || v.getTipo().equals(TipoVehiculo.CAMION_CON_CAJA) || v
-								.getTipo().equals(TipoVehiculo.CAMION_CON_TANQUE))) {
+						.getTipo().equals(TipoVehiculo.CAMION_CON_TANQUE))) {
 					veh = v;
 				}
 			}
@@ -302,18 +303,18 @@ public class AdministradorViajes {
 				if (v.estaDisponible()
 						&& v.esAptoParaCarga(carga)
 						&& (suc == null || v.getTipo().equals(TipoVehiculo.TRACTOR) || v.getTipo().equals(TipoVehiculo.CAMION_CON_CAJA) || v
-								.getTipo().equals(TipoVehiculo.CAMION_CON_TANQUE))) {
+						.getTipo().equals(TipoVehiculo.CAMION_CON_TANQUE))) {
 					veh = v;
 				}
 			}
 		}
 		return veh;
 	}
-
+	
 	public Seguro obtenerSeguro(TipoCarga tipo) {
 		return SeguroDAO.getInstance().obtenerSeguroPorTipo(tipo);
 	}
-
+	
 	public String fechaProbable(CargaView c) throws Exception {
 		Carga carga = new Carga();
 		Ubicacion origen = new Ubicacion();
@@ -326,7 +327,7 @@ public class AdministradorViajes {
 		carga.setDestino(destino);
 		return Utilities.invParseDate(fechaProbable(carga));
 	}
-
+	
 	private Date fechaProbable(Carga carga) throws Exception {
 		ViajeOptimo viaje = obtenerViajeOptimo(carga);
 		if (viaje != null) {
@@ -335,7 +336,7 @@ public class AdministradorViajes {
 			throw new Exception("No existen viajes disponibles.");
 		}
 	}
-
+	
 	private Date calcularFechaProbable(Carga carga, ViajeOptimo viaje) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(viaje.getViaje().getFechaSalida());
@@ -358,6 +359,5 @@ public class AdministradorViajes {
 	public ViajeView obtenerViajeActivo(Integer idChofer) {
 		return viajeDao.getViajeChofer(idChofer).getView();
 	}
-	
 	
 }
