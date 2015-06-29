@@ -5,7 +5,8 @@ public enum TipoVehiculo {
 	CAMION_CON_CAJA_REFRIGERADO("Camion con caja refrigerado"),
 	CAMION_CON_CAJA("Camion con caja"),
 	CAMION_CON_TANQUE("Camion con tanque"),
-	CAMIONETA("Camioneta");
+	CAMIONETA("Camioneta"),
+	CARRIER("Carrier");
 	
 	private String tipo;
 	

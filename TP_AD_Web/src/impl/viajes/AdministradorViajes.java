@@ -282,7 +282,7 @@ public class AdministradorViajes {
 			}
 		}
 		if (veh == null) {
-			for (Vehiculo v : VehiculoDAO.getInstance().obtenerVehiculosExternosDisponibles()) {
+			for (Vehiculo v : VehiculoDAO.getInstance().obtenerVehiculosExternosDisponibles(esInternacional)) {
 				if (v.estaDisponible()
 						&& v.esAptoParaCarga(carga)
 						&& (suc == null || v.getTipo().equals(TipoVehiculo.TRACTOR) || v.getTipo().equals(TipoVehiculo.CAMION_CON_CAJA) || v

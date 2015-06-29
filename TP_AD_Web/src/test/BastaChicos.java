@@ -286,7 +286,7 @@ public class BastaChicos {
 		v.setTamano(crearTamano().getView());
 		v.setTara((float) randomInteger());
 		v.setTarifa((float) randomInteger());
-		v.setTipo(TipoVehiculo.CAMION_CON_CAJA_REFRIGERADO.toString());
+		v.setTipo(TipoVehiculo.CARRIER.toString());
 		return v;
 	}
 
