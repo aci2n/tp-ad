@@ -213,7 +213,7 @@ public class AdministradorViajes {
 	public List<Viaje> obtenerViajes() {
 		return viajeDao.getAll();
 	}
-	
+
 	public List<ViajeView> obtenerViajesView() {
 		List<ViajeView> viajes = new ArrayList<ViajeView>();
 		for (Viaje v : obtenerViajes()) {
@@ -340,7 +340,7 @@ public class AdministradorViajes {
 		cal.add(Calendar.HOUR, (int) (float) viaje.getDuracionOptima());
 		return cal.getTime();
 	}
-	
+
 	public void reportarSeguimiento(Integer idParada) throws Exception {
 		Viaje viaje = viajeDao.getViajePorParada(idParada);
 		for (ParadaIntermedia p : viaje.getParadasIntermedias()) {
@@ -352,6 +352,5 @@ public class AdministradorViajes {
 			}
 		}
 	}
-	
-	
+
 }

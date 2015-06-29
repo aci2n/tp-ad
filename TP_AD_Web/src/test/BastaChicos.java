@@ -59,7 +59,7 @@ public class BastaChicos {
 	public static void main(String[] args) {
 		try {
 			controlador = ControladorPrincipal.getInstance();
-			testAltaCargaLocal();
+			//testAltaCargaLocal();
 			//testAltaCargaInternacional();
 			//testXml();
 			//testCargasMismoViaje();
@@ -84,8 +84,10 @@ public class BastaChicos {
 		Ubicacion o1 = crearUbicacion();
 		Ubicacion d1 = crearUbicacion();
 		Viaje v = ViajeDAO.getInstance().getUltimoViaje();
-		v.agregarParadaIntermedia(new ParadaIntermedia(d1, new Date()));
-		controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(o1, d1), false);
+		//v.agregarParadaIntermedia(new ParadaIntermedia(d1, new Date()));
+		for (int i = 0; i < 30; i++) {
+			controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(o, d1), false);
+		}
 	}
 
 	private static void testCargasMismoViaje() throws Exception {
