@@ -114,9 +114,9 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	public Integer altaVehiculoExterno(Integer idProveedor, VehiculoExternoView vehiculoExterno) throws Exception {
 		return administradorVehiculos.altaVehiculoExterno(idProveedor, vehiculoExterno);
 	}
-
-	public Integer altaVehiculoLocal(Integer idSucursal, VehiculoLocalView v, PlanMantenimientoView p) throws Exception {
-		return administradorVehiculos.altaVehiculoLocal(idSucursal, v, p);
+	
+	public Integer altaVehiculoLocal(Integer idSucursal, VehiculoLocalView v, PlanMantenimientoView p, Integer idEmpleado) throws Exception {
+		return administradorVehiculos.altaVehiculoLocal(idSucursal, v, p, idEmpleado);
 	}
 
 	// VIAJES
@@ -137,7 +137,8 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	}
 
 	public Integer altaViaje(Integer idVehiculo, Integer idSeguro, ViajeView viaje) throws Exception {
-		return administradorViajes.altaViaje(idVehiculo, idSeguro, viaje);
+		// creo que esto no se va a usar
+		return null;
 	}
 
 	public void actualizarPrecioVehiculo(Integer id, Float precio) throws Exception {

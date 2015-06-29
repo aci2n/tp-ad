@@ -1,5 +1,7 @@
 package impl.clientes;
 
+import impl.cobranzas.Factura;
+
 import java.util.ArrayList;
 import java.util.List;
 

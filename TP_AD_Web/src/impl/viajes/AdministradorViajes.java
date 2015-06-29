@@ -2,6 +2,7 @@ package impl.viajes;
 
 import impl.cargas.Carga;
 import impl.cargas.TipoCarga;
+import impl.cobranzas.AdministradorCobranzas;
 import impl.misc.Coordenada;
 import impl.misc.Ubicacion;
 //github.com/alvarocalace/tp_ad_web.git
@@ -9,6 +10,7 @@ import impl.sucursales.AdministradorSucursales;
 import impl.sucursales.Sucursal;
 import impl.vehiculos.TipoVehiculo;
 import impl.vehiculos.Vehiculo;
+import impl.vehiculos.VehiculoExterno;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,6 +37,7 @@ public class AdministradorViajes {
 	private VehiculoDAO vehiculoDao;
 	private SeguroDAO seguroDao;
 	private SucursalDAO sucursalDao;
+	private AdministradorCobranzas admCob;
 
 	public static AdministradorViajes getInstance() {
 		if (instance == null)
@@ -48,19 +51,20 @@ public class AdministradorViajes {
 		vehiculoDao = VehiculoDAO.getInstance();
 		seguroDao = SeguroDAO.getInstance();
 		sucursalDao = SucursalDAO.getInstance();
+		admCob = AdministradorCobranzas.getInstance();
 	}
 
 	public Viaje obtenerViaje(Integer codigoViaje) {
 		return viajeDao.get(codigoViaje);
 	}
 
-	public Integer altaViaje(int idVehiculo, int idSeguro, ViajeView viaje) throws Exception {
+	public Viaje altaViaje(int idVehiculo, int idSeguro, ViajeView viaje) throws Exception {
 		Vehiculo v = vehiculoDao.get(idVehiculo);
 		Seguro s = seguroDao.get(idSeguro);
 		if (v != null) {
 			// el seguro puede ser null
 			Viaje vi = new Viaje(v, s, viaje);
-			return vi.getId();
+			return vi;
 		} else {
 			throw new Exception("No existe vehiculo con el ID ingresado.");
 		}
@@ -233,11 +237,9 @@ public class AdministradorViajes {
 	private List<Viaje> obtenerViajesPosibles(Carga carga) throws Exception {
 		List<Viaje> viajes = ViajeDAO.getInstance().getAll();
 		List<Viaje> viajesPosibles = new ArrayList<Viaje>();
-
 		for (Viaje v : viajes) {
-			if (v.puedeTransportar(carga)
-				&& v.tieneTrayecto(carga.getOrigen(), carga.getDestino())
-				&& Utilities.fechaMaximaDeSalida(carga, v).after(new Date())) {
+			if (v.puedeTransportar(carga) && v.tieneTrayecto(carga.getOrigen(), carga.getDestino())
+					&& Utilities.fechaMaximaDeSalida(carga, v).after(new Date())) {
 				viajesPosibles.add(v);
 			}
 		}
@@ -254,7 +256,11 @@ public class AdministradorViajes {
 		Vehiculo vehiculoDisponible = obtenerVehiculoDisponible(c, esInternacional);
 		Seguro seguro = obtenerSeguro(c.getTipo());
 		if (vehiculoDisponible != null && seguro != null) {
-			altaViaje(vehiculoDisponible.getId(), seguro.getId(), vv);
+			Viaje viaje = altaViaje(vehiculoDisponible.getId(), seguro.getId(), vv);
+			// si uso vehiculo externo genera un pago a proveedor
+			if (vehiculoDisponible instanceof VehiculoExterno) {
+				admCob.generarPago(viaje);
+			}
 		} else {
 			throw new Exception("No hay vehiculos o seguros disponibles.");
 		}
@@ -262,42 +268,29 @@ public class AdministradorViajes {
 
 	public Vehiculo obtenerVehiculoDisponible(Carga carga, boolean esInternacional) {
 		Vehiculo veh = null;
-		//	En base al destino se selecciona un vehículo del tipo apropiado
-		//	Si suc != null (destino = sucursal), se selecciona tractor o camión
+		// En base al destino se selecciona un vehículo del tipo apropiado
+		// Si suc != null (destino = sucursal), se selecciona tractor o camión
 		Sucursal suc = sucursalDao.obtenerSucursalDesdeUbicacion(carga.getDestino().getCoordenadaDestino());
-		
 		if (!esInternacional) {
 			for (Vehiculo v : VehiculoDAO.getInstance().obtenerVehiculosLocalesDisponibles()) {
 				if (v.estaDisponible()
-					&& v.esAptoParaCarga(carga)
-					&& (
-							suc == null
-							|| v.getTipo().equals(TipoVehiculo.TRACTOR)
-							|| v.getTipo().equals(TipoVehiculo.CAMION_CON_CAJA)
-							|| v.getTipo().equals(TipoVehiculo.CAMION_CON_TANQUE)
-						)
-					) {
+						&& v.esAptoParaCarga(carga)
+						&& (suc == null || v.getTipo().equals(TipoVehiculo.TRACTOR) || v.getTipo().equals(TipoVehiculo.CAMION_CON_CAJA) || v
+								.getTipo().equals(TipoVehiculo.CAMION_CON_TANQUE))) {
 					veh = v;
 				}
 			}
 		}
-		
 		if (veh == null) {
 			for (Vehiculo v : VehiculoDAO.getInstance().obtenerVehiculosExternosDisponibles()) {
 				if (v.estaDisponible()
-					&& v.esAptoParaCarga(carga)
-					&& (
-							suc == null
-							|| v.getTipo().equals(TipoVehiculo.TRACTOR)
-							|| v.getTipo().equals(TipoVehiculo.CAMION_CON_CAJA)
-							|| v.getTipo().equals(TipoVehiculo.CAMION_CON_TANQUE)
-						)
-					) {
+						&& v.esAptoParaCarga(carga)
+						&& (suc == null || v.getTipo().equals(TipoVehiculo.TRACTOR) || v.getTipo().equals(TipoVehiculo.CAMION_CON_CAJA) || v
+								.getTipo().equals(TipoVehiculo.CAMION_CON_TANQUE))) {
 					veh = v;
 				}
 			}
 		}
-		
 		return veh;
 	}
 
@@ -317,7 +310,7 @@ public class AdministradorViajes {
 		carga.setDestino(destino);
 		return Utilities.invParseDate(fechaProbable(carga));
 	}
-	
+
 	private Date fechaProbable(Carga carga) throws Exception {
 		ViajeOptimo viaje = obtenerViajeOptimo(carga);
 		if (viaje != null) {

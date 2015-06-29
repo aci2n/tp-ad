@@ -1,6 +1,7 @@
 package impl.clientes;
 
 import impl.PersistentObject;
+import impl.cobranzas.Factura;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
