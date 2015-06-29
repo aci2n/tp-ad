@@ -5,6 +5,7 @@ import java.util.List;
 
 import views.cargas.CargaView;
 import views.clientes.EmpresaView;
+import views.clientes.PagoView;
 import views.clientes.ParticularView;
 import views.clientes.ReceptorView;
 import views.misc.SucursalCargaView;
@@ -64,6 +65,8 @@ public interface TDAControladorPrincipal extends Remote {
 	public Integer altaViaje(Integer idVehiculo, Integer idSeguro, ViajeView viaje) throws Exception;
 
 	public SucursalCargaView obtenerSucursalCargaView(Integer idCarga) throws Exception;
-	
+
 	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView carga, boolean esInternacional) throws Exception;
+	
+	public List<PagoView> obtenerPagos() throws Exception;
 }

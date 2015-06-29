@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import persistence.PagoDAO;
+import util.Utilities;
 import views.clientes.PagoView;
 
 @Entity
@@ -82,6 +83,6 @@ public class Pago extends PersistentObject {
 	}
 
 	public PagoView getView() {
-		return new PagoView(proveedor.getView(), monto, fecha, pagado);
+		return new PagoView(proveedor.getView(), monto, Utilities.invParseDate(fecha), pagado);
 	}
 }

@@ -1,24 +1,20 @@
 package views.clientes;
 
-import java.util.Date;
-
 import views.GenericView;
 import views.vehiculos.ProveedorView;
 
-public class PagoView extends GenericView{
-
+public class PagoView extends GenericView {
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private ProveedorView proveedor;
 	private Float monto;
-	private Date fecha;
+	private String fecha;
 	private boolean pagado;
-	
-	public PagoView(){
-		
+
+	public PagoView() {
 	}
-	
-	public PagoView(ProveedorView proveedor, Float monto, Date fecha, boolean pagado){
-		
+
+	public PagoView(ProveedorView proveedor, Float monto, String fecha, boolean pagado) {
 		this.proveedor = proveedor;
 		this.monto = monto;
 		this.fecha = fecha;
@@ -41,11 +37,11 @@ public class PagoView extends GenericView{
 		this.monto = monto;
 	}
 
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 
@@ -64,5 +60,4 @@ public class PagoView extends GenericView{
 	public void setProveedor(ProveedorView proveedor) {
 		this.proveedor = proveedor;
 	}
-	
 }
