@@ -141,7 +141,7 @@ public class Utilities {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("./xml/" + id.toString() + "_" + generateFileName() + ".xml"));
+			StreamResult result = new StreamResult(new File("./xml/" + generateFileName() + "_" + id.toString() + ".xml"));
 			transformer.transform(source, result);
 		} catch (TransformerException e) {
 			e.printStackTrace();

@@ -59,11 +59,11 @@ public class BastaChicos {
 	public static void main(String[] args) {
 		try {
 			controlador = ControladorPrincipal.getInstance();
-			// testAltaCargaLocal();
-			// testAltaCargaInternacional();
-			// testXml();
-			// testCargasMismoViaje();
-			testCargasMismoViajePlus();
+			//testAltaCargaLocal();
+			testAltaCargaInternacional();
+			//testXml();
+			//testCargasMismoViaje();
+			//testCargasMismoViajePlus();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -78,11 +78,8 @@ public class BastaChicos {
 		Empleado empleado = crearEmpleado();
 		CompaniaSeguro companiaSeguro = crearCompaniaSeguro();
 		sucursal.agregarVehiculo(crearVehiculoLocalView(), crearPlanMantenimientoKilometrajeView(), empleado.getId());
-		Ubicacion o = crearUbicacion();
-		Ubicacion d = crearUbicacion();
-		controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(o, d), false);
 		for (int i = 0; i < 30; i++) {
-			controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(o, crearUbicacion()), false);
+			controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(crearUbicacion(), crearUbicacion()), false);
 		}
 	}
 
