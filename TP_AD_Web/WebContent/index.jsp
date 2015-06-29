@@ -29,7 +29,7 @@
 								<ul>
 									<!-- <li><a class="menu-anchor"
 										id="jsp/Clientes/AdministrarClientes" href="">Administración</a></li> -->
-									<li><a id="jsp/Clientes/ListarClientes"
+									<li><a id="jsp/Clientes/ListarClientes.jsp"
 										class="menu-anchor" href="#!">Listar</a></li>
 								</ul>
 							</div></li>
@@ -70,9 +70,9 @@
 							<div class="collapsible-body">
 								<ul>
 									<li><a class="menu-anchor"
-										id="jsp/Productos/AdministrarProductos" href="#!">Administración</a></li>
+										id="jsp/Productos/AdministrarProductos.jsp" href="#!">Administración</a></li>
 									<li><a class="menu-anchor"
-										id="jsp/Productos/ListarProductos" href="#!">Listar</a></li>
+										id="jsp/Productos/ListarProductos.jsp" href="#!">Listar</a></li>
 								</ul>
 							</div></li>
 					</ul>
@@ -98,9 +98,9 @@
 							<div class="collapsible-body">
 								<ul>
 									<li><a class="menu-anchor"
-										id="jsp/Cargas/AdministrarCarga" href="#!">Alta</a></li>
+										id="jsp/Cargas/AdministrarCarga.jsp" href="#!">Alta</a></li>
 									<li><a class="menu-anchor"
-										id="jsp/Cargas/SeguimientoCarga" href="#!">Seguimiento</a></li>
+										id="jsp/Cargas/SeguimientoCarga.jsp" href="#!">Seguimiento</a></li>
 									<li><a href="#!">Listar</a></li>
 								</ul>
 							</div></li>
@@ -112,10 +112,10 @@
 								class="mdi-navigation-arrow-drop-down"></i></a>
 							<div class="collapsible-body">
 								<ul>
-									<li><a class="menu-anchor" id="jsp/Viajes/AdministrarViaje"
+									<li><a class="menu-anchor" id="jsp/Viajes/AdministrarViaje.jsp"
 										href="#!">Administración</a></li>
 									<li><a href="#!">Baja</a></li>
-									<li><a class="menu-anchor" id="jsp/Viajes/ListarViajes" href="#!">Listar</a></li>
+									<li><a class="menu-anchor" id="jsp/Viajes/ListarViajes.jsp" href="#!">Listar</a></li>
 								</ul>
 							</div></li>
 					</ul>
@@ -171,7 +171,7 @@
 
 		$('.menu-anchor').click(function(event) {
 			event.preventDefault();
-			$('#content').load($(this).attr('id') + '.jsp');
+			$('#content').load($(this).attr('id'));
 			$('#title').html($(this).text());
 			$('.button-collapse').sideNav('hide');
 		});

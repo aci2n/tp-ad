@@ -181,6 +181,12 @@ public class ControladorPrincipal extends UnicastRemoteObject implements
 		// creo que esto no se va a usar
 		return null;
 	}
+	
+	public ViajeView obtenerViajeActivo(Integer idChofer) {
+		return administradorViajes.obtenerViajeActivo(idChofer);
+	}
+	
+	//	VEHICULOS
 
 	public void actualizarPrecioVehiculo(Integer id, Float precio)
 			throws Exception {
