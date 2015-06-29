@@ -11,11 +11,14 @@ import impl.sucursales.AdministradorSucursales;
 import impl.sucursales.Sucursal;
 import impl.vehiculos.AdministradorVehiculos;
 import impl.viajes.AdministradorViajes;
+import impl.viajes.Viaje;
 
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import persistence.CargaDAO;
 import persistence.ProductoDAO;
 import rmi.tda.TDAControladorPrincipal;
 import views.cargas.CargaView;
@@ -186,6 +189,12 @@ public class ControladorPrincipal extends UnicastRemoteObject implements
 		return administradorViajes.obtenerViajeActivo(idChofer);
 	}
 	
+	public Date fechaProbableLlegada(Integer idCarga){
+		Carga carga = administradorCargas.obtenerCarga(idCarga);
+		Viaje viaje = administradorViajes.obtenerViajePorCarga(idCarga);
+		return viaje.obtenerLlegadaCarga(carga);
+	}
+	
 	//	VEHICULOS
 
 	public void actualizarPrecioVehiculo(Integer id, Float precio)
@@ -235,6 +244,12 @@ public class ControladorPrincipal extends UnicastRemoteObject implements
 			throw new Exception(
 					"No existe la carga o no se encontro la sucursal asociada a la carga.");
 		}
+	}
+	
+	public void cancelarCarga(Integer idCarga) {
+		Carga carga = administradorCargas.obtenerCarga(idCarga);
+		administradorViajes.removerCarga(carga);
+		CargaDAO.getInstance().delete(carga);
 	}
 
 	// COBRANZAS Y PAGOS

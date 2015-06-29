@@ -286,7 +286,7 @@ public class AdministradorViajes {
 				admCob.generarPago(viaje);
 			}
 			if (esInternacional) {
-				Utilities.saveXml(viaje.getId(), viaje.generarXml());
+//				Utilities.saveXml(viaje.getId(), viaje.generarXml());
 			}
 		} else {
 			throw new Exception("No hay vehiculos o seguros disponibles.");
@@ -367,7 +367,19 @@ public class AdministradorViajes {
 	}
 	
 	public ViajeView obtenerViajeActivo(Integer idChofer) {
-		return viajeDao.getViajeChofer(idChofer).getView();
+		Viaje viaje = viajeDao.getViajeChofer(idChofer);
+		return viaje != null ? viaje.getView() : null;
+	}
+	
+	public Viaje obtenerViajePorCarga(Integer idCarga) {
+		return viajeDao.getViajePorCarga(idCarga);
+	}
+	
+	public void removerCarga(Carga carga) {
+		Viaje viaje = viajeDao.getViajePorCarga(carga.getId());
+		if (viaje != null) {
+			viaje.removerCarga(carga);
+		}
 	}
 	
 }

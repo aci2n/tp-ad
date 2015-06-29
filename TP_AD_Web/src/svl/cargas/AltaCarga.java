@@ -154,7 +154,7 @@ public class AltaCarga extends GenericHttpServlet {
 			String tipoCarga = request.getParameter("tipoCarga");
 			Integer idCliente = request.getParameter("cuit") != null ? Integer.parseInt(request.getParameter("cuit")) : null;
 			Integer idSucOrigen = request.getParameter("idSucursalOrigen") != null ? Integer.parseInt(request.getParameter("idSucursalOrigen")) : null;
-			Date fechaMax = request.getParameter("fechaMaxEntrega") != null ? Utilities.parseDate(request.getParameter("fechaMaxEntrega")) : null;
+			Date fechaMax = request.getParameter("fechaMaxEntrega") != null ? Utilities.parseWebDate(request.getParameter("fechaMaxEntrega")) : null;
 			String manifiesto = request.getParameter("manifiesto");
 			Boolean retira = request.getParameter("retira") != null ? Boolean.parseBoolean(request.getParameter("retira")) : null;
 			Integer idSucDestino = request.getParameter("idSucursalDestino") != null ? Integer.parseInt(request.getParameter("idSucursalDestino")) : null;
@@ -198,7 +198,12 @@ public class AltaCarga extends GenericHttpServlet {
 			
 			CargaView carga = new CargaView(tipoCarga, Utilities.invParseDate(fechaMax), null, manifiesto, null, destino, null, productos, retira);
 			
-			ControladorPrincipal.getInstance().altaCarga(idSucOrigen, idCliente, carga, !local);
+			Integer id = ControladorPrincipal.getInstance().altaCarga(idSucOrigen, idCliente, carga, !local);
+			String fechaProbable = Utilities.invParseDate(ControladorPrincipal.getInstance().fechaProbableLlegada(id));
+			request.setAttribute("idCarga", id);
+			request.setAttribute("fechaProbable", fechaProbable);
+			
+			forwardJsp(request, response, "/jsp/Cargas/Confirmar.jsp");
 		} catch (Exception e) {
 			e.printStackTrace();
 			forwardError(request, response);
