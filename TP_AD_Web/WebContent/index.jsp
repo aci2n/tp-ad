@@ -21,21 +21,21 @@
 			<ul id="slide-out" class="side-nav">
 				<li class="pink inactive">Navegación</li>
 				<li><a class="menu-anchor" href="Inicio">Inicio</a></li>
-				<!-- <li class="no-padding">
+				<li class="no-padding">
 					<ul class="collapsible collapsible-accordion">
 						<li><a class="collapsible-header">Clientes<i
 								class="mdi-navigation-arrow-drop-down"></i></a>
 							<div class="collapsible-body">
 								<ul>
-									<li><a class="menu-anchor"
-										id="jsp/Clientes/AdministrarClientes" href="">Administración</a></li>
+									<!-- <li><a class="menu-anchor"
+										id="jsp/Clientes/AdministrarClientes" href="">Administración</a></li> -->
 									<li><a id="jsp/Clientes/ListarClientes"
 										class="menu-anchor" href="#!">Listar</a></li>
 								</ul>
 							</div></li>
 					</ul>
 				</li>
-				<li class="no-padding">
+				<!--<li class="no-padding">
 					<ul class="collapsible collapsible-accordion">
 						<li><a class="collapsible-header">Empleados<i
 								class="mdi-navigation-arrow-drop-down"></i></a>
@@ -71,7 +71,8 @@
 								<ul>
 									<li><a class="menu-anchor"
 										id="jsp/Productos/AdministrarProductos" href="#!">Administración</a></li>
-									<li><a href="#!">Listar</a></li>
+									<li><a class="menu-anchor"
+										id="jsp/Productos/ListarProductos" href="#!">Listar</a></li>
 								</ul>
 							</div></li>
 					</ul>
