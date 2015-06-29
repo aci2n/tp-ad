@@ -22,6 +22,8 @@ import impl.vehiculos.Proveedor;
 import impl.vehiculos.TipoVehiculo;
 import impl.vehiculos.VehiculoLocal;
 import impl.viajes.CompaniaSeguro;
+import impl.viajes.ParadaIntermedia;
+import impl.viajes.Viaje;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -57,13 +59,48 @@ public class BastaChicos {
 	public static void main(String[] args) {
 		try {
 			controlador = ControladorPrincipal.getInstance();
-			testAltaCargaLocal();
-			testAltaCargaInternacional();
-			testXml();
+			//testAltaCargaLocal();
+			//testAltaCargaInternacional();
+			//testXml();
+			//testCargasMismoViaje();
+			testCargasMismoViajePlus();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			System.exit(0);
+		}
+	}
+
+	private static void testCargasMismoViajePlus() throws Exception {
+		System.out.println("/* ALTA CARGAS MISMO VIAJE PLUS */");
+		Particular particular = crearParticular();
+		Sucursal sucursal = crearSucursal();
+		Empleado empleado = crearEmpleado();
+		CompaniaSeguro companiaSeguro = crearCompaniaSeguro();
+		sucursal.agregarVehiculo(crearVehiculoLocalView(), crearPlanMantenimientoKilometrajeView(), empleado.getId());
+		Ubicacion o = crearUbicacion();
+		Ubicacion d = crearUbicacion();
+		controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(o, d), false);
+		Ubicacion o1 = crearUbicacion();
+		Ubicacion d1 = crearUbicacion();
+		Viaje v = ViajeDAO.getInstance().getUltimoViaje();
+		v.agregarParadaIntermedia(new ParadaIntermedia(d1, new Date()));
+		for (int i = 0; i < 30; i++) {
+			controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(o, d1), false);
+		}
+	}
+
+	private static void testCargasMismoViaje() throws Exception {
+		System.out.println("/* ALTA CARGAS MISMO VIAJE */");
+		Particular particular = crearParticular();
+		Sucursal sucursal = crearSucursal();
+		Empleado empleado = crearEmpleado();
+		CompaniaSeguro companiaSeguro = crearCompaniaSeguro();
+		sucursal.agregarVehiculo(crearVehiculoLocalView(), crearPlanMantenimientoKilometrajeView(), empleado.getId());
+		Ubicacion o = crearUbicacion();
+		Ubicacion d = crearUbicacion();
+		for (int i = 0; i < 30; i++) {
+			controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(o, d), false);
 		}
 	}
 
@@ -117,6 +154,16 @@ public class BastaChicos {
 		}
 		CargaView cv = new CargaView(TipoCarga.BIDON.toString(), Utilities.invParseDate(new Date()), Utilities.invParseDate(new Date()),
 				randomString(), crearUbicacion().getView(), crearUbicacion().getView(), EstadoCarga.EN_DEPOSITO.toString(), p, true);
+		return cv;
+	}
+
+	private static CargaView crearCargaViewConUbicaciones(Ubicacion o, Ubicacion d) {
+		Collection<ItemProductoView> p = new ArrayList<ItemProductoView>();
+		for (int i = 0; i < 1; i++) {
+			p.add(new ItemProductoView(crearProductoView(), (float) randomInteger()));
+		}
+		CargaView cv = new CargaView(TipoCarga.BIDON.toString(), Utilities.invParseDate(new Date()), Utilities.invParseDate(new Date()),
+				randomString(), o.getView(), d.getView(), EstadoCarga.EN_DEPOSITO.toString(), p, true);
 		return cv;
 	}
 
