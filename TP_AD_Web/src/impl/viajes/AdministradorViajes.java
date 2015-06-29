@@ -201,10 +201,10 @@ public class AdministradorViajes {
 		}
 	}
 
-	public Integer agregarParadaIntermediaAViaje(int id, ParadaIntermediaView p) throws Exception {
+	public void agregarParadaIntermediaAViaje(int id, ParadaIntermediaView p) throws Exception {
 		Viaje v = viajeDao.get(id);
 		if (v != null) {
-			return v.agregarParadaIntermedia(p);
+			v.agregarParadaIntermedia(p);
 		} else {
 			throw new Exception("No existe viaje con el id ingresado.");
 		}
@@ -249,7 +249,7 @@ public class AdministradorViajes {
 		List<Viaje> viajesPosibles = new ArrayList<Viaje>();
 		for (Viaje v : viajes) {
 			if (v.puedeTransportar(carga) && v.tieneTrayecto(carga.getOrigen(), carga.getDestino())
-					&& Utilities.fechaMaximaDeSalida(carga, v).after(new Date())) {
+					&& Utilities.fechaMaximaDeSalida(carga, v).before(new Date())) {
 				viajesPosibles.add(v);
 			}
 		}
