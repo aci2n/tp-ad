@@ -191,8 +191,12 @@ public class Carga extends PersistentObject {
 	}
 
 	public CargaView getView() {
+		Collection<ItemProductoView> p = new ArrayList<ItemProductoView>();
+		for (ItemProducto ip : productos) {
+			p.add(new ItemProductoView(ip.getProducto().getView(), ip.getCantidad()));
+		}
 		CargaView view = new CargaView(tipo.toString(), fechaMaximaEntrega.toString(), fechaProbableEntrega.toString(), manifiesto, origen.getView(),
-				destino.getView(), estadoCarga.toString(), id);
+				destino.getView(), estadoCarga.toString(), p);
 		return view;
 	}
 }

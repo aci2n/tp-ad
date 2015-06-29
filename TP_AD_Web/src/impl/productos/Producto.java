@@ -31,47 +31,35 @@ public class Producto extends PersistentObject {
 	 */
 	private static final long serialVersionUID = 2506118120974790841L;
 	private static final String[] materialesRestringidos = { "Material1", "Material2", "Material3" };
-
 	@Column(name = "nombre")
 	private String nombre;
-
 	@Column(name = "tipo_fragilidad")
 	@Enumerated(value = EnumType.STRING)
 	private TipoFragilidad fragilidad;
-
 	@Column(name = "tipo_tratamiento")
 	@Enumerated(value = EnumType.STRING)
 	private TipoTratamiento tratamiento;
-
 	@Embedded
 	private Tamano tamano;
-
 	@Column(name = "peso")
 	private Float peso;
-
 	@Column(name = "apilable")
 	private Integer apilable;
-
 	@Column(name = "manipulacion")
 	private String manipulacion;
-
 	@Column(name = "material")
 	private String material;
-
 	@Column(name = "consideraciones")
 	private String consideraciones;
-
 	@ElementCollection(targetClass = CondicionEspecial.class)
 	@CollectionTable(name = "Productos_CondicionesEspeciales", joinColumns = @JoinColumn(name = "id_producto"))
 	@Column(name = "condicion_especial")
 	@Enumerated(EnumType.STRING)
 	private List<CondicionEspecial> condicionesEspeciales;
-
 	@Column(name = "refrigerada")
 	private boolean refrigerada;
 
 	public Producto() {
-
 	}
 
 	public Producto(ProductoView p) {
@@ -192,8 +180,10 @@ public class Producto extends PersistentObject {
 
 	private Float calcularFactorCondicionesEspeciales() {
 		Float total = 0f;
-		for (CondicionEspecial ce : condicionesEspeciales) {
-			total += ce.getFactorCondicion();
+		if (condicionesEspeciales != null) {
+			for (CondicionEspecial ce : condicionesEspeciales) {
+				total += ce.getFactorCondicion();
+			}
 		}
 		return total;
 	}
@@ -211,9 +201,11 @@ public class Producto extends PersistentObject {
 	}
 
 	private boolean tieneCondicionEspecial(CondicionEspecial c) {
-		for (CondicionEspecial ce : condicionesEspeciales)
-			if (c.equals(ce))
-				return true;
+		if (condicionesEspeciales != null) {
+			for (CondicionEspecial ce : condicionesEspeciales)
+				if (c.equals(ce))
+					return true;
+		}
 		return false;
 	}
 
@@ -229,7 +221,6 @@ public class Producto extends PersistentObject {
 	public ProductoView getView() {
 		return new ProductoView(nombre, fragilidad.toString(), tratamiento.toString(), tamano.getView(), peso, apilable, manipulacion, material,
 				consideraciones, refrigerada);
-
 	}
 
 	public static boolean esMaterialPermitido(String material) {
@@ -239,12 +230,11 @@ public class Producto extends PersistentObject {
 		}
 		return true;
 	}
-	
+
 	public boolean aptoParaVehiculo(Vehiculo v) {
 		if (tieneCondicionEspecial(CondicionEspecial.TEMPERATURA)) {
 			return v.getTipo().equals(TipoVehiculo.CAMION_CON_CAJA_REFRIGERADO);
 		}
 		return true;
 	}
-	
 }

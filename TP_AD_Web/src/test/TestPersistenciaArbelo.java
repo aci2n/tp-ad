@@ -1,4 +1,4 @@
-package test;
+/*package test;
 
 import impl.cargas.Carga;
 import impl.cargas.EstadoCarga;
@@ -226,3 +226,4 @@ public class TestPersistenciaArbelo {
 		return sucursalB;
 	}
 }
+*/

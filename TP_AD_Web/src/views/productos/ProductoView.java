@@ -29,6 +29,10 @@ public class ProductoView extends GenericView{
 		this.refrigerada = refrigerada;
 	}
 
+	public ProductoView() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getNombre() {
 		return nombre;
 	}

@@ -11,6 +11,10 @@ public class PlanMantenimientoView extends GenericView{
 		this.tipoPlan = tipoPlan;
 	}
 
+	public PlanMantenimientoView() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getTipoPlan() {
 		return tipoPlan;
 	}

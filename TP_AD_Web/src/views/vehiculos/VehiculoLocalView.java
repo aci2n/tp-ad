@@ -2,7 +2,6 @@ package views.vehiculos;
 
 import views.GenericView;
 import views.misc.TamanoView;
-import views.personal.EmpleadoView;
 
 
 public class VehiculoLocalView extends GenericView{
@@ -24,6 +23,10 @@ public class VehiculoLocalView extends GenericView{
 		this.tipo = tipo;
 		this.vencimientoGarantia = vencimientoGarantia;
 		this.idEmpleado = idEmpleado;
+	}
+
+	public VehiculoLocalView() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getPatente() {

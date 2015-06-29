@@ -1,6 +1,5 @@
 package views.cargas;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import views.GenericView;
@@ -10,7 +9,7 @@ import views.productos.ItemProductoView;
 public class CargaView extends GenericView {
 
 	private static final long serialVersionUID = 1L;
-	private int id;
+	//private int id;
 	private Collection<ItemProductoView> productos;
 	// private Cliente cliente;
 	private UbicacionView origen;
@@ -21,12 +20,8 @@ public class CargaView extends GenericView {
 	private String fechaProbableEntrega;
 	private String manifiesto;
 
-	public CargaView() {
-
-	}
-
 	public CargaView(String tipoCarga, String fechaMaximaEntrega, String fechaProbableEntrega, String manifiesto, UbicacionView origen,
-			UbicacionView destino, String estadoCarga, Integer id) {
+			UbicacionView destino, String estadoCarga, Collection<ItemProductoView> productos) {
 		this.tipo = tipoCarga;
 		this.fechaMaximaEntrega = fechaMaximaEntrega;
 		this.fechaProbableEntrega = fechaProbableEntrega;
@@ -34,8 +29,8 @@ public class CargaView extends GenericView {
 		this.origen = origen;
 		this.destino = destino;
 		this.estadoCarga = estadoCarga;
-		this.id = id;
-		this.productos = new ArrayList<ItemProductoView>();
+		//this.id = id;
+		this.productos = productos;
 	}
 
 	public Collection<ItemProductoView> getProductos() {
@@ -46,13 +41,13 @@ public class CargaView extends GenericView {
 		this.productos = productos;
 	}
 
-	public int getId() {
+	/*public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
-	}
+	}*/
 
 	public UbicacionView getOrigen() {
 		return origen;

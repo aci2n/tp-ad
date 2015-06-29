@@ -155,14 +155,14 @@ create table Tareas(
 create table Vehiculos(
 	
 	id_vehiculo int identity not null,
-	patente varchar(10),
+	patente varchar(50),
 	peso float,
 	tara float, 
 	tarifa float, 
 	ancho float,
 	alto float,
 	profundidad float,
- 	tipo varchar(20),
+ 	tipo varchar(50),
 	
 	constraint pk_vehiculo primary key(id_vehiculo)
 )
