@@ -15,7 +15,7 @@ public class Menu extends JFrame implements ActionListener {
 
 	private JMenuItem miActualizarPrecioVehiculo, miAgregarParadaIntermedia, miAgregarSeguro, miAgregarTarea, miAltaCompaniaSeguro, miAltaEmpleado,
 			miAltaProveedor, miAltaSucursal, miAltaVehiculoExterno, miBajaEmpleado, miListarCompaniasSeguro, miListarPagos, miRealizarCobroParcial,
-			miRealizarPago;
+			miRealizarPago, miAltaVehiculoLocal;
 
 	public Menu() {
 		componentes();
@@ -40,6 +40,7 @@ public class Menu extends JFrame implements ActionListener {
 		addMenuItem(mVehiculos, miAltaVehiculoExterno, "Alta Vehiculo Externo");
 		addMenuItem(mVehiculos, miActualizarPrecioVehiculo, "Actualizar Precio Vehiculo");
 		addMenuItem(mVehiculos, miAgregarTarea, "Agregar Tarea");
+		addMenuItem(mVehiculos, miAltaVehiculoLocal, "Alta Vehiculo Local");
 
 		JMenu mViajes = addMenu(bar, "Viajes");
 		addMenuItem(mViajes, miAgregarParadaIntermedia, "Agregar Parada Intermedia");
@@ -130,6 +131,9 @@ public class Menu extends JFrame implements ActionListener {
 			break;
 		case "Agregar Parada Intermedia":
 			frame = new AgregarParadaIntermedia();
+			break;
+		case "Alta Vehiculo Local":
+			frame = new AltaVehiculoLocal();
 			break;
 		}
 		if (frame != null) {
