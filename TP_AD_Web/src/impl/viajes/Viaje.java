@@ -133,7 +133,7 @@ public class Viaje extends PersistentObject {
 		if (paradasIntermedias.size() > 1) {
 			paradasIntermedias = Utilities.ordenarParadasIntermedias(origen, paradasIntermedias);
 		}
-		for (int i = 1; i < paradasIntermedias.size(); i++) {
+		for (int i = 0; i < paradasIntermedias.size(); i++) {
 			ParadaIntermedia p = paradasIntermedias.get(i);
 			p.setOrden(i);
 			ViajeDAO.getInstance().update(p);
