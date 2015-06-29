@@ -248,6 +248,8 @@ public class AdministradorViajes {
 		List<Viaje> viajes = ViajeDAO.getInstance().getAll();
 		List<Viaje> viajesPosibles = new ArrayList<Viaje>();
 		for (Viaje v : viajes) {
+			// TODO logica para auto generar parada intermedia
+			
 			if (v.puedeTransportar(carga) && v.tieneTrayecto(carga.getOrigen(), carga.getDestino())
 					&& Utilities.fechaMaximaDeSalida(carga, v).before(new Date())) {
 				viajesPosibles.add(v);
