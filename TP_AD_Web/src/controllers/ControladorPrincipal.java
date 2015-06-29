@@ -164,11 +164,10 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	public List<CompaniaSeguroView> getCompaniasSeguroView() {
 		return administradorViajes.obtenerCompaniasSeguroView();
 	}
-	
-	public List<ViajeView> obtenerViajesView(){
-		
+
+	public List<ViajeView> obtenerViajesView() {
 		List<ViajeView> viajes = new ArrayList<ViajeView>();
-		for(Viaje v : ViajeDAO.getInstance().getAll()){
+		for (Viaje v : ViajeDAO.getInstance().getAll()) {
 			ViajeView view = v.getView();
 			view.setId(v.getId());
 			viajes.add(view);
@@ -202,14 +201,5 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 
 	public List<CuentaCorrienteView> obtenerCuentasCorrientes() {
 		return administradorCobranzas.obtenerCuentasCorrientes();
-	}
-
-	// ENUMS
-	public List<String> getValuesTipoPuesto() {
-		List<String> enums = new ArrayList<String>();
-		for (TipoPuesto t : TipoPuesto.values()) {
-			enums.add(t.toString());
-		}
-		return enums;
 	}
 }

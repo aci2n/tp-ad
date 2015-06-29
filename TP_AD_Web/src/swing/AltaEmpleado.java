@@ -1,5 +1,7 @@
 package swing;
 
+import impl.personal.TipoPuesto;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -62,8 +64,9 @@ public class AltaEmpleado extends GenericJFrame {
 				panelCentro.add(textFields[i]);
 			}
 			comboPuestos = new JComboBox<String>();
-			for (String s : BusinessDelegate.getInstance().getInterfaz().getValuesTipoPuesto())
-				comboPuestos.addItem(s);
+			for (TipoPuesto t : TipoPuesto.values()) {
+				comboPuestos.addItem(t.toString());
+			}
 			panelCentro.add(new JLabel("Puesto"));
 			panelCentro.add(comboPuestos);
 			contentPane.add(panelCentro, BorderLayout.CENTER);
