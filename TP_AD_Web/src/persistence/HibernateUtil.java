@@ -79,6 +79,7 @@ public class HibernateUtil {
 			config.addAnnotatedClass(PlanMantenimiento.class);
 			config.addAnnotatedClass(SeguimientoCarga.class);
 			config.addAnnotatedClass(SeguimientoViaje.class);
+			config.addAnnotatedClass(SeguimientoCarga.class);
 			serviceRegistry = new StandardServiceRegistryBuilder()
 					.applySettings(config.getProperties()).build();
 			sessionFactory = config.buildSessionFactory(serviceRegistry);

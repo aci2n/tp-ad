@@ -1,5 +1,7 @@
 package impl.viajes;
 
+import impl.PersistentObject;
+
 import java.util.Date;
 
 import javax.persistence.AttributeOverride;
@@ -13,8 +15,8 @@ import views.viajes.SeguimientoViajeView;
 
 @Entity
 @Table(name = "SeguimientoViajes")
-@AttributeOverride(name = "id", column = @Column(name = "id"))
-public class SeguimientoViaje {
+@AttributeOverride(name = "id", column = @Column(name = "id_seguimientoViaje"))
+public class SeguimientoViaje extends PersistentObject{
 
 	@ManyToOne
 	@JoinColumn(name = "id_viaje")
