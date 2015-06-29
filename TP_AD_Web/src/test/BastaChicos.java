@@ -29,6 +29,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import org.w3c.dom.Document;
+
 import persistence.ClienteDAO;
 import persistence.CompaniaSeguroDAO;
 import persistence.EmpleadoDAO;
@@ -37,6 +39,7 @@ import persistence.ProveedorDAO;
 import persistence.SucursalDAO;
 import persistence.UbicacionDAO;
 import persistence.VehiculoDAO;
+import persistence.ViajeDAO;
 import util.Utilities;
 import views.cargas.CargaView;
 import views.productos.ItemProductoView;
@@ -54,13 +57,25 @@ public class BastaChicos {
 	public static void main(String[] args) {
 		try {
 			controlador = ControladorPrincipal.getInstance();
-			testAltaCargaLocal();
-			testAltaCargaInternacional();
+			for (int i = 0; i < 100; i++) {
+				try {
+					testAltaCargaLocal();
+					testAltaCargaInternacional();
+				} catch (Exception e) {
+				}
+			}
+			// testXml();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			System.exit(0);
 		}
+	}
+
+	private static void testXml() throws Exception {
+		Document doc = ViajeDAO.getInstance().getUltimoViaje().generarXml();
+		Utilities.printXml(doc);
+		// Utilities.saveXml(doc);
 	}
 
 	private static void testAltaCargaLocal() throws Exception {
@@ -174,6 +189,14 @@ public class BastaChicos {
 		return t;
 	}
 
+	private static Tamano crearTamanoPlus() {
+		Tamano t = new Tamano();
+		t.setAlto((float) randomInteger() * 1000);
+		t.setAncho((float) randomInteger() * 1000);
+		t.setProfundidad((float) randomInteger() * 1000);
+		return t;
+	}
+
 	private static Ubicacion crearUbicacion() {
 		Ubicacion u = new Ubicacion();
 		u.setAltura(randomString());
@@ -282,8 +305,8 @@ public class BastaChicos {
 	private static VehiculoExternoView crearVehiculoExternoView() {
 		VehiculoExternoView v = new VehiculoExternoView();
 		v.setPatente(randomString());
-		v.setPeso((float) randomInteger());
-		v.setTamano(crearTamano().getView());
+		v.setPeso((float) randomInteger() * 10000);
+		v.setTamano(crearTamanoPlus().getView());
 		v.setTara((float) randomInteger());
 		v.setTarifa((float) randomInteger());
 		v.setTipo(TipoVehiculo.CARRIER.toString());

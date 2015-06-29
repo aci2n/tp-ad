@@ -172,7 +172,7 @@ public class AltaCarga extends GenericHttpServlet {
 			if (request.getParameter("productos") != null) {
 				Gson gson = new Gson();
 				Type tipo = new TypeToken<List<ItemProductoJson>>(){}.getType();
-				productosJson = gson.fromJson((String) request.getAttribute("productos"), tipo);
+				productosJson = gson.fromJson((String) request.getParameter("productos"), tipo);
 			}
 			
 			UbicacionView destino = null;

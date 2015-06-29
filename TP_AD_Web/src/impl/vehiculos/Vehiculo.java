@@ -106,6 +106,8 @@ public abstract class Vehiculo extends PersistentObject {
 	}
 	
 	public boolean esAptoParaCarga(Carga c) {
+		if (c.calcularPesoTotal() > peso || c.calcularVolumenTotal() > tamano.calcularVolumen())
+			return false;
 		for (ItemProducto item : c.getProductos()) {
 			if (!item.getProducto().aptoParaVehiculo(this))
 				return false;
