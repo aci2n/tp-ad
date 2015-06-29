@@ -58,6 +58,8 @@ public class Carga extends PersistentObject {
 	private Date fechaProbableEntrega;
 	@Column(name = "manifiesto")
 	private String manifiesto;
+	@Column(name = "retira_por_sucursal")
+	private boolean retiraPorSucursal;
 
 	public Carga() {
 		productos = new ArrayList<ItemProducto>();
@@ -72,6 +74,7 @@ public class Carga extends PersistentObject {
 		destino = new Ubicacion(c.getDestino());
 		estadoCarga = EstadoCarga.valueOf(c.getEstadoCarga());
 		cliente = cli;
+		retiraPorSucursal = c.isRetiraPorSucursal();
 		productos = new ArrayList<ItemProducto>();
 		for (ItemProductoView ipv : c.getProductos()) {
 			productos.add(new ItemProducto(ipv));
@@ -166,6 +169,14 @@ public class Carga extends PersistentObject {
 		this.estadoCarga = estadoCarga;
 	}
 
+	public boolean isRetiraPorSucursal() {
+		return retiraPorSucursal;
+	}
+
+	public void setRetiraPorSucursal(boolean retiraPorSucursal) {
+		this.retiraPorSucursal = retiraPorSucursal;
+	}
+
 	public Float calcularCosto() {
 		// uso $60 como costo base
 		return 60f * calcularFactorProductos() * calcularFactorDistancia();
@@ -196,7 +207,7 @@ public class Carga extends PersistentObject {
 			p.add(new ItemProductoView(ip.getProducto().getView(), ip.getCantidad()));
 		}
 		CargaView view = new CargaView(tipo.toString(), fechaMaximaEntrega.toString(), fechaProbableEntrega.toString(), manifiesto, origen.getView(),
-				destino.getView(), estadoCarga.toString(), p);
+				destino.getView(), estadoCarga.toString(), p, retiraPorSucursal);
 		return view;
 	}
 }
