@@ -12,6 +12,10 @@
 	<form id="altaProducto">
 		<table>
 			<tr>
+				<td>Cantidad:</td>
+				<td><input type="number" name="cantidad"></td>
+			</tr>
+			<tr>
 				<td>Nombre:</td>
 				<td><input type="text" name="nombre"></td>
 			</tr>
@@ -90,6 +94,7 @@
 	
 	<table id="productos" class="responsive-table hoverable" style="display: none">
 		<thead>
+			<th data-field="cantidad">Cantidad</th>
 			<th data-field="nombre">Nombre</th>
 			<th data-field="fragilidad">Fragilidad</th>
             <th data-field="tratamiento">Tratamiento</th>
@@ -160,7 +165,6 @@
 		
 		function renderProd(prod) {
 			var td = $('<td>');
-			td.append($('<input>').attr('name', 'cantidad').attr('type', 'number').val(1));
 			td.append(prod.value);
 			
 			var hidden = $('<input>');
