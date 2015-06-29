@@ -48,43 +48,6 @@
 			$('#submitButton').click(function() {
 				$('#finalizarCarga').submit();	
 			});
-			$('#finalizarCarga').submit(function(event) {
-				event.preventDefault();
-				$.ajax({
-					url: $(this).attr('action'),
-					data: $(this).serializeArray(),
-					success: function(data) {
-						$('#modal1').html(data);
-						$('#modal1').openModal({
-							ready: function() {
-								$('html').one('click', function(event) {
-									if (!$(event.target).is('#submitForReal')) {
-										$.ajax({
-											url: 'cancelarCarga',
-											type: 'POST',
-											data: {
-												idCarga: $('#idCarga').val()
-											},
-											success: function() {
-												Materialize.toast('Carga cancelada', 6000);
-											}
-										});
-									} else {
-										Materialize.toast('Carga añadida', 6000);
-									}
-								});
-							}
-						});
-					}
-				});
-			});
-			$('.modal-trigger').leanModal({
-				ready: function() {
-					$('#submitForReal').click(function() {
-						
-					});
-				}
-			});
 		});
 
 		$('.datepicker').pickadate({
@@ -127,10 +90,30 @@
 				url: $(this).attr('action'),
 				data: data,
 				type: 'GET',
-				success: function() {
-					Materialize.toast('Carga dada de alta', 4000);
+				success: function(data) {
 					_productos = [];
 					$('#productos tbody').html('');
+					$('#modal1').html(data);
+					$('#modal1').openModal({
+						ready: function() {
+							$('html').one('click', function(event) {
+								if (!$(event.target).is('#submitForReal')) {
+									$.ajax({
+										url: 'cancelarCarga',
+										type: 'POST',
+										data: {
+											idCarga: $('#idCarga').val()
+										},
+										success: function() {
+											Materialize.toast('Carga cancelada', 6000);
+										}
+									});
+								} else {
+									Materialize.toast('Carga añadida', 6000);
+								}
+							});
+						}
+					});
 				}
 			});
 			
