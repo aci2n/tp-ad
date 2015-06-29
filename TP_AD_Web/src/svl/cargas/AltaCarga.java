@@ -1,7 +1,5 @@
 package svl.cargas;
 
-import impl.cargas.TipoCarga;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -194,7 +192,7 @@ public class AltaCarga extends GenericHttpServlet {
 			} 
 
 			
-			CargaView carga = new CargaView(tipoCarga, Utilities.invParseDate(fechaMax), null, manifiesto, null, destino, null, productos);
+			CargaView carga = new CargaView(tipoCarga, Utilities.invParseDate(fechaMax), null, manifiesto, null, destino, null, productos, retira);
 			
 			ControladorPrincipal.getInstance().altaCarga(idSucOrigen, idCliente, carga, !local);
 		} catch (Exception e) {
