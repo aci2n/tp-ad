@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import svl.GenericHttpServlet;
 
-@WebServlet("/jsp/Clientes/AgregarReceptor")
+@WebServlet("/altaCarga")
 public class AltaCarga extends GenericHttpServlet {
 
 	/**
