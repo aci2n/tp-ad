@@ -44,7 +44,7 @@ public class VehiculoLocal extends Vehiculo {
 		peso = v.getPeso();
 		tara = v.getTara();
 		tarifa = v.getTarifa();
-		tipo = TipoVehiculo.valueOf(v.getTipo());
+		tipo = TipoVehiculo.obtenerPorTipo(v.getTipo());
 		vencimientoGarantia = Utilities.parseDate(v.getVencimientoGarantia());
 		planMantenimiento = procesarPlanMantenimiento(p);
 		empleado = EmpleadoDAO.getInstance().get(idEmpleado);

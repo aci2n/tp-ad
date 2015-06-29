@@ -15,4 +15,12 @@ public enum EstadoCarga {
 	public String getEstado() {
 		return estado;
 	}	
+	
+	public static EstadoCarga obtenerPorEstado(String estado) {
+		for (EstadoCarga e : values()) {
+			if (e.estado.equalsIgnoreCase(estado))
+				return e;
+		}
+		return null;
+	}
 }

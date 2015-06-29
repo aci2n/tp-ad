@@ -66,13 +66,13 @@ public class Carga extends PersistentObject {
 	}
 
 	public Carga(CargaView c, Cliente cli) {
-		tipo = TipoCarga.valueOf(c.getTipo());
+		tipo = TipoCarga.obtenerPorTipo(c.getTipo());
 		fechaMaximaEntrega = Utilities.parseDate(c.getFechaMaximaEntrega());
 		fechaProbableEntrega = Utilities.parseDate(c.getFechaProbableEntrega());
 		manifiesto = c.getManifiesto();
 		origen = new Ubicacion(c.getOrigen());
 		destino = new Ubicacion(c.getDestino());
-		estadoCarga = EstadoCarga.valueOf(c.getEstadoCarga());
+		estadoCarga = c.getEstadoCarga() != null ? EstadoCarga.valueOf(c.getEstadoCarga()) : EstadoCarga.EN_DEPOSITO;
 		cliente = cli;
 		retiraPorSucursal = c.isRetiraPorSucursal();
 		productos = new ArrayList<ItemProducto>();

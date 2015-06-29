@@ -32,7 +32,7 @@ public class VehiculoExterno extends Vehiculo {
 		tara = v.getTara();
 		tarifa = v.getTarifa();
 		proveedor = p;
-		tipo = TipoVehiculo.valueOf(v.getTipo());
+		tipo = TipoVehiculo.obtenerPorTipo(v.getTipo());
 		id = SucursalDAO.getInstance().insert(this);
 	}
 
