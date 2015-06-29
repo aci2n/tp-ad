@@ -129,17 +129,31 @@ public class Viaje extends PersistentObject {
 	public void agregarParadaIntermedia(ParadaIntermedia parada) {
 		if (paradasIntermedias == null)
 			paradasIntermedias = new ArrayList<ParadaIntermedia>();
-		paradasIntermedias.add(parada);
-		if (paradasIntermedias.size() > 1) {
-			paradasIntermedias = Utilities.ordenarParadasIntermedias(origen, paradasIntermedias);
-		}
+		if (!tieneParada(parada)) {
+			paradasIntermedias.add(parada);
+			if (paradasIntermedias.size() > 1) {
+				paradasIntermedias = Utilities.ordenarParadasIntermedias(origen, paradasIntermedias);
+			}
 
-		for (int i = 0; i < paradasIntermedias.size(); i++) {
-			ParadaIntermedia p = paradasIntermedias.get(i);
-			p.setOrden(i);
-			ViajeDAO.getInstance().update(p);
+			for (int i = 0; i < paradasIntermedias.size(); i++) {
+				ParadaIntermedia p = paradasIntermedias.get(i);
+				p.setOrden(i);
+				ViajeDAO.getInstance().update(p);
+			}
+			ViajeDAO.getInstance().update(this);
+		} else {
+			// no es lo mas bonito pero evita duplicados
+			ViajeDAO.getInstance().delete(parada);
 		}
-		ViajeDAO.getInstance().update(this);
+	}
+
+	private boolean tieneParada(ParadaIntermedia parada) {
+		for (ParadaIntermedia pi : paradasIntermedias) {
+			if (parada.getUbicacion().tieneMismasCoordenadas(pi.getUbicacion())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public float calcularPesoDisponible() {

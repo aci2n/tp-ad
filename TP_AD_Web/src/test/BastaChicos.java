@@ -84,7 +84,7 @@ public class BastaChicos {
 		Ubicacion o1 = crearUbicacion();
 		Ubicacion d1 = crearUbicacion();
 		Viaje v = ViajeDAO.getInstance().getUltimoViaje();
-		//v.agregarParadaIntermedia(new ParadaIntermedia(d1, new Date()));
+		v.agregarParadaIntermedia(new ParadaIntermedia(d1, new Date()));
 		for (int i = 0; i < 30; i++) {
 			controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(o, d1), false);
 		}
