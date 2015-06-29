@@ -26,7 +26,7 @@ public class AltaVehiculoExterno extends GenericHttpServlet {
 		String tipo = request.getParameter("tipo");
 		String peso = request.getParameter("peso");
 		try {
-			TamanoView t = new TamanoView(Float.parseFloat(profundidad), Float.parseFloat(alto), Float.parseFloat(ancho));
+			TamanoView t = new TamanoView(Float.parseFloat(alto), Float.parseFloat(ancho), Float.parseFloat(profundidad));
 			VehiculoExternoView v = new VehiculoExternoView(patente, t, Float.parseFloat(peso), Float.parseFloat(tara), Float.parseFloat(tarifa), tipo);
 			Integer i = delegate.getInterfaz().altaVehiculoExterno(Integer.parseInt(id), v);
 			forwardGenerico(request, response, "Vehiculo externo agregado exitosamente con id: " + i + ".");

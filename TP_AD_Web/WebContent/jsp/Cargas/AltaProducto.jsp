@@ -1,3 +1,4 @@
+<%@page import="impl.productos.CondicionEspecial"%>
 <%@page import="impl.productos.TipoFragilidad"%>
 <%@page import="impl.productos.TipoTratamiento"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -29,6 +30,16 @@
 				<td><select name="tratamiento">
 						<%
 							for (TipoTratamiento t : TipoTratamiento.values()) {
+								out.print("<option value=\"" + t.toString() + "\">" + t.toString() + "</option>");
+							}
+						%>
+				</select></td>
+			</tr>
+			<tr>
+				<td>Condición especial:</td>
+				<td><select name="condicion">
+						<%
+							for (CondicionEspecial t : CondicionEspecial.values()) {
 								out.print("<option value=\"" + t.toString() + "\">" + t.toString() + "</option>");
 							}
 						%>
@@ -120,9 +131,10 @@
 		function agregarProducto() {
 			var form = $('#altaProducto');
 			var producto = {
+				cantidad: form.find('input[name="cantidad"]').val(),
 				nombre: form.find('input[name="nombre"]').val(),
-				fragilidad: form.find('input[name="fragilidad"]').val(),
-				tratamiento: form.find('input[name="tratamiento"]').val(),
+				fragilidad: form.find('select[name="fragilidad"]').val(),
+				tratamiento: form.find('select[name="tratamiento"]').val(),
 				profundidad: form.find('input[name="profundidad"]').val(),
 				alto: form.find('input[name="alto"]').val(),
 				ancho: form.find('input[name="ancho"]').val(),
@@ -148,7 +160,7 @@
 		
 		function renderProd(prod) {
 			var td = $('<td>');
-
+			td.append($('<input>').attr('name', 'cantidad').attr('type', 'number').val(1));
 			td.append(prod.value);
 			
 			var hidden = $('<input>');

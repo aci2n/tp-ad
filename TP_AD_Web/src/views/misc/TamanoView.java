@@ -12,10 +12,10 @@ public class TamanoView extends GenericView{
 		
 	}
 	
-	public TamanoView(Float i, Float j, Float k) {
-		profundidad = i;
-		alto = j;
-		ancho = k;
+	public TamanoView(Float alto, Float ancho, Float profundidad) {
+		this.profundidad = profundidad;
+		this.alto = alto;
+		this.ancho = ancho;
 	}
 
 	public Float getProfundidad() {

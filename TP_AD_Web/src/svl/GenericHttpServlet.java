@@ -19,6 +19,15 @@ public abstract class GenericHttpServlet extends HttpServlet {
 
 	protected abstract void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
+	protected void forwardError(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		forwardError(request, response, "Error en la carga. Por favor, compruebe que ha ingresado todos los datos.");
+	}
+	
+	protected void forwardError(HttpServletRequest request, HttpServletResponse response, String mensaje) throws ServletException, IOException {
+		response.setStatus(500);
+		forwardGenerico(request, response, mensaje);
+	}
+	
 	protected void forwardGenerico(HttpServletRequest request, HttpServletResponse response, String mensaje) throws ServletException, IOException {
 		request.setAttribute("mensaje", mensaje);
 		request.getRequestDispatcher("/jsp/Misc/GenericForward.jsp").forward(request, response);

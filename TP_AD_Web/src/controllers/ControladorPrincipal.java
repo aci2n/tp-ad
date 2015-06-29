@@ -109,6 +109,10 @@ public class ControladorPrincipal extends UnicastRemoteObject implements
 	public List<SucursalView> obtenerSucursales() {
 		return administradorSucursales.obtenerSucursalesView();
 	}
+	
+	public SucursalView obtenerSucursal(Integer id) {
+		return administradorSucursales.obtenerSucursalView(id);
+	}
 
 	// PRODUCTOS
 	public void agregarCondicionEspecialAProducto(Integer id,
@@ -235,5 +239,13 @@ public class ControladorPrincipal extends UnicastRemoteObject implements
 
 	public List<CuentaCorrienteView> obtenerCuentasCorrientes() {
 		return administradorCobranzas.obtenerCuentasCorrientes();
+	}
+
+	public void realizarPago(Integer idPago) throws Exception {
+		administradorCobranzas.realizarPago(idPago);
+	}
+
+	public void realizarCobroParcial(Integer idFactura, Float monto) throws Exception {
+		administradorCobranzas.realizarCobroParcial(idFactura, monto);		
 	}
 }
