@@ -39,7 +39,7 @@ public class RealizarPago extends GenericJFrame {
 
 	protected void inicializar() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 200, 140);
+		setBounds(100, 100, 300, 140);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
