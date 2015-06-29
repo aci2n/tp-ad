@@ -25,7 +25,7 @@
 						<ul class="tabs">
 				
 							<li class="tab col s3"><a class="active" href="#test1">Carga</a></li>
-							<li class="tab col s3"><a class="active" href="#test2">Productos</a></li>
+							<li class="tab col s3"><a href="#test2">Productos</a></li>
 							<li class="tab col s3"><a href="#test3">Origen</a></li>
 							<li class="tab col s3"><a href="#test4">Destino</a></li>
 							<li class="tab col s3"><a href="#test5">Finalizar Alta</a></li>
