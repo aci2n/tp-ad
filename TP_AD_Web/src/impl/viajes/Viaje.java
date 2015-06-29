@@ -75,7 +75,7 @@ public class Viaje extends PersistentObject {
 	private boolean estaAtrasado;
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_viaje")
-	@OrderBy(value = "id asc")
+	@OrderBy(value = "orden asc")
 	private List<ParadaIntermedia> paradasIntermedias;
 
 	public Viaje() {
@@ -500,5 +500,16 @@ public class Viaje extends PersistentObject {
 		longitud.appendChild(doc.createTextNode(u.getCoordenadaDestino().getLongitud().toString()));
 		c.appendChild(longitud);
 		return e;
+	}
+
+	public void removerParadaIntermedia(Ubicacion u) {
+		for (ParadaIntermedia pi : paradasIntermedias) {
+			if (u.tieneMismasCoordenadas(pi.getUbicacion()) && pi.getLlegada() == null) {
+				paradasIntermedias.remove(pi);
+				ViajeDAO.getInstance().delete(pi);
+				return;
+			}
+		}
+
 	}
 }
