@@ -82,7 +82,7 @@ public class AltaVehiculoLocal extends GenericJFrame {
 				try {
 					Integer idSuc = Integer.parseInt(idSucursal);
 					Integer idChof = Integer.parseInt(idChofer);
-					TamanoView tamano = new TamanoView(Float.parseFloat(alto), Float.parseFloat(ancho), Float.parseFloat(profundidad));
+					TamanoView tamano = new TamanoView(Float.parseFloat(profundidad), Float.parseFloat(alto), Float.parseFloat(ancho));
 					VehiculoLocalView vehiculo = new VehiculoLocalView(patente, tamano, Float.parseFloat(peso), Float.parseFloat(tara),
 							Float.parseFloat(tarifa), tipo, vencimiento, null);
 					PlanMantenimientoView plan = new PlanMantenimientoView(tipoMantenimiento);
