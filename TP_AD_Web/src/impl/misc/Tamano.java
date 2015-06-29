@@ -53,7 +53,6 @@ public class Tamano {
 	}
 	
 	public TamanoView getView(){
-		
-		return new TamanoView(profundidad, ancho, alto);	
+		return new TamanoView(alto, ancho, profundidad);	
 	}
 }

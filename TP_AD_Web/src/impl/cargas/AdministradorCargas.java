@@ -48,6 +48,7 @@ public class AdministradorCargas {
 		Cliente cli = clienteDao.get(idCliente);
 		Sucursal suc = sucursalDao.get(idSucursal);
 		if (cli != null && suc != null) {
+			c.setOrigen(suc.getUbicacion().getView());
 			Carga carga = new Carga(c, cli);
 			suc.agregarCarga(carga);
 			asignarCargaAViajeOptimo(carga, esInternacional);

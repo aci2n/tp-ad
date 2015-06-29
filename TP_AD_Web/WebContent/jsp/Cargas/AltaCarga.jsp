@@ -18,7 +18,7 @@
 	
 	<div style="padding-top: 20px; padding-bottom: 20px;">
 			<p>
-				<input type="checkbox" id="test6" checked="checked" /> <label
+				<input name="local" type="checkbox" id="test6" checked="checked" /> <label
 					for="test6">Envío dentro del país</label>
 			</p>
 			</div>
@@ -29,7 +29,7 @@
 						for (TipoCarga t : TipoCarga.values()) 								
 																								{
 					%>
-					<option value="<%=t.getTipo().toString()%>"><%=t.getTipo().toString()%></option>
+					<option value="<%=t.getTipo()%>"><%=t.getTipo()%></option>
 					<%
 						}
 					%>

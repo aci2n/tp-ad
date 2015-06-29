@@ -74,17 +74,18 @@
 			event.preventDefault();
 			
 			var data = {
-				tipoCarga: $('#altaCarga input[name="tipoCarga"]').val(),
+				local: $('input[name="local"]').is(':checked'),
+				tipoCarga: $('#altaCarga select[name="tipoCarga"]').val(),
 				cuit: $('#altaCarga input[name="cuit"]').val(),
 				productos: JSON.stringify(_productos),
-				idSucursalOrigen: $('input[name="idSucursalOrigen"]').val(),
+				idSucursalOrigen: $('input[select="idSucursalOrigen"]').val(),
 				fechaMaxEntrega: $(this).find('input[name="fechaMaxEntrega"]').val(),
 				manifiesto: $(this).find('input[name="manifiesto"]').val(),
 				retira: $(this).find('input[name="retira"]').is(':checked')
 			};
 			
-			if ($('#altaUbicacion input[name="idSucursalDestino"]').val() != '') {
-				data.idSucursalDestino = $('#altaUbicacion input[name="idSucursalDestino"]').val();
+			if ($('#altaUbicacion select[name="idSucursalDestino"]').val() != '') {
+				data.idSucursalDestino = $('#altaUbicacion select[name="idSucursalDestino"]').val();
 			} else {
 				var form = $('#ubicacion_nueva');
 				

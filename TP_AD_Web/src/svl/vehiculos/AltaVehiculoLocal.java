@@ -32,7 +32,7 @@ public class AltaVehiculoLocal extends GenericHttpServlet {
 
 		try {
 			PlanMantenimientoView p = procesarPlanMantenimientoView(tipoPlan, request);
-			TamanoView t = new TamanoView(Float.parseFloat(profundidad), Float.parseFloat(alto), Float.parseFloat(ancho));
+			TamanoView t = new TamanoView(Float.parseFloat(alto), Float.parseFloat(ancho), Float.parseFloat(profundidad));
 			VehiculoLocalView v = new VehiculoLocalView(patente, t, Float.parseFloat(peso), Float.parseFloat(tara), Float.parseFloat(tarifa), tipo,
 					vencimientoGarantia, Integer.parseInt(idEmpleado));
 			Integer i = delegate.getInterfaz().altaVehiculoLocal(Integer.parseInt(id), v, p, Integer.parseInt(idEmpleado));

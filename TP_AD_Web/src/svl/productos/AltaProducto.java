@@ -30,7 +30,7 @@ public class AltaProducto extends GenericHttpServlet {
 		String refrigerado = request.getParameter("refrigerado");
 
 		try {
-			TamanoView t = new TamanoView(Float.parseFloat(profundidad), Float.parseFloat(alto), Float.parseFloat(ancho));
+			TamanoView t = new TamanoView(Float.parseFloat(alto), Float.parseFloat(ancho), Float.parseFloat(profundidad));
 			ProductoView p = new ProductoView(nombre, fragilidad, tratamiento, t, Float.parseFloat(peso), Integer.parseInt(apilable), manipulacion,
 					material, consideraciones, new Boolean(refrigerado));
 			Integer id = delegate.getInterfaz().altaProducto(p);

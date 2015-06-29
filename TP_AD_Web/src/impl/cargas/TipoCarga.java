@@ -19,4 +19,12 @@ public enum TipoCarga {
 	public String getTipo() {
 		return tipo;
 	}
+	
+	public static TipoCarga obtenerPorTipo(String tipo) {
+		for (TipoCarga tipoCarga : values()) {
+			if (tipoCarga.tipo.equalsIgnoreCase(tipo))
+				return tipoCarga;
+		}
+		return null;
+	}
 }

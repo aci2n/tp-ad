@@ -184,4 +184,8 @@ public class AdministradorSucursales {
 		}
 		return sucViews;
 	}
+	
+	public SucursalView obtenerSucursalView(Integer idSuc) {
+		return sucursalDao.get(idSuc).getView();
+	}
 }
