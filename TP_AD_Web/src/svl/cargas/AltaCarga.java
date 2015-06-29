@@ -154,7 +154,7 @@ public class AltaCarga extends GenericHttpServlet {
 			String tipoCarga = request.getParameter("tipoCarga");
 			Integer idCliente = request.getParameter("cuit") != null ? Integer.parseInt(request.getParameter("cuit")) : null;
 			Integer idSucOrigen = request.getParameter("idSucursalOrigen") != null ? Integer.parseInt(request.getParameter("idSucursalOrigen")) : null;
-			Date fechaMax = request.getParameter("fechaMaxEntrega") != null ? Utilities.parseDate(request.getParameter("fechaMaxEntrega")) : null;
+			Date fechaMax = request.getParameter("fechaMaxEntrega") != null ? Utilities.parseWebDate(request.getParameter("fechaMaxEntrega")) : null;
 			String manifiesto = request.getParameter("manifiesto");
 			Boolean retira = request.getParameter("retira") != null ? Boolean.parseBoolean(request.getParameter("retira")) : null;
 			Integer idSucDestino = request.getParameter("idSucursalDestino") != null ? Integer.parseInt(request.getParameter("idSucursalDestino")) : null;
