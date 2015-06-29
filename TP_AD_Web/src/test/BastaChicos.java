@@ -106,7 +106,7 @@ public class BastaChicos {
 			p.add(new ItemProductoView(crearProductoView(), (float) randomInteger()));
 		}
 		CargaView cv = new CargaView(TipoCarga.BIDON.toString(), Utilities.invParseDate(new Date()), Utilities.invParseDate(new Date()),
-				randomString(), crearUbicacion().getView(), crearUbicacion().getView(), EstadoCarga.EN_DEPOSITO.toString(), p);
+				randomString(), crearUbicacion().getView(), crearUbicacion().getView(), EstadoCarga.EN_DEPOSITO.toString(), p, true);
 		return cv;
 	}
 

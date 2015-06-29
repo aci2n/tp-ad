@@ -62,9 +62,9 @@
 
 						<tbody id="tbody">
 							<%
-								 List<ProductoView> productos = ControladorPrincipal.getInstance().obtenerProductosView();
-																			for(ProductoView p : productos)
-																			{
+								List<ProductoView> productos = ControladorPrincipal.getInstance().obtenerProductosView();
+								for(ProductoView p : productos)
+																								{
 							%>
 							<tr>
 								<td style="color: #1565C0; font-weight: bold;"><%=p.getId()%></td>
@@ -78,6 +78,7 @@
 								<td><%=p.getMaterial()%></td>
 								<td><%=p.getManipulacion()%></td>
 								<td><%=p.getConsideraciones()%></td>
+								<td><%=p.getRefrigerada()%></td>
 							</tr>
 							<%
 								}
@@ -92,45 +93,45 @@
 				<p></p>
 			</div>
 		</div>
-</div>
+	</div>
 
-		<script>
-			$("#filtrado").keyup(function() {
-				//split the current value of searchInput
-				var datos = this.value.split(" ");
-				//create a jquery object of the rows
-				var tabla = $("tbody").find("tr");
-				if (this.value == "") {
-					tabla.show();
-					return;
-				}
-				//hide all the rows
-				tabla.hide();
+	<script>
+		$("#filtrado").keyup(function() {
+			//split the current value of searchInput
+			var datos = this.value.split(" ");
+			//create a jquery object of the rows
+			var tabla = $("tbody").find("tr");
+			if (this.value == "") {
+				tabla.show();
+				return;
+			}
+			//hide all the rows
+			tabla.hide();
 
-				//Recusively filter the jquery object to get results.
-				tabla.filter(function(i, v) {
-					var $t = $(this);
-					for (var d = 0; d < datos.length; ++d) {
-						if ($t.is(":contains('" + datos[d] + "')")) {
-							return true;
-						}
+			//Recusively filter the jquery object to get results.
+			tabla.filter(function(i, v) {
+				var $t = $(this);
+				for (var d = 0; d < datos.length; ++d) {
+					if ($t.is(":contains('" + datos[d] + "')")) {
+						return true;
 					}
-					return false;
-				})
-				//show the rows that match.
-				.show();
-			}).focus(function() {
-				this.value = "";
-				$(this).css({
-					"color" : "black"
-				});
-				$(this).unbind('focus');
-			}).css({
-				"color" : "#C0C0C0"
+				}
+				return false;
+			})
+			//show the rows that match.
+			.show();
+		}).focus(function() {
+			this.value = "";
+			$(this).css({
+				"color" : "black"
 			});
+			$(this).unbind('focus');
+		}).css({
+			"color" : "#C0C0C0"
+		});
 
-			$(document).ready(function() {
-				$('ul.tabs').tabs();
-			});
-		</script>
+		$(document).ready(function() {
+			$('ul.tabs').tabs();
+		});
+	</script>
 </body>

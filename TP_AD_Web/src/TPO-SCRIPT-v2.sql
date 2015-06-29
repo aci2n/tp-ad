@@ -245,6 +245,7 @@ create table Cargas(
 	fechaMaximaEntrega datetime,
 	fechaProbableEntrega datetime,
 	manifiesto varchar(200),
+	retira_por_sucursal bit,
 	
 	constraint pK_cargas primary key (id_carga),
 	constraint fk_cargas_clientes foreign key (id_cliente) references Clientes,

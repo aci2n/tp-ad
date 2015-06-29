@@ -26,7 +26,7 @@
 						<ul class="tabs">
 							<li class="tab col s3"><a class="active" href="#test1">Listar
 									mis viajes</a></li>
-							<li class="tab col s3"><a href="#test2">Actualizar Viaje</a></li>
+							<li class="tab col s3"><a href="#test2">Seguimiento de Viajes</a></li>
 							<li class="tab col s3"><a href="#test3">Cargas de Viaje</a></li>
 
 						</ul>
@@ -39,7 +39,7 @@
 
 					<!--	ALTA CLIENTE EMPRESA 	 -->
 					<div id="test2" class="col s12">
-						<%@include file="ActualizarViaje.jsp"%>
+						<%@include file="SeguimientoViaje.jsp"%>
 					</div>
 
 					<!--	BAJA CLIENTE	 -->
