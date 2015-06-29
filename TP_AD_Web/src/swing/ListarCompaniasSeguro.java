@@ -52,27 +52,28 @@ public class ListarCompaniasSeguro extends GenericJFrame {
 	}
 
 	protected void configurar() {
-		contentPane.setLayout(new BorderLayout());
-
-		comboCompanias = new JComboBox<CompaniaSeguroView>();
-		List<CompaniaSeguroView> companias = new ArrayList<CompaniaSeguroView>();
 		try {
+			contentPane.setLayout(new BorderLayout());
+
+			comboCompanias = new JComboBox<CompaniaSeguroView>();
+			List<CompaniaSeguroView> companias = new ArrayList<CompaniaSeguroView>();
+
 			companias = BusinessDelegate.getInstance().getInterfaz().getCompaniasSeguroView();
+
+			for (int i = 0; i < companias.size(); i++) {
+				comboCompanias.addItem(companias.get(i));
+			}
+
+			comboCompanias.setSelectedIndex(-1);
+			comboCompanias.addActionListener(this);
+
+			contentPane.add(comboCompanias, BorderLayout.NORTH);
+
+			lblCompania = new JLabel();
+			contentPane.add(new JScrollPane(lblCompania), BorderLayout.CENTER);
 		} catch (Exception e) {
-			e.printStackTrace();
+			mostrarError("Error al obtener los datos del servidor.");
 		}
-		for (int i = 0; i < companias.size(); i++) {
-			comboCompanias.addItem(companias.get(i));
-		}
-
-		comboCompanias.setSelectedIndex(-1);
-		comboCompanias.addActionListener(this);
-
-		contentPane.add(comboCompanias, BorderLayout.NORTH);
-
-		lblCompania = new JLabel();
-		contentPane.add(new JScrollPane(lblCompania), BorderLayout.CENTER);
-
 	}
 
 	public void actionPerformed(ActionEvent e) {
