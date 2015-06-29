@@ -68,7 +68,10 @@
 			</tr>
 			<tr>
 				<td>Refrigerado:</td>
-				<td><input type="checkbox" name="refrigerado"></td>
+				<td>
+					<input type="checkbox" id="check" name="refrigerado">
+					<label for="check"></label>
+				</td>
 			</tr>
 		</table>
 		<br /> <input type="submit" value="Alta">
@@ -109,7 +112,7 @@
 				
 				$('#productos tbody').append(renderRow(data));
 				
-				$(this).find('input').val('');
+				$(this).find('table input').val('');
 			});
 			
 		});
@@ -128,7 +131,7 @@
 				manipulacion: form.find('input[name="manipulacion"]').val(),
 				material: form.find('input[name="material"]').val(),
 				consideraciones: form.find('input[name="consideraciones"]').val(),
-				refrigerado: form.find('input[name="refrigerado"]').val()
+				refrigerado: form.find('input[name="refrigerado"]').is(':checked')
 			};
 			_productos.push(producto);
 		}

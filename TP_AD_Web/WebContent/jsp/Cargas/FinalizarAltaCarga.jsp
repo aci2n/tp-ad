@@ -46,7 +46,7 @@
 		<div class="modal-footer">
 			<a href="#!"
 				class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
-			<input class="btn btn-primary" type="submit" value="Alta">
+			<input class="btn btn-primary" type="submit" id="submitForReal" value="Alta">
 		</div>
 	</div>
 
@@ -55,7 +55,13 @@
 	<script>
 		$(document).ready(function() {
 			// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-			$('.modal-trigger').leanModal();
+			$('.modal-trigger').leanModal({
+				ready: function() {
+					$('#submitForReal').click(function() {
+						$('#finalizarCarga').submit();
+					});
+				}
+			});
 		});
 
 		$('.datepicker').pickadate({
@@ -74,7 +80,7 @@
 				idSucursalOrigen: $('input[name="idSucursalOrigen"]').val(),
 				fechaMaxEntrega: $(this).find('input[name="fechaMaxEntrega"]').val(),
 				manifiesto: $(this).find('input[name="manifiesto"]').val(),
-				retira: $(this).find('input[name="retira"]').val(),
+				retira: $(this).find('input[name="retira"]').is(':checked')
 			};
 			
 			if ($('#altaUbicacion input[name="idSucursalDestino"]').val() != '') {
