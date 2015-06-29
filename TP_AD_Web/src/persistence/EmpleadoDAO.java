@@ -1,6 +1,7 @@
 package persistence;
 
 import impl.personal.Empleado;
+import impl.personal.TipoPuesto;
 
 import java.util.List;
 
@@ -39,6 +40,16 @@ public class EmpleadoDAO extends AbstractGenericDAO<Empleado> {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		Query q = session.createQuery("from Empleado");
+		List<Empleado> empleados = (List<Empleado>) q.list();
+		session.close();
+		return empleados;
+	}
+	
+	public List<Empleado> obtenerPorPuesto(TipoPuesto puesto) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query q = session.createQuery("from Empleado where puesto = ?");
+		q.setString(0, puesto.getPuesto());
 		List<Empleado> empleados = (List<Empleado>) q.list();
 		session.close();
 		return empleados;

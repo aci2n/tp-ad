@@ -2,6 +2,7 @@ package views.vehiculos;
 
 import views.GenericView;
 import views.misc.TamanoView;
+import views.personal.EmpleadoView;
 
 
 public class VehiculoLocalView extends GenericView{
@@ -12,9 +13,9 @@ public class VehiculoLocalView extends GenericView{
 	private Float tarifa;
 	private String tipo;
 	private String vencimientoGarantia;
-	private Integer idEmpleado;
+	private EmpleadoView empleado;
 
-	public VehiculoLocalView(String patente, TamanoView t, float peso, float tara, float tarifa, String tipo, String vencimientoGarantia, Integer idEmpleado) {
+	public VehiculoLocalView(String patente, TamanoView t, float peso, float tara, float tarifa, String tipo, String vencimientoGarantia, EmpleadoView empleado) {
 		this.patente = patente;
 		this.tamano = t;
 		this.peso = peso;
@@ -22,7 +23,7 @@ public class VehiculoLocalView extends GenericView{
 		this.tarifa = tarifa;
 		this.tipo = tipo;
 		this.vencimientoGarantia = vencimientoGarantia;
-		this.idEmpleado = idEmpleado;
+		this.setEmpleado(empleado);
 	}
 
 	public VehiculoLocalView() {
@@ -83,5 +84,13 @@ public class VehiculoLocalView extends GenericView{
 
 	public void setVencimientoGarantia(String vencimientoGarantia) {
 		this.vencimientoGarantia = vencimientoGarantia;
+	}
+
+	public EmpleadoView getEmpleado() {
+		return empleado;
+	}
+
+	public void setEmpleado(EmpleadoView empleado) {
+		this.empleado = empleado;
 	}
 }

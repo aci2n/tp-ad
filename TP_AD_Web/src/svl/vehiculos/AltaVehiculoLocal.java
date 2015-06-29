@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import svl.GenericHttpServlet;
 import views.misc.TamanoView;
+import views.personal.EmpleadoView;
 import views.vehiculos.PlanMantenimientoView;
 import views.vehiculos.VehiculoLocalView;
 
@@ -33,8 +34,10 @@ public class AltaVehiculoLocal extends GenericHttpServlet {
 		try {
 			PlanMantenimientoView p = procesarPlanMantenimientoView(tipoPlan, request);
 			TamanoView t = new TamanoView(Float.parseFloat(alto), Float.parseFloat(ancho), Float.parseFloat(profundidad));
+			EmpleadoView empleado = new EmpleadoView();
+			empleado.setId(Integer.parseInt(idEmpleado));
 			VehiculoLocalView v = new VehiculoLocalView(patente, t, Float.parseFloat(peso), Float.parseFloat(tara), Float.parseFloat(tarifa), tipo,
-					vencimientoGarantia, Integer.parseInt(idEmpleado));
+					vencimientoGarantia, empleado);
 			Integer i = delegate.getInterfaz().altaVehiculoLocal(Integer.parseInt(id), v, p, Integer.parseInt(idEmpleado));
 			forwardGenerico(request, response, "Vehiculo local agregado exitosamente con id: " + i + ".");
 		} catch (Exception e) {

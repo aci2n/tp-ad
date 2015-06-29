@@ -7,7 +7,6 @@ import views.productos.ProductoView;
 
 public class EmpresaView extends GenericView{
 
-	private int id;
 	private String nombre;
 	private String esRegular;
 	private List<ProductoView> productos;
@@ -22,13 +21,6 @@ public class EmpresaView extends GenericView{
 		this.esRegular = esRegular;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getNombre() {
 		return nombre;

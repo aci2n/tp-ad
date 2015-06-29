@@ -5,7 +5,6 @@ import views.vehiculos.ProveedorView;
 
 public class PagoView extends GenericView {
 	private static final long serialVersionUID = 1L;
-	private int id;
 	private ProveedorView proveedor;
 	private Float monto;
 	private String fecha;
@@ -21,13 +20,6 @@ public class PagoView extends GenericView {
 		this.pagado = pagado;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public Float getMonto() {
 		return monto;

@@ -108,7 +108,7 @@ public class Empleado extends PersistentObject {
 
 	public EmpleadoView getView() {
 
-		return new EmpleadoView(cuit, dni, nombre, apellido, fechaNacimiento.toString(),
+		return new EmpleadoView(id, cuit, dni, nombre, apellido, fechaNacimiento.toString(),
 				puesto.toString());
 	}
 }

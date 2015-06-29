@@ -6,7 +6,6 @@ import views.GenericView;
 
 public class CobroParcialView extends GenericView{
 
-	private int id;
 	private Date fecha;
 	private Float monto;
 
@@ -18,14 +17,6 @@ public class CobroParcialView extends GenericView{
 		
 		this.fecha = fecha;
 		this.monto = monto;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public Date getFecha() {

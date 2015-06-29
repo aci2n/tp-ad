@@ -4,20 +4,19 @@ import impl.cargas.AdministradorCargas;
 import impl.cargas.Carga;
 import impl.clientes.AdministradorClientes;
 import impl.cobranzas.AdministradorCobranzas;
+import impl.personal.AdministradorPersonal;
 import impl.productos.AdministradorProductos;
 import impl.productos.Producto;
 import impl.sucursales.AdministradorSucursales;
 import impl.sucursales.Sucursal;
 import impl.vehiculos.AdministradorVehiculos;
 import impl.viajes.AdministradorViajes;
-import impl.viajes.Viaje;
 
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
 import persistence.ProductoDAO;
-import persistence.ViajeDAO;
 import rmi.tda.TDAControladorPrincipal;
 import views.cargas.CargaView;
 import views.clientes.CuentaCorrienteView;
@@ -58,6 +57,7 @@ public class ControladorPrincipal extends UnicastRemoteObject implements
 	private AdministradorClientes administradorClientes;
 	private AdministradorProductos administradorProductos;
 	private AdministradorCobranzas administradorCobranzas;
+	private AdministradorPersonal administradorPersonal;
 
 	private ControladorPrincipal() throws Exception {
 		administradorViajes = AdministradorViajes.getInstance();
@@ -67,6 +67,7 @@ public class ControladorPrincipal extends UnicastRemoteObject implements
 		administradorClientes = AdministradorClientes.getInstance();
 		administradorProductos = AdministradorProductos.getInstance();
 		administradorCobranzas = AdministradorCobranzas.getInstance();
+		administradorPersonal = AdministradorPersonal.getInstance();
 	}
 
 	// CLIENTES
@@ -245,5 +246,10 @@ public class ControladorPrincipal extends UnicastRemoteObject implements
 
 	public void realizarCobroParcial(Integer idFactura, Float monto) throws Exception {
 		administradorCobranzas.realizarCobroParcial(idFactura, monto);		
+	}
+	
+	//	PERSONAL
+	public List<EmpleadoView> obtenerChoferes() {
+		return administradorPersonal.obtenerChoferes();
 	}
 }

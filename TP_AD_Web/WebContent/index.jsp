@@ -142,7 +142,7 @@
 							<div class="collapsible-body">
 								<ul>
 									<li><a class="menu-anchor"
-										id="jsp/Choferes/MisViajes" href="#!">Mis viajes</a></li>
+										id="MiViaje" href="#!">Mi viaje</a></li>
 								</ul>
 							</div></li>
 					</ul>

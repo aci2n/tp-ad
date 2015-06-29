@@ -4,7 +4,6 @@ import views.GenericView;
 
 public class ProveedorView extends GenericView{
 
-	private int id;
 	private String cuit;
 	private String nombre;
 
@@ -13,18 +12,10 @@ public class ProveedorView extends GenericView{
 	}
 
 	public ProveedorView(String cuit, String nombre) {
-	
 		this.cuit = cuit;
 		this.nombre = nombre;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getCuit() {
 		return cuit;

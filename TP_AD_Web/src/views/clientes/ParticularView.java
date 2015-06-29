@@ -7,7 +7,6 @@ import views.GenericView;
 
 public class ParticularView extends GenericView{
 
-	private int id;
 	private String dni;
 	private String nombre;
 	private String apellido;
@@ -18,20 +17,12 @@ public class ParticularView extends GenericView{
 	}
 	
 	public ParticularView(int id, String dni, String nombre, String apellido) {
-		
 		this.id = id;
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getDni() {
 		return dni;

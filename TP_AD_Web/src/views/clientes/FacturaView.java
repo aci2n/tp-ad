@@ -8,7 +8,6 @@ import views.cargas.CargaView;
 
 public class FacturaView extends GenericView{
 
-	private int id;
 	private String tipoFactura;
 	private Date fechaCreacion;
 	private Float montoTotal;
@@ -26,13 +25,6 @@ public class FacturaView extends GenericView{
 		this.montoTotal = montoTotal;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getTipoFactura() {
 		return tipoFactura;

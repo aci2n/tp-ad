@@ -10,7 +10,16 @@ public class EmpleadoView extends GenericView {
 	private String fechaNacimiento;
 	private String tipo;
 
+	public EmpleadoView() {
+		
+	}
+	
 	public EmpleadoView(String cuit, String dni, String nombre, String apellido, String fechaNacimiento, String tipo) {
+		this(null, cuit, dni, nombre, apellido, fechaNacimiento, tipo);
+	}
+	
+	public EmpleadoView(Integer id, String cuit, String dni, String nombre, String apellido, String fechaNacimiento, String tipo) {
+		this.id = id;
 		this.cuit = cuit;
 		this.dni = dni;
 		this.nombre = nombre;

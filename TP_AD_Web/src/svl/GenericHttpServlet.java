@@ -1,6 +1,7 @@
 package svl;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -33,6 +34,11 @@ public abstract class GenericHttpServlet extends HttpServlet {
 		request.getRequestDispatcher("/jsp/Misc/GenericForward.jsp").forward(request, response);
 	}
 
+	protected void forwardJsp(HttpServletRequest request, HttpServletResponse response, String path)
+			throws ServletException, IOException {
+		forwardJsp(request, response, path, new HashMap<String, Object>());
+	}
+	
 	protected void forwardJsp(HttpServletRequest request, HttpServletResponse response, String path, Map<String, Object> params)
 			throws ServletException, IOException {
 		for (String key : params.keySet()) {

@@ -4,7 +4,6 @@ import views.GenericView;
 
 public class CuentaCorrienteView extends GenericView{
 
-	private int id;
 	private boolean depositoPrevio;
 	private Float montoAutorizado;
 	private Float montoActual;
@@ -17,14 +16,6 @@ public class CuentaCorrienteView extends GenericView{
 		this.depositoPrevio = depositoPrevio;
 		this.montoAutorizado = montoAutorizado;
 		this.montoActual = montoActual;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public boolean isDepositoPrevio() {
