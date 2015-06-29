@@ -95,10 +95,13 @@
 	</table>
 	
 	<script>
+		var _productos = [];
+		
 		$(document).ready(function() {
 			$('select').material_select();
 			
 			$('#altaProducto').submit(function(event) {
+				agregarProducto();
 				event.preventDefault();
 				var data = $(this).serializeArray();
 				
@@ -110,6 +113,25 @@
 			});
 			
 		});
+		
+		function agregarProducto() {
+			var form = $('#altaProducto');
+			var producto = {
+				nombre: form.find('input[name="nombre"]').val(),
+				fragilidad: form.find('input[name="fragilidad"]').val(),
+				tratamiento: form.find('input[name="tratamiento"]').val(),
+				profundidad: form.find('input[name="profundidad"]').val(),
+				alto: form.find('input[name="alto"]').val(),
+				ancho: form.find('input[name="ancho"]').val(),
+				peso: form.find('input[name="peso"]').val(),
+				apilable: form.find('input[name="apilable"]').val(),
+				manipulacion: form.find('input[name="manipulacion"]').val(),
+				material: form.find('input[name="material"]').val(),
+				consideraciones: form.find('input[name="consideraciones"]').val(),
+				refrigerado: form.find('input[name="refrigerado"]').val()
+			};
+			_productos.push(producto);
+		}
 		
 		function renderRow(data) {
 			var row = $('<tr>');
@@ -129,7 +151,7 @@
 			var hidden = $('<input>');
 			hidden.attr('type', 'hidden');
 			hidden.attr('name', prod.name);
-			hidden.value(prod.value);
+			hidden.val(prod.value);
 
 			td.append(hidden);
 			

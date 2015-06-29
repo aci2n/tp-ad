@@ -13,7 +13,7 @@
 
 	<div id="test1" class="col s12">
 
-		<form id="alta-empleado" action="AgregarEmpleado" class="box-padding"
+		<form id="altaCarga" class="box-padding"
 			class="form-control">
 	
 	<div style="padding-top: 20px; padding-bottom: 20px;">
@@ -23,7 +23,7 @@
 			</p>
 			</div>
 			<div class="input-field col s12">
-				<select >
+				<select name="tipoCarga">
 					<option value="" disabled selected></option>
 					<%
 						for (TipoCarga t : TipoCarga.values()) 								
