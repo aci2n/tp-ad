@@ -34,6 +34,17 @@ public class Utilities {
 		}
 		return d;
 	}
+	
+	public static Date parseWebDate(String fecha) {
+		Date d = new Date();
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("dd M, yyyy");
+			d = formatter.parse(fecha);
+		} catch (Exception e) {
+			// mandar saludos
+		}
+		return d;
+	}
 
 	public static String invParseDate(Date date) {
 		String s = "";
