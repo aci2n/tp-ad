@@ -4,6 +4,7 @@ import impl.cargas.AdministradorCargas;
 import impl.cargas.Carga;
 import impl.clientes.AdministradorClientes;
 import impl.cobranzas.AdministradorCobranzas;
+import impl.personal.TipoPuesto;
 import impl.productos.AdministradorProductos;
 import impl.sucursales.AdministradorSucursales;
 import impl.sucursales.Sucursal;
@@ -11,6 +12,7 @@ import impl.vehiculos.AdministradorVehiculos;
 import impl.viajes.AdministradorViajes;
 
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 
 import rmi.tda.TDAControladorPrincipal;
@@ -187,5 +189,14 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 
 	public List<CuentaCorrienteView> obtenerCuentasCorrientes() {
 		return administradorCobranzas.obtenerCuentasCorrientes();
+	}
+
+	// ENUMS
+	public List<String> getValuesTipoPuesto() {
+		List<String> enums = new ArrayList<String>();
+		for (TipoPuesto t : TipoPuesto.values()) {
+			enums.add(t.toString());
+		}
+		return enums;
 	}
 }

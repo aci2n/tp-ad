@@ -1,7 +1,5 @@
 package swing;
 
-import impl.personal.TipoPuesto;
-
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -21,7 +19,6 @@ import rmi.delegate.BusinessDelegate;
 import views.personal.EmpleadoView;
 
 public class AltaEmpleado extends JFrame implements ActionListener {
-
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField[] textFields;
@@ -48,7 +45,7 @@ public class AltaEmpleado extends JFrame implements ActionListener {
 
 	private void inicializar() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -57,29 +54,28 @@ public class AltaEmpleado extends JFrame implements ActionListener {
 	}
 
 	private void configurar() {
-		JPanel panelCentro = new JPanel();
-		panelCentro.setLayout(new GridLayout(0, 1));
-
-		String[] labelStrings = { "ID Sucursal", "CUIT", "DNI", "Nombre", "Apellido", "Fecha Nacimiento" };
-		textFields = new JTextField[labelStrings.length];
-
-		for (int i = 0; i < labelStrings.length; i++) {
-			textFields[i] = new JTextField();
-			panelCentro.add(new JLabel(labelStrings[i]));
-			panelCentro.add(textFields[i]);
+		try {
+			JPanel panelCentro = new JPanel();
+			panelCentro.setLayout(new GridLayout(0, 1));
+			String[] labelStrings = { "ID Sucursal", "CUIT", "DNI", "Nombre", "Apellido", "Fecha Nacimiento" };
+			textFields = new JTextField[labelStrings.length];
+			for (int i = 0; i < labelStrings.length; i++) {
+				textFields[i] = new JTextField();
+				panelCentro.add(new JLabel(labelStrings[i]));
+				panelCentro.add(textFields[i]);
+			}
+			comboPuestos = new JComboBox<String>();
+			for (String s : BusinessDelegate.getInstance().getInterfaz().getValuesTipoPuesto())
+				comboPuestos.addItem(s);
+			panelCentro.add(new JLabel("Puesto"));
+			panelCentro.add(comboPuestos);
+			contentPane.add(panelCentro, BorderLayout.CENTER);
+			btnAgregar = new JButton("Agregar");
+			btnAgregar.addActionListener(this);
+			contentPane.add(btnAgregar, BorderLayout.SOUTH);
+		} catch (Exception e) {
+			mostrarError("Ocurrio un error mientras se obtenian los datos.");
 		}
-
-		comboPuestos = new JComboBox<String>();
-		for (TipoPuesto t : TipoPuesto.values())
-			comboPuestos.addItem(t.toString());
-		panelCentro.add(new JLabel("Puesto"));
-		panelCentro.add(comboPuestos);
-
-		contentPane.add(panelCentro, BorderLayout.CENTER);
-
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.addActionListener(this);
-		contentPane.add(btnAgregar, BorderLayout.SOUTH);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -93,7 +89,6 @@ public class AltaEmpleado extends JFrame implements ActionListener {
 				String apellido = textFields[i++].getText();
 				String fechaNacimiento = textFields[i++].getText();
 				String tipo = comboPuestos.getSelectedItem().toString();
-
 				try {
 					int id = Integer.parseInt(idSucursal);
 					EmpleadoView empleado = new EmpleadoView(cuit, dni, nombre, apellido, fechaNacimiento, tipo);

@@ -46,14 +46,14 @@ public class ListarPagos extends JFrame {
 	}
 
 	private void configurar() {
-		DefaultTableModel modelo = new DefaultTableModel();
-		// COLUMNAS
-		modelo.addColumn("Proveedor");
-		modelo.addColumn("Monto");
-		modelo.addColumn("Fecha");
-		modelo.addColumn("Estado");
-		// FILAS
 		try {
+			DefaultTableModel modelo = new DefaultTableModel();
+			// COLUMNAS
+			modelo.addColumn("Proveedor");
+			modelo.addColumn("Monto");
+			modelo.addColumn("Fecha");
+			modelo.addColumn("Estado");
+			// FILAS
 			List<PagoView> pagos = BusinessDelegate.getInstance().getInterfaz().obtenerPagos();
 			for (PagoView p : pagos) {
 				String estado = p.isPagado() ? "Pagado" : "Pendiente";
@@ -73,7 +73,6 @@ public class ListarPagos extends JFrame {
 			contentPane.add(new JScrollPane(tabla));
 		} catch (Exception e) {
 			mostrarError("Ocurrio un error mientras se obtenian los datos.");
-			dispose();
 		}
 	}
 
