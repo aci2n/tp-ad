@@ -153,11 +153,28 @@ public class TestPersistenciaArbelo {
 		tarea.setKilometraje(123f);
 		plan.agregarTarea(tarea.getView());
 		vehiculoLocal.setPlanMantenimiento(plan);
+
+		s.beginTransaction();
+		s.save(u);
+		s.save(seguro);
+		s.save(proveedor);
+		s.save(companiaSeguro);
+		s.save(pi);
+		s.save(vehiculoLocal);
+		s.save(vehiculoExterno);
+		s.save(producto);
+		s.save(empresa);
+		s.save(receptor);
+		s.save(particular);
+		s.save(carga);
+		s.save(factura);
+		s.save(empleado);
+		
 		Sucursal sucursal = new Sucursal();
 		sucursal.setNombre("cruzeiro fc");
 		sucursal.setUbicacion(u);
 		sucursal.agregarCarga(carga);
-		sucursal.agregarVehiculo(vehiculoLocal.getView(), new PlanMantenimientoView("kilometraje"));
+		sucursal.agregarVehiculo(vehiculoLocal.getView(), new PlanMantenimientoView("kilometraje"), empleado.getId());
 		sucursal.agregarEmpleado(empleado.getView());
 		Pago pago = new Pago();
 		pago.setProveedor(proveedor);
@@ -182,22 +199,6 @@ public class TestPersistenciaArbelo {
 		viaje.setSeguro(seguro);
 		viaje.agregarCondicionEspecial(CondicionEspecial.TEMPERATURA.getCondicion());
 		viaje.agregarParadaIntermedia(pi);
-
-		s.beginTransaction();
-		s.save(u);
-		s.save(seguro);
-		s.save(proveedor);
-		s.save(companiaSeguro);
-		s.save(pi);
-		s.save(vehiculoLocal);
-		s.save(vehiculoExterno);
-		s.save(producto);
-		s.save(empresa);
-		s.save(receptor);
-		s.save(particular);
-		s.save(carga);
-		s.save(factura);
-		s.save(empleado);
 		s.save(sucursal);
 		s.save(pago);
 		s.save(sucursalB.getUbicacion());

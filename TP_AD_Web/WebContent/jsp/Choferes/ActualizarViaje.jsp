@@ -24,8 +24,8 @@
 					<th class="">ID Seguimiento</th>
 					<th class="">ID Viaje</th>
 					<th class="">Parada Intermedia</th>
-					<th data-field="name">Fecha confirmación</th>
-					<th data-field="item-name">Confirmación</th>
+					<th>Fecha confirmación</th>
+					<th>Confirmación</th>
 				</tr>
 			</thead>
 

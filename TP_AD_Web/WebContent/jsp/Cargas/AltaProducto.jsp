@@ -112,7 +112,7 @@
 		});
 		
 		function renderRow(data) {
-			var row $('<tr>');
+			var row = $('<tr>');
 			
 			for (var i = 0; i < data.length; i++) {
 				row.append(renderProd(data[i]));

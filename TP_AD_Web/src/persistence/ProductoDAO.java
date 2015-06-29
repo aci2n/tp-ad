@@ -31,7 +31,7 @@ public class ProductoDAO extends AbstractGenericDAO<Producto> {
 		List<Producto> productos = new ArrayList<Producto>();
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query q = session.createQuery("from Particular");
+		Query q = session.createQuery("from Producto");
 		productos = (List<Producto>) q.list();
 		session.close();
 		return productos;
