@@ -1,5 +1,6 @@
 <%@page import="impl.cargas.TipoCarga"%>
 <%@page import="impl.personal.TipoPuesto"%>
+<%@page import="util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -36,21 +37,6 @@
 
 	</form>
 	<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Confirmar</a>
-
-	<div id="modal1" class="modal">
-		<div class="modal-content">
-			<h4>Confirmación de la Carga</h4>
-			<p>La fecha de llegada será AGREGAR METODO QUE CALCULA LA FECHA
-				PROBABLEXXX, ¿desea finalizar?</p>
-		</div>
-		<div class="modal-footer">
-			<a href="#!"
-				class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
-			<input class="btn btn-primary" type="submit" id="submitForReal" value="Alta">
-		</div>
-	</div>
-
-
 
 	<script>
 		$(document).ready(function() {

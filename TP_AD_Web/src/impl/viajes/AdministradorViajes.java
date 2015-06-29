@@ -370,4 +370,15 @@ public class AdministradorViajes {
 		return viajeDao.getViajeChofer(idChofer).getView();
 	}
 	
+	public Viaje obtenerViajePorCarga(Integer idCarga) {
+		return viajeDao.getViajePorCarga(idCarga);
+	}
+	
+	public void removerCarga(Carga carga) {
+		Viaje viaje = viajeDao.getViajePorCarga(carga.getId());
+		if (viaje != null) {
+			viaje.removerCarga(carga);
+		}
+	}
+	
 }

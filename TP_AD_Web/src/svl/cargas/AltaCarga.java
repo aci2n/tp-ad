@@ -198,7 +198,10 @@ public class AltaCarga extends GenericHttpServlet {
 			
 			CargaView carga = new CargaView(tipoCarga, Utilities.invParseDate(fechaMax), null, manifiesto, null, destino, null, productos, retira);
 			
-			ControladorPrincipal.getInstance().altaCarga(idSucOrigen, idCliente, carga, !local);
+			Integer id = ControladorPrincipal.getInstance().altaCarga(idSucOrigen, idCliente, carga, !local);
+			String fechaProbable = Utilities.invParseDate(ControladorPrincipal.getInstance().fechaProbableLlegada(id));
+			request.setAttribute("idCarga", id);
+			request.setAttribute("fechaProbable", fechaProbable);
 		} catch (Exception e) {
 			e.printStackTrace();
 			forwardError(request, response);

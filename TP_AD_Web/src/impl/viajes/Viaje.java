@@ -5,12 +5,14 @@ import impl.cargas.Carga;
 import impl.misc.Ubicacion;
 import impl.productos.CondicionEspecial;
 import impl.productos.ItemProducto;
+import impl.sucursales.AdministradorSucursales;
 import impl.sucursales.DistanciaEntreSucursales;
 import impl.sucursales.Sucursal;
 import impl.vehiculos.Vehiculo;
 import impl.vehiculos.VehiculoExterno;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -140,6 +142,8 @@ public class Viaje extends PersistentObject {
 				p.setOrden(i);
 				ViajeDAO.getInstance().update(p);
 			}
+			ViajeDAO.getInstance().update(this);
+			this.fechaSalida = Utilities.fechaMaximaDeSalida(this);
 			ViajeDAO.getInstance().update(this);
 		} else {
 			// no es lo mas bonito pero evita duplicados
@@ -386,9 +390,50 @@ public class Viaje extends PersistentObject {
 		parametros[2] = parametros[0] * 7.35f; // costo por kilometro promedio
 		return parametros;
 	}
+	
+	public boolean tieneCarga(Carga carga) {
+		for (ItemCarga item : cargas) {
+			if (item.getCarga().getId().equals(carga.getId())) 
+				return true;
+		}
+		return false;
+	}
 
 	public Date obtenerLlegadaCarga(Carga carga) {
-		if (cargas.contains(carga)) {
+		if (tieneCarga(carga)) {
+			if (carga.getDestino().tieneMismasCoordenadas(this.destino)) {
+				return this.fechaLlegada;
+			}
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(this.fechaSalida);
+			if (paradasIntermedias.size() == 0) {
+				Sucursal origen = AdministradorSucursales.getInstance().obtenerSucursalCercana(this.origen);
+				Sucursal destino = AdministradorSucursales.getInstance().obtenerSucursalCercana(this.destino);
+				Float duracion = new Float(AdministradorSucursales.getInstance().calcularHorasEntreSucursales(origen, destino)); 
+				cal.add(Calendar.HOUR, duracion.intValue());
+				int horas = (int) ((duracion - duracion.intValue()) * 60);
+				cal.add(Calendar.MINUTE, horas);
+				return cal.getTime();
+			}
+			if (paradasIntermedias.size() == 0) {
+				float duracionA = origen.calcularDistanciaEnKilometros(paradasIntermedias.get(0).getUbicacion()) / AdministradorViajes.VELOCIDAD_PROMEDIO;
+				float duracionB = paradasIntermedias.get(0).getUbicacion().calcularDistanciaEnKilometros(destino)  / AdministradorViajes.VELOCIDAD_PROMEDIO;
+				Float total = new Float(duracionA + duracionB);
+				cal.add(Calendar.HOUR, total.intValue());
+				cal.add(Calendar.MINUTE, (int) ((total - total.intValue()) * 60));
+				return cal.getTime();
+			}
+			
+			float duracion = 0;
+			for (int i = 0; i < paradasIntermedias.size() - 1; i++) {
+				duracion += paradasIntermedias.get(i).getUbicacion().calcularDistanciaEnKilometros(paradasIntermedias.get(i+1).getUbicacion())  / AdministradorViajes.VELOCIDAD_PROMEDIO;
+			}
+			duracion += paradasIntermedias.get(paradasIntermedias.size() - 1).getUbicacion().calcularDistanciaEnKilometros(destino)  / AdministradorViajes.VELOCIDAD_PROMEDIO;
+			
+			Float total = new Float(duracion);
+			cal.add(Calendar.HOUR, total.intValue());
+			cal.add(Calendar.MINUTE, (int) ((total - total.intValue()) * 60));
+			return cal.getTime();
 		}
 		return null;
 	}
@@ -511,5 +556,31 @@ public class Viaje extends PersistentObject {
 			}
 		}
 
+	}
+
+	public void removerCarga(Carga carga) {
+		if (tieneCarga(carga)) {
+			ParadaIntermedia parada = null;
+			for (ParadaIntermedia p : paradasIntermedias) {
+				if (carga.getDestino().tieneMismasCoordenadas(p.getUbicacion())) {
+					parada = p;
+					break;
+				}
+			}
+			if (parada != null) {
+				boolean hayOtrasCargas = false;
+				for (ItemCarga ic : cargas) {
+					if (!ic.getCarga().getId().equals(carga.getId()) && ic.getCarga().getDestino().tieneMismasCoordenadas(parada.getUbicacion())) {
+						hayOtrasCargas = true;
+						break;
+					}
+				}
+				if (!hayOtrasCargas) {
+					paradasIntermedias.remove(parada);
+					paradasIntermedias = Utilities.ordenarParadasIntermedias(origen, paradasIntermedias);
+					ViajeDAO.getInstance().update(this);
+				}
+			}
+		}
 	}
 }
