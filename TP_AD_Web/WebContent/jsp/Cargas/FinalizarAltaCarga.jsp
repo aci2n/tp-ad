@@ -38,13 +38,47 @@
 	</form>
 	<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Confirmar</a>
 
+	<div id="modal1" class="modal">
+	
+	</div>
+	
 	<script>
 		$(document).ready(function() {
 			// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+			$('#finalizarCarga').submit(function(event) {
+				event.preventDefault();
+				$.ajax({
+					url: $(this).attr('action'),
+					data: $(this).serializeArray(),
+					success: function(data) {
+						$('#modal1').html(data);
+						$('#modal1').openModal({
+							ready: function() {
+								$('html').one('click', function(event) {
+									if (!$(event.target).is('#submitForReal')) {
+										$.ajax({
+											url: 'cancelarCarga',
+											type: 'POST',
+											data: {
+												idCarga: $('#idCarga').val()
+											},
+											success: function() {
+												Materialize.toast('Carga cancelada', 6000);
+											}
+										});
+									} else {
+										Materialize.toast('Carga añadida', 6000);
+									}
+								});
+							}
+						});
+					}
+				});
+			});
 			$('.modal-trigger').leanModal({
 				ready: function() {
 					$('#submitForReal').click(function() {
-						$('#finalizarCarga').submit();
+						
 					});
 				}
 			});

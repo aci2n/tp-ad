@@ -202,6 +202,8 @@ public class AltaCarga extends GenericHttpServlet {
 			String fechaProbable = Utilities.invParseDate(ControladorPrincipal.getInstance().fechaProbableLlegada(id));
 			request.setAttribute("idCarga", id);
 			request.setAttribute("fechaProbable", fechaProbable);
+			
+			forwardJsp(request, response, "/jsp/Cargas/Confirmar.jsp");
 		} catch (Exception e) {
 			e.printStackTrace();
 			forwardError(request, response);
