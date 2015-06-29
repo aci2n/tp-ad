@@ -13,9 +13,11 @@
 		style="border-bottom: 1px solid rgba(160, 160, 160, 0.2);">
 		<div class="input-field col s6">
 			<i class="material-icons prefix">list</i> <input id="filtrado"
-				type="text" class="validate"> <label for="icon_list">Ingrese
+				type="number" class="validate"> <label for="icon_list">Ingrese
 				su ID</label>
 		</div>
+		<input class="btn" type="submit" id="btnSubmit" name="btnSubmit"
+				value="Buscar" />
 	</div>
 	<div class="card-content">
 		<table>
