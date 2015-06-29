@@ -1,7 +1,6 @@
 package swing;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
@@ -22,26 +21,13 @@ public class AltaSucursal extends GenericJFrame {
 	private JTextField[] textFields;
 	private JButton btnAgregar;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AltaSucursal frame = new AltaSucursal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public AltaSucursal() {
 		inicializar();
 		configurar();
 	}
 
 	protected void inicializar() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 475);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -80,7 +66,7 @@ public class AltaSucursal extends GenericJFrame {
 				String departamento = textFields[i++].getText();
 				String latitud = textFields[i++].getText();
 				String longitud = textFields[i++].getText();
-				
+
 				try {
 					Float latitudFloat = Float.parseFloat(latitud);
 					Float longitudFloat = Float.parseFloat(longitud);

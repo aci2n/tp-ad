@@ -3,7 +3,6 @@ package swing;
 import impl.vehiculos.TipoVehiculo;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
@@ -25,26 +24,13 @@ public class AltaVehiculoExterno extends GenericJFrame {
 	private JButton btnAgregar;
 	private JComboBox<String> comboTipo;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AltaVehiculoExterno frame = new AltaVehiculoExterno();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public AltaVehiculoExterno() {
 		inicializar();
 		configurar();
 	}
 
 	protected void inicializar() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 475);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

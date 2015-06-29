@@ -1,7 +1,6 @@
 package swing;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,26 +23,13 @@ public class ListarCompaniasSeguro extends GenericJFrame {
 	private JComboBox<CompaniaSeguroView> comboCompanias;
 	private JLabel lblCompania;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ListarCompaniasSeguro frame = new ListarCompaniasSeguro();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public ListarCompaniasSeguro() {
 		inicializar();
 		configurar();
 	}
 
 	protected void inicializar() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

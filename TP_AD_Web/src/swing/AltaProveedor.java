@@ -1,7 +1,6 @@
 package swing;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
@@ -19,19 +18,6 @@ public class AltaProveedor extends GenericJFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField[] textFields;
 	private JButton btnAgregar;
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AltaProveedor frame = new AltaProveedor();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	public AltaProveedor() {
 		inicializar();

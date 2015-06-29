@@ -3,7 +3,6 @@ package swing;
 import impl.personal.TipoPuesto;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
@@ -24,26 +23,13 @@ public class AltaEmpleado extends GenericJFrame {
 	private JButton btnAgregar;
 	private JComboBox<String> comboPuestos;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AltaEmpleado frame = new AltaEmpleado();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public AltaEmpleado() {
 		inicializar();
 		configurar();
 	}
 
 	protected void inicializar() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
