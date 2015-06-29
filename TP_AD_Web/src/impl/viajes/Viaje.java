@@ -97,8 +97,9 @@ public class Viaje extends PersistentObject {
 	public void agregarCarga(Carga carga) {
 		if (cargas == null)
 			cargas = new ArrayList<ItemCarga>();
-		// if (puedeTransportar(carga))
-		cargas.add(new ItemCarga(carga));
+		if (puedeTransportar(carga))
+			cargas.add(new ItemCarga(carga));
+		ViajeDAO.getInstance().update(this);
 	}
 
 	public void agregarCondicionEspecial(String condicion) throws Exception {

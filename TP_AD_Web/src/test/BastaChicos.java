@@ -57,7 +57,7 @@ public class BastaChicos {
 	public static void main(String[] args) {
 		try {
 			controlador = ControladorPrincipal.getInstance();
-			testAltaCargaLocal();
+			//testAltaCargaLocal();
 			testAltaCargaInternacional();
 			testXml();
 		} catch (Exception e) {
@@ -70,7 +70,7 @@ public class BastaChicos {
 	private static void testXml() throws Exception {
 		Document doc = ViajeDAO.getInstance().getUltimoViaje().generarXml();
 		Utilities.printXml(doc);
-		Utilities.saveXml(doc);
+		//Utilities.saveXml(doc);
 	}
 
 	private static void testAltaCargaLocal() throws Exception {
@@ -292,7 +292,7 @@ public class BastaChicos {
 	private static VehiculoExternoView crearVehiculoExternoView() {
 		VehiculoExternoView v = new VehiculoExternoView();
 		v.setPatente(randomString());
-		v.setPeso((float) randomInteger());
+		v.setPeso((float) randomInteger() * 10000);
 		v.setTamano(crearTamano().getView());
 		v.setTara((float) randomInteger());
 		v.setTarifa((float) randomInteger());
