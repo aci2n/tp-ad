@@ -18,4 +18,11 @@ public enum TipoVehiculo {
 		return tipo;
 	}
 	
+	public static TipoVehiculo obtenerPorTipo(String tipo) {
+		for (TipoVehiculo t : values())
+			if (t.tipo.equalsIgnoreCase(tipo))
+				return t;
+		return null;
+	}
+	
 }
