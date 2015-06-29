@@ -73,4 +73,8 @@ public interface TDAControladorPrincipal extends Remote {
 	public void realizarPago(Integer idPago) throws Exception;
 
 	public void realizarCobroParcial(Integer idFactura, Float monto) throws Exception;
+
+	public List<ParticularView> obtenerClientesParticulares() throws Exception;
+
+	public List<EmpresaView> obtenerClientesEmpresas() throws Exception;
 }

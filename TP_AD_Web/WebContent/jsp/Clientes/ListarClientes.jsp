@@ -1,12 +1,7 @@
-<%@page import="com.sun.media.sound.ModelAbstractChannelMixer"%>
-<%@page import="java.util.*"%>
-<%@page import="impl.clientes.*"%>
-<%@page import="views.clientes.*"%>
-<%@page import="controllers.*"%>
-<%@page import="persistence.*"%>
-<%@page import="org.hibernate.Query"%>
-<%@page import="org.hibernate.Session"%>
-
+<%@page import="views.clientes.EmpresaView"%>
+<%@page import="java.util.List"%>
+<%@page import="views.clientes.ParticularView"%>
+<%@page import="rmi.delegate.BusinessDelegate"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -63,9 +58,9 @@
 
 							<tbody id="tbody">
 								<%
-									List<ParticularView> clientes = ControladorPrincipal.getInstance().obtenerClientesParticulares();
-									for(ParticularView c : clientes)
-									{
+									List<ParticularView> clientes = BusinessDelegate.getInstance().getInterfaz().obtenerClientesParticulares();
+																																																																					for(ParticularView c : clientes)
+																																																																					{
 								%>
 								<tr>
 									<td style="color: #1565C0; font-weight: bold;"><%=c.getId()%></td>
@@ -106,9 +101,8 @@
 
 							<tbody id="tbody">
 								<%
-									List<EmpresaView> empresas = ControladorPrincipal.getInstance().obtenerClientesEmpresas();
-									for(EmpresaView e : empresas)
-									{
+									List<EmpresaView> empresas = BusinessDelegate.getInstance().getInterfaz().obtenerClientesEmpresas();
+																						for(EmpresaView e : empresas){
 								%>
 								<%-- <tr>
 									<td style="color: #1565C0; font-weight: bold;"><%=e.getId()%></td>
@@ -122,7 +116,7 @@
 						</table>
 						<div></div>
 					</div>
-				</div> 
+				</div>
 
 
 
