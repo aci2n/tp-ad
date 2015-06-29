@@ -19,7 +19,6 @@ public class ViajeDAO extends AbstractGenericDAO<Viaje> {
 	}
 
 	private ViajeDAO() {
-
 	}
 
 	@Override
@@ -42,19 +41,23 @@ public class ViajeDAO extends AbstractGenericDAO<Viaje> {
 	}
 
 	public List<Viaje> getViajesEmpleado(int idChofer) {
-
 		List<Viaje> viajes = new ArrayList<Viaje>();
 		Session s = sf.openSession();
-		VehiculoLocal v = (VehiculoLocal) s
-				.createQuery("from VehiculoLocal where id_empleado = ?")
-				.setParameter(0, idChofer).uniqueResult();
-
+		VehiculoLocal v = (VehiculoLocal) s.createQuery("from VehiculoLocal where id_empleado = ?").setParameter(0, idChofer).uniqueResult();
 		s.beginTransaction();
 		Query q = s.createQuery("from Viaje where id_vehiculo = ?").setParameter(0, v.getId());
 		viajes = (List<Viaje>) q.list();
 		s.close();
 		return viajes;
+	}
 
+	public Viaje getUltimoViaje() {
+		Session s = sf.openSession();
+		s.beginTransaction();
+		Query q = s.createQuery("from Viaje order by id desc").setMaxResults(1);
+		Viaje viaje = (Viaje) q.uniqueResult();
+		s.close();
+		return viaje;
 	}
 	
 	public Viaje getViajePorParada(int idParada) {

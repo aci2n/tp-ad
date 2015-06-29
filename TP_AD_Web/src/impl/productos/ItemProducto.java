@@ -30,6 +30,9 @@ public class ItemProducto extends PersistentObject {
 		this.cantidad = cantidad;
 	}
 
+	public ItemProducto() {
+	}
+
 	public ItemProducto(ItemProductoView ipv) {
 		producto = new Producto(ipv.getProducto());
 		cantidad = ipv.getCantidad();
