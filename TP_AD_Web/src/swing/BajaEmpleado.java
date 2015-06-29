@@ -4,22 +4,18 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import rmi.delegate.BusinessDelegate;
 
-public class BajaEmpleado extends JFrame implements ActionListener {
-
+public class BajaEmpleado extends GenericJFrame {
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	private JTextField[] textFields;
 	private JButton btnEliminar;
 
@@ -41,7 +37,7 @@ public class BajaEmpleado extends JFrame implements ActionListener {
 		configurar();
 	}
 
-	private void inicializar() {
+	protected void inicializar() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 150);
 		contentPane = new JPanel();
@@ -51,21 +47,17 @@ public class BajaEmpleado extends JFrame implements ActionListener {
 		setTitle("Baja Empleado");
 	}
 
-	private void configurar() {
+	protected void configurar() {
 		JPanel panelCentro = new JPanel();
 		panelCentro.setLayout(new GridLayout(0, 1));
-
 		String[] labelStrings = { "ID Empleado" };
 		textFields = new JTextField[labelStrings.length];
-
 		for (int i = 0; i < labelStrings.length; i++) {
 			textFields[i] = new JTextField();
 			panelCentro.add(new JLabel(labelStrings[i]));
 			panelCentro.add(textFields[i]);
 		}
-
 		contentPane.add(panelCentro, BorderLayout.CENTER);
-
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(this);
 		contentPane.add(btnEliminar, BorderLayout.SOUTH);
@@ -76,7 +68,6 @@ public class BajaEmpleado extends JFrame implements ActionListener {
 			if (!hayCampoVacio()) {
 				int i = 0;
 				String idEmpleado = textFields[i++].getText();
-
 				try {
 					int id = Integer.parseInt(idEmpleado);
 					BusinessDelegate.getInstance().getInterfaz().bajaEmpleado(id);
@@ -95,13 +86,5 @@ public class BajaEmpleado extends JFrame implements ActionListener {
 			if (t.getText().equals(""))
 				return true;
 		return false;
-	}
-
-	private void mostrarError(String mensaje) {
-		JOptionPane.showMessageDialog(new JFrame(), mensaje, "Error", JOptionPane.ERROR_MESSAGE);
-	}
-
-	private void mostrarInformacion(String mensaje) {
-		JOptionPane.showMessageDialog(new JFrame(), mensaje, "Informacion", JOptionPane.INFORMATION_MESSAGE);
 	}
 }

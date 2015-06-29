@@ -4,13 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -18,9 +16,8 @@ import javax.swing.border.EmptyBorder;
 import rmi.delegate.BusinessDelegate;
 import views.personal.EmpleadoView;
 
-public class AltaEmpleado extends JFrame implements ActionListener {
+public class AltaEmpleado extends GenericJFrame {
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	private JTextField[] textFields;
 	private JButton btnAgregar;
 	private JComboBox<String> comboPuestos;
@@ -43,7 +40,7 @@ public class AltaEmpleado extends JFrame implements ActionListener {
 		configurar();
 	}
 
-	private void inicializar() {
+	protected void inicializar() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 400);
 		contentPane = new JPanel();
@@ -53,7 +50,7 @@ public class AltaEmpleado extends JFrame implements ActionListener {
 		setTitle("Alta Empleado");
 	}
 
-	private void configurar() {
+	protected void configurar() {
 		try {
 			JPanel panelCentro = new JPanel();
 			panelCentro.setLayout(new GridLayout(0, 1));
@@ -108,13 +105,5 @@ public class AltaEmpleado extends JFrame implements ActionListener {
 			if (t.getText().equals(""))
 				return true;
 		return false;
-	}
-
-	private void mostrarError(String mensaje) {
-		JOptionPane.showMessageDialog(new JFrame(), mensaje, "Error", JOptionPane.ERROR_MESSAGE);
-	}
-
-	private void mostrarInformacion(String mensaje) {
-		JOptionPane.showMessageDialog(new JFrame(), mensaje, "Informacion", JOptionPane.INFORMATION_MESSAGE);
 	}
 }

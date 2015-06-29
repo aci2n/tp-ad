@@ -3,7 +3,6 @@ package swing;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +17,7 @@ import rmi.delegate.BusinessDelegate;
 import views.viajes.CompaniaSeguroView;
 import views.viajes.SeguroView;
 
-public class ListarCompaniasSeguro extends JFrame implements ActionListener {
+public class ListarCompaniasSeguro extends GenericJFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -43,7 +42,7 @@ public class ListarCompaniasSeguro extends JFrame implements ActionListener {
 		configurar();
 	}
 
-	private void inicializar() {
+	protected void inicializar() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 400);
 		contentPane = new JPanel();
@@ -52,7 +51,7 @@ public class ListarCompaniasSeguro extends JFrame implements ActionListener {
 		setTitle("Listar Companias Seguro");
 	}
 
-	private void configurar() {
+	protected void configurar() {
 		contentPane.setLayout(new BorderLayout());
 
 		comboCompanias = new JComboBox<CompaniaSeguroView>();

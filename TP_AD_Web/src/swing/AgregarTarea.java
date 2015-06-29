@@ -4,12 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -17,10 +15,8 @@ import javax.swing.border.EmptyBorder;
 import rmi.delegate.BusinessDelegate;
 import views.vehiculos.TareaView;
 
-public class AgregarTarea extends JFrame implements ActionListener {
-
+public class AgregarTarea extends GenericJFrame {
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	private JTextField[] textFields;
 	private JButton btnAgregar;
 
@@ -42,7 +38,7 @@ public class AgregarTarea extends JFrame implements ActionListener {
 		configurar();
 	}
 
-	private void inicializar() {
+	protected void inicializar() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -52,21 +48,17 @@ public class AgregarTarea extends JFrame implements ActionListener {
 		setTitle("Agregar Tarea");
 	}
 
-	private void configurar() {
+	protected void configurar() {
 		JPanel panelCentro = new JPanel();
 		panelCentro.setLayout(new GridLayout(0, 1));
-
 		String[] labelStrings = { "ID Vehiculo", "Kilometraje", "Fecha entrega", "Fecha devolucion" };
 		textFields = new JTextField[labelStrings.length];
-
 		for (int i = 0; i < labelStrings.length; i++) {
 			textFields[i] = new JTextField();
 			panelCentro.add(new JLabel(labelStrings[i]));
 			panelCentro.add(textFields[i]);
 		}
-
 		contentPane.add(panelCentro, BorderLayout.CENTER);
-
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(this);
 		contentPane.add(btnAgregar, BorderLayout.SOUTH);
@@ -80,7 +72,6 @@ public class AgregarTarea extends JFrame implements ActionListener {
 				String kilometraje = textFields[i++].getText();
 				String fechaEntrega = textFields[i++].getText();
 				String fechaDevolucion = textFields[i++].getText();
-
 				try {
 					int id = Integer.parseInt(idVehiculo);
 					float kilometrajeF = Float.parseFloat(kilometraje);
@@ -101,13 +92,5 @@ public class AgregarTarea extends JFrame implements ActionListener {
 			if (t.getText().equals(""))
 				return true;
 		return false;
-	}
-
-	private void mostrarError(String mensaje) {
-		JOptionPane.showMessageDialog(new JFrame(), mensaje, "Error", JOptionPane.ERROR_MESSAGE);
-	}
-
-	private void mostrarInformacion(String mensaje) {
-		JOptionPane.showMessageDialog(new JFrame(), mensaje, "Informacion", JOptionPane.INFORMATION_MESSAGE);
 	}
 }

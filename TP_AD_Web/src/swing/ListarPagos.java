@@ -1,10 +1,10 @@
 package swing;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
 import java.util.List;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import rmi.delegate.BusinessDelegate;
 import views.clientes.PagoView;
 
-public class ListarPagos extends JFrame {
+public class ListarPagos extends GenericJFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
@@ -36,7 +36,7 @@ public class ListarPagos extends JFrame {
 		configurar();
 	}
 
-	private void inicializar() {
+	protected void inicializar() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 500);
 		contentPane = new JPanel();
@@ -45,7 +45,7 @@ public class ListarPagos extends JFrame {
 		setTitle("Listar Pagos");
 	}
 
-	private void configurar() {
+	protected void configurar() {
 		try {
 			DefaultTableModel modelo = new DefaultTableModel();
 			// COLUMNAS
@@ -76,7 +76,6 @@ public class ListarPagos extends JFrame {
 		}
 	}
 
-	private void mostrarError(String mensaje) {
-		JOptionPane.showMessageDialog(new JFrame(), mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+	public void actionPerformed(ActionEvent e) {
 	}
 }
