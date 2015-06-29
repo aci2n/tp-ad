@@ -1,13 +1,6 @@
-<%@page import="com.sun.media.sound.ModelAbstractChannelMixer"%>
-<%@page import="java.util.*"%>
-<%@page import="impl.productos.*"%>
-<%@page import="views.productos.*"%>
-<%@page import="controllers.*"%>
-<%@page import="persistence.*"%>
-<%@page import="org.hibernate.Query"%>
-<%@page import="org.hibernate.Session"%>
-
-
+<%@page import="rmi.delegate.BusinessDelegate"%>
+<%@page import="views.productos.ProductoView"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -62,9 +55,9 @@
 
 						<tbody id="tbody">
 							<%
-								List<ProductoView> productos = ControladorPrincipal.getInstance().obtenerProductosView();
-								for(ProductoView p : productos)
-																								{
+								List<ProductoView> productos = BusinessDelegate.getInstance().getInterfaz().obtenerProductosView();
+																		for(ProductoView p : productos)
+																																		{
 							%>
 							<tr>
 								<td style="color: #1565C0; font-weight: bold;"><%=p.getId()%></td>

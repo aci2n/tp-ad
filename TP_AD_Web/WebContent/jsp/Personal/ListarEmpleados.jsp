@@ -1,13 +1,3 @@
-<%@page import="com.sun.media.sound.ModelAbstractChannelMixer"%>
-<%@page import="java.util.*"%>
-<%@page import="impl.clientes.*"%>
-<%@page import="views.clientes.*"%>
-<%@page import="controllers.*"%>
-<%@page import="persistence.*"%>
-<%@page import="org.hibernate.Query"%>
-<%@page import="org.hibernate.Session"%>
-
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
