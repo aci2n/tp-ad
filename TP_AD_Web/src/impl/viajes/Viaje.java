@@ -82,6 +82,8 @@ public class Viaje extends PersistentObject {
 		destino = new Ubicacion(vi.getDestino());
 		fechaLlegada = Utilities.parseDate(vi.getFechaLlegada());
 		fechaSalida = Utilities.parseDate(vi.getFechaSalida());
+		paradasIntermedias = new ArrayList<ParadaIntermedia>();
+		condicionesEspeciales = new ArrayList<CondicionEspecial>();
 		id = ViajeDAO.getInstance().insert(this);
 	}
 

@@ -18,6 +18,7 @@ import impl.productos.TipoTratamiento;
 import impl.sucursales.Sucursal;
 import impl.vehiculos.PlanMantenimiento;
 import impl.vehiculos.PlanMantenimientoKilometraje;
+import impl.vehiculos.Proveedor;
 import impl.vehiculos.TipoVehiculo;
 import impl.vehiculos.VehiculoLocal;
 import impl.viajes.CompaniaSeguro;
@@ -32,6 +33,7 @@ import persistence.ClienteDAO;
 import persistence.CompaniaSeguroDAO;
 import persistence.EmpleadoDAO;
 import persistence.PlanMantenimientoDAO;
+import persistence.ProveedorDAO;
 import persistence.SucursalDAO;
 import persistence.UbicacionDAO;
 import persistence.VehiculoDAO;
@@ -40,6 +42,7 @@ import views.cargas.CargaView;
 import views.productos.ItemProductoView;
 import views.productos.ProductoView;
 import views.vehiculos.PlanMantenimientoView;
+import views.vehiculos.VehiculoExternoView;
 import views.vehiculos.VehiculoLocalView;
 import views.viajes.SeguroView;
 import controllers.ControladorPrincipal;
@@ -51,7 +54,8 @@ public class BastaChicos {
 	public static void main(String[] args) {
 		try {
 			controlador = ControladorPrincipal.getInstance();
-			testAltaCarga();
+			testAltaCargaLocal();
+			testAltaCargaInternacional();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -59,13 +63,24 @@ public class BastaChicos {
 		}
 	}
 
-	private static void testAltaCarga() throws Exception {
+	private static void testAltaCargaLocal() throws Exception {
+		System.out.println("/* ALTA CARGA LOCAL */");
 		Particular particular = crearParticular();
 		Sucursal sucursal = crearSucursal();
 		Empleado empleado = crearEmpleado();
 		CompaniaSeguro companiaSeguro = crearCompaniaSeguro();
 		sucursal.agregarVehiculo(crearVehiculoLocalView(), crearPlanMantenimientoKilometrajeView(), empleado.getId());
 		controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaView(), false);
+	}
+
+	private static void testAltaCargaInternacional() throws Exception {
+		System.out.println("/* ALTA CARGA INTERNACIONAL */");
+		Particular particular = crearParticular();
+		Sucursal sucursal = crearSucursal();
+		CompaniaSeguro companiaSeguro = crearCompaniaSeguro();
+		Proveedor proveedor = crearProveedor();
+		controlador.altaVehiculoExterno(proveedor.getId(), crearVehiculoExternoView());
+		controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaView(), true);
 	}
 
 	private static Carga crearCarga() {
@@ -254,6 +269,25 @@ public class BastaChicos {
 			cs.agregarSeguro(s);
 		}
 		return cs;
+	}
+
+	private static Proveedor crearProveedor() {
+		Proveedor p = new Proveedor();
+		p.setCuit(randomString());
+		p.setNombre(randomString());
+		p.setId(ProveedorDAO.getInstance().insert(p));
+		return p;
+	}
+
+	private static VehiculoExternoView crearVehiculoExternoView() {
+		VehiculoExternoView v = new VehiculoExternoView();
+		v.setPatente(randomString());
+		v.setPeso((float) randomInteger());
+		v.setTamano(crearTamano().getView());
+		v.setTara((float) randomInteger());
+		v.setTarifa((float) randomInteger());
+		v.setTipo(TipoVehiculo.CAMION_CON_CAJA_REFRIGERADO.toString());
+		return v;
 	}
 
 	private static Integer randomInteger() {

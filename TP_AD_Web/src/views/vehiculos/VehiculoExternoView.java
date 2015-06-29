@@ -20,6 +20,10 @@ public class VehiculoExternoView extends GenericView{
 		this.tipo = tipo;
 	}
 
+	public VehiculoExternoView() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getPatente() {
 		return patente;
 	}
