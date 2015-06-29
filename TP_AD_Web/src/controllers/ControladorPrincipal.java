@@ -4,8 +4,8 @@ import impl.cargas.AdministradorCargas;
 import impl.cargas.Carga;
 import impl.clientes.AdministradorClientes;
 import impl.cobranzas.AdministradorCobranzas;
-import impl.personal.TipoPuesto;
 import impl.productos.AdministradorProductos;
+import impl.productos.Producto;
 import impl.sucursales.AdministradorSucursales;
 import impl.sucursales.Sucursal;
 import impl.vehiculos.AdministradorVehiculos;
@@ -16,6 +16,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import persistence.ProductoDAO;
 import persistence.ViajeDAO;
 import rmi.tda.TDAControladorPrincipal;
 import views.cargas.CargaView;
@@ -39,7 +40,8 @@ import views.viajes.ParadaIntermediaView;
 import views.viajes.SeguroView;
 import views.viajes.ViajeView;
 
-public class ControladorPrincipal extends UnicastRemoteObject implements TDAControladorPrincipal {
+public class ControladorPrincipal extends UnicastRemoteObject implements
+		TDAControladorPrincipal {
 	private static final long serialVersionUID = 1L;
 
 	public static ControladorPrincipal getInstance() throws Exception {
@@ -76,7 +78,8 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 		return administradorClientes.altaClienteParticular(particular);
 	}
 
-	public void agregarReceptor(Integer clienteId, ReceptorView receptor) throws Exception {
+	public void agregarReceptor(Integer clienteId, ReceptorView receptor)
+			throws Exception {
 		administradorClientes.agregarReceptor(clienteId, receptor);
 	}
 
@@ -93,11 +96,13 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 		return administradorSucursales.altaSucursal(sucursal);
 	}
 
-	public Integer agregarEmpleadoASucursal(Integer id, EmpleadoView empleado) throws Exception {
+	public Integer agregarEmpleadoASucursal(Integer id, EmpleadoView empleado)
+			throws Exception {
 		return administradorSucursales.agregarEmpleadoASucursal(id, empleado);
 	}
 
-	public void agregarDistanciaEntreSucursales(DistanciaEntreSucursalesView dist) throws Exception {
+	public void agregarDistanciaEntreSucursales(
+			DistanciaEntreSucursalesView dist) throws Exception {
 		administradorSucursales.agregarDistanciaEntreSucursales(dist);
 	}
 
@@ -106,12 +111,26 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	}
 
 	// PRODUCTOS
-	public void agregarCondicionEspecialAProducto(Integer id, String condicionEspecial) throws Exception {
-		administradorProductos.agregarCondicionEspecialAProducto(id, condicionEspecial);
+	public void agregarCondicionEspecialAProducto(Integer id,
+			String condicionEspecial) throws Exception {
+		administradorProductos.agregarCondicionEspecialAProducto(id,
+				condicionEspecial);
 	}
 
 	public Integer altaProducto(ProductoView producto) {
 		return administradorProductos.altaProducto(producto);
+	}
+
+	public List<ProductoView> obtenerProductosView() {
+
+		List<ProductoView> productos = new ArrayList<ProductoView>();
+		for (Producto p : ProductoDAO.getInstance().getAll()) {
+			ProductoView view = p.getView();
+			view.setId(p.getId());
+			productos.add(view);
+		}
+		return productos;
+
 	}
 
 	// VEHICULOS
@@ -119,24 +138,32 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 		return administradorVehiculos.altaProveedor(proveedor);
 	}
 
-	public Integer altaVehiculoExterno(Integer idProveedor, VehiculoExternoView vehiculoExterno) throws Exception {
-		return administradorVehiculos.altaVehiculoExterno(idProveedor, vehiculoExterno);
+	public Integer altaVehiculoExterno(Integer idProveedor,
+			VehiculoExternoView vehiculoExterno) throws Exception {
+		return administradorVehiculos.altaVehiculoExterno(idProveedor,
+				vehiculoExterno);
 	}
 
-	public Integer altaVehiculoLocal(Integer idSucursal, VehiculoLocalView v, PlanMantenimientoView p, Integer idEmpleado) throws Exception {
-		return administradorVehiculos.altaVehiculoLocal(idSucursal, v, p, idEmpleado);
+	public Integer altaVehiculoLocal(Integer idSucursal, VehiculoLocalView v,
+			PlanMantenimientoView p, Integer idEmpleado) throws Exception {
+		return administradorVehiculos.altaVehiculoLocal(idSucursal, v, p,
+				idEmpleado);
 	}
 
 	// VIAJES
-	public void agregarCondicionEspecialAViaje(Integer id, String condicionEspecial) throws Exception {
-		administradorViajes.agregarCondicionEspecialAViaje(id, condicionEspecial);
+	public void agregarCondicionEspecialAViaje(Integer id,
+			String condicionEspecial) throws Exception {
+		administradorViajes.agregarCondicionEspecialAViaje(id,
+				condicionEspecial);
 	}
 
-	public void agregarParadaIntermediaAViaje(Integer viajeId, ParadaIntermediaView p) throws Exception {
+	public void agregarParadaIntermediaAViaje(Integer viajeId,
+			ParadaIntermediaView p) throws Exception {
 		administradorViajes.agregarParadaIntermediaAViaje(viajeId, p);
 	}
 
-	public Integer agregarSeguro(Integer companiaId, SeguroView s) throws Exception {
+	public Integer agregarSeguro(Integer companiaId, SeguroView s)
+			throws Exception {
 		return administradorViajes.agregarSeguro(companiaId, s);
 	}
 
@@ -144,12 +171,14 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 		return administradorViajes.altaCompaniaSeguro(c);
 	}
 
-	public Integer altaViaje(Integer idVehiculo, Integer idSeguro, ViajeView viaje) throws Exception {
+	public Integer altaViaje(Integer idVehiculo, Integer idSeguro,
+			ViajeView viaje) throws Exception {
 		// creo que esto no se va a usar
 		return null;
 	}
 
-	public void actualizarPrecioVehiculo(Integer id, Float precio) throws Exception {
+	public void actualizarPrecioVehiculo(Integer id, Float precio)
+			throws Exception {
 		administradorVehiculos.actualizarPrecioVehiculo(id, precio);
 	}
 
@@ -180,17 +209,22 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 		return administradorCargas.obtenerCargasView();
 	}
 
-	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView carga, boolean esInternacional) throws Exception {
-		return administradorCargas.altaCarga(idSucursal, idCliente, carga, esInternacional);
+	public Integer altaCarga(Integer idSucursal, Integer idCliente,
+			CargaView carga, boolean esInternacional) throws Exception {
+		return administradorCargas.altaCarga(idSucursal, idCliente, carga,
+				esInternacional);
 	}
 
-	public SucursalCargaView obtenerSucursalCargaView(Integer idCarga) throws Exception {
-		Sucursal s = administradorSucursales.obtenerSucursalDesdeIdCarga(idCarga);
+	public SucursalCargaView obtenerSucursalCargaView(Integer idCarga)
+			throws Exception {
+		Sucursal s = administradorSucursales
+				.obtenerSucursalDesdeIdCarga(idCarga);
 		Carga c = administradorCargas.obtenerCarga(idCarga);
 		if (s != null && c != null) {
 			return new SucursalCargaView(s.getView(), c.getView());
 		} else {
-			throw new Exception("No existe la carga o no se encontro la sucursal asociada a la carga.");
+			throw new Exception(
+					"No existe la carga o no se encontro la sucursal asociada a la carga.");
 		}
 	}
 

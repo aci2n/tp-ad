@@ -4,6 +4,8 @@ import views.GenericView;
 import views.misc.TamanoView;
 
 public class ProductoView extends GenericView{
+	
+	private int id;
 	private String nombre;
 	private String fragilidad;
 	private String tratamiento;
@@ -33,6 +35,14 @@ public class ProductoView extends GenericView{
 		// TODO Auto-generated constructor stub
 	}
 
+	public void setId(int id){
+		this.id = id;
+	}
+	
+	public int getId(){
+		return this.id;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
