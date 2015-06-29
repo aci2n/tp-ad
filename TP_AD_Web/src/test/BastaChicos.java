@@ -57,14 +57,9 @@ public class BastaChicos {
 	public static void main(String[] args) {
 		try {
 			controlador = ControladorPrincipal.getInstance();
-			for (int i = 0; i < 100; i++) {
-				try {
-					testAltaCargaLocal();
-					testAltaCargaInternacional();
-				} catch (Exception e) {
-				}
-			}
-			// testXml();
+			testAltaCargaLocal();
+			testAltaCargaInternacional();
+			testXml();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -191,9 +186,9 @@ public class BastaChicos {
 
 	private static Tamano crearTamanoPlus() {
 		Tamano t = new Tamano();
-		t.setAlto((float) randomInteger() * 1000);
-		t.setAncho((float) randomInteger() * 1000);
-		t.setProfundidad((float) randomInteger() * 1000);
+		t.setAlto((float) randomInteger() * 100000);
+		t.setAncho((float) randomInteger() * 100000);
+		t.setProfundidad((float) randomInteger() * 100000);
 		return t;
 	}
 
@@ -230,8 +225,8 @@ public class BastaChicos {
 		VehiculoLocal v = new VehiculoLocal();
 		v.setEmpleado(crearEmpleado());
 		v.setPatente(randomString());
-		v.setPeso((float) randomInteger());
-		v.setTamano(crearTamano());
+		v.setPeso((float) randomInteger() * 100000);
+		v.setTamano(crearTamanoPlus());
 		v.setTara((float) randomInteger());
 		v.setTarifa((float) randomInteger());
 		v.setTipo(TipoVehiculo.CAMION_CON_CAJA_REFRIGERADO);
@@ -244,8 +239,8 @@ public class BastaChicos {
 	private static VehiculoLocalView crearVehiculoLocalView() {
 		VehiculoLocalView v = new VehiculoLocalView();
 		v.setPatente(randomString());
-		v.setPeso((float) randomInteger());
-		v.setTamano(crearTamano().getView());
+		v.setPeso((float) randomInteger() * 100000);
+		v.setTamano(crearTamanoPlus().getView());
 		v.setTara((float) randomInteger());
 		v.setTarifa((float) randomInteger());
 		v.setTipo(TipoVehiculo.CAMION_CON_CAJA_REFRIGERADO.toString());
@@ -305,7 +300,7 @@ public class BastaChicos {
 	private static VehiculoExternoView crearVehiculoExternoView() {
 		VehiculoExternoView v = new VehiculoExternoView();
 		v.setPatente(randomString());
-		v.setPeso((float) randomInteger() * 10000);
+		v.setPeso((float) randomInteger() * 100000);
 		v.setTamano(crearTamanoPlus().getView());
 		v.setTara((float) randomInteger());
 		v.setTarifa((float) randomInteger());
