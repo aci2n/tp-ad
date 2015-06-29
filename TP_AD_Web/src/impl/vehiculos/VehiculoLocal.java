@@ -122,6 +122,6 @@ public class VehiculoLocal extends Vehiculo {
 	public VehiculoLocalView getView() {
 
 		return new VehiculoLocalView(patente, tamano.getView(), peso, tara,
-				tarifa, tipo.toString(), vencimientoGarantia.toString());
+				tarifa, tipo.toString(), vencimientoGarantia.toString(),empleado.getId());
 	}
 }

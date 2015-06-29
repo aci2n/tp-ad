@@ -37,10 +37,10 @@ public class AdministradorVehiculos {
 		return p.getId();
 	}
 
-	public Integer altaVehiculoLocal(Integer idSucursal, VehiculoLocalView v, PlanMantenimientoView p) throws Exception {
+	public Integer altaVehiculoLocal(Integer idSucursal, VehiculoLocalView v, PlanMantenimientoView p, Integer idEmpleado) throws Exception {
 		Sucursal s = SucursalDAO.getInstance().get(idSucursal);
 		if (s != null) {
-			return s.agregarVehiculo(v, p);
+			return s.agregarVehiculo(v, p, idEmpleado);
 		} else {
 			throw new Exception("No existe sucursal con el id ingresado.");
 		}

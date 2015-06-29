@@ -66,8 +66,7 @@ public class AdministradorCargas {
 		ViajeOptimo viajeOptimo = admVi.obtenerViajeOptimo(c);
 		if (viajeOptimo != null) {
 			viajeOptimo.getViaje().agregarCarga(c);
-			viajeOptimo.getViaje()
-					.agregarParadaIntermedia(new ParadaIntermedia(c.getDestino(), c.getFechaProbableEntrega()));
+			viajeOptimo.getViaje().agregarParadaIntermedia(new ParadaIntermedia(c.getDestino(), c.getFechaProbableEntrega()));
 		} else {
 			admVi.crearViajeEnBaseACarga(c, esInternacional);
 		}

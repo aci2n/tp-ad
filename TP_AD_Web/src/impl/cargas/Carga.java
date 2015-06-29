@@ -24,6 +24,7 @@ import javax.persistence.Table;
 import persistence.CargaDAO;
 import util.Utilities;
 import views.cargas.CargaView;
+import views.productos.ItemProductoView;
 
 @Entity
 @Table(name = "Cargas")
@@ -33,37 +34,28 @@ public class Carga extends PersistentObject {
 	 * 
 	 */
 	private static final long serialVersionUID = -875716574330563168L;
-
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_carga")
 	private Collection<ItemProducto> productos;
-
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
-
 	@ManyToOne
 	@JoinColumn(name = "id_ubicacionOrigen")
 	private Ubicacion origen;
-
 	@ManyToOne
 	@JoinColumn(name = "id_ubicacionDestino")
 	private Ubicacion destino;
-
 	@Column(name = "tipoCarga")
 	@Enumerated(EnumType.STRING)
 	private TipoCarga tipo;
-
 	@Column(name = "estadoCarga")
 	@Enumerated(EnumType.STRING)
 	private EstadoCarga estadoCarga;
-
 	@Column(name = "fechaMaximaEntrega")
 	private Date fechaMaximaEntrega;
-
 	@Column(name = "fechaProbableEntrega")
 	private Date fechaProbableEntrega;
-
 	@Column(name = "manifiesto")
 	private String manifiesto;
 
@@ -81,6 +73,9 @@ public class Carga extends PersistentObject {
 		estadoCarga = EstadoCarga.valueOf(c.getEstadoCarga());
 		cliente = cli;
 		productos = new ArrayList<ItemProducto>();
+		for (ItemProductoView ipv : c.getProductos()) {
+			productos.add(new ItemProducto(ipv));
+		}
 		id = CargaDAO.getInstance().insert(this);
 	}
 
@@ -149,19 +144,14 @@ public class Carga extends PersistentObject {
 	}
 
 	public float calcularVolumenTotal() {
-
 		float volumen = 0;
-
 		for (ItemProducto p : productos)
 			volumen += p.calcularPesoParcial();
-
 		return volumen;
 	}
 
 	public float calcularPesoTotal() {
-
 		float peso = 0;
-
 		for (ItemProducto p : productos) {
 			peso += p.calcularPesoParcial();
 		}
@@ -201,12 +191,8 @@ public class Carga extends PersistentObject {
 	}
 
 	public CargaView getView() {
-
 		CargaView view = new CargaView(tipo.toString(), fechaMaximaEntrega.toString(), fechaProbableEntrega.toString(), manifiesto, origen.getView(),
 				destino.getView(), estadoCarga.toString(), id);
-
 		return view;
-
 	}
-
 }
