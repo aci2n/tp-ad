@@ -62,12 +62,12 @@
 
 						<tbody id="tbody">
 							<%
-								 List<Producto> productos = ProductoDAO.getInstance().getAll();
-																			for(Producto p : productos)
+								 List<ProductoView> productos = ControladorPrincipal.getInstance().obtenerProductosView();
+																			for(ProductoView p : productos)
 																			{
 							%>
 							<tr>
-								<td style="color: #1565C0; font-weight: bold;">/*p.getId())*/</td>
+								<td style="color: #1565C0; font-weight: bold;"><%=p.getId()%></td>
 								<td><%=p.getNombre()%></td>
 								<td><%=p.getFragilidad().toString()%></td>
 								<td><%=p.getTratamiento()%></td>

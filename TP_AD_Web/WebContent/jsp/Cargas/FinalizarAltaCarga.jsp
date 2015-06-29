@@ -76,7 +76,7 @@
 			var data = {
 				tipoCarga: $('#altaCarga input[name="tipoCarga"]').val(),
 				cuit: $('#altaCarga input[name="cuit"]').val(),
-				productos: _productos,
+				productos: JSON.stringify(_productos),
 				idSucursalOrigen: $('input[name="idSucursalOrigen"]').val(),
 				fechaMaxEntrega: $(this).find('input[name="fechaMaxEntrega"]').val(),
 				manifiesto: $(this).find('input[name="manifiesto"]').val(),

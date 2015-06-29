@@ -77,7 +77,7 @@
 		<input class="btn btn-primary" type="submit" value="Alta">
 	</form>
 	
-	<table id="productos" style="display: none">
+	<table id="productos" class="responsive-table hoverable" style="display: none">
 		<thead>
 			<th data-field="nombre">Nombre</th>
 			<th data-field="fragilidad">Fragilidad</th>
