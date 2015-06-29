@@ -32,7 +32,7 @@
 
 					<!-- 	 -->
 					<div id="test1" class="col s12">
-						<%@include file="AltaProducto.jsp"%>
+						<%-- <%@include file="AltaProducto.jsp"%> --%>
 					</div>
 
 					<div id="test2" class="col s12">Implementar baja</div>

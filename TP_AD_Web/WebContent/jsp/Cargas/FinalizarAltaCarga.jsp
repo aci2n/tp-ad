@@ -103,7 +103,7 @@
 			$.ajax({
 				url: $(this).attr('action'),
 				data: data,
-				type: 'POST',
+				type: 'GET',
 				success: function() {
 					Materialize.toast('Carga dada de alta', 4000);
 					_productos = [];

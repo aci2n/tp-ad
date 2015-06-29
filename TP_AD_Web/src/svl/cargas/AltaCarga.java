@@ -1,8 +1,7 @@
 package svl.cargas;
 
-import impl.cargas.TipoCarga;
-
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,14 +35,14 @@ public class AltaCarga extends GenericHttpServlet {
 	private static final long serialVersionUID = 8589610416039812469L;
 	
 	private static class ItemProductoJson {
-		private float cantidad;
+		private Float cantidad;
 		private String nombre;
 		private String fragilidad;
 		private String tratamiento;
-		private float profundidad;
-		private float alto;
-		private float ancho;
-		private float peso;
+		private Float profundidad;
+		private Float alto;
+		private Float ancho;
+		private Float peso;
 		private Integer apilable;
 		private String manipulacion;
 		private String material;
@@ -169,6 +168,13 @@ public class AltaCarga extends GenericHttpServlet {
 			Float longitud = request.getParameter("longitud") != null ? Float.parseFloat(request.getParameter("longitud")) : null;
 			Float latitud = request.getParameter("latitud") != null ? Float.parseFloat(request.getParameter("latitud")) : null;
 			
+			List<ItemProductoJson> productosJson = null;
+			if (request.getParameter("productos") != null) {
+				Gson gson = new Gson();
+				Type tipo = new TypeToken<List<ItemProductoJson>>(){}.getType();
+				productosJson = gson.fromJson((String) request.getAttribute("productos"), tipo);
+			}
+			
 			UbicacionView destino = null;
 			if (idSucDestino != null) {
 				SucursalView sucDestino = ControladorPrincipal.getInstance().obtenerSucursal(idSucDestino);
@@ -177,11 +183,7 @@ public class AltaCarga extends GenericHttpServlet {
 				destino = new UbicacionView(pais, provincia, ciudad, calle, altura, piso, departamento, new CoordenadaView(latitud, longitud));
 			}
 			
-			List<ItemProductoJson> productosJson = null;
-			if (request.getAttribute("productos") != null) {
-				Gson gson = new Gson();
-				productosJson = gson.fromJson((String) request.getAttribute("productos"), new TypeToken<List<ItemProductoJson>>(){}.getType());
-			}
+			
 			
 			if (productosJson == null || idCliente == null || idSucOrigen == null || fechaMax == null) {
 				throw new Exception();

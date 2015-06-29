@@ -70,8 +70,8 @@
 									{
 								%>
 								<tr>
-									<td style="color: #1565C0; font-weight: bold;"><%=c.getId()%></td>
-									<td><%=c.getOrigen()%></td>
+<%-- 									<td style="color: #1565C0; font-weight: bold;"><%=c.getId()%></td>
+ --%>									<td><%=c.getOrigen()%></td>
 									<td><%=c.getDestino()%></td>
 									<td><%=c.getTipo()%></td>
 									<td><%=c.getFechaMaximaEntrega()%></td>
