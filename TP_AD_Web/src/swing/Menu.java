@@ -1,7 +1,6 @@
 package swing;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -24,16 +23,9 @@ public class Menu extends JFrame implements ActionListener {
 
 	private void componentes() {
 
-		Container c = this.getContentPane();
-		c.setLayout(new BorderLayout());
+		setLayout(new BorderLayout());
 		JMenuBar bar = new JMenuBar();
 		setJMenuBar(bar);
-
-		// JLabel imagen = new JLabel();
-		// imagen.setIcon(new ImageIcon(
-		// getClass().getResource("/gui/kvn.jpg")));
-
-		// c.add(imagen, BorderLayout.CENTER);
 
 		// Vehiculos
 		JMenu mVehiculos = addMenu(bar, "Vehiculos");
@@ -81,7 +73,7 @@ public class Menu extends JFrame implements ActionListener {
 	private void comportamiento() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Sistema de Administracion de Cargas");
-		setSize(500, 300);
+		setSize(500, 150);
 		setLocationRelativeTo(null);
 		this.setVisible(true);
 		this.setResizable(false);
