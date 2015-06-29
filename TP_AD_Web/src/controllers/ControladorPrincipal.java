@@ -188,11 +188,4 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	public List<CuentaCorrienteView> obtenerCuentasCorrientes() {
 		return administradorCobranzas.obtenerCuentasCorrientes();
 	}
-
-	@Override
-	public Integer altaVehiculoLocal(Integer parseInt, VehiculoLocalView v,
-			PlanMantenimientoView p) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
