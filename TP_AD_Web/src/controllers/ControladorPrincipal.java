@@ -96,6 +96,10 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	public void agregarDistanciaEntreSucursales(DistanciaEntreSucursalesView dist) throws Exception {
 		administradorSucursales.agregarDistanciaEntreSucursales(dist);
 	}
+	
+	public List<SucursalView> obtenerSucursales() {
+		return administradorSucursales.obtenerSucursalesView();
+	}
 
 	// PRODUCTOS
 	public void agregarCondicionEspecialAProducto(Integer id, String condicionEspecial) throws Exception {
@@ -114,7 +118,7 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	public Integer altaVehiculoExterno(Integer idProveedor, VehiculoExternoView vehiculoExterno) throws Exception {
 		return administradorVehiculos.altaVehiculoExterno(idProveedor, vehiculoExterno);
 	}
-	
+
 	public Integer altaVehiculoLocal(Integer idSucursal, VehiculoLocalView v, PlanMantenimientoView p, Integer idEmpleado) throws Exception {
 		return administradorVehiculos.altaVehiculoLocal(idSucursal, v, p, idEmpleado);
 	}
@@ -183,5 +187,12 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 
 	public List<CuentaCorrienteView> obtenerCuentasCorrientes() {
 		return administradorCobranzas.obtenerCuentasCorrientes();
+	}
+
+	@Override
+	public Integer altaVehiculoLocal(Integer parseInt, VehiculoLocalView v,
+			PlanMantenimientoView p) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

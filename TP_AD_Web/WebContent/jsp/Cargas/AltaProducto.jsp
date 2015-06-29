@@ -8,15 +8,15 @@
 <title>Alta Producto</title>
 </head>
 <body>
-	<form action="AltaProducto">
+	<form id="altaProducto">
 		<table>
 			<tr>
 				<td>Nombre:</td>
-				<td><input type="text" name="id"></td>
+				<td><input type="text" name="nombre"></td>
 			</tr>
 			<tr>
 				<td>Tipo fragilidad:</td>
-				<td><select name="tipoFragilidad">
+				<td><select name="fragilidad">
 						<%
 							for (TipoFragilidad t : TipoFragilidad.values()) {
 								out.print("<option value=\"" + t.toString() + "\">" + t.toString() + "</option>");
@@ -26,7 +26,7 @@
 			</tr>
 			<tr>
 				<td>Tipo tratamiento:</td>
-				<td><select name="tipoTratamiento">
+				<td><select name="tratamiento">
 						<%
 							for (TipoTratamiento t : TipoTratamiento.values()) {
 								out.print("<option value=\"" + t.toString() + "\">" + t.toString() + "</option>");
@@ -73,10 +73,68 @@
 		</table>
 		<br /> <input type="submit" value="Alta">
 	</form>
+	
+	<table id="productos" style="display: none">
+		<thead>
+			<th data-field="nombre">Nombre</th>
+			<th data-field="fragilidad">Fragilidad</th>
+            <th data-field="tratamiento">Tratamiento</th>
+            <th data-field="profundidad">Profundidad</th>
+            <th data-field="alto">Alto</th>
+            <th data-field="ancho">Ancho</th>
+            <th data-field="peso">Peso</th>
+            <th data-field="apilable">Apilable</th>
+            <th data-field="manipulacion">Manipulación</th>
+            <th data-field="material">Material</th>
+            <th data-field="consideraciones">Consideraciones</th>
+            <th data-field="refrigerado">Refrigerado</th>
+		</thead>
+		<tbody>
+			
+		</tbody>
+	</table>
+	
 	<script>
 		$(document).ready(function() {
 			$('select').material_select();
+			
+			$('#altaProducto').submit(function(event) {
+				event.preventDefault();
+				var data = $(this).serializeArray();
+				
+				$('#productos').show();
+				
+				$('#productos tbody').append(renderRow(data));
+				
+				$(this).find('input').val('');
+			});
+			
 		});
+		
+		function renderRow(data) {
+			var row $('<tr>');
+			
+			for (var i = 0; i < data.length; i++) {
+				row.append(renderProd(data[i]));
+			}
+			
+			return row;
+		}
+		
+		function renderProd(prod) {
+			var td = $('<td>');
+
+			td.append(prod.value);
+			
+			var hidden = $('<input>');
+			hidden.attr('type', 'hidden');
+			hidden.attr('name', prod.name);
+			hidden.value(prod.value);
+
+			td.append(hidden);
+			
+			return td;
+		}
 	</script>
 </body>
 </html>

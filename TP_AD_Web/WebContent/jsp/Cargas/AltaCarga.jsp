@@ -1,5 +1,7 @@
+<%@page import="controllers.ControladorPrincipal"%>
 <%@page import="impl.cargas.TipoCarga"%>
 <%@page import="impl.personal.TipoPuesto"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -27,17 +29,13 @@
 						for (TipoCarga t : TipoCarga.values()) 								
 																								{
 					%>
-					<option><%=t.getTipo().toString()%></option>
+					<option value="<%=t.getTipo().toString()%>"><%=t.getTipo().toString()%></option>
 					<%
 						}
 					%>
 				</select> <label>Tipo de Carga</label>
 			</div>
 
-			<div class="input-field col s12">
-				<input type="number" class="validate" name="id"> <label
-					for="email">ID de Sucursal</label>
-			</div>
 			<div class="input-field col s12">
 				<input type="number" class="validate" name="cuit"> <label
 					for="email">ID Cliente</label>
