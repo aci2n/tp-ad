@@ -10,11 +10,13 @@ import impl.sucursales.AdministradorSucursales;
 import impl.sucursales.Sucursal;
 import impl.vehiculos.AdministradorVehiculos;
 import impl.viajes.AdministradorViajes;
+import impl.viajes.Viaje;
 
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import persistence.ViajeDAO;
 import rmi.tda.TDAControladorPrincipal;
 import views.cargas.CargaView;
 import views.clientes.CuentaCorrienteView;
@@ -161,6 +163,17 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 
 	public List<CompaniaSeguroView> getCompaniasSeguroView() {
 		return administradorViajes.obtenerCompaniasSeguroView();
+	}
+	
+	public List<ViajeView> obtenerViajesView(){
+		
+		List<ViajeView> viajes = new ArrayList<ViajeView>();
+		for(Viaje v : ViajeDAO.getInstance().getAll()){
+			ViajeView view = v.getView();
+			view.setId(v.getId());
+			viajes.add(view);
+		}
+		return viajes;
 	}
 
 	// CARGAS
