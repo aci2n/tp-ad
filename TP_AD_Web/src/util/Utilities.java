@@ -34,7 +34,7 @@ public class Utilities {
 		}
 		return d;
 	}
-	
+
 	public static Date parseWebDate(String fecha) {
 		Date d = new Date();
 		try {
@@ -148,26 +148,30 @@ public class Utilities {
 	}
 
 	public static void saveXml(Integer id, Document doc) {
-		try {
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("./xml/" + generateFileName() + "_" + id.toString() + ".xml"));
-			transformer.transform(source, result);
-		} catch (TransformerException e) {
-			e.printStackTrace();
+		if (doc != null) {
+			try {
+				TransformerFactory transformerFactory = TransformerFactory.newInstance();
+				Transformer transformer = transformerFactory.newTransformer();
+				DOMSource source = new DOMSource(doc);
+				StreamResult result = new StreamResult(new File("./xml/" + generateFileName() + "_" + id.toString() + ".xml"));
+				transformer.transform(source, result);
+			} catch (TransformerException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public static void printXml(Document doc) {
-		try {
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(System.out);
-			transformer.transform(source, result);
-		} catch (TransformerException e) {
-			e.printStackTrace();
+		if (doc != null) {
+			try {
+				TransformerFactory transformerFactory = TransformerFactory.newInstance();
+				Transformer transformer = transformerFactory.newTransformer();
+				DOMSource source = new DOMSource(doc);
+				StreamResult result = new StreamResult(System.out);
+				transformer.transform(source, result);
+			} catch (TransformerException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

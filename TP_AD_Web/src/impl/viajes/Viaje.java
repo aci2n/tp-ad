@@ -390,10 +390,10 @@ public class Viaje extends PersistentObject {
 		parametros[2] = parametros[0] * 7.35f; // costo por kilometro promedio
 		return parametros;
 	}
-	
+
 	public boolean tieneCarga(Carga carga) {
 		for (ItemCarga item : cargas) {
-			if (item.getCarga().getId().equals(carga.getId())) 
+			if (item.getCarga().getId().equals(carga.getId()))
 				return true;
 		}
 		return false;
@@ -409,27 +409,31 @@ public class Viaje extends PersistentObject {
 			if (paradasIntermedias.size() == 0) {
 				Sucursal origen = AdministradorSucursales.getInstance().obtenerSucursalCercana(this.origen);
 				Sucursal destino = AdministradorSucursales.getInstance().obtenerSucursalCercana(this.destino);
-				Float duracion = new Float(AdministradorSucursales.getInstance().calcularHorasEntreSucursales(origen, destino)); 
+				Float duracion = new Float(AdministradorSucursales.getInstance().calcularHorasEntreSucursales(origen, destino));
 				cal.add(Calendar.HOUR, duracion.intValue());
 				int horas = (int) ((duracion - duracion.intValue()) * 60);
 				cal.add(Calendar.MINUTE, horas);
 				return cal.getTime();
 			}
 			if (paradasIntermedias.size() == 0) {
-				float duracionA = origen.calcularDistanciaEnKilometros(paradasIntermedias.get(0).getUbicacion()) / AdministradorViajes.VELOCIDAD_PROMEDIO;
-				float duracionB = paradasIntermedias.get(0).getUbicacion().calcularDistanciaEnKilometros(destino)  / AdministradorViajes.VELOCIDAD_PROMEDIO;
+				float duracionA = origen.calcularDistanciaEnKilometros(paradasIntermedias.get(0).getUbicacion())
+						/ AdministradorViajes.VELOCIDAD_PROMEDIO;
+				float duracionB = paradasIntermedias.get(0).getUbicacion().calcularDistanciaEnKilometros(destino)
+						/ AdministradorViajes.VELOCIDAD_PROMEDIO;
 				Float total = new Float(duracionA + duracionB);
 				cal.add(Calendar.HOUR, total.intValue());
 				cal.add(Calendar.MINUTE, (int) ((total - total.intValue()) * 60));
 				return cal.getTime();
 			}
-			
+
 			float duracion = 0;
 			for (int i = 0; i < paradasIntermedias.size() - 1; i++) {
-				duracion += paradasIntermedias.get(i).getUbicacion().calcularDistanciaEnKilometros(paradasIntermedias.get(i+1).getUbicacion())  / AdministradorViajes.VELOCIDAD_PROMEDIO;
+				duracion += paradasIntermedias.get(i).getUbicacion().calcularDistanciaEnKilometros(paradasIntermedias.get(i + 1).getUbicacion())
+						/ AdministradorViajes.VELOCIDAD_PROMEDIO;
 			}
-			duracion += paradasIntermedias.get(paradasIntermedias.size() - 1).getUbicacion().calcularDistanciaEnKilometros(destino)  / AdministradorViajes.VELOCIDAD_PROMEDIO;
-			
+			duracion += paradasIntermedias.get(paradasIntermedias.size() - 1).getUbicacion().calcularDistanciaEnKilometros(destino)
+					/ AdministradorViajes.VELOCIDAD_PROMEDIO;
+
 			Float total = new Float(duracion);
 			cal.add(Calendar.HOUR, total.intValue());
 			cal.add(Calendar.MINUTE, (int) ((total - total.intValue()) * 60));
@@ -452,11 +456,12 @@ public class Viaje extends PersistentObject {
 		return costo;
 	}
 
-	public Document generarXml() throws Exception {
+	public Document generarXml() {
+		Document doc = null;
 		try {
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-			Document doc = docBuilder.newDocument();
+			doc = docBuilder.newDocument();
 			Element eViaje = doc.createElement("viaje");
 			doc.appendChild(eViaje);
 			Element eId = doc.createElement("id");
@@ -506,11 +511,10 @@ public class Viaje extends PersistentObject {
 				eFecha.appendChild(doc.createTextNode(Utilities.invParseDate(ic.getFecha())));
 				eItemCarga.appendChild(eFecha);
 			}
-			return doc;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Error al generar XML.");
 		}
+		return doc;
 	}
 
 	private Element generarElementoUbicacion(Document doc, Ubicacion u, String tag) {
