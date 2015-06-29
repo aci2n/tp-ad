@@ -36,7 +36,7 @@
 
 
 	</form>
-	<a class="waves-effect waves-light btn modal-trigger" id="submitButton">Confirmar</a>
+	<a class="waves-effect waves-light btn" id="submitButton">Confirmar</a>
 
 	<div id="modal1" class="modal">
 	
