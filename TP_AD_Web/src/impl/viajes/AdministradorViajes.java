@@ -273,7 +273,7 @@ public class AdministradorViajes {
 				admCob.generarPago(viaje);
 			}
 			if (esInternacional) {
-				Utilities.saveXml(viaje.generarXml());
+				Utilities.saveXml(viaje.getId(), viaje.generarXml());
 			}
 		} else {
 			throw new Exception("No hay vehiculos o seguros disponibles.");

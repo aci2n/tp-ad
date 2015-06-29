@@ -57,9 +57,9 @@ public class BastaChicos {
 	public static void main(String[] args) {
 		try {
 			controlador = ControladorPrincipal.getInstance();
-			// testAltaCargaLocal();
-			// testAltaCargaInternacional();
-			// testXml();
+			testAltaCargaLocal();
+			testAltaCargaInternacional();
+			testXml();
 			testCargasMismoViaje();
 		} catch (Exception e) {
 			e.printStackTrace();
