@@ -3,17 +3,29 @@ package views.viajes;
 import views.GenericView;
 import views.misc.UbicacionView;
 
-public class ViajeView extends GenericView{
+public class ViajeView extends GenericView {
+
+	private int id;
 	private String fechaSalida;
 	private String fechaLlegada;
 	private UbicacionView origen;
 	private UbicacionView destino;
 
-	public ViajeView(String fechaSalida, String tipoLlegada, UbicacionView origen, UbicacionView destino) {
+	public ViajeView(String fechaSalida, String tipoLlegada,
+			UbicacionView origen, UbicacionView destino) {
+
 		this.fechaSalida = fechaSalida;
 		this.fechaLlegada = tipoLlegada;
 		this.origen = origen;
 		this.destino = destino;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
+		return this.id;
 	}
 
 	public String getFechaSalida() {

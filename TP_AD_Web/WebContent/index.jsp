@@ -115,7 +115,7 @@
 									<li><a class="menu-anchor" id="jsp/Viajes/AdministrarViaje"
 										href="#!">Administración</a></li>
 									<li><a href="#!">Baja</a></li>
-									<li><a href="#!">Listar</a></li>
+									<li><a class="menu-anchor" id="jsp/Viajes/ListarViajes" href="#!">Listar</a></li>
 								</ul>
 							</div></li>
 					</ul>
