@@ -19,16 +19,17 @@ public class CobroParcial extends PersistentObject {
 	 * 
 	 */
 	private static final long serialVersionUID = -1811141989154565682L;
-
 	@Column(name = "fecha")
 	private Date fecha;
 	@Column(name = "monto")
 	private Float monto;
 
 	public CobroParcial(Date fecha, Float monto) {
-
 		this.fecha = fecha;
 		this.monto = monto;
+	}
+
+	public CobroParcial() {
 	}
 
 	public Date getFecha() {
@@ -46,9 +47,8 @@ public class CobroParcial extends PersistentObject {
 	public void setMonto(Float monto) {
 		this.monto = monto;
 	}
-	
-	public CobroParcialView getView(){
-		
+
+	public CobroParcialView getView() {
 		return new CobroParcialView(fecha, monto);
 	}
 }

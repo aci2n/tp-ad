@@ -12,6 +12,7 @@ import java.util.List;
 
 import persistence.CobranzasDAO;
 import persistence.FacturaDAO;
+import persistence.PagoDAO;
 import views.clientes.CuentaCorrienteView;
 import views.clientes.PagoView;
 
@@ -19,10 +20,12 @@ public class AdministradorCobranzas {
 	private static AdministradorCobranzas instance;
 	private CobranzasDAO cobranzasDao;
 	private FacturaDAO facturaDao;
+	private PagoDAO pagoDao;
 
 	private AdministradorCobranzas() {
 		cobranzasDao = CobranzasDAO.getInstance();
 		facturaDao = FacturaDAO.getInstance();
+		pagoDao = PagoDAO.getInstance();
 	}
 
 	public static AdministradorCobranzas getInstance() {
@@ -67,6 +70,15 @@ public class AdministradorCobranzas {
 			factura.realizarCobroParcial(new Date(), monto);
 		} else {
 			throw new Exception("No existe factura con el ID ingresado.");
+		}
+	}
+
+	public void realizarPago(Integer idPago) throws Exception {
+		Pago pago = pagoDao.get(idPago);
+		if (pago != null) {
+			pago.pagar();
+		} else {
+			throw new Exception("No existe el pago ingresado.");
 		}
 	}
 }

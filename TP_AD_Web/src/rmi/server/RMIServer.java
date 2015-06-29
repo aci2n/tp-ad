@@ -13,6 +13,7 @@ public class RMIServer {
 			Registry registry = LocateRegistry.createRegistry(Parametros.getPort());
 			TDAControladorPrincipal instancia = ControladorPrincipal.getInstance();
 			registry.bind(Parametros.getServerName(), instancia);
+			System.out.println("RMIServer started...");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
