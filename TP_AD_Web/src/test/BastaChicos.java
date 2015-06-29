@@ -55,15 +55,16 @@ import controllers.ControladorPrincipal;
 @SuppressWarnings("all")
 public class BastaChicos {
 	private static ControladorPrincipal controlador;
+	private static final Integer factorVehiculo = 1000;
 
 	public static void main(String[] args) {
 		try {
 			controlador = ControladorPrincipal.getInstance();
-			//testAltaCargaLocal();
+			// testAltaCargaLocal();
 			testAltaCargaInternacional();
-			//testXml();
-			//testCargasMismoViaje();
-			//testCargasMismoViajePlus();
+			// testXml();
+			// testCargasMismoViaje();
+			// testCargasMismoViajePlus();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -77,8 +78,10 @@ public class BastaChicos {
 		Sucursal sucursal = crearSucursal();
 		Empleado empleado = crearEmpleado();
 		CompaniaSeguro companiaSeguro = crearCompaniaSeguro();
-		sucursal.agregarVehiculo(crearVehiculoLocalView(), crearPlanMantenimientoKilometrajeView(), empleado.getId());
-		for (int i = 0; i < 30; i++) {
+		for (int i = 0; i < 10; i++) {
+			sucursal.agregarVehiculo(crearVehiculoLocalView(), crearPlanMantenimientoKilometrajeView(), empleado.getId());
+		}
+		for (int i = 0; i < 100; i++) {
 			controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(crearUbicacion(), crearUbicacion()), false);
 		}
 	}
@@ -92,7 +95,7 @@ public class BastaChicos {
 		sucursal.agregarVehiculo(crearVehiculoLocalView(), crearPlanMantenimientoKilometrajeView(), empleado.getId());
 		Ubicacion o = crearUbicacion();
 		Ubicacion d = crearUbicacion();
-		for (int i = 0; i < 30; i++) {
+		for (int i = 0; i < 1; i++) {
 			controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(o, d), false);
 		}
 	}
@@ -226,9 +229,9 @@ public class BastaChicos {
 
 	private static Tamano crearTamanoPlus() {
 		Tamano t = new Tamano();
-		t.setAlto((float) randomInteger() * 100000);
-		t.setAncho((float) randomInteger() * 100000);
-		t.setProfundidad((float) randomInteger() * 100000);
+		t.setAlto((float) randomInteger() * factorVehiculo);
+		t.setAncho((float) randomInteger() * factorVehiculo);
+		t.setProfundidad((float) randomInteger() * factorVehiculo);
 		return t;
 	}
 
@@ -265,7 +268,7 @@ public class BastaChicos {
 		VehiculoLocal v = new VehiculoLocal();
 		v.setEmpleado(crearEmpleado());
 		v.setPatente(randomString());
-		v.setPeso((float) randomInteger() * 100000);
+		v.setPeso((float) randomInteger() * factorVehiculo);
 		v.setTamano(crearTamanoPlus());
 		v.setTara((float) randomInteger());
 		v.setTarifa((float) randomInteger());
@@ -279,7 +282,7 @@ public class BastaChicos {
 	private static VehiculoLocalView crearVehiculoLocalView() {
 		VehiculoLocalView v = new VehiculoLocalView();
 		v.setPatente(randomString());
-		v.setPeso((float) randomInteger() * 100000);
+		v.setPeso((float) randomInteger() * factorVehiculo);
 		v.setTamano(crearTamanoPlus().getView());
 		v.setTara((float) randomInteger());
 		v.setTarifa((float) randomInteger());
@@ -340,7 +343,7 @@ public class BastaChicos {
 	private static VehiculoExternoView crearVehiculoExternoView() {
 		VehiculoExternoView v = new VehiculoExternoView();
 		v.setPatente(randomString());
-		v.setPeso((float) randomInteger() * 100000);
+		v.setPeso((float) randomInteger() * factorVehiculo);
 		v.setTamano(crearTamanoPlus().getView());
 		v.setTara((float) randomInteger());
 		v.setTarifa((float) randomInteger());

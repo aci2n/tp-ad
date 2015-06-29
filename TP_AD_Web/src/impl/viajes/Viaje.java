@@ -398,7 +398,7 @@ public class Viaje extends PersistentObject {
 		Float costo = 0f;
 		if (vehiculo != null && vehiculo instanceof VehiculoExterno) {
 			// x pesos por kilometro
-			costo += origen.getCoordenadaDestino().calcularDistanciaEnKilometros(destino.getCoordenadaDestino()) * 10;
+			costo += origen.getCoordenadaDestino().calcularDistanciaEnKilometros(destino.getCoordenadaDestino()) * vehiculo.getTarifa();
 			// x pesos por parada intermedia
 			costo += paradasIntermedias.size() * 500;
 			// x pesos por condicion especial
