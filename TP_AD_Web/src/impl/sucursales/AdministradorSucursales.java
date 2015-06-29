@@ -141,7 +141,7 @@ public class AdministradorSucursales {
 		return cal.getTime();
 	}
 
-	private Sucursal obtenerSucursal(Integer numero) {
+	public Sucursal obtenerSucursal(Integer numero) {
 		return sucursalDao.get(numero);
 	}
 
