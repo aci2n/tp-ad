@@ -45,8 +45,8 @@
 						<thead>
 							<tr>
 								<th class="">ID</th>
-								<th>Ciudad Origen</th>
-								<th>Ciudad Destino</th>
+								<th>Origen</th>
+								<th>Destino</th>
 								<th>Fecha de Salida</th>
 								<th>Fecha de LLegada</th>
 							</tr>

@@ -5,7 +5,7 @@
 <html>
 <head>
 
-<title>Alta Cliente Particular</title>
+<title>Alta Carga</title>
 </head>
 <body>
 
@@ -14,7 +14,7 @@
 			<p></p>
 		</div>
 		<div class="col s12 m4 l10 ">
-			<div class="card">
+			<div class="card" style="padding-bottom: 30px;">
 				<div class="card-content white-text pink">
 					<span class="card-title">Proceso de Alta de Cargas</span>
 				</div>

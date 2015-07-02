@@ -10,19 +10,22 @@
 </head>
 <body>
 
-	<form id="altaUbicacion" action="altaUbicacion" class="box-padding" class="form-control">
+	<form id="altaUbicacion" action="altaUbicacion" class="box-padding"
+		class="form-control">
 		<div id="ubicacion_sucursal">
-			<select name="idSucursalDestino">
-				<option value="" selected></option>
-				<%
-					for (SucursalView suc : ControladorPrincipal.getInstance().obtenerSucursales()) 								
-																							{
-				%>
-				<option value="<%=suc.getId()%>"><%=suc.getNombre()%></option>
-				<%
-					}
-				%>
-			</select> <label>Sucursal</label>
+			<div class="input-field col s12">
+				<select name="idSucursalDestino">
+					<option value="" selected></option>
+					<%
+						for (SucursalView suc : ControladorPrincipal.getInstance().obtenerSucursales()) 								
+																										{
+					%>
+					<option value="<%=suc.getId()%>"><%=suc.getNombre()%></option>
+					<%
+						}
+					%>
+				</select> <label>Sucursal</label>
+			</div>
 		</div>
 		<div id="ubicacion_nueva">
 			<div class="input-field col s12">
@@ -66,7 +69,7 @@
 
 
 	</form>
-		
+
 	<script>
 		$('select[name="idSucursalDestino"]').change(function() {
 			if ($(this).val() != '') {

@@ -112,10 +112,11 @@
 								class="mdi-navigation-arrow-drop-down"></i></a>
 							<div class="collapsible-body">
 								<ul>
-									<li><a class="menu-anchor" id="jsp/Viajes/AdministrarViaje.jsp"
-										href="#!">Administración</a></li>
+									<li><a class="menu-anchor"
+										id="jsp/Viajes/AdministrarViaje.jsp" href="#!">Administración</a></li>
 									<li><a href="#!">Baja</a></li>
-									<li><a class="menu-anchor" id="jsp/Viajes/ListarViajes.jsp" href="#!">Listar</a></li>
+									<li><a class="menu-anchor"
+										id="jsp/Viajes/ListarViajes.jsp" href="#!">Listar</a></li>
 								</ul>
 							</div></li>
 					</ul>
@@ -137,15 +138,15 @@
 					</ul>
 				</li> -->
 				<ul class="collapsible collapsible-accordion">
-						<li><a class="collapsible-header">Choferes<i
-								class="mdi-navigation-arrow-drop-down"></i></a>
-							<div class="collapsible-body">
-								<ul>
-									<li><a class="menu-anchor"
-										id="MiViaje" href="#!">Mi viaje</a></li>
-								</ul>
-							</div></li>
-					</ul>
+					<li><a class="collapsible-header">Choferes<i
+							class="mdi-navigation-arrow-drop-down"></i></a>
+						<div class="collapsible-body">
+							<ul>
+								<li><a class="menu-anchor" id="MiViaje" href="#!">Mi
+										viaje</a></li>
+							</ul>
+						</div></li>
+				</ul>
 			</ul>
 			<a href="#" data-activates="slide-out" class="button-collapse"
 				style="display: inline;"><i class="mdi-navigation-menu"></i></a>

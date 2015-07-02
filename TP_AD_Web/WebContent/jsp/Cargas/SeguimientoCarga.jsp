@@ -39,7 +39,7 @@
 						<table>
 							<thead>
 								<tr>
-									<th class="">ID Seguimiento</th>
+									<th class="">N° Seguimiento</th>
 									<th class="">ID Carga</th>
 									<th>Estado</th>
 									<th>Locación</th>
@@ -89,7 +89,7 @@
 			$.each(json, function(i, carga) {
 
 				$("#tbody").append(
-						"<tr><td>" + carga.tipo + "</td><td>" + carga.id
+						"<tr><td>" + ++i + "</td><td>" + carga.id
 								+ " </td><td>" + carga.estadoCarga
 								+ " </td><td>" + carga.fechaMaximaEntrega
 								+ " </td><td>" + carga.fechaProbableEntrega

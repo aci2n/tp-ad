@@ -11,7 +11,7 @@
 </head>
 <body>
 
-	<div id="test1" class="col s12">
+	<div id="test1" class="col s12" style="padding-bottom: 350px;">
 
 		<form id="altaCarga" class="box-padding"
 			class="form-control">
