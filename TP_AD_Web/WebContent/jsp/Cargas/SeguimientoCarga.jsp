@@ -23,11 +23,17 @@
 
 				<div class="card-content">
 					<div class="row">
-					<div class="input-field col s6">
-						<i class="material-icons prefix">list</i> <input id="filtrado"
-							type="text" class="validate"> <label for="icon_list">Buscar
-							carga</label> <input class="btn btn-primary col s6" type="submit" value="Buscar">
-					</div>
+						<div class="input-field col s6">
+							<i class="material-icons prefix">list</i> <input id="id_carga"
+								type="number" class="validate"> <label for="icon_list">Buscar
+								carga</label>
+						</div>
+						<div class="col s6">
+							<button class="waves-effect waves-light btn" id="buscar"
+								type="button">Buscar</button>
+							<button class="waves-effect waves-light btn" id="limpiar"
+								type="button">Limpiar tabla</button>
+						</div>
 					</div>
 					<div>
 						<table>
@@ -43,11 +49,6 @@
 
 							<tbody id="tbody">
 
-								/*
-								
-								SCRIPTLET
-								
-								*/
 
 
 							</tbody>
@@ -62,14 +63,42 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script>
 		$(document).ready(function() {
-			$('#search').click(function(event) {
-				var idCarga = $('#idCarga').val();
-				$.get('ObtenerInformacionCarga', {
-					idCarga : idCarga
-				}, function(responseText) {
-					$('#tabla').html(responseText);
+			$("#buscar").click(function() {
+
+				$.ajax({
+					url : 'SeguimientoCarga',
+					data : {
+						id_carga : $("#id_carga").val()
+					},
+					type : 'GET',
+					dateType : 'json',
+					success : function(json) {
+						$("#tbody tr").remove();
+						imprimirSeguimientoCarga(json);
+					},
+					error : function() {
+						alert("Error");
+					}
 				});
+
 			});
+		});
+
+		function imprimirSeguimientoCarga(json) {
+
+			$.each(json, function(i, carga) {
+
+				$("#tbody").append(
+						"<tr><td>" + carga.tipo + "</td><td>" + carga.id
+								+ " </td><td>" + carga.estadoCarga
+								+ " </td><td>" + carga.fechaMaximaEntrega
+								+ " </td><td>" + carga.fechaProbableEntrega
+								+ " </td></tr>");
+			});
+		};
+
+		$("#limpiar").click(function() {
+			$("#tbody tr").remove();
 		});
 	</script>
 

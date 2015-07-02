@@ -19,7 +19,7 @@
 </head>
 <body>
 
-	<div class="row z-depth-1">
+	<div class="row">
 		<div class="">
 			<p></p>
 		</div>
@@ -55,8 +55,8 @@
 						<tbody id="tbody">
 							<%
 								List<ViajeView> viajes = ControladorPrincipal.getInstance().obtenerViajesView();
-									for(ViajeView v : viajes)
-									{
+														for(ViajeView v : viajes)
+														{
 							%>
 							<tr>
 								<td style="color: #1565C0; font-weight: bold;"><%=v.getId()%></td>
@@ -72,9 +72,12 @@
 					</table>
 					<div></div>
 				</div>
+			</div>
+		</div>
 
+	</div>
 
-				<script>
-					
-				</script>
+	<script>
+		
+	</script>
 </body>

@@ -15,12 +15,12 @@
 <body>
 
 
-	<div class="row z-depth-1"">
+	<div class="row">
 		<div class="col s12 m4 l1">
 			<p></p>
 		</div>
 
-		<div class="col s12 m4 l10 ">
+		<div class="col s12 m4 l10">
 			<div class="card">
 				<div class="card-content white-text pink">
 					<span class="card-title">Listado de Clientes</span>
@@ -59,8 +59,8 @@
 							<tbody id="tbody">
 								<%
 									List<ParticularView> clientes = BusinessDelegate.getInstance().getInterfaz().obtenerClientesParticulares();
-																																																																					for(ParticularView c : clientes)
-																																																																					{
+																																																																																					for(ParticularView c : clientes)
+																																																																																					{
 								%>
 								<tr>
 									<td style="color: #1565C0; font-weight: bold;"><%=c.getId()%></td>
@@ -102,7 +102,7 @@
 							<tbody id="tbody">
 								<%
 									List<EmpresaView> empresas = BusinessDelegate.getInstance().getInterfaz().obtenerClientesEmpresas();
-																						for(EmpresaView e : empresas){
+																																						for(EmpresaView e : empresas){
 								%>
 								<%-- <tr>
 									<td style="color: #1565C0; font-weight: bold;"><%=e.getId()%></td>
@@ -117,52 +117,50 @@
 						<div></div>
 					</div>
 				</div>
-
-
-
-				<div class="col s12 m4 l1">
-					<p></p>
-				</div>
 			</div>
+		</div>
+		<div class="col s12 m4 l1">
+			<p></p>
+		</div>
+	</div>
 
+	<script>
+		$("#filtrado").keyup(function() {
+			//split the current value of searchInput
+			var datos = this.value.split(" ");
+			//create a jquery object of the rows
+			var tabla = $("tbody").find("tr");
+			if (this.value == "") {
+				tabla.show();
+				return;
+			}
+			//hide all the rows
+			tabla.hide();
 
-			<script>
-				$("#filtrado").keyup(function() {
-					//split the current value of searchInput
-					var datos = this.value.split(" ");
-					//create a jquery object of the rows
-					var tabla = $("tbody").find("tr");
-					if (this.value == "") {
-						tabla.show();
-						return;
+			//Recusively filter the jquery object to get results.
+			tabla.filter(function(i, v) {
+				var $t = $(this);
+				for (var d = 0; d < datos.length; ++d) {
+					if ($t.is(":contains('" + datos[d] + "')")) {
+						return true;
 					}
-					//hide all the rows
-					tabla.hide();
+				}
+				return false;
+			})
+			//show the rows that match.
+			.show();
+		}).focus(function() {
+			this.value = "";
+			$(this).css({
+				"color" : "black"
+			});
+			$(this).unbind('focus');
+		}).css({
+			"color" : "#C0C0C0"
+		});
 
-					//Recusively filter the jquery object to get results.
-					tabla.filter(function(i, v) {
-						var $t = $(this);
-						for (var d = 0; d < datos.length; ++d) {
-							if ($t.is(":contains('" + datos[d] + "')")) {
-								return true;
-							}
-						}
-						return false;
-					})
-					//show the rows that match.
-					.show();
-				}).focus(function() {
-					this.value = "";
-					$(this).css({
-						"color" : "black"
-					});
-					$(this).unbind('focus');
-				}).css({
-					"color" : "#C0C0C0"
-				});
-
-				$(document).ready(function() {
-					$('ul.tabs').tabs();
-				});
-			</script>
+		$(document).ready(function() {
+			$('ul.tabs').tabs();
+		});
+	</script>
 </body>
