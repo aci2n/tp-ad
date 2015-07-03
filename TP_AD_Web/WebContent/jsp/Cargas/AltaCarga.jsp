@@ -13,21 +13,14 @@
 
 	<div id="test1" class="col s12" style="padding-bottom: 350px;">
 
-		<form id="altaCarga" class="box-padding"
-			class="form-control">
-	
-	<div style="padding-top: 20px; padding-bottom: 20px;">
-			<p>
-				<input name="local" type="checkbox" id="test6" checked="checked" /> <label
-					for="test6">Envío dentro del país</label>
-			</p>
-			</div>
+		<form id="altaCarga" class="box-padding" class="form-control">
+
 			<div class="input-field col s12">
 				<select name="tipoCarga">
 					<option value="" disabled selected></option>
 					<%
 						for (TipoCarga t : TipoCarga.values()) 								
-																								{
+																														{
 					%>
 					<option value="<%=t.getTipo()%>"><%=t.getTipo()%></option>
 					<%
@@ -40,6 +33,13 @@
 				<input type="number" class="validate" name="cuit"> <label
 					for="email">ID Cliente</label>
 			</div>
+			<div style="padding-top: 20px; padding-bottom: 20px;">
+				<p>
+					<input name="local" type="checkbox" id="test6" checked="checked" />
+					<label for="test6">Envío dentro del país</label>
+				</p>
+			</div>
+
 		</form>
 
 	</div>

@@ -44,6 +44,9 @@
 									type="button">Limpiar tabla</button>
 							</div>
 						</div>
+						<div class="card-content" id="descripcion">
+						
+						</div>
 						<div class="card-action">
 							<table>
 								<thead>
@@ -64,7 +67,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div id="test2">
 					<div>
 						<div class="row card-action">
@@ -133,7 +136,7 @@
 		});
 
 		function imprimirSeguimientoCarga(json) {
-
+		
 			$.each(json, function(i, factura) {
 
 				$("#tbody").append(

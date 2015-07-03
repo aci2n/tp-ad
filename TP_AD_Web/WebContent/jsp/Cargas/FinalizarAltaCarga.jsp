@@ -29,7 +29,7 @@
 		
 		<div>
 			<p>
-				<input type="checkbox" id="test5" name="retira"/> <label for="test5">Retira
+				<input type="checkbox" id="check2" name="retira"/> <label for="check2">Retira
 					la carga en persona</label>
 			</p>
 		</div>
@@ -117,6 +117,10 @@
 				}
 			});
 			
+		});
+		
+		$(document).ready(function() {
+			$('select').material_select();
 		});
 	</script>
 
