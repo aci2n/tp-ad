@@ -59,8 +59,8 @@
 							<tbody id="tbody">
 								<%
 									List<ParticularView> clientes = BusinessDelegate.getInstance().getInterfaz().obtenerClientesParticulares();
-																																																																																					for(ParticularView c : clientes)
-																																																																																					{
+									for(ParticularView c : clientes)
+									{
 								%>
 								<tr>
 									<td style="color: #1565C0; font-weight: bold;"><%=c.getId()%></td>
@@ -95,20 +95,25 @@
 									<th data-field="nombre">Nombre</th>
 									<th data-field="regular">Regular</th>
 									<th data-field="regular">Monto Actual</th>
-
+									<th data-field="regular">Monto Permitido</th>
 								</tr>
 							</thead>
 
 							<tbody id="tbody">
 								<%
 									List<EmpresaView> empresas = BusinessDelegate.getInstance().getInterfaz().obtenerClientesEmpresas();
-																																						for(EmpresaView e : empresas){
+									for(EmpresaView e : empresas)
+									{	
+								
 								%>
-								<%-- <tr>
+								<tr>
 									<td style="color: #1565C0; font-weight: bold;"><%=e.getId()%></td>
 									<td><%=e.getNombre()%></td>
-									<td><%=%></td>
-								</tr> --%>
+									<td><%=e.isEsRegular()%></td>
+									<td>$ <%=e.getCuentaCorriente().getMontoActual()%></td>
+									<td>$ <%=e.getCuentaCorriente().getMontoAutorizado()%></td>
+
+								</tr>
 								<%
 									}
 								%>

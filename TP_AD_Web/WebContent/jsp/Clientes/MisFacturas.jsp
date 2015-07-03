@@ -35,7 +35,7 @@
 							<div class="input-field col s6">
 								<i class="material-icons prefix">list</i> <input id="id_cliente"
 									type="number" class="validate"> <label for="icon_list">Buscar
-									Cliente</label>
+									cliente particular</label>
 							</div>
 							<div class="col s6">
 								<button class="waves-effect waves-light btn" id="buscar"
@@ -44,10 +44,9 @@
 									type="button">Limpiar tabla</button>
 							</div>
 						</div>
-						<div class="card-content" id="descripcion">
-						
-						</div>
 						<div class="card-action">
+
+
 							<table>
 								<thead>
 									<tr>
@@ -74,7 +73,7 @@
 							<div class="input-field col s6">
 								<i class="material-icons prefix">list</i> <input id="id_cliente"
 									type="number" class="validate"> <label for="icon_list">Buscar
-									Cliente</label>
+									cliente empresa</label>
 							</div>
 							<div class="col s6">
 								<button class="waves-effect waves-light btn" id="buscar"
@@ -90,6 +89,7 @@
 										<th class="">ID Factura</th>
 										<th>ID Carga</th>
 										<th>Tipo Factura</th>
+										<th>Tipo Pago</th>
 										<th>Fecha Emisión</th>
 										<th>Monto Total</th>
 									</tr>
@@ -136,7 +136,7 @@
 		});
 
 		function imprimirSeguimientoCarga(json) {
-		
+
 			$.each(json, function(i, factura) {
 
 				$("#tbody").append(

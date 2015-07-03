@@ -144,7 +144,7 @@
 							class="mdi-navigation-arrow-drop-down"></i></a>
 						<div class="collapsible-body">
 							<ul>
-								<li><a class="menu-anchor" id="MiViaje" href="#!">Mi
+								<li><a class="menu-anchor" id="jsp/Choferes/MisParadas.jsp" href="#!">Mi
 										viaje</a></li>
 							</ul>
 						</div></li>

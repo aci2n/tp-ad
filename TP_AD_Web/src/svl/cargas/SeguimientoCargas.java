@@ -5,6 +5,7 @@ import impl.cargas.SeguimientoCarga;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -49,7 +50,7 @@ public class SeguimientoCargas extends HttpServlet {
 
 		// Obtiene la Carga
 		List<SeguimientoCarga> seguimientoCargas = (List<SeguimientoCarga>) SeguimientoCargasDAO
-				.getInstance().getByCarga(id);
+				.getInstance().getByCarga(id)	;
 		List<SeguimientoCargaView> sviews = new ArrayList<SeguimientoCargaView>();
 		for (SeguimientoCarga s : seguimientoCargas)
 			sviews.add(s.getView());

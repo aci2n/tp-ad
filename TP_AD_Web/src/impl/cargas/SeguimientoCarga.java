@@ -49,6 +49,22 @@ public class SeguimientoCarga extends PersistentObject {
 		fecha = new Date();
 	}
 
+	public Viaje getViaje() {
+		return viaje;
+	}
+
+	public void setViaje(Viaje viaje) {
+		this.viaje = viaje;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
 	public Carga getCarga() {
 		return carga;
 	}
@@ -76,7 +92,8 @@ public class SeguimientoCarga extends PersistentObject {
 
 	public SeguimientoCargaView getView() {
 
-		SeguimientoCargaView sv = new SeguimientoCargaView(carga.getView(), estadoCarga.toString(), null, fecha);
+		SeguimientoCargaView sv = new SeguimientoCargaView(carga.getView(),
+				estadoCarga.toString(), null, fecha);
 		if (viaje != null) {
 			sv.setIdViaje(viaje.getId());
 		}
