@@ -1,6 +1,7 @@
-package svl.cargas;
+package svl.clientes;
 
 import impl.cargas.Carga;
+import impl.cobranzas.Factura;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,23 +13,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import persistence.CargaDAO;
-import rmi.delegate.BusinessDelegate;
-import views.cargas.CargaView;
+import persistence.FacturaDAO;
+import views.clientes.FacturaView;
 
 import com.google.gson.Gson;
 
 /**
- * Servlet implementation class SeguimientoCarga
+ * Servlet implementation class ListarMisFacturas
  */
-@WebServlet("/SeguimientoCarga")
-public class SeguimientoCarga extends HttpServlet {
+@WebServlet("/ListarMisFacturas")
+public class ListarMisFacturas extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public SeguimientoCarga() {
+	public ListarMisFacturas() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -41,20 +41,17 @@ public class SeguimientoCarga extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		// Obtiene el Id del input
-		String id = request.getParameter("id_carga");
+		Integer id = Integer.parseInt(request.getParameter("id_cliente"));
 
-		//TODO 
-		// Ver lo de seguimiento de cargas
-		
 		// Obtiene la Carga
-		List<Carga> cargas = CargaDAO.getInstance().getAll();
-		List<CargaView> cviews = new ArrayList<CargaView>();
-		for(Carga c : cargas)
-			cviews.add(c.getView());
+		List<Factura> facturas = FacturaDAO.getInstance().getByCliente(id);
+		List<FacturaView> fViews = new ArrayList<FacturaView>();
+		for (Factura f : facturas)
+			fViews.add(f.getView());
 
 		// Genera json
 		Gson gson = new Gson();
-		String json = gson.toJson(cviews);
+		String json = gson.toJson(fViews);
 		System.out.println(json);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

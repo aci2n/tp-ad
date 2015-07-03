@@ -31,6 +31,8 @@
 										id="jsp/Clientes/AdministrarClientes" href="">Administración</a></li> -->
 									<li><a id="jsp/Clientes/ListarClientes.jsp"
 										class="menu-anchor" href="#!">Listar</a></li>
+											<li><a id="jsp/Clientes/MisFacturas.jsp"
+										class="menu-anchor" href="#!">Facturas</a></li>
 								</ul>
 							</div></li>
 					</ul>

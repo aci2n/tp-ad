@@ -107,6 +107,7 @@ public class Factura extends PersistentObject {
 			cobros.add(c.getView());
 		view.setCobrosParciales(cobros);
 		view.setCarga(carga.getView());
+		view.setId(id);
 		return view;
 	}
 }

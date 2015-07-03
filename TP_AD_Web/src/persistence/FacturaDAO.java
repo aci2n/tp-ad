@@ -33,4 +33,17 @@ public class FacturaDAO extends AbstractGenericDAO<Factura> {
 		session.close();
 		return facturas;
 	}
+
+	public List<Factura> getByCliente(Integer idCliente) {
+
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query q = session
+				.createQuery(
+						"select fa from Factura fa join fa.carga ca join ca.cliente cl where cl.id = ?")
+				.setInteger(0, idCliente);
+		List<Factura> facturas = (List<Factura>) q.list();
+		session.close();
+		return facturas;
+	}
 }
