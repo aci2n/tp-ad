@@ -2,6 +2,8 @@ package impl.viajes;
 
 import impl.PersistentObject;
 import impl.cargas.Carga;
+import impl.cargas.EstadoCarga;
+import impl.cargas.SeguimientoCarga;
 import impl.misc.Ubicacion;
 import impl.productos.CondicionEspecial;
 import impl.productos.ItemProducto;
@@ -35,6 +37,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import persistence.SeguimientoCargasDAO;
 import persistence.SucursalDAO;
 import persistence.ViajeDAO;
 import util.Utilities;
@@ -99,8 +102,11 @@ public class Viaje extends PersistentObject {
 	public void agregarCarga(Carga carga) {
 		if (cargas == null)
 			cargas = new ArrayList<ItemCarga>();
-		if (puedeTransportar(carga))
+		if (puedeTransportar(carga)){
+			carga.setEstadoCarga(EstadoCarga.EN_VIAJE);
 			cargas.add(new ItemCarga(carga));
+			SeguimientoCargasDAO.getInstance().insert(new SeguimientoCarga(carga, carga.getEstadoCarga(), this));
+		}
 		ViajeDAO.getInstance().update(this);
 	}
 

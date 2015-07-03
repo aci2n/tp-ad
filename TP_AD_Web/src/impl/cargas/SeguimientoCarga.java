@@ -1,6 +1,9 @@
 package impl.cargas;
 
 import impl.PersistentObject;
+import impl.viajes.Viaje;
+
+import java.util.Date;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
@@ -29,18 +32,21 @@ public class SeguimientoCarga extends PersistentObject {
 	@Column(name = "estadoCarga")
 	@Enumerated(EnumType.STRING)
 	private EstadoCarga estadoCarga;
-	@Column(name = "id_viaje")
-	private int idViaje;
+	@OneToOne
+	@JoinColumn(name = "id_viaje")
+	private Viaje viaje;
+	@Column(name = "fecha")
+	private Date fecha;
 
 	public SeguimientoCarga() {
 
 	}
 
-	public SeguimientoCarga(Carga carga, EstadoCarga estadoCarga,
-			int idViaje) {
+	public SeguimientoCarga(Carga carga, EstadoCarga estadoCarga, Viaje viaje) {
 		this.carga = carga;
 		this.estadoCarga = estadoCarga;
-		this.idViaje = idViaje;
+		this.viaje = viaje;
+		fecha = new Date();
 	}
 
 	public Carga getCarga() {
@@ -59,26 +65,21 @@ public class SeguimientoCarga extends PersistentObject {
 		this.estadoCarga = estadoCarga;
 	}
 
-	public int getIdEstadoCarga() {
-		return idViaje;
-	}
-
-	public void setIdEstadoCarga(int idViaje) {
-		this.idViaje = idViaje;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	public void actualizarEstado(EstadoCarga estadoCarga, int idViaje) {
+	public void actualizarEstado(EstadoCarga estadoCarga, Viaje viaje) {
 		this.estadoCarga = estadoCarga;
-		this.idViaje = idViaje;
+		this.viaje = viaje;
 	}
 
 	public SeguimientoCargaView getView() {
-		
-		return new SeguimientoCargaView(carga.getView(),
-				estadoCarga.toString(), idViaje);
+
+		SeguimientoCargaView sv = new SeguimientoCargaView(carga.getView(), estadoCarga.toString(), null, fecha);
+		if (viaje != null) {
+			sv.setIdViaje(viaje.getId());
+		}
+		return sv;
 	}
 }

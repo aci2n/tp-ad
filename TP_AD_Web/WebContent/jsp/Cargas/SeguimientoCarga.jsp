@@ -66,7 +66,7 @@
 			$("#buscar").click(function() {
 
 				$.ajax({
-					url : 'SeguimientoCarga',
+					url : 'SeguimientoCargas',
 					data : {
 						id_carga : $("#id_carga").val()
 					},
@@ -86,14 +86,22 @@
 
 		function imprimirSeguimientoCarga(json) {
 
-			$.each(json, function(i, carga) {
+			$.each(json, function(i, seCarga) {
+				
+				var locacion;
+				if(seCarga.idViaje == null)
+					locacion = seCarga.carga.origen.provincia;
+				else
+					locacion = seCarga.idViaje
 
 				$("#tbody").append(
-						"<tr><td>" + ++i + "</td><td>" + carga.id
-								+ " </td><td>" + carga.estadoCarga
-								+ " </td><td>" + carga.fechaMaximaEntrega
-								+ " </td><td>" + carga.fechaProbableEntrega
+						"<tr><td>" + ++i + "</td><td>" + seCarga.carga.id
+								+ " </td><td>" + seCarga.estadoCarga
+								+ " </td><td>" + locacion
+								+ " </td><td>" + seCarga.fecha
 								+ " </td></tr>");
+				
+				
 			});
 		};
 

@@ -2,6 +2,8 @@ package impl.sucursales;
 
 import impl.PersistentObject;
 import impl.cargas.Carga;
+import impl.cargas.EstadoCarga;
+import impl.cargas.SeguimientoCarga;
 import impl.misc.Ubicacion;
 import impl.personal.Empleado;
 import impl.vehiculos.VehiculoLocal;
@@ -19,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import persistence.SeguimientoCargasDAO;
 import persistence.SucursalDAO;
 import views.personal.EmpleadoView;
 import views.sucursales.SucursalView;
@@ -197,6 +200,7 @@ public class Sucursal extends PersistentObject {
 			cargas = new ArrayList<Carga>();
 		cargas.add(c);
 		SucursalDAO.getInstance().update(this);
+		SeguimientoCargasDAO.getInstance().insert(new SeguimientoCarga(c, EstadoCarga.EN_DEPOSITO, null));
 	}
 
 	public SucursalView getView() {

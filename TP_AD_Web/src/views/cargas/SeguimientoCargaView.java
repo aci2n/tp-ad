@@ -1,5 +1,7 @@
 package views.cargas;
 
+import java.util.Date;
+
 import impl.cargas.Carga;
 import impl.cargas.EstadoCarga;
 
@@ -13,17 +15,19 @@ public class SeguimientoCargaView {
 
 	private CargaView carga;
 	private String estadoCarga;
-	private int idEstadoCarga;
+	private Integer idViaje;
+	private Date fecha;
 
 	public SeguimientoCargaView() {
 
 	}
 
 	public SeguimientoCargaView(CargaView carga, String estadoCarga,
-			int idEstadoCarga) {
+			Integer idViaje, Date fecha) {
 		this.carga = carga;
 		this.estadoCarga = estadoCarga;
-		this.idEstadoCarga = idEstadoCarga;
+		this.idViaje = idViaje;
+		this.fecha = fecha;
 	}
 
 	public CargaView getCarga() {
@@ -42,13 +46,20 @@ public class SeguimientoCargaView {
 		this.estadoCarga = estadoCarga;
 	}
 
-	public int getIdEstadoCarga() {
-		return idEstadoCarga;
+	public Integer getIdViaje() {
+		return idViaje;
 	}
 
-	public void setIdEstadoCarga(int idEstadoCarga) {
-		this.idEstadoCarga = idEstadoCarga;
+	public void setIdViaje(Integer idViaje) {
+		this.idViaje = idViaje;
 	}
-	
-	
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
 }

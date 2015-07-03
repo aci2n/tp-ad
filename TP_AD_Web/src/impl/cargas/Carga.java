@@ -22,6 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import persistence.CargaDAO;
+import persistence.SeguimientoCargasDAO;
 import util.Utilities;
 import views.cargas.CargaView;
 import views.productos.ItemProductoView;
@@ -80,6 +81,7 @@ public class Carga extends PersistentObject {
 			productos.add(new ItemProducto(ipv));
 		}
 		id = CargaDAO.getInstance().insert(this);
+		
 	}
 
 	public TipoCarga getTipo() {
