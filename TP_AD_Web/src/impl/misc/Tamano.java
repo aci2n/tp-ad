@@ -21,7 +21,7 @@ public class Tamano {
 	public Tamano(TamanoView tamano) {
 		profundidad = tamano.getProfundidad();
 		alto = tamano.getAlto();
-		ancho = tamano.getAlto();
+		ancho = tamano.getAncho();
 	}
 
 	public Float getProfundidad() {

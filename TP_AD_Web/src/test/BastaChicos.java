@@ -134,7 +134,7 @@ public class BastaChicos {
 		CompaniaSeguro companiaSeguro = crearCompaniaSeguro();
 		Proveedor proveedor = crearProveedor();
 		controlador.altaVehiculoExterno(proveedor.getId(), crearVehiculoExternoView());
-		controlador.altaCarga(sucursal.getId(), empresa.getId(), crearCargaView(), true, false);
+		controlador.altaCarga(sucursal.getId(), empresa.getId(), crearCargaView(), true, true);
 	}
 
 	private static Empresa crearEmpresa() {
@@ -142,7 +142,7 @@ public class BastaChicos {
 		e.setNombre(randomString());
 		e.setRegular(true);
 		// ajustar tercer valor para probar lo de monto autorizado
-		e.setCuentaCorriente(new CuentaCorriente(false, 0f, 100f));
+		e.setCuentaCorriente(new CuentaCorriente(false, 0f, 100000000000f));
 		e.setId(ClienteDAO.getInstance().insert(e));
 		return e;
 	}
