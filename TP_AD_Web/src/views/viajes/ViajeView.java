@@ -5,9 +5,9 @@ import java.util.List;
 import views.GenericView;
 import views.misc.UbicacionView;
 
-public class ViajeView extends GenericView {
+public class ViajeView {
 
-	private int id;
+	private Integer id;
 	private String fechaSalida;
 	private String fechaLlegada;
 	private UbicacionView origen;
@@ -18,9 +18,10 @@ public class ViajeView extends GenericView {
 			UbicacionView origen, UbicacionView destino) {
 		this(fechaSalida, tipoLlegada, origen, destino, null);
 	}
-	
+
 	public ViajeView(String fechaSalida, String tipoLlegada,
-			UbicacionView origen, UbicacionView destino, List<ParadaIntermediaView> paradas) {
+			UbicacionView origen, UbicacionView destino,
+			List<ParadaIntermediaView> paradas) {
 
 		this.fechaSalida = fechaSalida;
 		this.fechaLlegada = tipoLlegada;
@@ -29,12 +30,12 @@ public class ViajeView extends GenericView {
 		this.setParadas(paradas);
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public Integer getId() {
+		return id;
 	}
 
-	public Integer getId() {
-		return this.id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getFechaSalida() {

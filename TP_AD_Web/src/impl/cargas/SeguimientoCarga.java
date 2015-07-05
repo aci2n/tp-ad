@@ -111,7 +111,7 @@ public class SeguimientoCarga extends PersistentObject {
 			sv.setIdViaje(viaje.getId());
 		}
 		if(sucursal != null)
-			sv.setIdViaje(sucursal.getId());
+			sv.setIdSucursal(sucursal.getId());
 		return sv;
 	}
 }

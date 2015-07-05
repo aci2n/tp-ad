@@ -36,6 +36,7 @@ public class ParadaIntermedia extends PersistentObject {
 	@Column(name = "orden")
 	private Integer orden;
 
+	
 
 	public ParadaIntermedia(ParadaIntermediaView p) {
 		this(p.getUbicacion() != null ? new Ubicacion(p.getUbicacion()) : null, Utilities.parseDate(p.getLlegada()));
@@ -83,6 +84,16 @@ public class ParadaIntermedia extends PersistentObject {
 			ubicacion.getView(),
 			orden
 		);
+	}
+	
+	public ParadaIntermediaView toView(){
+		
+		ParadaIntermediaView pw = new ParadaIntermediaView();
+		pw.setId(this.id);
+		//pw.setLlegada(llegada.toString());
+		pw.setLlegadaEsperada(llegadaEsperada.toString());
+		pw.setSucursal(ubicacion.getCiudad());
+		return pw;		
 	}
 	
 	public boolean equals(ParadaIntermedia parada) {

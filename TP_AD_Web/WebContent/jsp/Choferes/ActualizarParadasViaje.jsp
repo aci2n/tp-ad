@@ -4,7 +4,7 @@
 <html>
 <head>
 
-<title>Seguimiento Carga</title>
+<title>Actualizar estado</title>
 </head>
 <body>
 	<!-- <input id="idCarga" type="text">
@@ -18,15 +18,15 @@
 		<div class="col s12 m4 l10 ">
 			<div class="card">
 				<div class="card-content white-text pink">
-					<span class="card-title">Seguimiento de Cargas</span>
+					<span class="card-title">Actualización de Viajes</span>
 				</div>
 
 				<div class="card-content">
 					<div class="row">
 						<div class="input-field col s6">
-							<i class="material-icons prefix">list</i> <input id="id_carga"
+							<i class="material-icons prefix">list</i> <input id="id_chofer"
 								type="number" class="validate"> <label for="icon_list">Buscar
-								carga</label>
+								chofer</label>
 						</div>
 						<div class="col s6">
 							<button class="waves-effect waves-light btn" id="buscar"
@@ -39,12 +39,10 @@
 						<table>
 							<thead>
 								<tr>
-									<th class="">N° Seguimiento</th>
-									<th class="">ID Carga</th>
-									<th>Estado</th>
-									<th>ID Viaje</th>
-									<th>ID Sucursal</th>
-									<th>Fecha</th>
+									<th>Seguimiento</th>
+									<th>Parada</th>
+									<th>Fecha planeada</th>
+									<th>Checked</th>
 								</tr>
 							</thead>
 
@@ -54,7 +52,10 @@
 
 							</tbody>
 						</table>
-						<div></div>
+						<div>
+							<button class="waves-effect waves-light btn" id="confirmar"
+								type="button">Confirmar</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -67,15 +68,16 @@
 			$("#buscar").click(function() {
 
 				$.ajax({
-					url : 'SeguimientoCargas',
+					url : 'ActualizarParadasViaje',
 					data : {
-						id_carga : $("#id_carga").val()
+						id_chofer : $("#id_chofer").val()
 					},
 					type : 'GET',
 					dateType : 'json',
 					success : function(json) {
 						$("#tbody tr").remove();
-						imprimirSeguimientoCarga(json);
+						imprimirParadasViaje(json);
+						//alert("a");
 					},
 					error : function() {
 						alert("Error");
@@ -85,27 +87,44 @@
 			});
 		});
 
-		function imprimirSeguimientoCarga(json) {
+		function imprimirParadasViaje(json) {
 
-			$.each(json, function(i, seCarga) {
+			$.each(json.paradas, function(i, parada) {
 
-				if(seCarga.idViaje == null)
-					seCarga.idViaje = "-";
-				
 				$("#tbody").append(
-						"<tr><td>" + ++i + "</td><td>" + seCarga.carga.id
-								+ " </td><td>" + seCarga.estadoCarga
-								+ " </td><td>" + seCarga.idViaje
-								+ " </td><td>" + seCarga.idSucursal
-								+ " </td><td>" + seCarga.fecha
-								+ " </td></tr>");
-				
-				
+						"<tr><td>" + ++i + "</td><td>" + parada.sucursal
+								+ " </td><td>" + parada.llegadaEsperada
+								+ " </td><td><input type='checkbox' id='parada"
+								+ (i) + "' /><label for='parada" + (i)
+								+ "'></label>" + " </td></tr>");
 			});
 		};
 
 		$("#limpiar").click(function() {
 			$("#tbody tr").remove();
+		});
+
+		$(document).ready(function() {
+			$("#confirmar").click(function() {
+
+				$.ajax({
+					url : 'ActualizarParadasViaje',
+					data : {
+						id_chofer : $("#id_chofer").val()
+					},
+					type : 'POST',
+					dateType : 'json',
+					success : function(json) {
+						$("#tbody tr").remove();
+						imprimirParadasViaje(json);
+						//alert("a");
+					},
+					error : function() {
+						alert("Error");
+					}
+				});
+
+			});
 		});
 	</script>
 
