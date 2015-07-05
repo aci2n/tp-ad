@@ -13,7 +13,7 @@ public class CuentaCorriente {
 	@Column(name = "monto_autorizado")
 	private Float montoAutorizado;
 	@Column(name = "monto_actual")
-	private Float montoActual;
+	private Float montoActual;	//	Monto actual positivo: Deuda - Negativo: saldo a favor del cliente
 
 	public CuentaCorriente(boolean depositoPrevio, Float montoActual, Float montoAutorizado) {
 		this.depositoPrevio = depositoPrevio;
@@ -49,7 +49,10 @@ public class CuentaCorriente {
 	}
 
 	public boolean estaAutorizado(Float monto) {
-		return (montoActual + monto) <= montoAutorizado;
+		if (depositoPrevio)	//	Si trabaja con deposito previo, no se admite deuda (montoActual debe ser siempre igual o menor a 0)
+			return (montoActual + monto) <= 0;
+		else
+			return (montoActual + monto) <= montoAutorizado;
 	}
 
 	public void actualizarMontoActual(Float monto) throws Exception {
