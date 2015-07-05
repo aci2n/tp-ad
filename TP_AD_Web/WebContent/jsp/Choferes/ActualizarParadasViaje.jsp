@@ -94,7 +94,6 @@
 					.append($('<td>').text(++i))
 					.append($('<td>').text(parada.sucursal))
 					.append($('<td>').text(parada.llegadaEsperada));
-				
 				if (parada.llegada) {
 					row.append($('<td>').text(parada.llegada));
 				} else {
@@ -108,8 +107,8 @@
 								idParada: parada.id
 							},
 							success: function() {
-								row.text(new Date().toString());
-								row.next('tr').find('input[type="checkbox"]').removeAttr('disabled');
+								row.find('td').last().text(new Date().toLocaleString());
+								$('input[type="checkbox"]').first().removeAttr('disabled');
 							},
 							error: function() {
 								Materialize.toast('Debe registrar primero las paradas anteriores', 5000);

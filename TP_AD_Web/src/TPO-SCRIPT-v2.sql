@@ -321,8 +321,8 @@ create table ParadasIntermedias (
 	id_parada_intermedia int identity not null,
 	id_viaje int,	
 	id_ubicacion int,
-	llegada date,
-	llegada_esperada date,
+	llegada datetime,
+	llegada_esperada datetime,
 	checked bit,
 	orden int null,
 

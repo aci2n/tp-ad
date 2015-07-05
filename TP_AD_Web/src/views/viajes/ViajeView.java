@@ -1,12 +1,17 @@
 package views.viajes;
 
+import java.io.Serializable;
 import java.util.List;
 
 import views.GenericView;
 import views.misc.UbicacionView;
 
-public class ViajeView {
+public class ViajeView implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9088830453271912313L;
 	private Integer id;
 	private String fechaSalida;
 	private String fechaLlegada;
