@@ -3,6 +3,8 @@ package test;
 import impl.cargas.Carga;
 import impl.cargas.EstadoCarga;
 import impl.cargas.TipoCarga;
+import impl.clientes.CuentaCorriente;
+import impl.clientes.Empresa;
 import impl.clientes.Particular;
 import impl.clientes.Receptor;
 import impl.misc.Coordenada;
@@ -22,8 +24,6 @@ import impl.vehiculos.Proveedor;
 import impl.vehiculos.TipoVehiculo;
 import impl.vehiculos.VehiculoLocal;
 import impl.viajes.CompaniaSeguro;
-import impl.viajes.ParadaIntermedia;
-import impl.viajes.Viaje;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -61,10 +61,11 @@ public class BastaChicos {
 		try {
 			controlador = ControladorPrincipal.getInstance();
 			// testAltaCargaLocal();
-			testAltaCargaInternacional();
+			// testAltaCargaInternacional();
 			// testXml();
 			// testCargasMismoViaje();
 			// testCargasMismoViajePlus();
+			testAltaCargaInternacionalEmpresa();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -124,6 +125,26 @@ public class BastaChicos {
 		Proveedor proveedor = crearProveedor();
 		controlador.altaVehiculoExterno(proveedor.getId(), crearVehiculoExternoView());
 		controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaView(), true);
+	}
+
+	private static void testAltaCargaInternacionalEmpresa() throws Exception {
+		System.out.println("/* ALTA CARGA INTERNACIONAL EMPRESA */");
+		Empresa empresa = crearEmpresa();
+		Sucursal sucursal = crearSucursal();
+		CompaniaSeguro companiaSeguro = crearCompaniaSeguro();
+		Proveedor proveedor = crearProveedor();
+		controlador.altaVehiculoExterno(proveedor.getId(), crearVehiculoExternoView());
+		controlador.altaCarga(sucursal.getId(), empresa.getId(), crearCargaView(), true);
+	}
+
+	private static Empresa crearEmpresa() {
+		Empresa e = new Empresa();
+		e.setNombre(randomString());
+		e.setRegular(true);
+		// ajustar tercer valor para probar lo de monto autorizado
+		e.setCuentaCorriente(new CuentaCorriente(false, 0f, 100f));
+		e.setId(ClienteDAO.getInstance().insert(e));
+		return e;
 	}
 
 	private static Carga crearCarga() {

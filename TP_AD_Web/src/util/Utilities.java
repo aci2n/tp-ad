@@ -150,6 +150,7 @@ public class Utilities {
 	public static void saveXml(Integer id, Document doc) {
 		if (doc != null) {
 			try {
+				new File("./xml").mkdirs();
 				TransformerFactory transformerFactory = TransformerFactory.newInstance();
 				Transformer transformer = transformerFactory.newTransformer();
 				DOMSource source = new DOMSource(doc);
@@ -164,6 +165,7 @@ public class Utilities {
 	public static void printXml(Document doc) {
 		if (doc != null) {
 			try {
+				new File("./xml").mkdirs();
 				TransformerFactory transformerFactory = TransformerFactory.newInstance();
 				Transformer transformer = transformerFactory.newTransformer();
 				DOMSource source = new DOMSource(doc);
