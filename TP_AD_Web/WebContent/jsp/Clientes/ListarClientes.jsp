@@ -109,7 +109,7 @@
 								<tr>
 									<td style="color: #1565C0; font-weight: bold;"><%=e.getId()%></td>
 									<td><%=e.getNombre()%></td>
-									<td><%=e.isEsRegular()%></td>
+									<td><%=e.isRegular()%></td>
 									<td>$ <%=e.getCuentaCorriente().getMontoActual()%></td>
 									<td>$ <%=e.getCuentaCorriente().getMontoAutorizado()%></td>
 

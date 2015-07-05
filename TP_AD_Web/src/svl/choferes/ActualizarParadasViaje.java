@@ -1,11 +1,6 @@
 package svl.choferes;
 
-import impl.cargas.SeguimientoCarga;
-import impl.viajes.Viaje;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,9 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import persistence.SeguimientoCargasDAO;
-import persistence.ViajeDAO;
-import views.cargas.SeguimientoCargaView;
+import rmi.delegate.BusinessDelegate;
 import views.viajes.ViajeView;
 
 import com.google.gson.Gson;
@@ -47,16 +40,24 @@ public class ActualizarParadasViaje extends HttpServlet {
 
 		// Obtiene el viaje
 		
-		Viaje v = ViajeDAO.getInstance().getViajeChofer(id);
-		ViajeView vw = v.getView();
-
-		// Genera json
-		Gson gson = new Gson();
-		String json = gson.toJson(vw);
-		System.out.println(json);
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(json);
+		try {
+			ViajeView vw = BusinessDelegate.getInstance().getInterfaz().obtenerViajeActivo(id);
+			// Genera json
+			if (vw == null) {
+				response.setStatus(404);
+				return;
+			}
+			Gson gson = new Gson();
+			String json = gson.toJson(vw);
+			System.out.println(json);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(json);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			response.setStatus(500);
+		}
 
 	}
 

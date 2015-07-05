@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 
-<title>Insert title here</title>
+<title>Der groﬂe Verteiler</title>
 
 
 </head>
@@ -144,10 +144,10 @@
 							class="mdi-navigation-arrow-drop-down"></i></a>
 						<div class="collapsible-body">
 							<ul>
-								<li><a class="menu-anchor" id="jsp/Choferes/MisParadas.jsp"
-									href="#!">Mi viaje</a></li>
+								<!-- <li><a class="menu-anchor" id="jsp/Choferes/MisParadas.jsp"
+									href="#!">Mi viaje</a></li> -->
 								<li><a class="menu-anchor" id="jsp/Choferes/ActualizarParadasViaje.jsp"
-									href="#!">Actualizar Paradas</a></li>
+									href="#!">Mi viaje</a></li>
 							</ul>
 						</div></li>
 				</ul>
@@ -155,7 +155,7 @@
 			<a href="#" data-activates="slide-out" class="button-collapse"
 				style="display: inline;"><i class="mdi-navigation-menu"></i></a>
 
-			<h5 class="nav-header" id="title"></h5>
+			<h5 class="nav-header" id="title">Der groﬂe Verteiler</h5>
 
 		</nav>
 

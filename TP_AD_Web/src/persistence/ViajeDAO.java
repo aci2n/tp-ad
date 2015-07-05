@@ -63,7 +63,7 @@ public class ViajeDAO extends AbstractGenericDAO<Viaje> {
 	public Viaje getViajePorParada(int idParada) {
 		Session s = sf.openSession();
 		s.beginTransaction();
-		Query q = s.createQuery("from Viaje v inner join v.paradasIntermedias as p where p.id = ?");
+		Query q = s.createQuery("select distinct v from Viaje v inner join v.paradasIntermedias as p where p.id = ?");
 		q.setParameter(0, idParada);
 		Viaje viaje = (Viaje) q.uniqueResult();
 		s.close();

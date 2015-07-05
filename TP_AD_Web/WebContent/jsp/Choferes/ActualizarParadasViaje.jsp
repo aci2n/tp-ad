@@ -31,8 +31,6 @@
 						<div class="col s6">
 							<button class="waves-effect waves-light btn" id="buscar"
 								type="button">Buscar</button>
-							<button class="waves-effect waves-light btn" id="limpiar"
-								type="button">Limpiar tabla</button>
 						</div>
 					</div>
 					<div>
@@ -42,7 +40,7 @@
 									<th>Seguimiento</th>
 									<th>Parada</th>
 									<th>Fecha planeada</th>
-									<th>Checked</th>
+									<th>Fecha de llegada</th>
 								</tr>
 							</thead>
 
@@ -52,10 +50,6 @@
 
 							</tbody>
 						</table>
-						<div>
-							<button class="waves-effect waves-light btn" id="confirmar"
-								type="button">Confirmar</button>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -66,21 +60,26 @@
 	<script>
 		$(document).ready(function() {
 			$("#buscar").click(function() {
-
+				var idChofer = $("#id_chofer").val();
 				$.ajax({
 					url : 'ActualizarParadasViaje',
 					data : {
-						id_chofer : $("#id_chofer").val()
+						id_chofer : idChofer
 					},
 					type : 'GET',
-					dateType : 'json',
 					success : function(json) {
 						$("#tbody tr").remove();
 						imprimirParadasViaje(json);
+						$('input[type="checkbox"]').first().removeAttr('disabled');
 						//alert("a");
 					},
-					error : function() {
-						alert("Error");
+					statusCode: {
+						404: function() {
+							Materialize.toast("No existe chofer con el id " + idChofer + " o un viaje para el mismo", 5000);
+						},
+						500: function() {
+							Materialize.toast("Error interno del servidor,  intente nuevamente", 5000);	
+						}
 					}
 				});
 
@@ -90,42 +89,51 @@
 		function imprimirParadasViaje(json) {
 
 			$.each(json.paradas, function(i, parada) {
-
-				$("#tbody").append(
+				var row = $('<tr>');
+				row
+					.append($('<td>').text(++i))
+					.append($('<td>').text(parada.sucursal))
+					.append($('<td>').text(parada.llegadaEsperada));
+				
+				if (parada.llegada) {
+					row.append($('<td>').text(parada.llegada));
+				} else {
+					var checkId = 'parada_' + parada.id;
+					var check = $('<input>').attr('type', 'checkbox').attr('id', checkId).attr('disabled', 'disabled');
+					check.change(function() {
+						check.attr('disabled', 'disabled');
+						$.ajax({
+							url: 'reportarParada',
+							data: {
+								idParada: parada.id
+							},
+							success: function() {
+								row.text(new Date().toString());
+								row.next('tr').find('input[type="checkbox"]').removeAttr('disabled');
+							},
+							error: function() {
+								Materialize.toast('Debe registrar primero las paradas anteriores', 5000);
+							}
+						});
+					});
+					row.append(
+						$('<td>')
+							.append(check)
+							.append(
+								$('<label>').attr('for', checkId).text('Marcar como llegado')
+						)
+					);
+				}
+				
+				$('#tbody').append(row);
+				/* $("#tbody").append(
 						"<tr><td>" + ++i + "</td><td>" + parada.sucursal
 								+ " </td><td>" + parada.llegadaEsperada
 								+ " </td><td><input type='checkbox' id='parada"
 								+ (i) + "' /><label for='parada" + (i)
-								+ "'></label>" + " </td></tr>");
+								+ "'></label>" + " </td></tr>"); */
 			});
-		};
-
-		$("#limpiar").click(function() {
-			$("#tbody tr").remove();
-		});
-
-		$(document).ready(function() {
-			$("#confirmar").click(function() {
-
-				$.ajax({
-					url : 'ActualizarParadasViaje',
-					data : {
-						id_chofer : $("#id_chofer").val()
-					},
-					type : 'POST',
-					dateType : 'json',
-					success : function(json) {
-						$("#tbody tr").remove();
-						imprimirParadasViaje(json);
-						//alert("a");
-					},
-					error : function() {
-						alert("Error");
-					}
-				});
-
-			});
-		});
+		}
 	</script>
 
 </body>
