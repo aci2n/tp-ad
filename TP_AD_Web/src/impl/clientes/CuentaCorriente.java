@@ -56,7 +56,7 @@ public class CuentaCorriente {
 		if (estaAutorizado(monto)) {
 			this.montoActual += monto;
 		} else {
-			throw new Exception("Monto no autorizado");
+			throw new Exception("Monto no autorizado.");
 		}
 	}
 	

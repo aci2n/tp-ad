@@ -2,6 +2,7 @@ package impl.cobranzas;
 
 import impl.cargas.Carga;
 import impl.clientes.CuentaCorriente;
+import impl.clientes.Empresa;
 import impl.vehiculos.Proveedor;
 import impl.vehiculos.VehiculoExterno;
 import impl.viajes.Viaje;
@@ -57,10 +58,14 @@ public class AdministradorCobranzas {
 		new Pago(proveedor, monto, fecha);
 	}
 
-	public void generarFactura(Carga c) {
+	public void generarFactura(Carga c) throws Exception {
 		String tipoFactura = "Tipo A";
 		Date fechaCreacion = new Date();
 		Float montoTotal = c.calcularCosto();
+		if (c.getCliente() instanceof Empresa) {
+			Empresa e = (Empresa)c.getCliente();
+			e.agregarACuentaCorriente(montoTotal);
+		}
 		new Factura(tipoFactura, fechaCreacion, montoTotal, c);
 	}
 

@@ -50,9 +50,16 @@ public class AdministradorCargas {
 		if (cli != null && suc != null) {
 			c.setOrigen(suc.getUbicacion().getView());
 			Carga carga = new Carga(c, cli);
+			// antes de agregar a viaje genera factura, si es empresa y pasa el
+			// monto autorizado se elimina la carga y se tira una excepcion
+			try {
+				admCob.generarFactura(carga);
+			} catch (Exception e) {
+				cargaDao.delete(carga);
+				throw e;
+			}
 			suc.agregarCarga(carga);
 			asignarCargaAViajeOptimo(carga, esInternacional);
-			admCob.generarFactura(carga);
 			return carga.getId();
 		} else {
 			throw new Exception("No existe cliente o sucursal con el ID ingresado.");

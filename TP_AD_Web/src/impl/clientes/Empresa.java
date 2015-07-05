@@ -100,4 +100,8 @@ public class Empresa extends Cliente {
 		}
 		return view;
 	}
+
+	public void agregarACuentaCorriente(Float monto) throws Exception {
+		cuentaCorriente.actualizarMontoActual(monto);		
+	}
 }
