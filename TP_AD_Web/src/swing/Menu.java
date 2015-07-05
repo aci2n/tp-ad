@@ -24,7 +24,6 @@ public class Menu extends JFrame implements ActionListener {
 		setLayout(new BorderLayout());
 		JMenuBar bar = new JMenuBar();
 		setJMenuBar(bar);
-		// Vehiculos
 		JMenu mVehiculos = addMenu(bar, "Vehiculos");
 		addMenuItem(mVehiculos, miAltaVehiculoExterno, "Alta Vehiculo Externo");
 		addMenuItem(mVehiculos, miActualizarPrecioVehiculo, "Actualizar Precio Vehiculo");
@@ -69,8 +68,8 @@ public class Menu extends JFrame implements ActionListener {
 		setTitle("Sistema de Administracion de Cargas");
 		setSize(500, 150);
 		setLocationRelativeTo(null);
-		this.setVisible(true);
-		this.setResizable(false);
+		setVisible(true);
+		setResizable(false);
 	}
 
 	public void actionPerformed(ActionEvent e) {
