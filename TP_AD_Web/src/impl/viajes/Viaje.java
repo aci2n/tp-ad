@@ -408,8 +408,8 @@ public class Viaje extends PersistentObject {
 		}
 		parametros[0] = a.getCoordenadaDestino().calcularDistanciaEnKilometros(
 				b.getCoordenadaDestino());
-		parametros[1] = parametros[0] / 180f; // kilometros por hora promedio
-		parametros[2] = parametros[0] * 7.35f; // costo por kilometro promedio
+		parametros[1] = parametros[0] / AdministradorViajes.VELOCIDAD_PROMEDIO; // kilometros por hora promedio
+		parametros[2] = parametros[0] * vehiculo.getTarifa(); // costo por kilometro promedio
 		return parametros;
 	}
 
