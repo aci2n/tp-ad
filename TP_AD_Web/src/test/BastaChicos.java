@@ -64,7 +64,7 @@ public class BastaChicos {
 			// testAltaCargaInternacional();
 			// testXml();
 			// testCargasMismoViaje();
-			// testCargasMismoViajePlus();
+			testCargasMismoViajePlus();
 			testAltaCargaInternacionalEmpresa();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -83,7 +83,8 @@ public class BastaChicos {
 			sucursal.agregarVehiculo(crearVehiculoLocalView(), crearPlanMantenimientoKilometrajeView(), empleado.getId());
 		}
 		for (int i = 0; i < 100; i++) {
-			controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(crearUbicacion(), crearUbicacion()), false, true);
+			controlador
+					.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(crearUbicacion(), crearUbicacion()), false, true);
 		}
 	}
 

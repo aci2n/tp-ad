@@ -1,4 +1,3 @@
-<%@page import="controllers.ControladorPrincipal"%>
 <%@page import="impl.cargas.TipoCarga"%>
 <%@page import="impl.personal.TipoPuesto"%>
 
