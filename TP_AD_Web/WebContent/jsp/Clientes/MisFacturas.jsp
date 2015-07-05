@@ -21,93 +21,84 @@
 					<span class="card-title">Listar Facturas</span>
 				</div>
 
-				<div class="col s12 card-content">
-					<ul class="tabs">
-						<li class="tab col s3"><a class="active" href="#test1">Listar
-								Particular</a></li>
-						<li class="tab col s3"><a href="#test2">Listar Empresa</a></li>
-					</ul>
-				</div>
 
-				<div id="test1">
-					<div>
-						<div class="row card-action">
-							<div class="input-field col s6">
-								<i class="material-icons prefix">list</i> <input id="id_cliente"
-									type="number" class="validate"> <label for="icon_list">Buscar
-									cliente particular</label>
-							</div>
-							<div class="col s6">
-								<button class="waves-effect waves-light btn" id="buscar"
-									type="button">Buscar</button>
-								<button class="waves-effect waves-light btn" id="limpiar"
-									type="button">Limpiar tabla</button>
-							</div>
+				<div>
+					<div class="row card-action">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">list</i> <input id="id_cliente"
+								type="number" class="validate"> <label for="icon_list">Buscar
+								cliente </label>
 						</div>
-						<div class="card-action">
-
-
-							<table>
-								<thead>
-									<tr>
-										<th class="">ID Factura</th>
-										<th>ID Carga</th>
-										<th>Tipo Factura</th>
-										<th>Fecha Emisión</th>
-										<th>Monto Total</th>
-									</tr>
-								</thead>
-
-								<tbody id="tbody">
-
-								</tbody>
-							</table>
-							<div></div>
+						<div class="col s6">
+							<button class="waves-effect waves-light btn" id="buscar"
+								type="button">Buscar</button>
+							<button class="waves-effect waves-light btn" id="limpiar"
+								type="button">Limpiar tabla</button>
 						</div>
 					</div>
-				</div>
+					<div class="card-action">
 
-				<div id="test2">
-					<div>
-						<div class="row card-action">
-							<div class="input-field col s6">
-								<i class="material-icons prefix">list</i> <input id="id_cliente"
-									type="number" class="validate"> <label for="icon_list">Buscar
-									cliente empresa</label>
-							</div>
-							<div class="col s6">
-								<button class="waves-effect waves-light btn" id="buscar"
-									type="button">Buscar</button>
-								<button class="waves-effect waves-light btn" id="limpiar"
-									type="button">Limpiar tabla</button>
-							</div>
-						</div>
-						<div class="card-action">
-							<table>
-								<thead>
-									<tr>
-										<th class="">ID Factura</th>
-										<th>ID Carga</th>
-										<th>Tipo Factura</th>
-										<th>Tipo Pago</th>
-										<th>Fecha Emisión</th>
-										<th>Monto Total</th>
-									</tr>
-								</thead>
 
-								<tbody id="tbody">
+						<table>
+							<thead>
+								<tr>
+									<th class="">ID Factura</th>
+									<th>ID Carga</th>
+									<th>Tipo Factura</th>
+									<th>Fecha Emisión</th>
+									<th>Monto Total</th>
+								</tr>
+							</thead>
 
-								</tbody>
-							</table>
-							<div></div>
-						</div>
+							<tbody id="tbody">
+
+							</tbody>
+						</table>
+						<div></div>
 					</div>
 				</div>
-
-
-
-
 			</div>
+
+			<!-- <div id="test2">
+				<div>
+					<div class="row card-action">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">list</i> <input id="id_cliente"
+								type="number" class="validate"> <label for="icon_list">Buscar
+								cliente empresa</label>
+						</div>
+						<div class="col s6">
+							<button class="waves-effect waves-light btn" id="buscar"
+								type="button">Buscar</button>
+							<button class="waves-effect waves-light btn" id="limpiar"
+								type="button">Limpiar tabla</button>
+						</div>
+					</div>
+					<div class="card-action">
+						<table>
+							<thead>
+								<tr>
+									<th class="">ID Factura</th>
+									<th>ID Carga</th>
+									<th>Tipo Factura</th>
+									<th>Tipo Pago</th>
+									<th>Fecha Emisión</th>
+									<th>Monto Total</th>
+								</tr>
+							</thead>
+
+							<tbody id="tbody">
+
+							</tbody>
+						</table>
+						<div></div>
+					</div>
+				</div>
+			</div>
+ -->
+
+
+
 		</div>
 	</div>
 
