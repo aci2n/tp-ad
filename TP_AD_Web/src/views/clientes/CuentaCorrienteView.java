@@ -2,14 +2,13 @@ package views.clientes;
 
 import views.GenericView;
 
-public class CuentaCorrienteView extends GenericView{
-
+public class CuentaCorrienteView extends GenericView {
+	private static final long serialVersionUID = 1L;
 	private boolean depositoPrevio;
 	private Float montoAutorizado;
 	private Float montoActual;
 
 	public CuentaCorrienteView() {
-
 	}
 
 	public CuentaCorrienteView(boolean depositoPrevio, Float montoAutorizado, Float montoActual) {
@@ -41,5 +40,4 @@ public class CuentaCorrienteView extends GenericView{
 	public void setMontoActual(Float montoActual) {
 		this.montoActual = montoActual;
 	}
-
 }

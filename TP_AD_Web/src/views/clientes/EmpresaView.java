@@ -5,22 +5,21 @@ import java.util.List;
 import views.GenericView;
 import views.productos.ProductoView;
 
-public class EmpresaView extends GenericView{
-
+public class EmpresaView extends GenericView {
+	private static final long serialVersionUID = 1L;
 	private String nombre;
-	private String esRegular;
+	private boolean regular;
 	private List<ProductoView> productos;
 	private CuentaCorrienteView cuentaCorriente;
 
 	public EmpresaView() {
-
 	}
 
-	public EmpresaView(String nombre, String esRegular) {
+	public EmpresaView(String nombre, boolean regular, CuentaCorrienteView cv) {
 		this.nombre = nombre;
-		this.esRegular = esRegular;
+		this.regular = regular;
+		this.cuentaCorriente = cv;
 	}
-
 
 	public String getNombre() {
 		return nombre;
@@ -30,12 +29,12 @@ public class EmpresaView extends GenericView{
 		this.nombre = nombre;
 	}
 
-	public String isEsRegular() {
-		return esRegular;
+	public boolean isRegular() {
+		return regular;
 	}
 
-	public void setEsRegular(String esRegular) {
-		this.esRegular = esRegular;
+	public void setRegular(boolean esRegular) {
+		this.regular = esRegular;
 	}
 
 	public List<ProductoView> getProductos() {
@@ -53,5 +52,4 @@ public class EmpresaView extends GenericView{
 	public void setCuentaCorriente(CuentaCorrienteView cuentaCorriente) {
 		this.cuentaCorriente = cuentaCorriente;
 	}
-
 }

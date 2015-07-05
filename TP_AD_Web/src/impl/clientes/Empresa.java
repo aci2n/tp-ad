@@ -35,8 +35,9 @@ public class Empresa extends Cliente {
 	@JoinTable(name = "Empresas_Productos", joinColumns = @JoinColumn(name = "id_empresa"), inverseJoinColumns = @JoinColumn(name = "id_producto"))
 	private Collection<Producto> productos;
 
-	public Empresa(String nombre, CuentaCorriente cuentaCorriente) {
+	public Empresa(String nombre, boolean regular, CuentaCorriente cuentaCorriente) {
 		this.nombre = nombre;
+		this.regular = regular;
 		this.cuentaCorriente = cuentaCorriente;
 		this.id = ClienteDAO.getInstance().insert(this);
 	}
@@ -83,7 +84,7 @@ public class Empresa extends Cliente {
 
 	public EmpresaView getView() {
 		// TODO
-		EmpresaView view = new EmpresaView(nombre, Boolean.toString(regular));
+		EmpresaView view = new EmpresaView(nombre, regular, cuentaCorriente.getView());
 		view.setId(id);
 		List<ProductoView> productos = null;
 
