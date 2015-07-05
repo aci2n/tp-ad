@@ -30,7 +30,7 @@ public class Producto extends PersistentObject {
 	 * 
 	 */
 	private static final long serialVersionUID = 2506118120974790841L;
-	private static final String[] materialesRestringidos = { "Material1", "Material2", "Material3" };
+	private static final String[] materialesRestringidos = { "Material1", "Material2", "Material3", "Arma", "Explosivo", "Combustible" };
 	@Column(name = "nombre")
 	private String nombre;
 	@Column(name = "tipo_fragilidad")

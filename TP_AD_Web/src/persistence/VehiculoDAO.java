@@ -62,7 +62,9 @@ public class VehiculoDAO extends AbstractGenericDAO<Vehiculo> {
 		//	TODO: No existen viajes asociados O están todos terminados
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("from VehiculoLocal v where not exists(select vi.id from Viaje vi where vi.vehiculo.id = v.id)");
+		Query query = session.createQuery("from VehiculoLocal v where not exists"
+				+ "(select vi.id from Viaje vi, ParadaIntermedia p where vi.vehiculo.id = v.id"
+				+ " and p.llegada is null and p.checked = false)");
 		List<VehiculoLocal> vehiculos = query.list();
 		session.close();
 		return vehiculos;
@@ -72,7 +74,9 @@ public class VehiculoDAO extends AbstractGenericDAO<Vehiculo> {
 		//	TODO: No existen viajes asociados O están todos terminados
 		Session session = sf.openSession();
 		session.beginTransaction();
-		String hql = "from VehiculoExterno v where not exists(select vi.id from Viaje vi where vi.vehiculo.id = v.id)";
+		String hql = "from VehiculoExterno v where not exists"
+				+ "(select vi.id from Viaje vi, ParadaIntermedia p where vi.vehiculo.id = v.id"
+				+ " and p.llegada is null and p.checked = false)";
 		// si el viaje es internacional solamente usa vehiculos de tipo carrier
 		if (esInternacional) {
 			hql += " and v.tipo = 'CARRIER'";
