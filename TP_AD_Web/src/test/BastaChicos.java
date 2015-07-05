@@ -83,7 +83,7 @@ public class BastaChicos {
 			sucursal.agregarVehiculo(crearVehiculoLocalView(), crearPlanMantenimientoKilometrajeView(), empleado.getId());
 		}
 		for (int i = 0; i < 100; i++) {
-			controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(crearUbicacion(), crearUbicacion()), false);
+			controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(crearUbicacion(), crearUbicacion()), false, true);
 		}
 	}
 
@@ -97,7 +97,7 @@ public class BastaChicos {
 		Ubicacion o = crearUbicacion();
 		Ubicacion d = crearUbicacion();
 		for (int i = 0; i < 1; i++) {
-			controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(o, d), false);
+			controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(o, d), false, true);
 		}
 	}
 
@@ -114,7 +114,7 @@ public class BastaChicos {
 		Empleado empleado = crearEmpleado();
 		CompaniaSeguro companiaSeguro = crearCompaniaSeguro();
 		sucursal.agregarVehiculo(crearVehiculoLocalView(), crearPlanMantenimientoKilometrajeView(), empleado.getId());
-		controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaView(), false);
+		controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaView(), false, false);
 	}
 
 	private static void testAltaCargaInternacional() throws Exception {
@@ -124,7 +124,7 @@ public class BastaChicos {
 		CompaniaSeguro companiaSeguro = crearCompaniaSeguro();
 		Proveedor proveedor = crearProveedor();
 		controlador.altaVehiculoExterno(proveedor.getId(), crearVehiculoExternoView());
-		controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaView(), true);
+		controlador.altaCarga(sucursal.getId(), particular.getId(), crearCargaView(), true, false);
 	}
 
 	private static void testAltaCargaInternacionalEmpresa() throws Exception {
@@ -134,7 +134,7 @@ public class BastaChicos {
 		CompaniaSeguro companiaSeguro = crearCompaniaSeguro();
 		Proveedor proveedor = crearProveedor();
 		controlador.altaVehiculoExterno(proveedor.getId(), crearVehiculoExternoView());
-		controlador.altaCarga(sucursal.getId(), empresa.getId(), crearCargaView(), true);
+		controlador.altaCarga(sucursal.getId(), empresa.getId(), crearCargaView(), true, false);
 	}
 
 	private static Empresa crearEmpresa() {
