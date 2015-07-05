@@ -11,6 +11,10 @@ public class ParadaIntermediaView extends GenericView{
 	private Integer orden;
 
 	
+	public ParadaIntermediaView(){
+		
+	}
+	
 	public ParadaIntermediaView(String llegadaEsperada, UbicacionView ubicacion) {
 		this(llegadaEsperada, null, ubicacion, null);
 	}

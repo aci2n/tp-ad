@@ -31,7 +31,7 @@
 										id="jsp/Clientes/AdministrarClientes" href="">Administración</a></li> -->
 									<li><a id="jsp/Clientes/ListarClientes.jsp"
 										class="menu-anchor" href="#!">Listar</a></li>
-											<li><a id="jsp/Clientes/MisFacturas.jsp"
+									<li><a id="jsp/Clientes/MisFacturas.jsp"
 										class="menu-anchor" href="#!">Facturas</a></li>
 								</ul>
 							</div></li>
@@ -144,8 +144,10 @@
 							class="mdi-navigation-arrow-drop-down"></i></a>
 						<div class="collapsible-body">
 							<ul>
-								<li><a class="menu-anchor" id="jsp/Choferes/MisParadas.jsp" href="#!">Mi
-										viaje</a></li>
+								<li><a class="menu-anchor" id="jsp/Choferes/MisParadas.jsp"
+									href="#!">Mi viaje</a></li>
+								<li><a class="menu-anchor" id="jsp/Choferes/ActualizarParadasViaje.jsp"
+									href="#!">Actualizar Paradas</a></li>
 							</ul>
 						</div></li>
 				</ul>

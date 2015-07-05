@@ -314,10 +314,12 @@ public class Viaje extends PersistentObject {
 	public ViajeView getView() {
 		List<ParadaIntermediaView> paradasView = new ArrayList<ParadaIntermediaView>();
 		for (ParadaIntermedia parada : paradasIntermedias) {
-			paradasView.add(parada.getView());
+			paradasView.add(parada.toView());
 		}
-		return new ViajeView(fechaSalida.toString(), fechaSalida.toString(),
+		ViajeView vw = new ViajeView(fechaSalida.toString(), fechaSalida.toString(),
 				origen.getView(), destino.getView(), paradasView);
+		vw.setId(id);
+		return vw;
 	}
 
 	public boolean tieneUbicacion(Ubicacion u) {

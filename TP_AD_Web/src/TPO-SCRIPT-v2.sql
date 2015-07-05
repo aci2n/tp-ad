@@ -372,12 +372,15 @@ create table SeguimientoCargas(
 	
 	id_seguimientoCarga int identity not null,
 	id_carga int,
-	estadoCarga varchar(20),
 	id_viaje int,
+	estadoCarga varchar(20),
+	id_sucursal int,
 	fecha datetime,
 
 	constraint pk_seguimientoCargas primary key(id_seguimientoCarga),
-	constraint fk_seguimiento_carga foreign key(id_carga) references Cargas
+	constraint fk_seguimiento_carga foreign key(id_carga) references Cargas,
+	constraint fk_seguimiento_sucursal foreign key(id_sucursal) references Sucursales
+	
 )
 
 -- crear usuario

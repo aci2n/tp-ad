@@ -30,7 +30,7 @@ public class AdministradorClientes {
 					view.getCuentaCorriente().getMontoActual(),
 					view.getCuentaCorriente().getMontoAutorizado());
 		}
-		Empresa e = new Empresa(view.getNombre(), c);
+		Empresa e = new Empresa(view.getNombre(), view.isRegular(), c);
 		return e.getId();
 	}
 

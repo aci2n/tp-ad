@@ -11,10 +11,9 @@ import javax.swing.JMenuItem;
 
 @SuppressWarnings("serial")
 public class Menu extends JFrame implements ActionListener {
-
 	private JMenuItem miActualizarPrecioVehiculo, miAgregarParadaIntermedia, miAgregarSeguro, miAgregarTarea, miAltaCompaniaSeguro, miAltaEmpleado,
 			miAltaProveedor, miAltaSucursal, miAltaVehiculoExterno, miBajaEmpleado, miListarCompaniasSeguro, miListarPagos, miRealizarCobroParcial,
-			miRealizarPago, miAltaVehiculoLocal;
+			miRealizarPago, miAltaVehiculoLocal, miAltaParticular, miAltaEmpresa;
 
 	public Menu() {
 		componentes();
@@ -22,40 +21,35 @@ public class Menu extends JFrame implements ActionListener {
 	}
 
 	private void componentes() {
-
 		setLayout(new BorderLayout());
 		JMenuBar bar = new JMenuBar();
 		setJMenuBar(bar);
-
 		// Vehiculos
 		JMenu mVehiculos = addMenu(bar, "Vehiculos");
 		addMenuItem(mVehiculos, miAltaVehiculoExterno, "Alta Vehiculo Externo");
 		addMenuItem(mVehiculos, miActualizarPrecioVehiculo, "Actualizar Precio Vehiculo");
 		addMenuItem(mVehiculos, miAgregarTarea, "Agregar Tarea");
 		addMenuItem(mVehiculos, miAltaVehiculoLocal, "Alta Vehiculo Local");
-
 		JMenu mViajes = addMenu(bar, "Viajes");
 		addMenuItem(mViajes, miAgregarParadaIntermedia, "Agregar Parada Intermedia");
-
 		JMenu mSeguros = addMenu(bar, "Seguros");
 		addMenuItem(mSeguros, miAltaCompaniaSeguro, "Alta Compania Seguro");
 		addMenuItem(mSeguros, miAgregarSeguro, "Agregar Seguro");
 		addMenuItem(mSeguros, miListarCompaniasSeguro, "Listar Companias Seguro");
-
 		JMenu mSucursales = addMenu(bar, "Sucursales");
 		addMenuItem(mSucursales, miAltaSucursal, "Alta Sucursal");
 		addMenuItem(mSucursales, miAltaEmpleado, "Alta Empleado");
 		addMenuItem(mSucursales, miBajaEmpleado, "Baja Empleado");
-
 		JMenu mPagos = addMenu(bar, "Pagos");
 		addMenuItem(mPagos, miListarPagos, "Listar Pagos");
 		addMenuItem(mPagos, miRealizarPago, "Realizar Pago");
-
 		JMenu mFacturas = addMenu(bar, "Facturas");
 		addMenuItem(mFacturas, miRealizarCobroParcial, "Realizar Cobro Parcial");
-
 		JMenu mProveedores = addMenu(bar, "Proveedores");
 		addMenuItem(mProveedores, miAltaProveedor, "Alta Proveedor");
+		JMenu mClientes = addMenu(bar, "Clientes");
+		addMenuItem(mClientes, miAltaParticular, "Alta Particular");
+		addMenuItem(mClientes, miAltaEmpresa, "Alta Empresa");
 	}
 
 	private JMenu addMenu(JMenuBar bar, String title) {
@@ -127,6 +121,12 @@ public class Menu extends JFrame implements ActionListener {
 		case "Alta Vehiculo Local":
 			frame = new AltaVehiculoLocal();
 			break;
+		case "Alta Particular":
+			frame = new AltaParticular();
+			break;
+		case "Alta Empresa":
+			frame = new AltaEmpresa();
+			break;
 		}
 		if (frame != null) {
 			frame.setVisible(true);
@@ -136,5 +136,4 @@ public class Menu extends JFrame implements ActionListener {
 	public static void main(String[] args) {
 		new Menu();
 	}
-
 }
