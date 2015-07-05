@@ -268,14 +268,14 @@ public class AdministradorViajes {
 		return viajesPosibles;
 	}
 
-	public void crearViajeEnBaseACarga(Carga c, boolean esInternacional) throws Exception {
+	public void crearViajeEnBaseACarga(Carga c, boolean esInternacional, boolean esExclusiva) throws Exception {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(c.getFechaMaximaEntrega());
 		calendar.add(Calendar.DAY_OF_MONTH, -1);
 		// seteo fecha inicio viaje a 1 dia menos
 		ViajeView vv = new ViajeView(Utilities.invParseDate(calendar.getTime()), Utilities.invParseDate(c.getFechaMaximaEntrega()), c.getOrigen()
 				.getView(), c.getDestino().getView());
-		Vehiculo vehiculoDisponible = obtenerVehiculoDisponible(c, esInternacional);
+		Vehiculo vehiculoDisponible = obtenerVehiculoDisponible(c, esInternacional, esExclusiva);
 		Seguro seguro = obtenerSeguro(c.getTipo());
 		if (vehiculoDisponible != null && seguro != null) {
 			Viaje viaje = altaViaje(vehiculoDisponible.getId(), seguro.getId(), vv);
@@ -292,10 +292,15 @@ public class AdministradorViajes {
 		}
 	}
 
-	public Vehiculo obtenerVehiculoDisponible(Carga carga, boolean esInternacional) {
+	public Vehiculo obtenerVehiculoDisponible(Carga carga, boolean esInternacional, boolean esExclusiva) {
 		Vehiculo veh = null;
 		// En base al destino se selecciona un vehículo del tipo apropiado
 		// Si suc != null (destino = sucursal), se selecciona tractor o camión
+		
+		if (esExclusiva) {
+			// si es exclusiva busca avion nomas
+			return vehiculoDao.obtenerAvionDisponible();
+		}
 		Sucursal suc = sucursalDao.obtenerSucursalDesdeUbicacion(carga.getDestino().getCoordenadaDestino());
 		if (!esInternacional) {
 			for (Vehiculo v : VehiculoDAO.getInstance().obtenerVehiculosLocalesDisponibles()) {
@@ -380,5 +385,4 @@ public class AdministradorViajes {
 			viaje.removerCarga(carga);
 		}
 	}
-
 }

@@ -198,6 +198,7 @@ public class AltaCarga extends GenericHttpServlet {
 			
 			CargaView carga = new CargaView(tipoCarga, Utilities.invParseDate(fechaMax), null, manifiesto, null, destino, null, productos, retira);
 			
+			//agregar lo de esExclusivo
 			Integer id = ControladorPrincipal.getInstance().altaCarga(idSucOrigen, idCliente, carga, !local);
 			String fechaProbable = Utilities.invParseDate(ControladorPrincipal.getInstance().fechaProbableLlegada(id));
 			request.setAttribute("idCarga", id);

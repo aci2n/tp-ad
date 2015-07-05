@@ -57,25 +57,23 @@ public class VehiculoDAO extends AbstractGenericDAO<Vehiculo> {
 		session.close();
 		return vehiculos;
 	}
-	
+
 	public List<VehiculoLocal> obtenerVehiculosLocalesDisponibles() {
-		//	TODO: No existen viajes asociados O están todos terminados
+		// TODO: No existen viajes asociados O están todos terminados
 		Session session = sf.openSession();
 		session.beginTransaction();
 		Query query = session.createQuery("from VehiculoLocal v where not exists"
-				+ "(select vi.id from Viaje vi, ParadaIntermedia p where vi.vehiculo.id = v.id"
-				+ " and p.llegada is null and p.checked = false)");
+				+ "(select vi.id from Viaje vi, ParadaIntermedia p where vi.vehiculo.id = v.id" + " and p.llegada is null and p.checked = false)");
 		List<VehiculoLocal> vehiculos = query.list();
 		session.close();
 		return vehiculos;
 	}
-	
+
 	public List<VehiculoExterno> obtenerVehiculosExternosDisponibles(boolean esInternacional) {
-		//	TODO: No existen viajes asociados O están todos terminados
+		// TODO: No existen viajes asociados O están todos terminados
 		Session session = sf.openSession();
 		session.beginTransaction();
-		String hql = "from VehiculoExterno v where not exists"
-				+ "(select vi.id from Viaje vi, ParadaIntermedia p where vi.vehiculo.id = v.id"
+		String hql = "from VehiculoExterno v where not exists" + "(select vi.id from Viaje vi, ParadaIntermedia p where vi.vehiculo.id = v.id"
 				+ " and p.llegada is null and p.checked = false)";
 		// si el viaje es internacional solamente usa vehiculos de tipo carrier
 		if (esInternacional) {
@@ -86,6 +84,13 @@ public class VehiculoDAO extends AbstractGenericDAO<Vehiculo> {
 		session.close();
 		return vehiculos;
 	}
-	
-	
+
+	public Vehiculo obtenerAvionDisponible() {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		String hql = "from VehiculoExterno v where not exists" + "(select vi.id from Viaje vi, ParadaIntermedia p where vi.vehiculo.id = v.id"
+				+ " and p.llegada is null and p.checked = false) and v.tipo = 'AVION'";
+		Query q = session.createQuery(hql);
+		return (Vehiculo) q.uniqueResult();
+	}
 }
