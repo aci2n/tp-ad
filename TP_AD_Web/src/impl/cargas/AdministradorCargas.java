@@ -39,7 +39,7 @@ public class AdministradorCargas {
 		this.admCob = AdministradorCobranzas.getInstance();
 	}
 
-	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView c, boolean esInternacional) throws Exception {
+	public Integer altaCarga(Integer idSucursal, Integer idCliente, CargaView c, boolean esInternacional, boolean esExclusiva) throws Exception {
 		for (ItemProductoView ipv : c.getProductos()) {
 			if (!Producto.esMaterialPermitido(ipv.getProducto().getMaterial())) {
 				throw new Exception("La carga tiene un material prohibido.");
@@ -59,7 +59,7 @@ public class AdministradorCargas {
 				throw e;
 			}
 			suc.agregarCarga(carga);
-			asignarCargaAViajeOptimo(carga, esInternacional);
+			asignarCargaAViajeOptimo(carga, esInternacional, esExclusiva);
 			return carga.getId();
 		} else {
 			throw new Exception("No existe cliente o sucursal con el ID ingresado.");
@@ -74,16 +74,16 @@ public class AdministradorCargas {
 		return cargas;
 	}
 
-	private void asignarCargaAViajeOptimo(Carga c, boolean esInternacional) throws Exception {
+	private void asignarCargaAViajeOptimo(Carga c, boolean esInternacional, boolean esExclusiva) throws Exception {
 		ViajeOptimo viajeOptimo = admVi.obtenerViajeOptimo(c);
-		if (viajeOptimo != null) {
+		if (!esExclusiva && viajeOptimo != null) {
 			viajeOptimo.getViaje().agregarCarga(c);
 			if (!viajeOptimo.getViaje().getDestino().tieneMismasCoordenadas(c.getDestino())) {
 				// no agrego nueva parada si tiene el mismo destino que el viaje
 				viajeOptimo.getViaje().agregarParadaIntermedia(new ParadaIntermedia(c.getDestino(), c.getFechaProbableEntrega()));
 			}
 		} else {
-			admVi.crearViajeEnBaseACarga(c, esInternacional);
+			admVi.crearViajeEnBaseACarga(c, esInternacional, esExclusiva);
 		}
 	}
 

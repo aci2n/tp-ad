@@ -8,8 +8,5 @@
 <body>
 	<p>${mensaje}</p>
 	<!-- JUST DO IT -->
-	<iframe width="420" height="315"
-		src="http://www.youtube.com/embed/nuHfVn_cfHU?autoplay=1"> </iframe>
-	<!-- DON'T LET YOUR DREAMS BE DREAMS -->
 </body>
 </html>
