@@ -1,5 +1,7 @@
 package impl.vehiculos;
 
+import impl.cargas.Carga;
+import impl.cargas.TipoCarga;
 import impl.misc.Tamano;
 import impl.personal.Empleado;
 import impl.personal.TipoPuesto;
@@ -125,5 +127,11 @@ public class VehiculoLocal extends Vehiculo {
 
 		return new VehiculoLocalView(patente, tamano.getView(), peso, tara,
 				tarifa, tipo.toString(), vencimientoGarantia.toString(), empleado.getView());
+	}
+	
+	public boolean esAptoParaCarga(Carga c) {
+		if (c.getTipo().equals(TipoCarga.GRANEL))
+			return false;
+		return super.esAptoParaCarga(c);
 	}
 }
