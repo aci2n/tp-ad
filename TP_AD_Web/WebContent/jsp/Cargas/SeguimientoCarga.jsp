@@ -42,7 +42,8 @@
 									<th class="">N° Seguimiento</th>
 									<th class="">ID Carga</th>
 									<th>Estado</th>
-									<th>Locación</th>
+									<th>ID Viaje</th>
+									<th>ID Sucursal</th>
 									<th>Fecha</th>
 								</tr>
 							</thead>
@@ -97,6 +98,8 @@
 				$("#tbody").append(
 						"<tr><td>" + ++i + "</td><td>" + seCarga.carga.id
 								+ " </td><td>" + seCarga.estadoCarga
+								+ " </td><td>" + locacion
+								+ " </td><td>" + locacion
 								+ " </td><td>" + locacion
 								+ " </td><td>" + seCarga.fecha
 								+ " </td></tr>");

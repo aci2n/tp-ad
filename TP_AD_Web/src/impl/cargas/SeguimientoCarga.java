@@ -1,6 +1,7 @@
 package impl.cargas;
 
 import impl.PersistentObject;
+import impl.sucursales.Sucursal;
 import impl.viajes.Viaje;
 
 import java.util.Date;
@@ -35,6 +36,9 @@ public class SeguimientoCarga extends PersistentObject {
 	@OneToOne
 	@JoinColumn(name = "id_viaje")
 	private Viaje viaje;
+	@OneToOne
+	@JoinColumn(name = "id_sucursal")
+	private Sucursal sucursal;
 	@Column(name = "fecha")
 	private Date fecha;
 
@@ -42,10 +46,11 @@ public class SeguimientoCarga extends PersistentObject {
 
 	}
 
-	public SeguimientoCarga(Carga carga, EstadoCarga estadoCarga, Viaje viaje) {
+	public SeguimientoCarga(Carga carga, EstadoCarga estadoCarga, Sucursal sucursal, Viaje viaje) {
 		this.carga = carga;
 		this.estadoCarga = estadoCarga;
 		this.viaje = viaje;
+		this.sucursal = sucursal;
 		fecha = new Date();
 	}
 
@@ -90,6 +95,14 @@ public class SeguimientoCarga extends PersistentObject {
 		this.viaje = viaje;
 	}
 
+	public Sucursal getSucursal() {
+		return sucursal;
+	}
+
+	public void setSucursal(Sucursal sucursal) {
+		this.sucursal = sucursal;
+	}
+
 	public SeguimientoCargaView getView() {
 
 		SeguimientoCargaView sv = new SeguimientoCargaView(carga.getView(),
@@ -97,6 +110,8 @@ public class SeguimientoCarga extends PersistentObject {
 		if (viaje != null) {
 			sv.setIdViaje(viaje.getId());
 		}
+		if(sucursal != null)
+			sv.setIdViaje(sucursal.getId());
 		return sv;
 	}
 }

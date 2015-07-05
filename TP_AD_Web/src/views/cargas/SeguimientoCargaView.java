@@ -17,6 +17,7 @@ public class SeguimientoCargaView {
 	private String estadoCarga;
 	private Integer idViaje;
 	private Date fecha;
+	private Integer idSucursal;
 
 	public SeguimientoCargaView() {
 
@@ -60,6 +61,14 @@ public class SeguimientoCargaView {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+
+	public Integer getIdSucursal() {
+		return idSucursal;
+	}
+
+	public void setIdSucursal(Integer idSucursal) {
+		this.idSucursal = idSucursal;
 	}
 
 }

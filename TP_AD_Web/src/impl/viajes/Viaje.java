@@ -105,7 +105,8 @@ public class Viaje extends PersistentObject {
 		if (puedeTransportar(carga)){
 			carga.setEstadoCarga(EstadoCarga.EN_VIAJE);
 			cargas.add(new ItemCarga(carga));
-			SeguimientoCargasDAO.getInstance().insert(new SeguimientoCarga(carga, carga.getEstadoCarga(), this));
+			SeguimientoCargasDAO.getInstance().insert(
+					new SeguimientoCarga(carga, carga.getEstadoCarga(),SucursalDAO.getInstance().obtenerSucursalDesdeUbicacion(origen.getCoordenadaDestino()),this));
 		}
 		ViajeDAO.getInstance().update(this);
 	}
@@ -140,7 +141,8 @@ public class Viaje extends PersistentObject {
 		if (!tieneParada(parada)) {
 			paradasIntermedias.add(parada);
 			if (paradasIntermedias.size() > 1) {
-				paradasIntermedias = Utilities.ordenarParadasIntermedias(origen, paradasIntermedias);
+				paradasIntermedias = Utilities.ordenarParadasIntermedias(
+						origen, paradasIntermedias);
 			}
 
 			for (int i = 0; i < paradasIntermedias.size(); i++) {
@@ -217,7 +219,8 @@ public class Viaje extends PersistentObject {
 		return estaAtrasado;
 	}
 
-	public void setCondicionesEspeciales(List<CondicionEspecial> condicionesEspeciales) {
+	public void setCondicionesEspeciales(
+			List<CondicionEspecial> condicionesEspeciales) {
 		this.condicionesEspeciales = condicionesEspeciales;
 	}
 
@@ -277,17 +280,20 @@ public class Viaje extends PersistentObject {
 	}
 
 	public boolean pasaPorSucursal(Sucursal sucursal) {
-		if (origen.equals(sucursal.getUbicacion()) || destino.equals(sucursal.getUbicacion()))
+		if (origen.equals(sucursal.getUbicacion())
+				|| destino.equals(sucursal.getUbicacion()))
 			return true;
 		for (ParadaIntermedia parada : paradasIntermedias) {
-			if (!parada.isChecked() && parada.getUbicacion().equals(sucursal.getUbicacion()))
+			if (!parada.isChecked()
+					&& parada.getUbicacion().equals(sucursal.getUbicacion()))
 				return true;
 		}
 		return false;
 	}
 
 	public boolean puedeTransportar(Carga carga) {
-		return carga.calcularPesoTotal() <= calcularPesoDisponible() && carga.calcularVolumenTotal() <= calcularVolumenDisponible()
+		return carga.calcularPesoTotal() <= calcularPesoDisponible()
+				&& carga.calcularVolumenTotal() <= calcularVolumenDisponible()
 				&& vehiculo.esAptoParaCarga(carga);
 	}
 
@@ -310,11 +316,13 @@ public class Viaje extends PersistentObject {
 		for (ParadaIntermedia parada : paradasIntermedias) {
 			paradasView.add(parada.getView());
 		}
-		return new ViajeView(fechaSalida.toString(), fechaSalida.toString(), origen.getView(), destino.getView(), paradasView);
+		return new ViajeView(fechaSalida.toString(), fechaSalida.toString(),
+				origen.getView(), destino.getView(), paradasView);
 	}
 
 	public boolean tieneUbicacion(Ubicacion u) {
-		if (origen.tieneMismasCoordenadas(u) || destino.tieneMismasCoordenadas(u)) {
+		if (origen.tieneMismasCoordenadas(u)
+				|| destino.tieneMismasCoordenadas(u)) {
 			return true;
 		}
 		for (ParadaIntermedia pi : paradasIntermedias) {
@@ -336,14 +344,17 @@ public class Viaje extends PersistentObject {
 		}
 		if (pasaPorA == Integer.MIN_VALUE || pasaPorB == Integer.MIN_VALUE) {
 			for (int i = 0; i < this.cantidadParadasIntemedias(); i++) {
-				if (this.paradasIntermedias.get(i).getUbicacion().tieneMismasCoordenadas(a)) {
+				if (this.paradasIntermedias.get(i).getUbicacion()
+						.tieneMismasCoordenadas(a)) {
 					pasaPorA = i;
-				} else if (this.paradasIntermedias.get(i).getUbicacion().tieneMismasCoordenadas(b)) {
+				} else if (this.paradasIntermedias.get(i).getUbicacion()
+						.tieneMismasCoordenadas(b)) {
 					pasaPorB = i;
 				}
 			}
 		}
-		return (pasaPorA != Integer.MIN_VALUE && pasaPorB != Integer.MIN_VALUE) && pasaPorA < pasaPorB;
+		return (pasaPorA != Integer.MIN_VALUE && pasaPorB != Integer.MIN_VALUE)
+				&& pasaPorA < pasaPorB;
 	}
 
 	public ViajeOptimo getViajeOptimo(Ubicacion o, Ubicacion d) {
@@ -366,7 +377,8 @@ public class Viaje extends PersistentObject {
 			}
 		}
 		for (int i = indiceComienzo; i < ubicaciones.length - 1; i++) {
-			Float[] parametros = calcularParametrosEntreUbicaciones(ubicaciones[i], ubicaciones[i + 1]);
+			Float[] parametros = calcularParametrosEntreUbicaciones(
+					ubicaciones[i], ubicaciones[i + 1]);
 			distancia += parametros[0];
 			duracion += parametros[1];
 			costo += parametros[2];
@@ -380,10 +392,13 @@ public class Viaje extends PersistentObject {
 	private Float[] calcularParametrosEntreUbicaciones(Ubicacion a, Ubicacion b) {
 		Float[] parametros = new Float[3];
 		// probamos con sucursales, si no usamos coordenadas
-		Sucursal sucA = SucursalDAO.getInstance().obtenerSucursalDesdeUbicacion(a.getCoordenadaDestino());
-		Sucursal sucB = SucursalDAO.getInstance().obtenerSucursalDesdeUbicacion(b.getCoordenadaDestino());
+		Sucursal sucA = SucursalDAO.getInstance()
+				.obtenerSucursalDesdeUbicacion(a.getCoordenadaDestino());
+		Sucursal sucB = SucursalDAO.getInstance()
+				.obtenerSucursalDesdeUbicacion(b.getCoordenadaDestino());
 		if (sucA != null && sucB != null) {
-			DistanciaEntreSucursales des = SucursalDAO.getInstance().obtenerDistanciaEntreSucursales(sucA, sucB);
+			DistanciaEntreSucursales des = SucursalDAO.getInstance()
+					.obtenerDistanciaEntreSucursales(sucA, sucB);
 			if (des != null) {
 				parametros[0] = des.getDistanciaEnKm();
 				parametros[1] = des.getDuracionEnHoras();
@@ -391,7 +406,8 @@ public class Viaje extends PersistentObject {
 				return parametros;
 			}
 		}
-		parametros[0] = a.getCoordenadaDestino().calcularDistanciaEnKilometros(b.getCoordenadaDestino());
+		parametros[0] = a.getCoordenadaDestino().calcularDistanciaEnKilometros(
+				b.getCoordenadaDestino());
 		parametros[1] = parametros[0] / 180f; // kilometros por hora promedio
 		parametros[2] = parametros[0] * 7.35f; // costo por kilometro promedio
 		return parametros;
@@ -413,31 +429,44 @@ public class Viaje extends PersistentObject {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(this.fechaSalida);
 			if (paradasIntermedias.size() == 0) {
-				Sucursal origen = AdministradorSucursales.getInstance().obtenerSucursalCercana(this.origen);
-				Sucursal destino = AdministradorSucursales.getInstance().obtenerSucursalCercana(this.destino);
-				Float duracion = new Float(AdministradorSucursales.getInstance().calcularHorasEntreSucursales(origen, destino));
+				Sucursal origen = AdministradorSucursales.getInstance()
+						.obtenerSucursalCercana(this.origen);
+				Sucursal destino = AdministradorSucursales.getInstance()
+						.obtenerSucursalCercana(this.destino);
+				Float duracion = new Float(AdministradorSucursales
+						.getInstance().calcularHorasEntreSucursales(origen,
+								destino));
 				cal.add(Calendar.HOUR, duracion.intValue());
 				int horas = (int) ((duracion - duracion.intValue()) * 60);
 				cal.add(Calendar.MINUTE, horas);
 				return cal.getTime();
 			}
 			if (paradasIntermedias.size() == 0) {
-				float duracionA = origen.calcularDistanciaEnKilometros(paradasIntermedias.get(0).getUbicacion())
+				float duracionA = origen
+						.calcularDistanciaEnKilometros(paradasIntermedias
+								.get(0).getUbicacion())
 						/ AdministradorViajes.VELOCIDAD_PROMEDIO;
-				float duracionB = paradasIntermedias.get(0).getUbicacion().calcularDistanciaEnKilometros(destino)
+				float duracionB = paradasIntermedias.get(0).getUbicacion()
+						.calcularDistanciaEnKilometros(destino)
 						/ AdministradorViajes.VELOCIDAD_PROMEDIO;
 				Float total = new Float(duracionA + duracionB);
 				cal.add(Calendar.HOUR, total.intValue());
-				cal.add(Calendar.MINUTE, (int) ((total - total.intValue()) * 60));
+				cal.add(Calendar.MINUTE,
+						(int) ((total - total.intValue()) * 60));
 				return cal.getTime();
 			}
 
 			float duracion = 0;
 			for (int i = 0; i < paradasIntermedias.size() - 1; i++) {
-				duracion += paradasIntermedias.get(i).getUbicacion().calcularDistanciaEnKilometros(paradasIntermedias.get(i + 1).getUbicacion())
+				duracion += paradasIntermedias
+						.get(i)
+						.getUbicacion()
+						.calcularDistanciaEnKilometros(
+								paradasIntermedias.get(i + 1).getUbicacion())
 						/ AdministradorViajes.VELOCIDAD_PROMEDIO;
 			}
-			duracion += paradasIntermedias.get(paradasIntermedias.size() - 1).getUbicacion().calcularDistanciaEnKilometros(destino)
+			duracion += paradasIntermedias.get(paradasIntermedias.size() - 1)
+					.getUbicacion().calcularDistanciaEnKilometros(destino)
 					/ AdministradorViajes.VELOCIDAD_PROMEDIO;
 
 			Float total = new Float(duracion);
@@ -453,7 +482,10 @@ public class Viaje extends PersistentObject {
 		Float costo = 0f;
 		if (vehiculo != null && vehiculo instanceof VehiculoExterno) {
 			// x pesos por kilometro
-			costo += origen.getCoordenadaDestino().calcularDistanciaEnKilometros(destino.getCoordenadaDestino()) * vehiculo.getTarifa();
+			costo += origen.getCoordenadaDestino()
+					.calcularDistanciaEnKilometros(
+							destino.getCoordenadaDestino())
+					* vehiculo.getTarifa();
 			// x pesos por parada intermedia
 			costo += paradasIntermedias.size() * 500;
 			// x pesos por condicion especial
@@ -465,7 +497,8 @@ public class Viaje extends PersistentObject {
 	public Document generarXml() {
 		Document doc = null;
 		try {
-			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory
+					.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 			doc = docBuilder.newDocument();
 			Element eViaje = doc.createElement("viaje");
@@ -476,7 +509,8 @@ public class Viaje extends PersistentObject {
 			eViaje.appendChild(generarElementoUbicacion(doc, origen, "origen"));
 			eViaje.appendChild(generarElementoUbicacion(doc, destino, "destino"));
 			Element eFechaLlegada = doc.createElement("fechaLlegada");
-			eFechaLlegada.appendChild(doc.createTextNode(Utilities.invParseDate(fechaLlegada)));
+			eFechaLlegada.appendChild(doc.createTextNode(Utilities
+					.invParseDate(fechaLlegada)));
 			eViaje.appendChild(eFechaLlegada);
 			Element eCondiciones = doc.createElement("condiciones");
 			eViaje.appendChild(eCondiciones);
@@ -493,10 +527,12 @@ public class Viaje extends PersistentObject {
 				Element eCarga = doc.createElement("carga");
 				eItemCarga.appendChild(eCarga);
 				Element eCliente = doc.createElement("cliente");
-				eCliente.appendChild(doc.createTextNode(ic.getCarga().getCliente().getId().toString()));
+				eCliente.appendChild(doc.createTextNode(ic.getCarga()
+						.getCliente().getId().toString()));
 				eCarga.appendChild(eCliente);
 				Element eManifiesto = doc.createElement("manifiesto");
-				eManifiesto.appendChild(doc.createTextNode(ic.getCarga().getManifiesto()));
+				eManifiesto.appendChild(doc.createTextNode(ic.getCarga()
+						.getManifiesto()));
 				eCarga.appendChild(eManifiesto);
 				for (ItemProducto ip : ic.getCarga().getProductos()) {
 					Element eItemProducto = doc.createElement("itemProducto");
@@ -504,17 +540,22 @@ public class Viaje extends PersistentObject {
 					Element eProducto = doc.createElement("producto");
 					eItemProducto.appendChild(eProducto);
 					Element eNombre = doc.createElement("nombre");
-					eNombre.appendChild(doc.createTextNode(ip.getProducto().getNombre()));
+					eNombre.appendChild(doc.createTextNode(ip.getProducto()
+							.getNombre()));
 					eProducto.appendChild(eNombre);
-					Element eConsideraciones = doc.createElement("consideraciones");
-					eConsideraciones.appendChild(doc.createTextNode(ip.getProducto().getConsideraciones()));
+					Element eConsideraciones = doc
+							.createElement("consideraciones");
+					eConsideraciones.appendChild(doc.createTextNode(ip
+							.getProducto().getConsideraciones()));
 					eProducto.appendChild(eConsideraciones);
 					Element eCantidad = doc.createElement("cantidad");
-					eCantidad.appendChild(doc.createTextNode(Float.toString(ip.getCantidad())));
+					eCantidad.appendChild(doc.createTextNode(Float.toString(ip
+							.getCantidad())));
 					eItemProducto.appendChild(eCantidad);
 				}
 				Element eFecha = doc.createElement("fecha");
-				eFecha.appendChild(doc.createTextNode(Utilities.invParseDate(ic.getFecha())));
+				eFecha.appendChild(doc.createTextNode(Utilities.invParseDate(ic
+						.getFecha())));
 				eItemCarga.appendChild(eFecha);
 			}
 		} catch (Exception e) {
@@ -523,7 +564,8 @@ public class Viaje extends PersistentObject {
 		return doc;
 	}
 
-	private Element generarElementoUbicacion(Document doc, Ubicacion u, String tag) {
+	private Element generarElementoUbicacion(Document doc, Ubicacion u,
+			String tag) {
 		Element e = doc.createElement(tag);
 		Element pais = doc.createElement("pais");
 		pais.appendChild(doc.createTextNode(u.getPais()));
@@ -549,17 +591,20 @@ public class Viaje extends PersistentObject {
 		Element c = doc.createElement("coordenadas");
 		e.appendChild(c);
 		Element latitud = doc.createElement("latitud");
-		latitud.appendChild(doc.createTextNode(u.getCoordenadaDestino().getLatitud().toString()));
+		latitud.appendChild(doc.createTextNode(u.getCoordenadaDestino()
+				.getLatitud().toString()));
 		c.appendChild(latitud);
 		Element longitud = doc.createElement("longitud");
-		longitud.appendChild(doc.createTextNode(u.getCoordenadaDestino().getLongitud().toString()));
+		longitud.appendChild(doc.createTextNode(u.getCoordenadaDestino()
+				.getLongitud().toString()));
 		c.appendChild(longitud);
 		return e;
 	}
 
 	public void removerParadaIntermedia(Ubicacion u) {
 		for (ParadaIntermedia pi : paradasIntermedias) {
-			if (u.tieneMismasCoordenadas(pi.getUbicacion()) && pi.getLlegada() == null) {
+			if (u.tieneMismasCoordenadas(pi.getUbicacion())
+					&& pi.getLlegada() == null) {
 				paradasIntermedias.remove(pi);
 				ViajeDAO.getInstance().delete(pi);
 				return;
@@ -580,14 +625,19 @@ public class Viaje extends PersistentObject {
 			if (parada != null) {
 				boolean hayOtrasCargas = false;
 				for (ItemCarga ic : cargas) {
-					if (!ic.getCarga().getId().equals(carga.getId()) && ic.getCarga().getDestino().tieneMismasCoordenadas(parada.getUbicacion())) {
+					if (!ic.getCarga().getId().equals(carga.getId())
+							&& ic.getCarga()
+									.getDestino()
+									.tieneMismasCoordenadas(
+											parada.getUbicacion())) {
 						hayOtrasCargas = true;
 						break;
 					}
 				}
 				if (!hayOtrasCargas) {
 					paradasIntermedias.remove(parada);
-					paradasIntermedias = Utilities.ordenarParadasIntermedias(origen, paradasIntermedias);
+					paradasIntermedias = Utilities.ordenarParadasIntermedias(
+							origen, paradasIntermedias);
 					ViajeDAO.getInstance().update(this);
 				}
 			}
