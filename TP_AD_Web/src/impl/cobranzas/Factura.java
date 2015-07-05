@@ -2,6 +2,7 @@ package impl.cobranzas;
 
 import impl.PersistentObject;
 import impl.cargas.Carga;
+import impl.clientes.Empresa;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -97,6 +98,15 @@ public class Factura extends PersistentObject {
 		if (cobrosParciales == null)
 			cobrosParciales = new ArrayList<CobroParcial>();
 		cobrosParciales.add(new CobroParcial(fecha, monto));
+		// si es empresa lo resta de la deuda (montoActual)
+		try {
+			if (carga.getCliente() instanceof Empresa) {
+				Empresa e = (Empresa) carga.getCliente();
+				e.agregarACuentaCorriente(-monto);
+			}
+		} catch (Exception e) {
+			// nos vemos
+		}
 		FacturaDAO.getInstance().update(this);
 	}
 
