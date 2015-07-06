@@ -365,7 +365,22 @@ public class AdministradorViajes {
 				p.setLlegada(new Date());
 				p.setChecked(true);
 				viajeDao.update(p);
+				reasignarCargas(viaje, p);
 				break;
+			}
+		}
+	}
+	
+	private void reasignarCargas(Viaje viaje, ParadaIntermedia parada) {
+		Sucursal suc = sucursalDao.obtenerSucursalDesdeUbicacion(parada.getUbicacion().getCoordenadaDestino());
+		if (suc != null) {
+			for (ItemCarga itCarga : viaje.getCargas()) {
+				Carga carga = itCarga.getCarga();
+				if (carga.getDestino().tieneMismasCoordenadas(parada.getUbicacion())) {
+					viaje.removerCarga(carga);
+					suc.agregarCarga(carga);
+					//	TODO	seguimiento carga
+				}
 			}
 		}
 	}
