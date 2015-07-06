@@ -207,7 +207,8 @@ public class Carga extends PersistentObject {
 		for (ItemProducto ip : productos) {
 			p.add(new ItemProductoView(ip.getProducto().getView(), ip.getCantidad()));
 		}
-		CargaView view = new CargaView(tipo.toString(), fechaMaximaEntrega.toString(), fechaProbableEntrega.toString(), manifiesto, origen.getView(),
+		String fechaProbableString = fechaProbableEntrega == null ? "" : fechaProbableEntrega.toString();
+		CargaView view = new CargaView(tipo.toString(), fechaMaximaEntrega.toString(), fechaProbableString, manifiesto, origen.getView(),
 				destino.getView(), estadoCarga.toString(), p, retiraPorSucursal);
 		view.setId(id);
 		return view;
