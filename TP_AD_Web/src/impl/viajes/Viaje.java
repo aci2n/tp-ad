@@ -423,7 +423,7 @@ public class Viaje extends PersistentObject {
 	public Date obtenerLlegadaCarga(Carga carga) {
 		if (tieneCarga(carga)) {
 			if (carga.getDestino().tieneMismasCoordenadas(this.destino)) {
-				return this.fechaLlegada;
+				return this.fechaLlegadaEsperada;
 			}
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(this.fechaSalida);
