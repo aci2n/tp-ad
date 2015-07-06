@@ -256,7 +256,7 @@ public class AdministradorViajes {
 			v.agregarParadaIntermedia(new ParadaIntermedia(carga.getDestino(), null));
 			// end magic
 			if (v.puedeTransportar(carga) && v.tieneTrayecto(carga.getOrigen(), carga.getDestino())
-					&& Utilities.fechaMaximaDeSalida(carga, v).before(new Date())) {
+					&& Utilities.fechaMaximaDeSalida(carga, v).after(new Date())) {
 				viajesPosibles.add(v);
 			}
 			// elimino la parada temporal si no es viaje posible (eliminar si se
