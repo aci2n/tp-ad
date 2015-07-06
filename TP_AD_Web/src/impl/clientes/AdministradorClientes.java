@@ -1,20 +1,26 @@
 package impl.clientes;
 
+import impl.productos.Producto;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import persistence.ClienteDAO;
+import persistence.ProductoDAO;
 import views.clientes.CuentaCorrienteView;
 import views.clientes.EmpresaView;
 import views.clientes.ParticularView;
 import views.clientes.ReceptorView;
+import views.productos.ProductoView;
 
 public class AdministradorClientes {
 	private static AdministradorClientes instance;
 	private ClienteDAO clienteDao;
+	private ProductoDAO productoDao;
 
 	private AdministradorClientes() {
 		this.clienteDao = ClienteDAO.getInstance();
+		this.productoDao = ProductoDAO.getInstance();
 	}
 
 	public static AdministradorClientes getInstance() {
@@ -86,6 +92,14 @@ public class AdministradorClientes {
 
 	public Cliente obtenerCliente(Integer id) {
 		return clienteDao.get(id);
+	}
+	
+	public void agregarProductoEmpresa(ProductoView prod, Integer idEmpresa) {
+		Producto producto = new Producto(prod);
+		productoDao.insert(producto);
+		Empresa empresa = (Empresa) clienteDao.get(idEmpresa);
+		empresa.getProductos().add(producto);
+		clienteDao.update(empresa);
 	}
 
 }

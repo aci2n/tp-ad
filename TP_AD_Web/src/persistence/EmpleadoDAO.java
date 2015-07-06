@@ -8,6 +8,8 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import views.productos.ProductoView;
+
 public class EmpleadoDAO extends AbstractGenericDAO<Empleado> {
 	private static EmpleadoDAO instance;
 
