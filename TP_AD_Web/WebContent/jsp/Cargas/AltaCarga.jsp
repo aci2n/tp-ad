@@ -18,8 +18,7 @@
 				<select name="tipoCarga">
 					<option value="" disabled selected></option>
 					<%
-						for (TipoCarga t : TipoCarga.values()) 								
-																														{
+						for (TipoCarga t : TipoCarga.values()) {
 					%>
 					<option value="<%=t.getTipo()%>"><%=t.getTipo()%></option>
 					<%
