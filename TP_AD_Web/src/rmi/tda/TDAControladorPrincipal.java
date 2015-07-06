@@ -92,4 +92,6 @@ public interface TDAControladorPrincipal extends Remote {
 	public Date fechaProbableLlegada(Integer id) throws Exception;
 	
 	public void registrarLlegada(Integer idViaje) throws Exception;
+
+	public void cancelarCarga(Integer idCarga) throws Exception;
 }

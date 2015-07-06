@@ -24,7 +24,7 @@ public class ItemCarga extends PersistentObject {
 	 * 
 	 */
 	private static final long serialVersionUID = -2495648627363561220L;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_carga")
 	Carga carga;
 	@Column(name = "fecha")

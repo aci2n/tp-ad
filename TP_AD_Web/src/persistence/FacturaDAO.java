@@ -35,15 +35,21 @@ public class FacturaDAO extends AbstractGenericDAO<Factura> {
 	}
 
 	public List<Factura> getByCliente(Integer idCliente) {
-
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query q = session
-				.createQuery(
-						"select fa from Factura fa join fa.carga ca join ca.cliente cl where cl.id = ?")
-				.setInteger(0, idCliente);
+		Query q = session.createQuery("select fa from Factura fa join fa.carga ca join ca.cliente cl where cl.id = ?").setInteger(0, idCliente);
 		List<Factura> facturas = (List<Factura>) q.list();
 		session.close();
 		return facturas;
+	}
+
+	public void eliminarFacturaPorCarga(Integer idCarga) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query q = session.createQuery("delete from Factura inner join carga c where c.id = :idCarga");
+		q.setParameter("idCarga", idCarga);
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
 	}
 }

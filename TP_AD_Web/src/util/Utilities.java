@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import javax.xml.transform.Transformer;
@@ -38,7 +39,7 @@ public class Utilities {
 	public static Date parseWebDate(String fecha) {
 		Date d = null;
 		try {
-			SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM, yyyy");
+			SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM, yyyy", Locale.US);
 			d = formatter.parse(fecha);
 		} catch (Exception e) {
 			// mandar saludos
