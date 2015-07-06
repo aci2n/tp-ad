@@ -33,6 +33,14 @@ public class Utilities {
 		} catch (Exception e) {
 			// mandar saludos
 		}
+		if (d == null) {
+			try {
+				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+				d = formatter.parse(fecha);
+			} catch (Exception e) {
+				// mandar saludos
+			}
+		}
 		return d;
 	}
 
