@@ -6,11 +6,14 @@ import impl.cargas.Carga;
 import java.util.Date;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "ItemsCarga")
@@ -21,7 +24,7 @@ public class ItemCarga extends PersistentObject {
 	 * 
 	 */
 	private static final long serialVersionUID = -2495648627363561220L;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_carga")
 	Carga carga;
 	@Column(name = "fecha")

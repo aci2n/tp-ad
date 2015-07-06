@@ -252,4 +252,10 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	public List<EmpleadoView> obtenerChoferes() {
 		return administradorPersonal.obtenerChoferes();
 	}
+
+	@Override
+	public void registrarLlegada(Integer idViaje) throws Exception {
+		// TODO Auto-generated method stub
+		// que es esto?
+	}
 }
