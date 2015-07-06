@@ -1,10 +1,16 @@
 package impl.personal;
 
+import impl.clientes.Empresa;
+import impl.productos.Producto;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import persistence.ClienteDAO;
 import persistence.EmpleadoDAO;
+import persistence.ProductoDAO;
 import views.personal.EmpleadoView;
+import views.productos.ProductoView;
 
 public class AdministradorPersonal {
 	private static AdministradorPersonal instance;

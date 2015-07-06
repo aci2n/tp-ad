@@ -39,11 +39,12 @@ public class Empresa extends Cliente {
 		this.nombre = nombre;
 		this.regular = regular;
 		this.cuentaCorriente = cuentaCorriente;
+		this.productos = new ArrayList<Producto>();
 		this.id = ClienteDAO.getInstance().insert(this);
 	}
 
 	public Empresa() {
-
+		this.productos = new ArrayList<Producto>();
 	}
 
 	public boolean isRegular() {

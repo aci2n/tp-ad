@@ -97,6 +97,10 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 		return administradorClientes.obtenerClientesParticulares();
 	}
 
+	public void agregarProductoEmpresa(ProductoView prod, Integer idEmpresa) {
+		administradorClientes.agregarProductoEmpresa(prod, idEmpresa);
+	}
+
 	public List<FacturaView> obtenerFacturasDelCliente(Integer id) throws Exception {
 		return administradorClientes.obtenerFacturasDelCliente(id);
 	}

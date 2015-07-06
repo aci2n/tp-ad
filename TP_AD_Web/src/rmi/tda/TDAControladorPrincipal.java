@@ -96,6 +96,8 @@ public interface TDAControladorPrincipal extends Remote {
 	public void registrarLlegada(Integer idViaje) throws Exception;
 
 	public void cancelarCarga(Integer idCarga) throws Exception;
+	
+	public void agregarProductoEmpresa(ProductoView prod, Integer idEmpresa) throws Exception;
 
 	public List<FacturaView> obtenerFacturasDelCliente(Integer id) throws Exception;
 	
