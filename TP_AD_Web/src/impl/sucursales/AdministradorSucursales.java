@@ -125,7 +125,7 @@ public class AdministradorSucursales {
 		for (Viaje v : AdministradorViajes.getInstance().obtenerViajes()) {
 			if (v.getOrigen().equals(origen.getUbicacion()))
 				if (v.getDestino().equals(destino.getUbicacion()))
-					return v.getFechaLlegada();
+					return v.getFechaLlegadaEsperada();
 				else {
 					Date llegada = v.existeLLegadaUbicacion(destino.getUbicacion());
 					if (llegada != null)

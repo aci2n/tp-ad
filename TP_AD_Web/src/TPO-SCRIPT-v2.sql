@@ -222,6 +222,7 @@ create table Viajes(
 	id_destino int,
 	fecha_salida datetime,
 	fecha_llegada datetime,
+	fecha_llegada_esperada datetime,
 	condicion_especial varchar(50),
 	esta_atrasado bit,
 

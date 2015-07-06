@@ -273,7 +273,7 @@ public class AdministradorViajes {
 		calendar.setTime(c.getFechaMaximaEntrega());
 		calendar.add(Calendar.DAY_OF_MONTH, -1);
 		// seteo fecha inicio viaje a 1 dia menos
-		ViajeView vv = new ViajeView(Utilities.invParseDate(calendar.getTime()), Utilities.invParseDate(c.getFechaMaximaEntrega()), c.getOrigen()
+		ViajeView vv = new ViajeView(Utilities.invParseDate(calendar.getTime()), Utilities.invParseDate(c.getFechaMaximaEntrega()), null, c.getOrigen()
 				.getView(), c.getDestino().getView());
 		Vehiculo vehiculoDisponible = obtenerVehiculoDisponible(c, esInternacional, esExclusiva);
 		Seguro seguro = obtenerSeguro(c.getTipo());
@@ -383,6 +383,14 @@ public class AdministradorViajes {
 		Viaje viaje = viajeDao.getViajePorCarga(carga.getId());
 		if (viaje != null) {
 			viaje.removerCarga(carga);
+		}
+	}
+
+	public void registrarLlegada(Integer idViaje) {
+		Viaje viaje = viajeDao.get(idViaje);
+		if (viaje != null && viaje.getFechaLlegada() == null) {
+			viaje.setFechaLlegada(new Date());
+			viajeDao.update(viaje);
 		}
 	}
 }

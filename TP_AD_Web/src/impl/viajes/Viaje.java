@@ -71,6 +71,8 @@ public class Viaje extends PersistentObject {
 	private Date fechaSalida;
 	@Column(name = "fecha_llegada")
 	private Date fechaLlegada;
+	@Column(name = "fecha_llegada_esperada")
+	private Date fechaLlegadaEsperada;
 	@ElementCollection(targetClass = CondicionEspecial.class)
 	@CollectionTable(name = "Viajes_CondicionesEspeciales", joinColumns = @JoinColumn(name = "id_viaje"))
 	@Column(name = "condicion_especial")
@@ -92,6 +94,7 @@ public class Viaje extends PersistentObject {
 		origen = new Ubicacion(vi.getOrigen());
 		destino = new Ubicacion(vi.getDestino());
 		fechaLlegada = Utilities.parseDate(vi.getFechaLlegada());
+		fechaLlegadaEsperada = Utilities.parseDate(vi.getFechaLlegadaEsperada());
 		fechaSalida = Utilities.parseDate(vi.getFechaSalida());
 		paradasIntermedias = new ArrayList<ParadaIntermedia>();
 		condicionesEspeciales = new ArrayList<CondicionEspecial>();
@@ -316,7 +319,10 @@ public class Viaje extends PersistentObject {
 		for (ParadaIntermedia parada : paradasIntermedias) {
 			paradasView.add(parada.toView());
 		}
-		ViajeView vw = new ViajeView(fechaSalida.toString(), fechaSalida.toString(),
+		String fSalida = fechaSalida != null ? Utilities.invParseDate(fechaSalida) : null;
+		String fLlegadaEsperada = fechaLlegadaEsperada != null ? Utilities.invParseDate(fechaLlegadaEsperada) : null;
+		String fLlegada = fechaLlegada != null ? Utilities.invParseDate(fechaLlegada) : null;				
+		ViajeView vw = new ViajeView(fSalida, fLlegadaEsperada, fLlegada,
 				origen.getView(), destino.getView(), paradasView);
 		vw.setId(id);
 		return vw;
@@ -644,5 +650,13 @@ public class Viaje extends PersistentObject {
 				}
 			}
 		}
+	}
+	
+	public Date getFechaLlegadaEsperada() {
+		return fechaLlegadaEsperada;
+	}
+
+	public void setFechaLlegadaEsperada(Date fechaLlegadaEsperada) {
+		this.fechaLlegadaEsperada = fechaLlegadaEsperada;
 	}
 }

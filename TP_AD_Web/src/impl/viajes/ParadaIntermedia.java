@@ -90,8 +90,8 @@ public class ParadaIntermedia extends PersistentObject {
 		
 		ParadaIntermediaView pw = new ParadaIntermediaView();
 		pw.setId(this.id);
-		//pw.setLlegada(llegada.toString());
-		pw.setLlegadaEsperada(llegadaEsperada.toString());
+		pw.setLlegada(llegada != null ? Utilities.invParseDate(llegada) : null);
+		pw.setLlegadaEsperada(llegadaEsperada != null ? Utilities.invParseDate(llegadaEsperada) : null);
 		pw.setSucursal(ubicacion.getCiudad());
 		return pw;		
 	}

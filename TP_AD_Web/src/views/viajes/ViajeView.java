@@ -15,20 +15,22 @@ public class ViajeView implements Serializable {
 	private Integer id;
 	private String fechaSalida;
 	private String fechaLlegada;
+	private String fechaLlegadaEsperada;
 	private UbicacionView origen;
 	private UbicacionView destino;
 	private List<ParadaIntermediaView> paradas;
 
-	public ViajeView(String fechaSalida, String tipoLlegada,
+	public ViajeView(String fechaSalida, String llegadaEsperada, String tipoLlegada,
 			UbicacionView origen, UbicacionView destino) {
-		this(fechaSalida, tipoLlegada, origen, destino, null);
+		this(fechaSalida, llegadaEsperada, tipoLlegada, origen, destino, null);
 	}
 
-	public ViajeView(String fechaSalida, String tipoLlegada,
+	public ViajeView(String fechaSalida, String llegadaEsperada, String tipoLlegada,
 			UbicacionView origen, UbicacionView destino,
 			List<ParadaIntermediaView> paradas) {
 
 		this.fechaSalida = fechaSalida;
+		this.fechaLlegadaEsperada = llegadaEsperada;
 		this.fechaLlegada = tipoLlegada;
 		this.origen = origen;
 		this.destino = destino;
@@ -81,5 +83,13 @@ public class ViajeView implements Serializable {
 
 	public void setParadas(List<ParadaIntermediaView> paradas) {
 		this.paradas = paradas;
+	}
+
+	public String getFechaLlegadaEsperada() {
+		return fechaLlegadaEsperada;
+	}
+
+	public void setFechaLlegadaEsperada(String fechaLlegadaEsperada) {
+		this.fechaLlegadaEsperada = fechaLlegadaEsperada;
 	}
 }

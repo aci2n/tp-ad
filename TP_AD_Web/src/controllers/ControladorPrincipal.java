@@ -252,4 +252,8 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	public List<EmpleadoView> obtenerChoferes() {
 		return administradorPersonal.obtenerChoferes();
 	}
+
+	public void registrarLlegada(Integer idViaje) {
+		administradorViajes.registrarLlegada(idViaje);
+	}
 }

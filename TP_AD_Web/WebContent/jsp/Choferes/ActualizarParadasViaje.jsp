@@ -91,7 +91,7 @@
 			$.each(json.paradas, function(i, parada) {
 				var row = $('<tr>');
 				row
-					.append($('<td>').text(++i))
+					.append($('<td>').text(i + 1))
 					.append($('<td>').text(parada.sucursal))
 					.append($('<td>').text(parada.llegadaEsperada));
 				if (parada.llegada) {
@@ -125,13 +125,36 @@
 				}
 				
 				$('#tbody').append(row);
-				/* $("#tbody").append(
-						"<tr><td>" + ++i + "</td><td>" + parada.sucursal
-								+ " </td><td>" + parada.llegadaEsperada
-								+ " </td><td><input type='checkbox' id='parada"
-								+ (i) + "' /><label for='parada" + (i)
-								+ "'></label>" + " </td></tr>"); */
 			});
+			
+			var destinoId = 'destino_' + json.id;
+			var destinationRow = $('<tr>');
+			destinationRow.append($('<td>').text('Fin'));
+			destinationRow.append($('<td>').text(json.destino.ciudad + '(Fin recorrido)'));
+			destinationRow.append($('<td>').text(json.fechaLlegadaEsperada));
+			
+			if (json.fechaLlegada) {
+				destinationRow.append($('<td>').text(json.fechaLlegada));
+			} else {
+				var check = $('<input>').attr('type', 'checkbox').attr('disabled', 'disabled').attr('id', destinoId);
+				check.change(function() {
+					$(this).attr('disabled', 'disabled');
+					$.ajax({
+						url: 'reportarLlegada',
+						data: {
+							idViaje: json.id
+						},
+						success: function() {
+							destinationRow.find('td').last().text(new Date().toLocaleString());
+						}
+					});
+				});
+				destinationRow.append(
+					$('<td>').append(check).append($('<label>').attr('for', destinoId))		
+				);
+			}
+			
+			$('#tbody').append(destinationRow);
 		}
 	</script>
 

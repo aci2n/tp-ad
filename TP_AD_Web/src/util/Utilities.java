@@ -25,9 +25,9 @@ import org.w3c.dom.Document;
 
 public class Utilities {
 	public static Date parseDate(String fecha) {
-		Date d = new Date();
+		Date d = null;
 		try {
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 			d = formatter.parse(fecha);
 		} catch (Exception e) {
 			// mandar saludos
@@ -36,7 +36,7 @@ public class Utilities {
 	}
 
 	public static Date parseWebDate(String fecha) {
-		Date d = new Date();
+		Date d = null;
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM, yyyy");
 			d = formatter.parse(fecha);
@@ -49,7 +49,7 @@ public class Utilities {
 	public static String invParseDate(Date date) {
 		String s = "";
 		try {
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 			s = formatter.format(date);
 		} catch (Exception e) {
 			// mandar saludos
