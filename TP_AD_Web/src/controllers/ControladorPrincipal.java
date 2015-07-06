@@ -179,6 +179,18 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 		Viaje viaje = administradorViajes.obtenerViajePorCarga(idCarga);
 		return viaje.obtenerLlegadaCarga(carga);
 	}
+	
+	public List<ViajeView> obtenerViajesView() {
+		return administradorViajes.obtenerViajesView();
+	}
+
+	public void registrarParada(Integer idParada) throws Exception {
+		administradorViajes.reportarSeguimiento(idParada);
+	}
+	
+	public void registrarLlegada(Integer idViaje) {
+		administradorViajes.registrarLlegada(idViaje);
+	}
 
 	// VEHICULOS
 
@@ -196,14 +208,6 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 
 	public List<CompaniaSeguroView> getCompaniasSeguroView() {
 		return administradorViajes.obtenerCompaniasSeguroView();
-	}
-
-	public List<ViajeView> obtenerViajesView() {
-		return administradorViajes.obtenerViajesView();
-	}
-
-	public void registrarParada(Integer idParada) throws Exception {
-		administradorViajes.reportarSeguimiento(idParada);
 	}
 
 	// CARGAS
@@ -253,7 +257,4 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 		return administradorPersonal.obtenerChoferes();
 	}
 
-	public void registrarLlegada(Integer idViaje) {
-		administradorViajes.registrarLlegada(idViaje);
-	}
 }
