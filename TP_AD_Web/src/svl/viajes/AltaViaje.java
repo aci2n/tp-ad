@@ -44,7 +44,7 @@ public class AltaViaje extends GenericHttpServlet {
 					Integer.parseInt(latitudO), Integer.parseInt(longitudO)));
 			UbicacionView destino = new UbicacionView(paisD, provinciaD, ciudadD, calleD, alturaD, pisoD, departamentoD, new CoordenadaView(
 					Integer.parseInt(latitudD), Integer.parseInt(longitudD)));
-			ViajeView viaje = new ViajeView(fechaSalida, fechaLlegada, origen, destino);
+			ViajeView viaje = new ViajeView(fechaSalida, fechaLlegada, longitudD, origen, destino);
 			Integer i = delegate.getInterfaz().altaViaje(Integer.parseInt(idVehiculo), Integer.parseInt(idSeguro), viaje);
 			forwardGenerico(request, response, "Viaje agregado exitosamente con id: " + i + ".");
 		} catch (Exception e) {
