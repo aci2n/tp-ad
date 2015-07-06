@@ -55,7 +55,7 @@ import controllers.ControladorPrincipal;
 @SuppressWarnings("all")
 public class BastaChicos {
 	private static ControladorPrincipal controlador;
-	private static final Integer factorVehiculo = 1000;
+	private static final Integer factorVehiculo = 10000;
 
 	public static void main(String[] args) {
 		try {
@@ -65,7 +65,7 @@ public class BastaChicos {
 			// testXml();
 			// testCargasMismoViaje();
 			testCargasMismoViajePlus();
-			testAltaCargaInternacionalEmpresa();
+//			testAltaCargaInternacionalEmpresa();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -84,7 +84,7 @@ public class BastaChicos {
 		}
 		for (int i = 0; i < 100; i++) {
 			controlador
-					.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(crearUbicacion(), crearUbicacion()), false, true);
+					.altaCarga(sucursal.getId(), particular.getId(), crearCargaViewConUbicaciones(crearUbicacion(), crearUbicacion()), false, false);
 		}
 	}
 
