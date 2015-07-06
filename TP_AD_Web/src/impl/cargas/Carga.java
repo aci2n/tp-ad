@@ -22,7 +22,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import persistence.CargaDAO;
-import persistence.SeguimientoCargasDAO;
 import util.Utilities;
 import views.cargas.CargaView;
 import views.productos.ItemProductoView;
@@ -81,7 +80,7 @@ public class Carga extends PersistentObject {
 			productos.add(new ItemProducto(ipv));
 		}
 		id = CargaDAO.getInstance().insert(this);
-		
+
 	}
 
 	public TipoCarga getTipo() {
@@ -208,9 +207,15 @@ public class Carga extends PersistentObject {
 		for (ItemProducto ip : productos) {
 			p.add(new ItemProductoView(ip.getProducto().getView(), ip.getCantidad()));
 		}
-		CargaView view = new CargaView(tipo.toString(), fechaMaximaEntrega.toString(), fechaProbableEntrega.toString(), manifiesto, origen.getView(),
+		String fechaProbableString = fechaProbableEntrega == null ? "" : fechaProbableEntrega.toString();
+		CargaView view = new CargaView(tipo.toString(), fechaMaximaEntrega.toString(), fechaProbableString, manifiesto, origen.getView(),
 				destino.getView(), estadoCarga.toString(), p, retiraPorSucursal);
 		view.setId(id);
 		return view;
+	}
+
+	public void actualizarFechaProbable(Date fecha) {
+		fechaProbableEntrega = fecha;
+		CargaDAO.getInstance().update(this);
 	}
 }

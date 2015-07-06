@@ -26,7 +26,7 @@ public class CargaView extends GenericView {
 			UbicacionView destino, String estadoCarga, Collection<ItemProductoView> productos, boolean retiraPorSucursal) {
 		this.tipo = tipoCarga;
 		this.fechaMaximaEntrega = fechaMaximaEntrega;
-		this.fechaProbableEntrega = fechaProbableEntrega;
+		this.fechaProbableEntrega = fechaProbableEntrega == null ? "" : fechaProbableEntrega;
 		this.manifiesto = manifiesto;
 		this.origen = origen;
 		this.destino = destino;

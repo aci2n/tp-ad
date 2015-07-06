@@ -96,7 +96,7 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	public List<ParticularView> obtenerClientesParticulares() {
 		return administradorClientes.obtenerClientesParticulares();
 	}
-	
+
 	public void agregarProductoEmpresa(ProductoView prod, Integer idEmpresa) {
 		administradorClientes.agregarProductoEmpresa(prod, idEmpresa);
 	}
@@ -193,7 +193,7 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 		carga.actualizarFechaProbable(fecha);
 		return fecha;
 	}
-	
+
 	public List<ViajeView> obtenerViajesView() {
 		return administradorViajes.obtenerViajesView();
 	}
@@ -201,7 +201,7 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	public void registrarParada(Integer idParada) throws Exception {
 		administradorViajes.reportarSeguimiento(idParada);
 	}
-	
+
 	public void registrarLlegada(Integer idViaje) {
 		administradorViajes.registrarLlegada(idViaje);
 	}

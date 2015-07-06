@@ -1,14 +1,17 @@
 package impl.clientes;
 
+import impl.cobranzas.Factura;
 import impl.productos.Producto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import persistence.ClienteDAO;
+import persistence.FacturaDAO;
 import persistence.ProductoDAO;
 import views.clientes.CuentaCorrienteView;
 import views.clientes.EmpresaView;
+import views.clientes.FacturaView;
 import views.clientes.ParticularView;
 import views.clientes.ReceptorView;
 import views.productos.ProductoView;
@@ -100,6 +103,14 @@ public class AdministradorClientes {
 		Empresa empresa = (Empresa) clienteDao.get(idEmpresa);
 		empresa.getProductos().add(producto);
 		clienteDao.update(empresa);
+	}
+
+	public List<FacturaView> obtenerFacturasDelCliente(Integer id) {
+		List<FacturaView> fv = new ArrayList<FacturaView>();
+		for (Factura f : FacturaDAO.getInstance().getByCliente(id)) {
+			fv.add(f.getView());
+		}
+		return fv;
 	}
 
 }

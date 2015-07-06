@@ -5,7 +5,9 @@ import java.util.Date;
 import java.util.List;
 
 import views.cargas.CargaView;
+import views.cargas.SeguimientoCargaView;
 import views.clientes.EmpresaView;
+import views.clientes.FacturaView;
 import views.clientes.PagoView;
 import views.clientes.ParticularView;
 import views.clientes.ReceptorView;
@@ -96,4 +98,8 @@ public interface TDAControladorPrincipal extends Remote {
 	public void cancelarCarga(Integer idCarga) throws Exception;
 	
 	public void agregarProductoEmpresa(ProductoView prod, Integer idEmpresa) throws Exception;
+
+	public List<FacturaView> obtenerFacturasDelCliente(Integer id) throws Exception;
+	
+	public List<SeguimientoCargaView> getSeguimientosCarga(Integer id) throws Exception;
 }

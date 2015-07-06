@@ -11,8 +11,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-public class SeguimientoCargaView {
+import views.GenericView;
 
+public class SeguimientoCargaView extends GenericView {
+
+	private static final long serialVersionUID = 1L;
 	private CargaView carga;
 	private String estadoCarga;
 	private Integer idViaje;
@@ -23,8 +26,7 @@ public class SeguimientoCargaView {
 
 	}
 
-	public SeguimientoCargaView(CargaView carga, String estadoCarga,
-			Integer idViaje, Date fecha) {
+	public SeguimientoCargaView(CargaView carga, String estadoCarga, Integer idViaje, Date fecha) {
 		this.carga = carga;
 		this.estadoCarga = estadoCarga;
 		this.idViaje = idViaje;
