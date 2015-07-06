@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import persistence.VehiculoDAO;
 import util.Utilities;
 import views.vehiculos.TareaView;
 
@@ -32,6 +33,7 @@ public class Tarea extends PersistentObject {
 		kilometraje = tarea.getKilometraje();
 		fechaEntrega = Utilities.parseDate(tarea.getFechaEntrega());
 		fechaDevolucion = Utilities.parseDate(tarea.getFechaDevolucion());
+		VehiculoDAO.getInstance().insert(this);
 	}
 
 	public Tarea() {
