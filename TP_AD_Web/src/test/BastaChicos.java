@@ -37,6 +37,7 @@ import persistence.ClienteDAO;
 import persistence.CompaniaSeguroDAO;
 import persistence.EmpleadoDAO;
 import persistence.PlanMantenimientoDAO;
+import persistence.ProductoDAO;
 import persistence.ProveedorDAO;
 import persistence.SucursalDAO;
 import persistence.UbicacionDAO;
@@ -44,6 +45,7 @@ import persistence.VehiculoDAO;
 import persistence.ViajeDAO;
 import util.Utilities;
 import views.cargas.CargaView;
+import views.misc.TamanoView;
 import views.productos.ItemProductoView;
 import views.productos.ProductoView;
 import views.vehiculos.PlanMantenimientoView;
@@ -64,8 +66,27 @@ public class BastaChicos {
 			// testAltaCargaInternacional();
 			// testXml();
 			// testCargasMismoViaje();
-			testCargasMismoViajePlus();
+			//testCargasMismoViajePlus();
 //			testAltaCargaInternacionalEmpresa();
+			List<CondicionEspecial> ce = new ArrayList<CondicionEspecial>();
+			ce.add(CondicionEspecial.SEGURIDAD);
+			Producto p = new Producto();
+			p.setNombre("Pimienta");
+			p.setApilable(3);
+			p.setCondicionesEspeciales(ce);
+			p.setConsideraciones("hola");
+			p.setFragilidad(TipoFragilidad.NORMAL);
+			p.setManipulacion("cuidado");
+			p.setMaterial("Lacteo");
+			p.setPeso(10f);
+			p.setRefrigerada(true);
+			p.setTamano(new Tamano(new TamanoView(10f,10f,10f)));
+			p.setTratamiento(TipoTratamiento.INOCUO);
+			ProductoDAO.getInstance().insert(p);
+			Empresa e = (Empresa) ClienteDAO.getInstance().get(1);
+			e.agregarProducto(p);
+			ClienteDAO.getInstance().update(e);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

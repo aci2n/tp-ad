@@ -219,11 +219,15 @@ public class Producto extends PersistentObject {
 	}
 
 	public ProductoView getView() {
-		return new ProductoView(nombre, fragilidad.toString(), tratamiento.toString(), tamano.getView(), peso, apilable, manipulacion, material,
+		ProductoView view = new ProductoView(nombre, fragilidad.toString(), tratamiento.toString(), tamano.getView(), peso, apilable, manipulacion, material,
 				consideraciones, refrigerada);
+		view.setId(id);
+		return view;
 	}
 
 	public static boolean esMaterialPermitido(String material) {
+		if (material == null)
+			return true;
 		for (String prohibido : materialesRestringidos) {
 			if (material.contains(prohibido))
 				return false;

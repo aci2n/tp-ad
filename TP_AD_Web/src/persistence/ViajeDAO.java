@@ -73,8 +73,7 @@ public class ViajeDAO extends AbstractGenericDAO<Viaje> {
 	public Viaje getViajeChofer(int idChofer) {
 		Session s = sf.openSession();
 		s.beginTransaction();
-		Query q = s.createQuery("select distinct v from Viaje v, ParadaIntermedia p where p.llegada is null and p.checked = false"
-				+ " and exists(select veh.id from VehiculoLocal veh where veh.empleado.id = ? and v.vehiculo.id = veh.id)").setMaxResults(1);
+		Query q = s.createQuery("select distinct v from Viaje v, VehiculoLocal vl where vl.empleado.id = ? and v.fechaLlegada is null and vl.id = v.vehiculo.id").setMaxResults(1);
 		q.setInteger(0, idChofer);
 		Viaje viaje = (Viaje) q.uniqueResult();
 		s.close();

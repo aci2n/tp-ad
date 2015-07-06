@@ -103,5 +103,5 @@ public interface TDAControladorPrincipal extends Remote {
 	
 	public List<SeguimientoCargaView> getSeguimientosCarga(Integer id) throws Exception;
 
-	public List<ProductoView> obtenerProductosEmpresa(Integer id);
+	public List<ProductoView> obtenerProductosEmpresa(Integer id) throws Exception;
 }

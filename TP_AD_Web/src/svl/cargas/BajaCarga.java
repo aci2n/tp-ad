@@ -17,7 +17,7 @@ public class BajaCarga extends GenericHttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Integer idCarga = Integer.parseInt(request.getParameter("idCarga"));
+		Integer idCarga = request.getParameter("idCarga") == null ? -1 : Integer.parseInt(request.getParameter("idCarga"));
 		try {
 			BusinessDelegate.getInstance().getInterfaz().cancelarCarga(idCarga);
 		} catch (Exception e) {

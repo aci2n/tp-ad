@@ -104,6 +104,7 @@
 					$('#modal1').openModal({
 						ready: function() {
 							$('html').one('click', function(event) {
+								debugger;
 								if (!$(event.target).is('#submitForReal')) {
 									$.ajax({
 										url: 'cancelarCarga',

@@ -126,7 +126,8 @@
 			$('#altaProducto').submit(function(event) {
 				event.preventDefault();
 				if (controlarCampos()) {
-					if ($('#productoEmpresa').val() !== undefined && $('#productoEmpresa').val().trim() !== '') {
+					debugger;
+					if ($('#productoEmpresa').val() !== -1) {
 						agregarProducto();
 						var data = $(this).serializeArray();
 						$('#productos').show();
@@ -134,7 +135,7 @@
 						$(this).find('table input').val('');	
 					} else {
 						var prod = {
-							cantidad: form.find('input[name="cantidad"]').val(),
+							cantidad: $('input[name="cantidad"]').val(),
 							id: $('#productoEmpresa').val()
 						};
 						_productos.push(prod);
@@ -143,7 +144,7 @@
 							$('<tr>').append(
 								$('<td>').text(prod.cantidad)
 							).append(
-								$('<td>').text($('#productos option[value="' + prod.id + '"]').text());
+								$('<td>').text($('#productos option[value="' + prod.id + '"]').text())
 							)
 						);
 					}
@@ -172,7 +173,7 @@
 					// yee
 					return true;
 				}
-				if (form.find('#productoEmpresa').val() !== undefined && form.find('#productoEmpresa').val() !== ''
+				if (form.find('#productoEmpresa').val() !== -1
 				&& form.find('input[name="cantidad"]').val() !== '') {
 					return true;
 				}
@@ -223,17 +224,6 @@
 			return td;
 		}
 
-		$('#productoEmpresa').change(function() {
-			if ($(this).val() !== undefined && $(this).val().trim() !== '') {
-				$(this).closest('tr').nextAll('tr').each(function() {
-					$(this).find('input').attr('disabled', 'disabled');
-				});
-			} else {
-				$(this).closest('tr').nextAll('tr').each(function() {
-					$(this).find('input').removeAttr('disabled', 'disabled');
-				});
-			}
-		});
 	</script>
 </body>
 </html>

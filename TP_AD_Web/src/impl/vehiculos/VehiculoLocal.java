@@ -91,7 +91,7 @@ public class VehiculoLocal extends Vehiculo {
 			planMantenimiento.realizarMantenimiento(establecerEstrategiaMantenimiento(false));
 		}
 		for (Tarea tarea : planMantenimiento.getTareas()) {
-			if (tarea.getFechaDevolucion().after(ahora)
+			if (tarea.getFechaDevolucion() != null && tarea.getFechaDevolucion().after(ahora)
 					&& tarea.getFechaEntrega().before(ahora)) {
 				return false;
 			}

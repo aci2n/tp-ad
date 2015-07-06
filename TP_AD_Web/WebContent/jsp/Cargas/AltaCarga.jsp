@@ -54,7 +54,7 @@
 		// Creates a dropdown of 15 years to control year
 		});
 
-		$('input[name="cuit"]').change(function() {
+		$('input[name="cuit"]').keyup(function() {
 			$('input').removeAttr('disabled', 'disabled');
 			$.ajax({
 				url: 'ObtenerProductosEmpresa',
@@ -66,12 +66,24 @@
 					var select = $('#productoEmpresa');
 					select.empty();
 					select.removeAttr('disabled');
-					select.append($('<option>').attr('disabled', 'disabled').text('Seleccionar producto'));
+					select.append($('<option>').attr('selected', 'selected').text('Seleccionar producto').attr('value', -1));
 
 					for (var i = 0; i < productos.length; i++) {
 						var option = $('<option>').attr('value', productos[i].id).text(productos[i].nombre);
 						select.append(option);
 					}
+					
+					select.unbind().change(function() {
+						if ($(this).val() !== undefined && $(this).val().trim() !== '') {
+							$(this).closest('tr').nextAll('tr').each(function() {
+								$(this).find('input').attr('disabled', 'disabled');
+							});
+						} else {
+							$(this).closest('tr').nextAll('tr').each(function() {
+								$(this).find('input').removeAttr('disabled', 'disabled');
+							});
+						}
+					}).material_select();
 				},
 				error: function() {
 					var select = $('#productoEmpresa');
