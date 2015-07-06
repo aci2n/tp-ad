@@ -6,9 +6,8 @@ import views.GenericView;
 import views.misc.UbicacionView;
 import views.productos.ItemProductoView;
 
-public class CargaView {
+public class CargaView extends GenericView {
 	private static final long serialVersionUID = 1L;
-	private int id;
 	private Collection<ItemProductoView> productos;
 	// private Cliente cliente;
 	private UbicacionView origen;
@@ -21,13 +20,10 @@ public class CargaView {
 	private boolean retiraPorSucursal;
 
 	public CargaView() {
-
 	}
 
-	public CargaView(String tipoCarga, String fechaMaximaEntrega,
-			String fechaProbableEntrega, String manifiesto,
-			UbicacionView origen, UbicacionView destino, String estadoCarga,
-			Collection<ItemProductoView> productos, boolean retiraPorSucursal) {
+	public CargaView(String tipoCarga, String fechaMaximaEntrega, String fechaProbableEntrega, String manifiesto, UbicacionView origen,
+			UbicacionView destino, String estadoCarga, Collection<ItemProductoView> productos, boolean retiraPorSucursal) {
 		this.tipo = tipoCarga;
 		this.fechaMaximaEntrega = fechaMaximaEntrega;
 		this.fechaProbableEntrega = fechaProbableEntrega;
@@ -46,14 +42,6 @@ public class CargaView {
 
 	public void setProductos(Collection<ItemProductoView> productos) {
 		this.productos = productos;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public UbicacionView getOrigen() {

@@ -1,6 +1,7 @@
 package rmi.tda;
 
 import java.rmi.Remote;
+import java.util.Date;
 import java.util.List;
 
 import views.cargas.CargaView;
@@ -85,4 +86,8 @@ public interface TDAControladorPrincipal extends Remote {
 	public List<SucursalView> obtenerSucursales() throws Exception;
 	
 	public List<CargaView> obtenerCargasView() throws Exception;
+
+	public SucursalView obtenerSucursal(Integer idSucursal) throws Exception;
+
+	public Date fechaProbableLlegada(Integer id) throws Exception;
 }
