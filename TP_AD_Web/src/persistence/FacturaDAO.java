@@ -43,13 +43,12 @@ public class FacturaDAO extends AbstractGenericDAO<Factura> {
 		return facturas;
 	}
 
-	public void eliminarFacturaPorCarga(Integer idCarga) {
+	public Factura getFacturaDesdeCarga(Integer idCarga) {
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query q = session.createQuery("delete from Factura inner join carga c where c.id = :idCarga");
-		q.setParameter("idCarga", idCarga);
-		session.flush();
-		session.getTransaction().commit();
+		Factura f = (Factura) session.createQuery("from Factura where carga.id = :idCarga").setParameter("idCarga", idCarga).setMaxResults(1)
+				.uniqueResult();
 		session.close();
+		return f;
 	}
 }

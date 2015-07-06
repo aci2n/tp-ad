@@ -211,7 +211,7 @@ public class AltaCarga extends GenericHttpServlet {
 			forwardJsp(request, response, "/jsp/Cargas/Confirmar.jsp");
 		} catch (Exception e) {
 			e.printStackTrace();
-			forwardError(request, response);
+			forwardGenerico(request, response, e.getMessage());
 		}
 	}
 

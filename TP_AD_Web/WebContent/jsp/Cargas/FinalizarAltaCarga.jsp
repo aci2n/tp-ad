@@ -117,6 +117,7 @@
 									});
 								} else {
 									Materialize.toast('Carga añadida', 6000);
+									window.location.replace('index.jsp');
 								}
 							});
 						}

@@ -25,7 +25,7 @@ public abstract class GenericHttpServlet extends HttpServlet {
 	}
 	
 	protected void forwardError(HttpServletRequest request, HttpServletResponse response, String mensaje) throws ServletException, IOException {
-		response.setStatus(500);
+		//response.setStatus(500);
 		forwardGenerico(request, response, mensaje);
 	}
 	

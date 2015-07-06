@@ -586,7 +586,7 @@ public class Viaje extends PersistentObject {
 				if (ic.getCarga().getId().equals(carga.getId())) {
 					cargas.remove(ic);
 					ViajeDAO.getInstance().delete(ic);
-					FacturaDAO.getInstance().eliminarFacturaPorCarga(carga.getId());
+					FacturaDAO.getInstance().delete(FacturaDAO.getInstance().getFacturaDesdeCarga(carga.getId()));
 					break;
 				}
 			}
