@@ -2,9 +2,9 @@ package controllers;
 
 import impl.cargas.AdministradorCargas;
 import impl.cargas.Carga;
+import impl.cargas.SeguimientoCarga;
 import impl.clientes.AdministradorClientes;
 import impl.cobranzas.AdministradorCobranzas;
-import impl.cobranzas.Factura;
 import impl.personal.AdministradorPersonal;
 import impl.productos.AdministradorProductos;
 import impl.productos.Producto;
@@ -21,10 +21,13 @@ import java.util.List;
 
 import persistence.CargaDAO;
 import persistence.ProductoDAO;
+import persistence.SeguimientoCargasDAO;
 import rmi.tda.TDAControladorPrincipal;
 import views.cargas.CargaView;
+import views.cargas.SeguimientoCargaView;
 import views.clientes.CuentaCorrienteView;
 import views.clientes.EmpresaView;
+import views.clientes.FacturaView;
 import views.clientes.PagoView;
 import views.clientes.ParticularView;
 import views.clientes.ReceptorView;
@@ -93,8 +96,8 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	public List<ParticularView> obtenerClientesParticulares() {
 		return administradorClientes.obtenerClientesParticulares();
 	}
-	
-	public List<Factura> obtenerFacturasDelCliente(Integer id) throws Exception {
+
+	public List<FacturaView> obtenerFacturasDelCliente(Integer id) throws Exception {
 		return administradorClientes.obtenerFacturasDelCliente(id);
 	}
 
@@ -182,7 +185,9 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	public Date fechaProbableLlegada(Integer idCarga) {
 		Carga carga = administradorCargas.obtenerCarga(idCarga);
 		Viaje viaje = administradorViajes.obtenerViajePorCarga(idCarga);
-		return viaje.obtenerLlegadaCarga(carga);
+		Date fecha = viaje.obtenerLlegadaCarga(carga);
+		carga.actualizarFechaProbable(fecha);
+		return fecha;
 	}
 
 	public List<ViajeView> obtenerViajesView() {
@@ -260,6 +265,14 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	// PERSONAL
 	public List<EmpleadoView> obtenerChoferes() {
 		return administradorPersonal.obtenerChoferes();
+	}
+
+	public List<SeguimientoCargaView> getSeguimientosCarga(Integer id) throws Exception {
+		List<SeguimientoCargaView> segs = new ArrayList<SeguimientoCargaView>();
+		for (SeguimientoCarga sc : SeguimientoCargasDAO.getInstance().getByCarga(id)) {
+			segs.add(sc.getView());
+		}
+		return segs;
 	}
 
 }

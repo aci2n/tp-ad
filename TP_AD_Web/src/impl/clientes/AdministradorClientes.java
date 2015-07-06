@@ -9,6 +9,7 @@ import persistence.ClienteDAO;
 import persistence.FacturaDAO;
 import views.clientes.CuentaCorrienteView;
 import views.clientes.EmpresaView;
+import views.clientes.FacturaView;
 import views.clientes.ParticularView;
 import views.clientes.ReceptorView;
 
@@ -91,8 +92,12 @@ public class AdministradorClientes {
 		return clienteDao.get(id);
 	}
 
-	public List<Factura> obtenerFacturasDelCliente(Integer id) {
-		return FacturaDAO.getInstance().getByCliente(id);
+	public List<FacturaView> obtenerFacturasDelCliente(Integer id) {
+		List<FacturaView> fv = new ArrayList<FacturaView>();
+		for (Factura f : FacturaDAO.getInstance().getByCliente(id)) {
+			fv.add(f.getView());
+		}
+		return fv;
 	}
 
 }
