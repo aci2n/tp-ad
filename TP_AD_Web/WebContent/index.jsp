@@ -103,6 +103,8 @@
 										id="jsp/Cargas/AdministrarCarga.jsp" href="#!">Alta</a></li>
 									<li><a class="menu-anchor"
 										id="jsp/Cargas/SeguimientoCarga.jsp" href="#!">Seguimiento</a></li>
+									<li><a class="menu-anchor"
+										id="jsp/Cargas/NotificarRotura.jsp" href="#!">Notificar Rotura</a></li>
 									<li><a href="#!">Listar</a></li>
 								</ul>
 							</div></li>
@@ -146,8 +148,9 @@
 							<ul>
 								<!-- <li><a class="menu-anchor" id="jsp/Choferes/MisParadas.jsp"
 									href="#!">Mi viaje</a></li> -->
-								<li><a class="menu-anchor" id="jsp/Choferes/ActualizarParadasViaje.jsp"
-									href="#!">Mi viaje</a></li>
+								<li><a class="menu-anchor"
+									id="jsp/Choferes/ActualizarParadasViaje.jsp" href="#!">Mi
+										viaje</a></li>
 							</ul>
 						</div></li>
 				</ul>
@@ -175,17 +178,20 @@
 		var arreglenme = false;
 		$(".button-collapse").sideNav();
 
-		$('.menu-anchor').click(function(event) {
-			event.preventDefault();
-			if (arreglenme && $(this).attr('id') === 'jsp/Cargas/AdministrarCarga.jsp'){
-				// no se solucionar esto, pongo esto para que no se vea la ventana rota
-				window.location.replace('index.jsp');
-			}
-			$('#content').load($(this).attr('id'));
-			$('#title').html($(this).text());
-			$('.button-collapse').sideNav('hide');
-			arreglenme = true;
-		});
+		$('.menu-anchor')
+				.click(
+						function(event) {
+							event.preventDefault();
+							if (arreglenme
+									&& $(this).attr('id') === 'jsp/Cargas/AdministrarCarga.jsp') {
+								// no se solucionar esto, pongo esto para que no se vea la ventana rota
+								window.location.replace('index.jsp');
+							}
+							$('#content').load($(this).attr('id'));
+							$('#title').html($(this).text());
+							$('.button-collapse').sideNav('hide');
+							arreglenme = true;
+						});
 
 		$(document).ready(function() {
 			$('a').addClass('waves-effect waves-teal');
