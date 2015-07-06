@@ -4,6 +4,8 @@ import impl.cargas.AdministradorCargas;
 import impl.cargas.Carga;
 import impl.cargas.SeguimientoCarga;
 import impl.clientes.AdministradorClientes;
+import impl.clientes.Cliente;
+import impl.clientes.Empresa;
 import impl.cobranzas.AdministradorCobranzas;
 import impl.personal.AdministradorPersonal;
 import impl.productos.AdministradorProductos;
@@ -145,6 +147,19 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 		}
 		return productos;
 
+	}
+	
+	public List<ProductoView> obtenerProductosEmpresa(Integer id) {
+		Cliente cliente = administradorClientes.obtenerCliente(id);
+		if (cliente instanceof Empresa) {
+			Empresa empresa = (Empresa) cliente;
+			List<ProductoView> prods = new ArrayList<ProductoView>();
+			for (Producto p : empresa.getProductos()) {
+				prods.add(p.getView());
+			}
+			return prods;
+		}
+		return null;
 	}
 
 	// VEHICULOS

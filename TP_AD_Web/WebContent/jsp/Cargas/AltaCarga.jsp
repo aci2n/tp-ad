@@ -53,6 +53,33 @@
 			selectYears : 15
 		// Creates a dropdown of 15 years to control year
 		});
+
+		$('input[name="cuit"]').change(function() {
+			$('input').removeAttr('disabled', 'disabled');
+			$.ajax({
+				url: 'ObtenerProductosEmpresa',
+				type: 'GET',
+				data: {
+					idEmpresa: 
+				},
+				success: function(productos) {
+					var select = $('#productoEmpresa');
+					select.empty();
+					select.removeAttr('disabled');
+					select.append($('<option>').attr('disabled', 'disabled').text('Seleccionar producto'));
+
+					for (var i = 0; i < productos.length; i++) {
+						var option = $('<option>').attr('value', productos[i].id).text(productos[i].nombre);
+						select.append(option);
+					}
+				},
+				error: function() {
+					var select = $('#productoEmpresa');
+					select.empty();
+					select.attr('disabled', 'disabled');	
+				}
+			});
+		});
 	</script>
 
 

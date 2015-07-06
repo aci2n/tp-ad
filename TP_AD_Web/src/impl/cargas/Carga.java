@@ -2,6 +2,7 @@ package impl.cargas;
 
 import impl.PersistentObject;
 import impl.clientes.Cliente;
+import impl.clientes.Empresa;
 import impl.misc.Ubicacion;
 import impl.productos.ItemProducto;
 import impl.productos.Producto;
@@ -22,6 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import persistence.CargaDAO;
+import persistence.ProductoDAO;
 import util.Utilities;
 import views.cargas.CargaView;
 import views.productos.ItemProductoView;
@@ -77,7 +79,15 @@ public class Carga extends PersistentObject {
 		retiraPorSucursal = c.isRetiraPorSucursal();
 		productos = new ArrayList<ItemProducto>();
 		for (ItemProductoView ipv : c.getProductos()) {
-			productos.add(new ItemProducto(ipv));
+			if (cli instanceof Empresa && ipv.getProducto().getId() != null) {
+				Producto prod = ProductoDAO.getInstance().get(ipv.getProducto().getId());
+				if (prod != null) {
+					ItemProducto item = new ItemProducto(prod, ipv.getCantidad());
+					productos.add(item);
+				}
+			} else {
+				productos.add(new ItemProducto(ipv));
+			}
 		}
 		id = CargaDAO.getInstance().insert(this);
 

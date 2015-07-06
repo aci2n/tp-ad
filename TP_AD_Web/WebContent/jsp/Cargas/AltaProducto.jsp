@@ -16,6 +16,10 @@
 				<td><input type="number" name="cantidad"></td>
 			</tr>
 			<tr>
+				<td>Productos de empresa:</td>
+				<td><select id="productoEmpresa" disabled="disabled"></select></td>
+			</tr>
+			<tr>
 				<td>Nombre:</td>
 				<td><input type="text" name="nombre"></td>
 			</tr>
@@ -122,14 +126,28 @@
 			$('#altaProducto').submit(function(event) {
 				event.preventDefault();
 				if (controlarCampos()) {
-					agregarProducto();
-					var data = $(this).serializeArray();
+					if ($('#productoEmpresa').val() !== undefined && $('#productoEmpresa').val().trim() !== '') {
+						agregarProducto();
+						var data = $(this).serializeArray();
+						$('#productos').show();
+						$('#productos tbody').append(renderRow(data));
+						$(this).find('table input').val('');	
+					} else {
+						var prod = {
+							cantidad: form.find('input[name="cantidad"]').val(),
+							id: $('#productoEmpresa').val()
+						};
+						_productos.push(prod);
+
+						$('#productos tbody').append(
+							$('<tr>').append(
+								$('<td>').text(prod.cantidad)
+							).append(
+								$('<td>').text($('#productos option[value="' + prod.id + '"]').text());
+							)
+						);
+					}
 					
-					$('#productos').show();
-					
-					$('#productos tbody').append(renderRow(data));
-					
-					$(this).find('table input').val('');
 				} else {
 					alert('Hay campos vacíos.');
 				}
@@ -152,6 +170,10 @@
 				&& form.find('input[name="material"]').val() !== ''
 				&& form.find('input[name="consideraciones"]').val() !== '') {
 					// yee
+					return true;
+				}
+				if (form.find('#productoEmpresa').val() !== undefined && form.find('#productoEmpresa').val() !== ''
+				&& form.find('input[name="cantidad"]').val() !== '') {
 					return true;
 				}
 				return false;
@@ -200,6 +222,18 @@
 			
 			return td;
 		}
+
+		$('#productoEmpresa').change(function() {
+			if ($(this).val() !== undefined && $(this).val().trim() !== '') {
+				$(this).closest('tr').nextAll('tr').each(function() {
+					$(this).find('input').attr('disabled', 'disabled');
+				});
+			} else {
+				$(this).closest('tr').nextAll('tr').each(function() {
+					$(this).find('input').removeAttr('disabled', 'disabled');
+				});
+			}
+		});
 	</script>
 </body>
 </html>

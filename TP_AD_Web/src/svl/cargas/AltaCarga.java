@@ -33,6 +33,7 @@ public class AltaCarga extends GenericHttpServlet {
 	private static final long serialVersionUID = 8589610416039812469L;
 
 	private static class ItemProductoJson {
+		private Integer id;
 		private Float cantidad;
 		private String nombre;
 		private String fragilidad;
@@ -47,6 +48,14 @@ public class AltaCarga extends GenericHttpServlet {
 		private String consideraciones;
 		private Boolean refrigerado;
 
+		public Integer getId() {
+			return id;
+		}
+
+		public void setId(Integer id) {
+			this.id = id;
+		}
+		
 		public float getCantidad() {
 			return cantidad;
 		}
@@ -154,6 +163,7 @@ public class AltaCarga extends GenericHttpServlet {
 		public ItemProductoView toItemProducto() {
 			ProductoView producto = new ProductoView(nombre, fragilidad, tratamiento, new TamanoView(alto, ancho, profundidad), peso, apilable,
 					manipulacion, material, consideraciones, refrigerado);
+			producto.setId(id);
 			return new ItemProductoView(producto, cantidad);
 		}
 	}
