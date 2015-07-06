@@ -33,6 +33,12 @@
 					la carga en persona</label>
 			</p>
 		</div>
+		
+		<div>
+			<p>
+				<input type="checkbox" id="check3" name="exclusiva"/> <label for="check3">Exclusiva</label>
+			</p>
+		</div>
 
 
 	</form>
@@ -67,7 +73,8 @@
 				idSucursalOrigen: $('select[name="idSucursalOrigen"]').val(),
 				fechaMaxEntrega: $(this).find('input[name="fechaMaxEntrega"]').val(),
 				manifiesto: $(this).find('input[name="manifiesto"]').val(),
-				retira: $(this).find('input[name="retira"]').is(':checked')
+				retira: $(this).find('input[name="retira"]').is(':checked'),
+				exclusiva: $(this).find('input[name="exclusiva"]').is(':checked')
 			};
 			
 			if ($('#altaUbicacion select[name="idSucursalDestino"]').val() != '') {

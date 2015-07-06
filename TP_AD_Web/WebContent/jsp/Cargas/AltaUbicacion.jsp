@@ -1,3 +1,4 @@
+<%@page import="rmi.delegate.BusinessDelegate"%>
 <%@page import="controllers.ControladorPrincipal"%>
 <%@page import="views.sucursales.SucursalView"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -17,7 +18,7 @@
 				<select name="idSucursalDestino">
 					<option value="" selected></option>
 					<%
-						for (SucursalView suc : ControladorPrincipal.getInstance().obtenerSucursales()) 								
+						for (SucursalView suc : BusinessDelegate.getInstance().getInterfaz().obtenerSucursales()) 								
 																										{
 					%>
 					<option value="<%=suc.getId()%>"><%=suc.getNombre()%></option>

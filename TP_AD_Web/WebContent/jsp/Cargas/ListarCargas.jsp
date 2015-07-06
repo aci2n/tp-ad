@@ -1,3 +1,4 @@
+<%@page import="rmi.delegate.BusinessDelegate"%>
 <%@page import="com.sun.media.sound.ModelAbstractChannelMixer"%>
 <%@page import="java.util.*"%>
 <%@page import="impl.cargas.*"%>
@@ -65,7 +66,7 @@
 
 							<tbody id="tbody">
 								<%
-									List<CargaView> cargas = ControladorPrincipal.getInstance().obtenerCargasView();
+									List<CargaView> cargas = BusinessDelegate.getInstance().getInterfaz().obtenerCargasView();
 									for(CargaView c : cargas)
 									{
 								%>

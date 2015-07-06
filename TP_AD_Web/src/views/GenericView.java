@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class GenericView implements Serializable {
 	private static final long serialVersionUID = 1L;
-
 	protected Integer id;
 
 	public Integer getId() {
@@ -14,5 +13,4 @@ public class GenericView implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
 }
