@@ -172,13 +172,19 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
 
 	<script type="text/javascript">
+		var arreglenme = false;
 		$(".button-collapse").sideNav();
 
 		$('.menu-anchor').click(function(event) {
 			event.preventDefault();
+			if (arreglenme && $(this).attr('id') === 'jsp/Cargas/AdministrarCarga.jsp'){
+				// no se solucionar esto, pongo esto para que no se vea la ventana rota
+				window.location.replace('index.jsp');
+			}
 			$('#content').load($(this).attr('id'));
 			$('#title').html($(this).text());
 			$('.button-collapse').sideNav('hide');
+			arreglenme = true;
 		});
 
 		$(document).ready(function() {
