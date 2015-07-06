@@ -615,6 +615,7 @@ public class Viaje extends PersistentObject {
 		if (cargas.isEmpty()) {
 			ViajeDAO.getInstance().delete(this);
 		}
+		SeguimientoCargasDAO.getInstance().deleteByCarga(carga.getId());
 	}
 
 	public Date getFechaLlegadaEsperada() {

@@ -7,16 +7,15 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-public class SeguimientoCargasDAO extends AbstractGenericDAO<SeguimientoCarga>{
-
+public class SeguimientoCargasDAO extends AbstractGenericDAO<SeguimientoCarga> {
 	private static SeguimientoCargasDAO instance;
-	
-	public static SeguimientoCargasDAO getInstance(){
-		if(instance == null)
+
+	public static SeguimientoCargasDAO getInstance() {
+		if (instance == null)
 			instance = new SeguimientoCargasDAO();
 		return instance;
 	}
-	
+
 	public List<SeguimientoCarga> getByCarga(Integer idCarga) {
 		Session session = sf.openSession();
 		session.beginTransaction();
@@ -25,7 +24,7 @@ public class SeguimientoCargasDAO extends AbstractGenericDAO<SeguimientoCarga>{
 		session.close();
 		return cargas;
 	}
-	
+
 	@Override
 	protected SeguimientoCarga get(Integer id) {
 		Session session = sf.openSession();
@@ -35,4 +34,12 @@ public class SeguimientoCargasDAO extends AbstractGenericDAO<SeguimientoCarga>{
 		return Carga;
 	}
 
+	public void deleteByCarga(Integer idCarga) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query q = session.createQuery("delete from SeguimientoCarga where carga.id = :idCarga").setParameter("idCarga", idCarga);
+		q.executeUpdate();
+		session.flush();
+		session.getTransaction().commit();
+	}
 }
