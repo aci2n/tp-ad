@@ -34,7 +34,7 @@
 			<div style="padding-top: 20px; padding-bottom: 20px;">
 				<p>
 					<input name="local" type="checkbox" id="test6" checked="checked" />
-					<label for="test6">Envío dentro del país</label>
+					<label for="test6">EnvÃ­o dentro del paÃ­s</label>
 				</p>
 			</div>
 
@@ -60,7 +60,7 @@
 				url: 'ObtenerProductosEmpresa',
 				type: 'GET',
 				data: {
-					idEmpresa: 
+					idEmpresa: $('input[name="cuit"]').val().trim()
 				},
 				success: function(productos) {
 					var select = $('#productoEmpresa');
