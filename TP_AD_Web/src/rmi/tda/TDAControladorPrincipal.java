@@ -1,5 +1,7 @@
 package rmi.tda;
 
+import impl.cobranzas.Factura;
+
 import java.rmi.Remote;
 import java.util.Date;
 import java.util.List;
@@ -94,4 +96,6 @@ public interface TDAControladorPrincipal extends Remote {
 	public void registrarLlegada(Integer idViaje) throws Exception;
 
 	public void cancelarCarga(Integer idCarga) throws Exception;
+
+	public List<Factura> obtenerFacturasDelCliente(Integer id) throws Exception;
 }

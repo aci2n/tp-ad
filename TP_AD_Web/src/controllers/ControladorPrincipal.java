@@ -4,6 +4,7 @@ import impl.cargas.AdministradorCargas;
 import impl.cargas.Carga;
 import impl.clientes.AdministradorClientes;
 import impl.cobranzas.AdministradorCobranzas;
+import impl.cobranzas.Factura;
 import impl.personal.AdministradorPersonal;
 import impl.productos.AdministradorProductos;
 import impl.productos.Producto;
@@ -92,6 +93,10 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	public List<ParticularView> obtenerClientesParticulares() {
 		return administradorClientes.obtenerClientesParticulares();
 	}
+	
+	public List<Factura> obtenerFacturasDelCliente(Integer id) throws Exception {
+		return administradorClientes.obtenerFacturasDelCliente(id);
+	}
 
 	// SUCURSALES
 	public Integer altaSucursal(SucursalView sucursal) {
@@ -179,7 +184,7 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 		Viaje viaje = administradorViajes.obtenerViajePorCarga(idCarga);
 		return viaje.obtenerLlegadaCarga(carga);
 	}
-	
+
 	public List<ViajeView> obtenerViajesView() {
 		return administradorViajes.obtenerViajesView();
 	}
@@ -187,7 +192,7 @@ public class ControladorPrincipal extends UnicastRemoteObject implements TDACont
 	public void registrarParada(Integer idParada) throws Exception {
 		administradorViajes.reportarSeguimiento(idParada);
 	}
-	
+
 	public void registrarLlegada(Integer idViaje) {
 		administradorViajes.registrarLlegada(idViaje);
 	}

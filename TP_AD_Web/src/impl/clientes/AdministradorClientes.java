@@ -1,9 +1,12 @@
 package impl.clientes;
 
+import impl.cobranzas.Factura;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import persistence.ClienteDAO;
+import persistence.FacturaDAO;
 import views.clientes.CuentaCorrienteView;
 import views.clientes.EmpresaView;
 import views.clientes.ParticularView;
@@ -86,6 +89,10 @@ public class AdministradorClientes {
 
 	public Cliente obtenerCliente(Integer id) {
 		return clienteDao.get(id);
+	}
+
+	public List<Factura> obtenerFacturasDelCliente(Integer id) {
+		return FacturaDAO.getInstance().getByCliente(id);
 	}
 
 }
