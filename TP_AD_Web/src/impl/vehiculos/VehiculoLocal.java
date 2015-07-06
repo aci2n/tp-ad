@@ -87,6 +87,9 @@ public class VehiculoLocal extends Vehiculo {
 
 	public boolean estaDisponible() {
 		Date ahora = new Date();
+		if (planMantenimiento.calcularRetraso() > 0.05) {
+			planMantenimiento.realizarMantenimiento(establecerEstrategiaMantenimiento(false));
+		}
 		for (Tarea tarea : planMantenimiento.getTareas()) {
 			if (tarea.getFechaDevolucion().after(ahora)
 					&& tarea.getFechaEntrega().before(ahora)) {
