@@ -120,18 +120,42 @@
 			$('select').material_select();
 			
 			$('#altaProducto').submit(function(event) {
-				agregarProducto();
 				event.preventDefault();
-				var data = $(this).serializeArray();
-				
-				$('#productos').show();
-				
-				$('#productos tbody').append(renderRow(data));
-				
-				$(this).find('table input').val('');
+				if (controlarCampos()) {
+					agregarProducto();
+					var data = $(this).serializeArray();
+					
+					$('#productos').show();
+					
+					$('#productos tbody').append(renderRow(data));
+					
+					$(this).find('table input').val('');
+				} else {
+					alert('Hay campos vacíos.');
+				}
 			});
 			
 		});
+		
+		function controlarCampos() {
+			var form = $('#altaProducto');
+				if (form.find('input[name="cantidad"]').val() !== ''
+				&& form.find('input[name="nombre"]').val() !== ''
+				&& form.find('select[name="fragilidad"]').val() !== ''
+				&& form.find('select[name="tratamiento"]').val() !== ''
+				&& form.find('input[name="profundidad"]').val() !== ''
+				&& form.find('input[name="alto"]').val() !== ''
+				&& form.find('input[name="ancho"]').val() !== ''
+				&& form.find('input[name="peso"]').val() !== ''
+				&& form.find('input[name="apilable"]').val() !== ''
+				&& form.find('input[name="manipulacion"]').val() !== ''
+				&& form.find('input[name="material"]').val() !== ''
+				&& form.find('input[name="consideraciones"]').val() !== '') {
+					// yee
+					return true;
+				}
+				return false;
+		}
 		
 		function agregarProducto() {
 			var form = $('#altaProducto');

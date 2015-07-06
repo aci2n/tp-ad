@@ -55,7 +55,7 @@ import controllers.ControladorPrincipal;
 @SuppressWarnings("all")
 public class BastaChicos {
 	private static ControladorPrincipal controlador;
-	private static final Integer factorVehiculo = 1000;
+	private static final Integer factorVehiculo = 10000;
 
 	public static void main(String[] args) {
 		try {

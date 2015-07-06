@@ -53,6 +53,7 @@
 									}
 								%>
 							</select> <label>Sucursal</label>
+							<div style="height:500px"><!-- para que quede espacio en el select --></div>
 						</div>
 					</div>
 					<div id="test4" class="col s12">

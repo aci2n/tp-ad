@@ -83,4 +83,6 @@ public interface TDAControladorPrincipal extends Remote {
 	public ViajeView obtenerViajeActivo(Integer idChofer) throws Exception;
 	
 	public List<SucursalView> obtenerSucursales() throws Exception;
+	
+	public List<CargaView> obtenerCargasView() throws Exception;
 }
