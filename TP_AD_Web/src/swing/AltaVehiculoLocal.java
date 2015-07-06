@@ -1,5 +1,7 @@
 package swing;
 
+import impl.vehiculos.TipoVehiculo;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -22,6 +24,7 @@ public class AltaVehiculoLocal extends GenericJFrame {
 	private JTextField[] textFields;
 	private JButton btnAgregar;
 	private JComboBox<String> comboTipos;
+	private JComboBox<String> comboVeh;
 
 	public AltaVehiculoLocal() {
 		inicializar();
@@ -42,7 +45,7 @@ public class AltaVehiculoLocal extends GenericJFrame {
 		JPanel panelCentro = new JPanel();
 		panelCentro.setLayout(new GridLayout(0, 1));
 		String[] labelStrings = { "ID de sucursal", "Patente", "Profundidad", "Alto", "Ancho", "Peso", "Tara", "Tarifa",
-				"Vencimiento garantia (dd/MM/yyyy)", "Tipo mantenimiento", "Punto de control (km)", "Intervalo", "ID de Chofer" };
+				"Vencimiento garantia (dd/MM/yyyy)", "Punto de control (km)", "Intervalo", "ID de Chofer" };
 		textFields = new JTextField[labelStrings.length];
 		for (int i = 0; i < labelStrings.length; i++) {
 			textFields[i] = new JTextField();
@@ -53,8 +56,14 @@ public class AltaVehiculoLocal extends GenericJFrame {
 		comboTipos.addItem("kilometraje");
 		comboTipos.addItem("kilometrajeRelativo");
 		comboTipos.addItem("temporal");
-		panelCentro.add(new JLabel("Tipo"));
+		panelCentro.add(new JLabel("Tipo mantenimiento"));
 		panelCentro.add(comboTipos);
+		comboVeh = new JComboBox<String>();
+		for (TipoVehiculo t : TipoVehiculo.values()) {
+			comboVeh.addItem(t.getTipo());
+		}
+		panelCentro.add(new JLabel("Tipo vehiculo"));
+		panelCentro.add(comboVeh);
 		contentPane.add(panelCentro, BorderLayout.CENTER);
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(this);
@@ -74,10 +83,10 @@ public class AltaVehiculoLocal extends GenericJFrame {
 				String tara = textFields[i++].getText();
 				String tarifa = textFields[i++].getText();
 				String vencimiento = textFields[i++].getText();
-				String tipoMantenimiento = textFields[i++].getText();
+				String tipoMantenimiento = comboTipos.getSelectedItem().toString();
 				String puntoControl = textFields[i++].getText();
 				String intervalo = textFields[i++].getText();
-				String tipo = comboTipos.getSelectedItem().toString();
+				String tipo = comboVeh.getSelectedItem().toString();
 				String idChofer = textFields[i++].getText();
 				try {
 					Integer idSuc = Integer.parseInt(idSucursal);
